@@ -7,16 +7,17 @@ require("dotenv").config();
 const app = express();
 app.use(express.json());
 app.use(cors());
+
 ConnectDB();
+
+app.use(express.json({ extended: false }));
+
 //starting up the server
 const PORT = process.env.PORT || 5000; //grabbing the assigned port
-app.listen(PORT, () => console.log(`the server has started on port :${PORT}`));
-// setting up the mongodb connection with mongoose
 
 //setup the routes
 
-// app.use("/users", require("./routes/userRouter"));
-// app.use("/todos", require("./routes/todoRouter"));
-// app.use("/linkworkout", require("./routes/LinkWorkout"));
+app.use("/api/restaurantUsers", require("./routes/Restaurants"));
 
-// app.use("/AddTrainings", require("./routes/AddTrainingRouter"));
+app.listen(PORT, () => console.log(`the server has started on port :${PORT}`));
+// setting up the mongodb connection with mongoose
