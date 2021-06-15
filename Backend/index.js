@@ -18,6 +18,10 @@ const PORT = process.env.PORT || 5000; //grabbing the assigned port
 //setup the routes
 
 app.use("/api/restaurantUsers", require("./routes/Restaurants"));
+app.use("/api/clientUser", require("./routes/userRouter"));
+app.use("/api/category", require("./routes/Category"));
+app.use("/api/subCategory", require("./routes/SubCategory"));
+app.use("/api/product", require("./routes/Product"));
 
 app.listen(PORT, () => console.log(`the server has started on port :${PORT}`));
 // setting up the mongodb connection with mongoose
