@@ -4,7 +4,7 @@ const SubCategory = require("../models/SubCategory");
 
 router.post("/add", async (req, res) => {
   try {
-    const { name, image } = req.body;
+    const { name, image, categoryId } = req.body;
 
     const newSubCategory = new SubCategory({
       name,
