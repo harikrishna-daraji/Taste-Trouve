@@ -11,6 +11,7 @@ router.post("/register", async (req, res) => {
       password,
       fcmToken,
       phoneNumber,
+      address,
       status,
       userType,
     } = req.body;
@@ -33,6 +34,7 @@ router.post("/register", async (req, res) => {
       password,
       fcmToken,
       phoneNumber,
+      address,
       status,
       userType,
     });
