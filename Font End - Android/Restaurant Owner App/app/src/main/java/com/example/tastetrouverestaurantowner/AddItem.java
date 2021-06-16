@@ -39,6 +39,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -232,15 +233,14 @@ public class AddItem extends AppCompatActivity {
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
-                final StorageReference riversRef = storageRef.child("images/" + ProductName.getText().toString() + ".jpg");
+                final StorageReference imageRference = storageRef.child("images/"+ UUID.randomUUID().toString());
 
-                riversRef.putFile(uri)
+                imageRference.putFile(uri)
                         .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                             @Override
                             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//Get a URL to the uploaded content
-//Uri downloadUrl = taskSnapshot.getDownloadURL();
-                                riversRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+
+                                imageRference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                     @Override
                                     public void onSuccess(Uri uri) {
                                         final Uri downloadUrl = uri;
@@ -254,8 +254,7 @@ public class AddItem extends AppCompatActivity {
                         .addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception exception) {
-// Handle unsuccessful uploads
-// ...
+
                             }
                         });
 
