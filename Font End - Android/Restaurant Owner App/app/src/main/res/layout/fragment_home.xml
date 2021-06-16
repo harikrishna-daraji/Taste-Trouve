@@ -2,18 +2,54 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="match_parent"
     tools:context=".HomeFragment">
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textFontWeight="23"
+    android:textSize="16dp"
+    android:text="Welcome Admin"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 <LinearLayout
+    android:id="@+id/createItem"
     android:layout_width="100dp"
+    android:background="#A5DDF6"
+  android:gravity="center"
+    android:orientation="vertical"
     android:layout_height="100dp">
-
+<ImageView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/ic_baseline_no_food_24"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/create_item"/>
 </LinearLayout>
 
+        <LinearLayout
+    android:layout_width="100dp"
+            android:layout_marginLeft="40dp"
+    android:background="#A5DDF6"
+  android:gravity="center"
+    android:orientation="vertical"
+    android:layout_height="100dp">
+<ImageView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/ic_baseline_no_food_24"/>
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Home screen" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/view_items"/>
+</LinearLayout>
+
+    </LinearLayout>
 
 </LinearLayout>
