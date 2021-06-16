@@ -1,6 +1,8 @@
 const router = require("express").Router();
 
 const Product = require("../models/Product");
+const Category = require("../models/Category");
+const SubCategory = require("../models/SubCategory");
 
 router.post("/add", async (req, res) => {
   try {
@@ -19,10 +21,16 @@ router.post("/add", async (req, res) => {
       DeliveryTime,
     } = req.body;
 
+    const categoryObject = await Category.find({ name: categoryId });
+    const CategoryObjectId = categoryObject._id;
+
+    const subcategoryObject = await SubCategory.find({ name: subCategoryId });
+    const subCategoryObjectId = subcategoryObject._id;
+
     const newProduct = new Product({
       restaurantId,
-      categoryId,
-      subCategoryId,
+      CategoryObjectId,
+      subCategoryObjectId,
       name,
       image,
       price,
@@ -33,9 +41,11 @@ router.post("/add", async (req, res) => {
       popular,
       DeliveryTime,
     });
+
     const savedProduct = await newProduct.save();
     res.json(savedProduct);
   } catch (err) {
+    console.log(err.message);
     res.status(500).json({ error: err.message });
   }
 });
