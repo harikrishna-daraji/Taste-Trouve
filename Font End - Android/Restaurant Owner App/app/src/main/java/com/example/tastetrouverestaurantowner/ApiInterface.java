@@ -8,7 +8,7 @@ import retrofit2.http.POST;
 
 public interface ApiInterface {
     @FormUrlEncoded
-    @POST("add")
+    @POST("product/add")
     Call<ResponseBody> createProduct(
             @Field("restaurantId") String restaurantId,
             @Field("categoryId") String categoryId,
@@ -22,6 +22,29 @@ public interface ApiInterface {
             @Field("kidSection") Boolean kidSection,
             @Field("popular") Boolean popular,
             @Field("DeliveryTime") String DeliveryTime
+    );
+
+    @FormUrlEncoded
+    @POST("restaurantUsers/register")
+    Call<ResponseBody> SignUp(
+            @Field("restaurantName") String restaurantName,
+            @Field("email") String email,
+            @Field("password") String password,
+            @Field("fcmToken") String fcmToken,
+            @Field("phoneNumber") String phoneNumber,
+            @Field("status") Boolean status,
+            @Field("userType") String userType
+
+    );
+
+
+    @FormUrlEncoded
+    @POST("restaurantUsers/login")
+    Call<ResponseBody> loginUser(
+            @Field("email") String email,
+            @Field("password") String password
+
+
     );
 
 }

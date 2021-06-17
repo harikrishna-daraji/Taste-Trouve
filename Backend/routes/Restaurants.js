@@ -45,25 +45,26 @@ router.post("/register", async (req, res) => {
     res.status(500).json({ sporterror: err.message });
   }
 });
-// //login
-// router.post("/login", async (req, res) => {
-//   try {
-//     const { email, password } = req.body;
+//login
+router.post("/login", async (req, res) => {
+  try {
+    const { email, password } = req.body;
 
-//     // validate
-//     if (!email || !password)
-//       return res.status(400).json({ msg: "Not all fields have been entered." });
+    // validate
+    if (!email || !password)
+      return res.status(400).json({ msg: "Not all fields have been entered." });
 
-//     const user = await Restaurants.findOne({
-//       email: email,
-//       password: password,
-//     });
+    const user = await Restaurants.findOne({
+      email: email,
+      password: password,
+    });
 
-//     res.json(user);
-//   } catch (err) {
-//     res.status(500).json({ error: err.message });
-//   }
-// });
+    res.json(user);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // //delete
 // router.delete("/delete", auth, async (req, res) => {
 //   try {
