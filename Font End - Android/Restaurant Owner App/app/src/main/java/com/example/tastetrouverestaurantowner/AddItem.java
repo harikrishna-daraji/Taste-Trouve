@@ -1,7 +1,9 @@
 package com.example.tastetrouverestaurantowner;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -70,6 +72,11 @@ public class AddItem extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_item);
+
+
+        @SuppressLint("WrongConstant") SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_APPEND);
+        String ownerId = sh.getString("ownerId","");
+        Log.d("ownerId", "ownerId");
 
         name = (EditText) findViewById(R.id.name);
         imageView = (ImageView) findViewById(R.id.imgView);
@@ -189,9 +196,9 @@ public class AddItem extends AppCompatActivity {
                 String productDeliveryTime = deliveryTime.getText().toString();
 
 
-                Call<ResponseBody> call = APIClient.getInstance().getApi().createProduct("restaurantId", CategoryId,
+                Call<ResponseBody> call = APIClient.getInstance().getApi().createProduct(ownerId, CategoryId,
                         SubCategoryId, productName
-                        , "http:://test.poimag", productPrice,
+                        , imageData, productPrice,
                         productDescription, productcalories,
                         Productquantity, kidIsActive,
                         PopularIsActive, productDeliveryTime);

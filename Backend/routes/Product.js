@@ -22,15 +22,15 @@ router.post("/add", async (req, res) => {
     } = req.body;
 
     const categoryObject = await Category.find({ name: categoryId });
-    const CategoryObjectId = categoryObject._id;
 
+    const CategoryObjectId = categoryObject[0]._id;
     const subcategoryObject = await SubCategory.find({ name: subCategoryId });
-    const subCategoryObjectId = subcategoryObject._id;
+    const subCategoryObjectId = subcategoryObject[0]._id;
 
     const newProduct = new Product({
       restaurantId,
-      CategoryObjectId,
-      subCategoryObjectId,
+      categoryId: CategoryObjectId,
+      subCategoryId: subCategoryObjectId,
       name,
       image,
       price,

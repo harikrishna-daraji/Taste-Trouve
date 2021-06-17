@@ -5,11 +5,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,6 +33,7 @@ public class LogInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_log_in);
 
         SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref",MODE_PRIVATE);
+
 
         signUp=(Button)findViewById(R.id.signUp);
         adminLogin=(Button)findViewById(R.id.adminLogin);
@@ -53,10 +59,22 @@ public class LogInActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         if(response!=null) {
-                            Map<String, Object> map = new HashMap<String, Object>();
-                            map = (Map<String, Object>) response.body();
+                            JSONObject jsonObject = null;
+                            try {
+                                jsonObject = new JSONObject(response.body().string());
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
                             SharedPreferences.Editor myEdit = sharedPreferences.edit();
-                            myEdit.putString("ownerId", response.body());
+                            try {
+                                myEdit.putString("ownerId", jsonObject.getString("_id"));
+                                myEdit.commit();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
 
                             Toast.makeText(LogInActivity.this, "Success Login", Toast.LENGTH_LONG).show();
                             Intent myintent = new Intent(LogInActivity.this, MainActivity.class);
