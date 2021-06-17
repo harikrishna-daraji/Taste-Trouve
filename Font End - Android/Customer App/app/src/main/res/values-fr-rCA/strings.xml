@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Taste Trouve</string>
+    <string name="welcome_john">Bienvenue John</string>
+    <string name="appetizer">Apéritif</string>
+    <string name="main_course">Main Course</string>
+    <string name="dessert">Dessert</string>
+    <string name="kids_menu">Menu pour enfants</string>
+    <string name="view_all">Voir tout</string>
+    <string name="top_selling">Plats les plus vendus</string>
+    <string name="home">Home</string>
+    <string name="search">Rechercher</string>
+    <string name="recipes">Recettes</string>
+    <string name="dishes">Vaisselle</string>
+    <string name="settings">Paramètres</string>
+</resources>

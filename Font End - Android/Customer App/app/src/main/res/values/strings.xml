@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Taste Trouve</string>
+    <string name="welcome_john">Welcome John</string>
+    <string name="appetizer">Appetizer</string>
+    <string name="main_course">Main Course</string>
+    <string name="dessert">Dessert</string>
+    <string name="kids_menu">Kids menu</string>
+    <string name="view_all">View All</string>
+    <string name="top_selling">Top Selling Dishes</string>
+    <string name="home">Home</string>
+    <string name="search">Search</string>
+    <string name="recipes">Recipes</string>
+    <string name="dishes">Dishes</string>
+    <string name="settings">Settings</string>
 </resources>
