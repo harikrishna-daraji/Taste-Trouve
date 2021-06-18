@@ -50,9 +50,9 @@ public class HomeActivity extends BaseActivity {
         topSellingRecycle.setLayoutManager(gridLayoutManager);
         topSellingRecycle.setAdapter(new TopSellingRecycleAdapter(this));
 
-        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this,2,LinearLayoutManager.HORIZONTAL,false);
+        AbsolutefitLayourManager absolutefitLayourManager = new AbsolutefitLayourManager(this,1,GridLayoutManager.HORIZONTAL,false);
         kidMenuRecycle = findViewById(R.id.kidsMenuRecycle);
-        kidMenuRecycle.setLayoutManager(mLayoutManager);
+        kidMenuRecycle.setLayoutManager(absolutefitLayourManager);
         kidMenuRecycle.setAdapter(new KidMenuRecycleAdapter(this));
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,RecyclerView.HORIZONTAL,false);

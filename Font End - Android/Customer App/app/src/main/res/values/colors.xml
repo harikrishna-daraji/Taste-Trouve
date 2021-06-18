@@ -14,6 +14,7 @@
     <color name="colorPrimaryDark">#FFF</color>
     <color name="colorAccent">#CEA245</color>
     <color name="grayish">#efefef</color>
+    <color name="green">#00ce00</color>
     <attr name="backgroundColor" format="color"/>
     <attr name="textColor" format="color"/>
     <attr name="borderColor" format="color"/>

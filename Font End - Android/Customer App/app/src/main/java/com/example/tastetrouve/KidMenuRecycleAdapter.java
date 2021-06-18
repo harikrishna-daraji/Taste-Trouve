@@ -2,6 +2,7 @@ package com.example.tastetrouve;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 public class KidMenuRecycleAdapter extends RecyclerView.Adapter<KidMenuRecycleAdapter.ViewHolder> {
 
     Context context;
+    DisplayMetrics displayMetrics = new DisplayMetrics();
+    int screenWidth = 0;
 
     KidMenuRecycleAdapter(Context context) {
         this.context = context;
