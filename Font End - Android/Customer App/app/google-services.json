@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1097287115710",
+    "project_id": "taste-trouve",
+    "storage_bucket": "taste-trouve.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1097287115710:android:ccefe3900b426362c58fef",
+        "android_client_info": {
+          "package_name": "com.example.tastetrouve"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1097287115710-45jsi9c6d5l262dj16lk97goa1cpgebl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3AhFpDEFVingRovtM4ze1ny-xN9icjjg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1097287115710-45jsi9c6d5l262dj16lk97goa1cpgebl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
