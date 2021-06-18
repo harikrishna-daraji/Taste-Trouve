@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 
 import static android.content.ContentValues.TAG;
 
@@ -48,29 +49,45 @@ public class SignUp extends AppCompatActivity {
 
         signup.setOnClickListener(new View.OnClickListener() {
 
+
+            @Override
+            public void onClick(View v) {
+
+                RegisterUser();
+            }
+        });
+    }
+
+    private void RegisterUser() {
             String SName = name.getText().toString().trim();
             String SEmail = email.getText().toString().trim();
             String SPassword = password.getText().toString().trim();
             String SPhone = phone.getText().toString().trim();
             String SDateofbirth = dateofbirth.getText().toString().trim();
 
-            @Override
-            public void onClick(View v) {
-                mAuth.createUserWithEmailAndPassword("ysujaykumar@gmail.com","123456789").addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                     if(task.isSuccessful()){
-                         Toast.makeText(SignUp.this, "User created", Toast.LENGTH_SHORT).show();
-                     }else{
-//                         Toast.makeText(SignUp.this, "User Failed", Toast.LENGTH_SHORT).show();
-//                         Toast.makeText(SignUp.this, "Authentication failed." + task.getException(),
-//                                 Toast.LENGTH_SHORT).show();
-                         Log.d("error", task.getException().toString());
-                     }
-                    }
-                });
-            }
-        });
 
-    }
-}
+
+            mAuth.createUserWithEmailAndPassword(SEmail,SPassword)
+                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+
+                            Users user = new Users(SName,SEmail,SPhone,SDateofbirth);
+
+                            FirebaseDatabase.getInstance().getReference("Users")
+                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                    .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if(task.isSuccessful()){
+                                        Toast.makeText(SignUp.this, "User Created", Toast.LENGTH_SHORT).show();
+                                    }   else{
+                                        Toast.makeText(SignUp.this, "User creation failed", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+                        }
+                    });
+        }
+        }
+
