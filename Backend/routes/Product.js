@@ -61,4 +61,13 @@ router.post("/getProducts", async (req, res) => {
   res.json(product);
 });
 
+router.post("/getProductsByMainCategory", async (req, res) => {
+  const { categoryId } = req.body;
+
+  const product = await Product.find({
+    categoryId,
+  });
+  res.json(product);
+});
+
 module.exports = router;
