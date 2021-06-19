@@ -7,8 +7,11 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -25,17 +28,22 @@ import retrofit2.Response;
 
 public class LogInActivity extends AppCompatActivity {
 
-    Button signUp,adminLogin;
+    Button adminLogin;
+    TextView signUp;
     EditText emailLogin,passwordLogin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE); //will hide the title
+        getSupportActionBar().hide(); // hide the title bar
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN); //enable full screen
         setContentView(R.layout.activity_log_in);
 
         SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref",MODE_PRIVATE);
 
 
-        signUp=(Button)findViewById(R.id.signUp);
+        signUp=(TextView)findViewById(R.id.signUp);
         adminLogin=(Button)findViewById(R.id.adminLogin);
         emailLogin=(EditText) findViewById(R.id.emailLogin);
         passwordLogin=(EditText) findViewById(R.id.passwordLogin);

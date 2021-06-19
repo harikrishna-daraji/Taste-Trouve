@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "518539458776",
-    "project_id": "admin-tastetrouve",
-    "storage_bucket": "admin-tastetrouve.appspot.com"
+    "project_number": "826516356605",
+    "project_id": "taste-trouve-restaurant-owner",
+    "storage_bucket": "taste-trouve-restaurant-owner.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:518539458776:android:fa47100a32bb7b2b123fad",
+        "mobilesdk_app_id": "1:826516356605:android:687392ba7d19308a456d94",
         "android_client_info": {
           "package_name": "com.example.tastetrouverestaurantowner"
         }
       },
       "oauth_client": [
         {
-          "client_id": "518539458776-18kui9bgi2rsrd9rvehb5en6qitnjaq0.apps.googleusercontent.com",
+          "client_id": "826516356605-g6m1ds4i042eh9hvao1eagu104o5iu02.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDjj7jxvZ2JaNG2-DYk8tKaRZFeajJgjbw"
+          "current_key": "AIzaSyBf4F1YmFdpfatfQG8ePLXrMOrqgH2UdSA"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "518539458776-18kui9bgi2rsrd9rvehb5en6qitnjaq0.apps.googleusercontent.com",
+              "client_id": "826516356605-g6m1ds4i042eh9hvao1eagu104o5iu02.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
