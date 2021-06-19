@@ -18,12 +18,13 @@ router.post("/add", async (req, res) => {
   }
 });
 
-router.post("/getById", async (req, res) => {
+router.post("/getSubById", async (req, res) => {
   try {
     const { categoryId } = req.body;
 
     const subCategory = await SubCategory.find({ categoryId: categoryId });
-    res.json(category);
+
+    res.json(subCategory);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
