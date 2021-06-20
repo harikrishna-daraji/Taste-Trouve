@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.tastetrouve.ItemDetailsActivity;
+import com.example.tastetrouve.Models.GlobalObjects;
 import com.example.tastetrouve.Models.HomeProductModel;
 import com.example.tastetrouve.Models.PopularSectionModel;
 import com.example.tastetrouve.R;
@@ -50,7 +51,8 @@ public class TopSellingRecycleAdapter  extends RecyclerView.Adapter<TopSellingRe
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(activity, ItemDetailsActivity.class);
-                intent.putExtra("product",model.toString());
+                intent.putExtra("product",model);
+                intent.putExtra("type", GlobalObjects.ModelList.popular.toString());
                 activity.startActivity(intent);
             }
         });

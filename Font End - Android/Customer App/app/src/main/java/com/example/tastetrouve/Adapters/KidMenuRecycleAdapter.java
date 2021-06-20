@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.tastetrouve.ItemDetailsActivity;
+import com.example.tastetrouve.Models.GlobalObjects;
 import com.example.tastetrouve.Models.KidSectionModel;
 import com.example.tastetrouve.R;
 
@@ -50,6 +51,8 @@ public class KidMenuRecycleAdapter extends RecyclerView.Adapter<KidMenuRecycleAd
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(activity, ItemDetailsActivity.class);
+                intent.putExtra("product",model);
+                intent.putExtra("type", GlobalObjects.ModelList.kid.toString());
                 activity.startActivity(intent);
             }
         });

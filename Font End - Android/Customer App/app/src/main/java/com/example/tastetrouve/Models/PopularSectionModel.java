@@ -1,6 +1,8 @@
 package com.example.tastetrouve.Models;
 
-public class PopularSectionModel {
+import java.io.Serializable;
+
+public class PopularSectionModel implements Serializable {
     String _id, restaurantId, categoryId, subCategoryId, name, image, description, calories, DeliveryTime;
     int price, quantity;
     boolean kidSection;

@@ -57,7 +57,7 @@ public class ItemActivity extends BaseActivity {
     private void getProductsOfMainCategory(String categoryId) {
         try {
             ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-            apiInterface.getProductsOfMainCategory().enqueue(new Callback<List<ItemProductModel>>() {
+            apiInterface.getProductsOfMainCategory(categoryId).enqueue(new Callback<List<ItemProductModel>>() {
                 @Override
                 public void onResponse(Call<List<ItemProductModel>> call, Response<List<ItemProductModel>> response) {
                     try {
