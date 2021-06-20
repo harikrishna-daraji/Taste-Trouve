@@ -43,6 +43,22 @@ router.post("/register", async (req, res) => {
     res.status(500).json({ sporterror: err.message });
   }
 });
+
+
+
+router.get("/getRestaurants", async (req, res) => {
+  try {
+    const restaurant = await Restaurants.find();
+
+    res.send(restaurant);
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+
+
 // //login
 // router.post("/login", async (req, res) => {
 //   try {
