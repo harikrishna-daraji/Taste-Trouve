@@ -65,6 +65,17 @@ router.post("/login", async (req, res) => {
   }
 });
 
+router.get("/getRestaurants", async (req, res) => {
+  try {
+    const restaurant = await Restaurants.find();
+
+    res.send(restaurant);
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // //delete
 // router.delete("/delete", auth, async (req, res) => {
 //   try {

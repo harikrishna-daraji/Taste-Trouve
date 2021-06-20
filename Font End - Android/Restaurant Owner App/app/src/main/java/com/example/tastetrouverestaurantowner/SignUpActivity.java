@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -42,16 +43,17 @@ public class SignUpActivity extends AppCompatActivity {
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              //  checkValidation();
+                //  checkValidation();
+                boolean formValid = validateForm();
+                if (formValid){
 
-
-                Call<ResponseBody> call = APIClient.getInstance().getApi().SignUp(adminname.getText().toString(),
-                        adminEmail.getText().toString(),
-                        adminPassword.getText().toString(),
-                        "",
-                        adminPhone.getText().toString(),
-                       false,"restaurantOwner"
-                       );
+                    Call<ResponseBody> call = APIClient.getInstance().getApi().SignUp(adminname.getText().toString(),
+                            adminEmail.getText().toString(),
+                            adminPassword.getText().toString(),
+                            "",
+                            adminPhone.getText().toString(),
+                            false, "restaurantOwner"
+                    );
 
                 call.enqueue(new Callback<ResponseBody>() {
                     @Override
@@ -67,6 +69,7 @@ public class SignUpActivity extends AppCompatActivity {
                     }
                 });
             }
+            }
         });
 
         login.setOnClickListener(new View.OnClickListener() {
@@ -76,5 +79,48 @@ public class SignUpActivity extends AppCompatActivity {
                 startActivity(myintent);
             }
         });
+    }
+
+    private boolean validateForm() {
+
+
+        String name =adminname.getText().toString();
+        if (TextUtils.isEmpty(name)) {
+
+            adminname.requestFocus();
+            adminname.setError("NAME CANNOT BE EMPTY");
+            return false;
+        }
+        String email=adminEmail.getText().toString();
+        if (TextUtils.isEmpty(email)) {
+            adminEmail.requestFocus();
+            adminEmail.setError("EMAIL CANNOT BE EMPTY");
+            return false;
+        }
+
+        String phone=adminPhone.getText().toString();
+        if (TextUtils.isEmpty(phone)) {
+            adminPhone.requestFocus();
+            adminPhone.setError("PHONE CANNOT BE EMPTY");
+            return false;
+        }
+
+        String address=adminAddress.getText().toString();
+        if (TextUtils.isEmpty(address)) {
+            adminAddress.requestFocus();
+            adminAddress.setError("ADDRESS CANNOT BE EMPTY");
+            return false;
+        }
+
+        String password=adminPassword.getText().toString();
+        if (TextUtils.isEmpty(password)) {
+            adminPassword.requestFocus();
+            adminPassword.setError("PASSWORD CANNOT BE EMPTY");
+            return false;
+        }
+
+
+
+        return true;
     }
 }
