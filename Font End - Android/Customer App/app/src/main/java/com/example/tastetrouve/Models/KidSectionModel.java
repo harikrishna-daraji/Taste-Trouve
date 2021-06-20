@@ -1,0 +1,60 @@
+package com.example.tastetrouve.Models;
+
+public class KidSectionModel {
+    String _id, restaurantId, categoryId, subCategoryId, name, image, description, calories, DeliveryTime;
+    int price, quantity;
+    boolean kidSection;
+    boolean popular;
+
+    public String get_id() {
+        return _id;
+    }
+
+    public String getRestaurantId() {
+        return restaurantId;
+    }
+
+    public String getCategoryId() {
+        return categoryId;
+    }
+
+    public String getSubCategoryId() {
+        return subCategoryId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getCalories() {
+        return calories;
+    }
+
+    public String getDeliveryTime() {
+        return DeliveryTime;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public boolean isKidSection() {
+        return kidSection;
+    }
+
+    public boolean isPopular() {
+        return popular;
+    }
+}

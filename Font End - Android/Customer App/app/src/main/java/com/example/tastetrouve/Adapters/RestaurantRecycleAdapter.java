@@ -1,21 +1,22 @@
-package com.example.tastetrouve;
+package com.example.tastetrouve.Adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.tastetrouve.R;
+
 public class RestaurantRecycleAdapter extends RecyclerView.Adapter<RestaurantRecycleAdapter.ViewHolder>{
 
-    Context context;
+    Activity activity;
 
-    public RestaurantRecycleAdapter(Context context) {
-        this.context = context;
+    public RestaurantRecycleAdapter(Activity activity) {
+        this.activity = activity;
     }
 
     @NonNull

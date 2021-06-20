@@ -7,7 +7,7 @@ public class ApiClient {
 
     private static Retrofit retrofit = null;
 
-    private static String BASE_URL="";       // SERVER
+    private static String BASE_URL="http://10.0.0.97:5000/api/";       // SERVER
 
     public static Retrofit getClient() {
 

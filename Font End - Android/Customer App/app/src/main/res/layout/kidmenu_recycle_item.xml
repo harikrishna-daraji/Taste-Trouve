@@ -21,12 +21,12 @@
          android:src="@drawable/image_placeholder"
          android:layout_width="match_parent"
          android:layout_height="150dp"
-         android:id="@+id/kidCircleImage" />
+         android:id="@+id/circleImg" />
     <TextView
         android:textAlignment="center"
         android:text="@string/salmon"
         android:layout_marginTop="10dp"
-        android:id="@+id/kidItemNameTV"
+        android:id="@+id/nameTV"
         android:textSize="17dp"
         android:textColor="?attr/textColor"
         android:layout_width="match_parent"
@@ -34,7 +34,7 @@
    <TextView
        android:textAlignment="center"
        android:text="@string/mexican"
-       android:id="@+id/kidItemTypeTV"
+       android:id="@+id/typeTV"
        android:layout_marginTop="10dp"
        android:textSize="13dp"
        android:textColor="?attr/textColor"
@@ -43,7 +43,7 @@
   <TextView
       android:textAlignment="center"
       android:text="@string/price_digit"
-      android:id="@+id/kidPriceTV"
+      android:id="@+id/priceTV"
       android:layout_marginTop="10dp"
       android:textSize="17dp"
       android:textColor="@color/red"
