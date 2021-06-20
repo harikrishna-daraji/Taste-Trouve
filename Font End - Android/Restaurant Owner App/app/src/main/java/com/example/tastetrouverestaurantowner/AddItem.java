@@ -11,8 +11,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -53,7 +56,7 @@ public class AddItem extends AppCompatActivity {
     String[] category = {"Main Course", "Appetizers", "Drinks"};
     CheckBox kidsSection, PopularItem;
     ImageView imageView;
-    String imageData;
+    public String imageData;
     private TextView mTextView;
     private Spinner subCategory;
     public Button addProduct;
@@ -71,6 +74,11 @@ public class AddItem extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE); //will hide the title
+        getSupportActionBar().hide(); // hide the title bar
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN); //enable full screen
+        setContentView(R.layout.activity_log_in);
         setContentView(R.layout.activity_add_item);
 
 
@@ -185,41 +193,112 @@ public class AddItem extends AppCompatActivity {
         addProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Boolean kidIsActive = kidsSection.isChecked();
-                Boolean PopularIsActive = PopularItem.isChecked();
-                int productPrice = Integer.valueOf(price.getText().toString());
-                int Productquantity = Integer.parseInt(quantity.getText().toString());
 
-                String productName = name.getText().toString();
-                String productDescription = description.getText().toString();
-                String productcalories = calories.getText().toString();
-                String productDeliveryTime = deliveryTime.getText().toString();
+                boolean formValid = validateForm();
+                if (formValid) {
+
+                    Boolean kidIsActive = kidsSection.isChecked();
+                    Boolean PopularIsActive = PopularItem.isChecked();
+                    int productPrice = Integer.valueOf(price.getText().toString());
+                    int Productquantity = Integer.parseInt(quantity.getText().toString());
+
+                    String productName = name.getText().toString();
+                    String productDescription = description.getText().toString();
+                    String productcalories = calories.getText().toString();
+                    String productDeliveryTime = deliveryTime.getText().toString();
 
 
-                Call<ResponseBody> call = APIClient.getInstance().getApi().createProduct(ownerId, CategoryId,
-                        SubCategoryId, productName
-                        , imageData, productPrice,
-                        productDescription, productcalories,
-                        Productquantity, kidIsActive,
-                        PopularIsActive, productDeliveryTime);
+                    Call<ResponseBody> call = APIClient.getInstance().getApi().createProduct(ownerId, CategoryId,
+                            SubCategoryId, productName
+                            , imageData, productPrice,
+                            productDescription, productcalories,
+                            Productquantity, kidIsActive,
+                            PopularIsActive, productDeliveryTime);
 
-                call.enqueue(new Callback<ResponseBody>() {
-                    @Override
-                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    call.enqueue(new Callback<ResponseBody>() {
+                        @Override
+                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
-                    }
+                        }
 
-                    @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-                        Toast.makeText(AddItem.this, t.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                });
+                        @Override
+                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+                            Toast.makeText(AddItem.this, t.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    });
 
+                }
             }
         });
 
 
     }
+
+
+    private boolean validateForm() {
+
+
+
+
+        String productName =name.getText().toString();
+        if (TextUtils.isEmpty(imageData)) {
+
+            Toast.makeText(AddItem.this, "Image can not be blank", Toast.LENGTH_SHORT).show();
+            return false;
+        } if (TextUtils.isEmpty(productName)) {
+
+            name.requestFocus();
+            name.setError("NAME CANNOT BE EMPTY");
+            return false;
+        }
+
+
+        try {
+            int servingSize = Integer.parseInt(((EditText) findViewById(R.id.price)).getText().toString());
+
+        } catch (Exception e) {
+            price.requestFocus();
+            price.setError("PRICE CANNOT BE EMPTY");
+            return false;
+        }
+
+
+        String PproductDesciption=description.getText().toString();
+        if (TextUtils.isEmpty(PproductDesciption)) {
+            description.requestFocus();
+            description.setError("DESCRIPTION CANNOT BE EMPTY");
+            return false;
+        }
+
+        String address=calories.getText().toString();
+        if (TextUtils.isEmpty(address)) {
+            calories.requestFocus();
+            calories.setError("CALORIES CANNOT BE EMPTY");
+            return false;
+        }
+
+        try {
+            int servingSize = Integer.parseInt(((EditText) findViewById(R.id.quantity)).getText().toString());
+
+        } catch (Exception e) {
+            quantity.requestFocus();
+            quantity.setError("QUANTITY CANNOT BE EMPTY");
+            return false;
+        }
+
+        String password=deliveryTime.getText().toString();
+        if (TextUtils.isEmpty(password)) {
+            deliveryTime.requestFocus();
+            deliveryTime.setError("TIME CANNOT BE EMPTY");
+            return false;
+        }
+
+
+
+        return true;
+    }
+
+
 
     private void PickPicture() {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);

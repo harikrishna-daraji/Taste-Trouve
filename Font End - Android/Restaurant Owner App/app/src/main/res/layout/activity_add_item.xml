@@ -12,13 +12,22 @@
     android:padding="@dimen/box_inset_layout_padding"
     tools:context=".AddItem"
     >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="#0D164D"
+            android:layout_marginTop="10dp"
+            android:textSize="24dp"
+                android:text="Add Product"/>
 
         <ImageView
             android:id="@+id/imgView"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_width="80dp"
+            android:layout_gravity="center"
+            android:layout_height="80dp"
             android:layout_marginTop="15dp"
-            android:background="@drawable/ic_baseline_no_food_24"/>
+            android:background="@drawable/imageplaceholder"/>
 
 
         <Spinner
@@ -26,8 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:background="@drawable/spinnerbackground"
-
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="20dp"
             />
 
         <Spinner
@@ -44,12 +52,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
+            app:startIconDrawable="@drawable/ic_baseline_no_food_24"
             android:hint="Name"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/name"
                     android:layout_width="match_parent"
+                    android:background="@drawable/tealtextbackground"
+
                     android:layout_height="wrap_content"
                     />
 
@@ -59,7 +70,7 @@
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
+            app:startIconDrawable="@drawable/ic_baseline_no_food_24"
             android:layout_marginTop="15dp"
             android:hint="Price"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
@@ -67,6 +78,8 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/price"
                     android:layout_width="match_parent"
+
+                    android:background="@drawable/tealtextbackground"
                     android:layout_height="wrap_content"
                     />
 
@@ -78,11 +91,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:hint="Description"
+            app:startIconDrawable="@drawable/ic_baseline_no_food_24"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/description"
                     android:layout_width="match_parent"
+                    android:background="@drawable/tealtextbackground"
                     android:layout_height="wrap_content"
                     />
 
@@ -94,11 +109,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:hint="Calories"
+            app:startIconDrawable="@drawable/ic_baseline_no_food_24"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/calories"
                     android:layout_width="match_parent"
+                    android:background="@drawable/tealtextbackground"
                     android:layout_height="wrap_content"
                     />
 
@@ -109,12 +126,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
+            app:startIconDrawable="@drawable/ic_baseline_no_food_24"
             android:hint="Quantity"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/quantity"
                     android:layout_width="match_parent"
+                    android:background="@drawable/tealtextbackground"
                     android:layout_height="wrap_content"
                     />
 
@@ -125,12 +144,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
+            app:startIconDrawable="@drawable/ic_baseline_no_food_24"
             android:hint="Delivery Time"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/deliveryTime"
                     android:layout_width="match_parent"
+                    android:background="@drawable/tealtextbackground"
                     android:layout_height="wrap_content"
                     />
 
@@ -155,9 +176,10 @@
         <Button
             android:id="@+id/addProduct"
             android:layout_width="match_parent"
-            android:backgroundTint="@color/red"
+            android:backgroundTint="#0D164D"
             android:layout_height="wrap_content"
-                android:text="Add Item"/>
+            android:textColor="#ffffff"
+                android:text="@string/add_item"/>
 
 </LinearLayout>
 </ScrollView>

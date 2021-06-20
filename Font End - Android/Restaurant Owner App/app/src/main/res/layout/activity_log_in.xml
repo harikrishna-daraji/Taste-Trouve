@@ -43,6 +43,7 @@
         android:layout_marginTop="20dp"
         android:background="@drawable/textfieldbackground"
         android:layout_width="match_parent"
+        android:inputType="textPassword"
         android:layout_height="35dp"
         android:hint="Enter Password"/>
     <Button

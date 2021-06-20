@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -59,14 +60,18 @@ public class LogInActivity extends AppCompatActivity {
         adminLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Call<ResponseBody> call = APIClient.getInstance().getApi().loginUser(emailLogin.getText().toString(),
-                        passwordLogin.getText().toString()
-                );
+
+
+                boolean formValid = validateForm();
+                if (formValid){
+                    Call<ResponseBody> call = APIClient.getInstance().getApi().loginUser(emailLogin.getText().toString(),
+                            passwordLogin.getText().toString()
+                    );
 
                 call.enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        if(response!=null) {
+                        if (response != null) {
                             JSONObject jsonObject = null;
                             try {
                                 jsonObject = new JSONObject(response.body().string());
@@ -87,8 +92,7 @@ public class LogInActivity extends AppCompatActivity {
                             Toast.makeText(LogInActivity.this, "Success Login", Toast.LENGTH_LONG).show();
                             Intent myintent = new Intent(LogInActivity.this, MainActivity.class);
                             startActivity(myintent);
-                        }
-                        else{
+                        } else {
                             Toast.makeText(LogInActivity.this, "Invalid Credentials", Toast.LENGTH_LONG).show();
                         }
                     }
@@ -99,6 +103,35 @@ public class LogInActivity extends AppCompatActivity {
                     }
                 });
             }
+            }
         });
+
+
+
+    }
+
+    private boolean validateForm() {
+
+
+        String email =emailLogin.getText().toString();
+        if (TextUtils.isEmpty(email)) {
+
+            emailLogin.requestFocus();
+            emailLogin.setError("EMAIL CANNOT BE EMPTY");
+            return false;
+        }
+
+
+String password=passwordLogin.getText().toString();
+        if (TextUtils.isEmpty(password)) {
+            passwordLogin.requestFocus();
+            passwordLogin.setError("PASSWORD CANNOT BE EMPTY");
+            return false;
+        }
+
+
+
+
+        return true;
     }
 }

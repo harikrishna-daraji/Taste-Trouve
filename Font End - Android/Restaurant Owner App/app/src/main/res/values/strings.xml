@@ -16,4 +16,5 @@
     <string name="hello_world">Hello Square World!</string>
     <string name="add_to_kid_section">Add to Kid Section</string>
     <string name="add_to_popular_section">Add to Popular Section</string>
+    <string name="add_item">Add Item</string>
 </resources>
