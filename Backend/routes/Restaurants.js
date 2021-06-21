@@ -67,7 +67,7 @@ router.post("/login", async (req, res) => {
 
 router.get("/getRestaurants", async (req, res) => {
   try {
-    const restaurant = await Restaurants.find();
+    const restaurant = await Restaurants.find({ status: false });
 
     res.send(restaurant);
   } catch (err) {
@@ -78,14 +78,14 @@ router.get("/getRestaurants", async (req, res) => {
 
 router.put("/UpdateRestuarantStatus", async (req, res) => {
   let { restaurantId } = req.body;
-  User.updateOne(
+  Restaurants.updateOne(
     { _id: restaurantId },
-    { status: false },
+    { status: true },
     function (err, docs) {
       if (err) {
-        console.log(err);
+        res.send(err);
       } else {
-        console.log("Updated Docs : ", docs);
+        res.send("Updated");
       }
     }
   );
