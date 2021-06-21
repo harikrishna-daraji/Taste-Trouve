@@ -76,6 +76,7 @@ public class SignIn extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             Toast.makeText(SignIn.this, "Signed in successfully", Toast.LENGTH_SHORT).show();
+
                         }   else{
                             Toast.makeText(SignIn.this, "Failed to Login. Enter correct credentials", Toast.LENGTH_SHORT).show();
                         }

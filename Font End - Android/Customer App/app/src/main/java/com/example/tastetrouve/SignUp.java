@@ -28,6 +28,7 @@ public class SignUp extends AppCompatActivity {
     TextView signin;
 
     private FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +45,7 @@ public class SignUp extends AppCompatActivity {
         signup = findViewById(R.id.imageButtonSignUp);
 
         signin = findViewById(R.id.textViewSignIN);
+
 
         mAuth = FirebaseAuth.getInstance();
 
