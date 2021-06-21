@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Taste Trouve</string>
+    <string name="welcome_john">Bienvenue John</string>
+    <string name="appetizer">Apéritif</string>
+    <string name="main_course">Main Course</string>
+    <string name="dessert">Dessert</string>
+    <string name="kids_menu">Menu pour enfants</string>
+    <string name="view_all">Voir tout</string>
+    <string name="top_selling">Plats les plus vendus</string>
+    <string name="home">Home</string>
+    <string name="search">Rechercher</string>
+    <string name="recipes">Recettes</string>
+    <string name="dishes">Vaisselle</string>
+    <string name="settings">Paramètres</string>
+    <string name="salmon">Saumon</string>
+    <string name="price_digit">$ 20.00</string>
+    <string name="add">Ajouter</string>
+    <string name="view">Vue</string>
+    <string name="mexican">Mexicaine</string>
+    <string name="items">Articles</string>
+    <string name="item_name">Nom de l\'article</string>
+    <string name="quantity_digit">01</string>
+    <string name="delivery_time">40 min</string>
+    <string name="random_text">C\'est un fait établi de longue date qu\'un lecteur sera distrait par le contenu lisible d\'une page en regardant sa mise en page. L\'intérêt d\'utiliser Lorem Ipsum est qu\'il a une distribution de lettres plus ou moins normale, par opposition à l\'utilisation de \'Content here, content here\', ce qui le fait ressembler à un anglais lisible. De nombreux logiciels de publication assistée par ordinateur et éditeurs de pages Web utilisent désormais Lorem Ipsum comme texte de modèle par défaut, et une recherche de « lorem ipsum » permettra de découvrir de nombreux sites Web encore à leurs balbutiements. Différentes versions ont évolué au fil des années, parfois par accident, parfois volontairement (humour injecté, etc.).</string>
+    <string name="calorie_digit">328 kcal</string>
+</resources>

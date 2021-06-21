@@ -13,4 +13,114 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="MineCustomTabText" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">10sp</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="AppThemeDark" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="ActivityActionbar" parent="Theme.AppCompat.Light">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/white</item>
+    </style>
+
+    <style name="ActivityActionbarMaterial" parent="Theme.MaterialComponents.Light">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <!--<item name="android:windowBackground">@color/white</item>-->
+    </style>
+
+    <style name="ActivityActionbarDark" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/white</item>
+    </style>
+
+    <style name="CustomActivityAnimation" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/right_enter</item>
+        <item name="android:activityOpenExitAnimation">@anim/left_out</item>
+        <item name="android:activityCloseEnterAnimation">@anim/left_enter</item>
+        <item name="android:activityCloseExitAnimation">@anim/right_out</item>
+    </style>
+
+    <style name="DarkThemeActionBar" parent="ActivityActionbarDark">
+        <item name="textColor">#DDFFFFFF</item>
+        <item name="backgroundColor">#212121</item>
+        <item name="borderColor">#DDFFFFFF</item>
+        <item name="darkBackgroundColor">#2E2E2E</item>
+        <item name="tintBackgroundColor">#FFF</item>
+        <item name="android:statusBarColor">#212121</item>
+
+        <item name="colorPrimary">#212121</item>
+        <item name="colorPrimaryDark">#212121</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowAnimationStyle">@style/CustomActivityAnimation</item>
+
+    </style>
+    <style name="DarkTheme" parent="AppTheme">
+        <item name="textColor">#DDFFFFFF</item>
+        <item name="backgroundColor">#212121</item>
+        <item name="borderColor">#DDFFFFFF</item>
+        <item name="darkBackgroundColor">#2E2E2E</item>
+        <item name="tintBackgroundColor">#FFF</item>
+        <item name="android:statusBarColor">#212121</item>
+        <item name="bottomAppBarColor">#2E2E2E</item>
+
+        <item name="colorPrimary">#212121</item>
+        <item name="colorPrimaryDark">#212121</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+    </style>
+
+    <style name="LightThemeActionBar" parent="ActivityActionbar">
+        <item name="textColor">#484848</item>
+        <item name="backgroundColor">#FFF</item>
+        <item name="borderColor">#484848</item>
+        <item name="darkBackgroundColor">#C5B358</item>
+        <item name="tintBackgroundColor">#000</item>
+        <item name="android:statusBarColor">#FFF</item>
+
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowAnimationStyle">@style/CustomActivityAnimation</item>
+
+    </style>
+
+    <style name="LightTheme" parent="AppTheme">
+        <item name="textColor">#484848</item>
+        <item name="backgroundColor">#FFF</item>
+        <item name="borderColor">#484848</item>
+        <item name="darkBackgroundColor">#C5B358</item>
+        <item name="tintBackgroundColor">#212121</item>
+        <item name="android:statusBarColor">#FFF</item>
+        <item name="bottomAppBarColor">#E0E0E0</item>
+
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+    <style name="SearchViewStyle" parent="Widget.AppCompat.SearchView">
+        <item name="android:textColor">?attr/textColor</item>
+        <item name="android:editTextColor">?attr/textColor</item>
+        <item name="android:textColorHint">?attr/textColor</item>
+    </style>
 </resources>
