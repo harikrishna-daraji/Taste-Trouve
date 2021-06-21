@@ -10,7 +10,10 @@ app.use(cors());
 
 ConnectDB();
 
-app.use(express.json({ extended: false }));
+app.use(express.json()); // support json encoded bodies
+app.use(express.urlencoded({ extended: true })); // support encoded bodies
+
+// app.use(express.json({ extended: false }));
 
 //starting up the server
 const PORT = process.env.PORT || 5000; //grabbing the assigned port
@@ -22,6 +25,7 @@ app.use("/api/clientUser", require("./routes/userRouter"));
 app.use("/api/category", require("./routes/Category"));
 app.use("/api/subCategory", require("./routes/SubCategory"));
 app.use("/api/product", require("./routes/Product"));
+app.use("/api/HomeScreen", require("./routes/Home"));
 
 app.listen(PORT, () => console.log(`the server has started on port :${PORT}`));
 // setting up the mongodb connection with mongoose
