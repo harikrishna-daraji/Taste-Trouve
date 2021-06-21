@@ -76,6 +76,21 @@ router.get("/getRestaurants", async (req, res) => {
   }
 });
 
+router.put("/UpdateRestuarantStatus", async (req, res) => {
+  let { restaurantId } = req.body;
+  User.updateOne(
+    { _id: restaurantId },
+    { status: false },
+    function (err, docs) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log("Updated Docs : ", docs);
+      }
+    }
+  );
+});
+
 // //delete
 // router.delete("/delete", auth, async (req, res) => {
 //   try {
