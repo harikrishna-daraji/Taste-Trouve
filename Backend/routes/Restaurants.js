@@ -67,13 +67,28 @@ router.post("/login", async (req, res) => {
 
 router.get("/getRestaurants", async (req, res) => {
   try {
-    const restaurant = await Restaurants.find();
+    const restaurant = await Restaurants.find({ status: false });
 
     res.send(restaurant);
   } catch (err) {
     console.log(err.message);
     res.status(500).json({ error: err.message });
   }
+});
+
+router.put("/UpdateRestuarantStatus", async (req, res) => {
+  let { restaurantId } = req.body;
+  Restaurants.updateOne(
+    { _id: restaurantId },
+    { status: true },
+    function (err, docs) {
+      if (err) {
+        res.send(err);
+      } else {
+        res.send("Updated");
+      }
+    }
+  );
 });
 
 // //delete
