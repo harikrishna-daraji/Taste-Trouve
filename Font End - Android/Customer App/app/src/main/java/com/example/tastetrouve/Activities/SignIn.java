@@ -1,9 +1,11 @@
-package com.example.tastetrouve;
+package com.example.tastetrouve.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.tastetrouve.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -28,23 +31,27 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 import static android.content.ContentValues.TAG;
 
-public class SignIn extends AppCompatActivity {
+public class SignIn extends BaseActivity {
     private static final int RC_SIGN_IN = 123;
     EditText email,password;
     TextView signup, forgotpassword;
-    ImageButton signin,facebook,google;
-    ImageView hide;
-
+    ImageButton signin;
+    ImageView hide, facebook,google;
+    SharedPreferences sharedPreferences;
     FirebaseAuth mAuth;
 
     GoogleSignInClient mGoogleSignInClient;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(loadStyle(false));
+        sharedPreferences = getApplicationContext().getSharedPreferences("LANGUAGE", Context.MODE_PRIVATE);
+        String language = sharedPreferences.getString("code","en");
+        setLanguage(language);
         setContentView(R.layout.activity_sign_in);
 
-        email = findViewById(R.id.editTextTextPersonName);
-        password = findViewById(R.id.editTextTextPassword);
+        email = findViewById(R.id.emailEditText);
+        password = findViewById(R.id.passwordEditText);
 
         signup = findViewById(R.id.textViewSignUp);
 
@@ -75,7 +82,7 @@ public class SignIn extends AppCompatActivity {
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(SignIn.this,SignUp.class));
+                startActivity(new Intent(SignIn.this, SignUp.class));
             }
         });
 

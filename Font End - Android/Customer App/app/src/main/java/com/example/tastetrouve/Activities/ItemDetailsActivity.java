@@ -1,6 +1,4 @@
-package com.example.tastetrouve;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.example.tastetrouve.Activities;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -9,10 +7,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.tastetrouve.Activities.BaseActivity;
 import com.example.tastetrouve.Models.GlobalObjects;
 import com.example.tastetrouve.Models.ItemProductModel;
 import com.example.tastetrouve.Models.KidSectionModel;
 import com.example.tastetrouve.Models.PopularSectionModel;
+import com.example.tastetrouve.R;
 
 public class ItemDetailsActivity extends BaseActivity {
 

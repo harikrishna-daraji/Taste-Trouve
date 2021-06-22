@@ -1,4 +1,4 @@
-package com.example.tastetrouve;
+package com.example.tastetrouve.Models;
 
 public class Users {
     public String name,email,phone,dateofbirth;

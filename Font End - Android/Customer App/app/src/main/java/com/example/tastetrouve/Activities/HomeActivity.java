@@ -1,4 +1,4 @@
-package com.example.tastetrouve;
+package com.example.tastetrouve.Activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,18 +6,21 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.LinearLayout;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.tastetrouve.HelperClass.AbsolutefitLayourManager;
 import com.example.tastetrouve.Adapters.KidMenuRecycleAdapter;
 import com.example.tastetrouve.Adapters.RestaurantRecycleAdapter;
 import com.example.tastetrouve.Adapters.TopSellingRecycleAdapter;
+import com.example.tastetrouve.HelperClass.ApiClient;
+import com.example.tastetrouve.HelperClass.ApiInterface;
 import com.example.tastetrouve.Models.CategoryModel;
 import com.example.tastetrouve.Models.GlobalObjects;
 import com.example.tastetrouve.Models.HomeProductModel;
+import com.example.tastetrouve.R;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -45,7 +48,7 @@ public class HomeActivity extends BaseActivity {
         findViewById(R.id.appetizerLinear).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this,ItemActivity.class);
+                Intent intent = new Intent(HomeActivity.this, ItemActivity.class);
                 intent.putExtra("section", GlobalObjects.Category.appetizer.toString());
                 for(CategoryModel model: homeProductModel.getCategoryObject()) {
                     if(model.getName().equals("Appetizers")) {

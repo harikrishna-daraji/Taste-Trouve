@@ -1,18 +1,19 @@
-package com.example.tastetrouve;
+package com.example.tastetrouve.Activities;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.TextView;
 
 import com.example.tastetrouve.Adapters.ItemRecycleAdapter;
+import com.example.tastetrouve.HelperClass.ApiClient;
+import com.example.tastetrouve.HelperClass.ApiInterface;
 import com.example.tastetrouve.Models.ItemProductModel;
+import com.example.tastetrouve.R;
 
 import java.util.List;
 

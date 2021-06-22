@@ -1,4 +1,4 @@
-package com.example.tastetrouve;
+package com.example.tastetrouve.HelperClass;
 
 import com.example.tastetrouve.Models.HomeProductModel;
 import com.example.tastetrouve.Models.ItemProductModel;

@@ -1,130 +1,176 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SignIn">
+    tools:context=".Activities.SignIn">
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/si" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_gravity="center"
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/si" />
 
-    <EditText
-        android:id="@+id/editTextTextPersonName"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Email Or Phone Number"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_width="match_parent"
+            android:layout_marginTop="25dp"
+            android:hint="@string/email"
+            android:textColorHint="@color/black"
+            app:hintTextColor="@color/black"
+            app:hintAnimationEnabled="true"
+            android:paddingStart="15dp"
+            android:background="@drawable/text_box"
+            android:paddingEnd="15dp"
+            app:endIconMode="custom"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            app:endIconTint="@android:color/black"
+            android:inputType="textEmailAddress"
+            android:layout_height="60dp">
 
-    <EditText
-        android:id="@+id/editTextTextPassword"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:ems="10"
-        android:hint="Password"
-        android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/emailEditText"
+                android:layout_width="match_parent"
+                android:background="@color/white"
+                android:textColorHint="@android:color/black"
+                android:textColor="@android:color/black"
+                android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="39dp"
-        android:layout_height="29dp"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextTextPassword"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTextPassword"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextPassword"
-        app:layout_constraintTop_toTopOf="@+id/editTextTextPassword"
-        app:srcCompat="@drawable/sifinal" />
+            </com.google.android.material.textfield.TextInputEditText>
 
-    <TextView
-        android:id="@+id/forgotPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Forgot Password?"
-        android:textColor="#FF0000"
-        android:textSize="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.779"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <ImageButton
-        android:id="@+id/imageButtonSignIn"
-        android:layout_width="348dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="6dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="6dp"
-        android:background="@null"
-        android:scaleType="centerInside"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.49"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/forgotPassword"
-        app:srcCompat="@drawable/sik" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_width="match_parent"
+            android:layout_marginTop="25dp"
+            android:hint="@string/password"
+            android:textColorHint="@android:color/black"
+            app:hintTextColor="@android:color/black"
+            app:hintAnimationEnabled="true"
+            android:paddingStart="15dp"
+            android:background="@drawable/text_box"
+            android:paddingEnd="15dp"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@android:color/black"
+            android:inputType="textPassword"
+            android:layout_height="60dp">
 
-    <ImageButton
-        android:id="@+id/imageButtonSignInFacebook"
-        android:layout_width="292dp"
-        android:layout_height="56dp"
-        android:layout_marginTop="16dp"
-        android:background="@null"
-        android:scaleType="fitXY"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.478"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButtonSignIn"
-        app:srcCompat="@drawable/fb" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/passwordEditText"
+                android:layout_width="match_parent"
+                android:inputType="textPassword"
+                android:background="@drawable/text_box"
+                app:passwordToggleEnabled="true"
+                android:textColorHint="@android:color/black"
+                app:passwordToggleTint="@android:color/black"
+                android:textColor="@android:color/black"
+                android:layout_height="match_parent">
 
-    <ImageButton
-        android:id="@+id/imageButtonSignInGoogle"
-        android:layout_width="286dp"
-        android:layout_height="58dp"
-        android:background="@null"
-        android:scaleType="fitXY"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButtonSignInFacebook"
-        app:srcCompat="@drawable/gogle" />
+            </com.google.android.material.textfield.TextInputEditText>
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="56dp"
-        android:layout_marginTop="52dp"
-        android:text="Don't have an account?"
-        android:textColor="#000"
-        android:textSize="20dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButtonSignInGoogle" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-        android:id="@+id/textViewSignUp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
-        android:text="Sign Up"
-        android:textColor="#FF0000"
-        android:textSize="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.537"
-        app:layout_constraintStart_toEndOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/imageButtonSignInGoogle" />
+        <TextView
+            android:layout_marginEnd="20dp"
+            android:id="@+id/forgotPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Forgot Password?"
+            android:textColor="#FF0000"
+            android:layout_gravity="right"
+            android:textSize="20dp"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageButton
+            android:layout_gravity="center"
+            android:id="@+id/imageButtonSignIn"
+            android:layout_width="348dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="6dp"
+            android:background="@null"
+            android:scaleType="centerInside"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.49"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/forgotPassword"
+            app:srcCompat="@drawable/sik" />
+
+        <TextView
+            android:layout_marginTop="20dp"
+            android:textColor="?attr/textColor"
+            android:textSize="15dp"
+            android:layout_gravity="center"
+            android:text="@string/or_login_with"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+        <LinearLayout
+            android:layout_marginTop="25dp"
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:paddingRight="10dp"
+                android:id="@+id/imageButtonSignInFacebook"
+                android:layout_weight="1"
+                android:src="@drawable/facebook_icon"
+                android:layout_width="60dp"
+                android:layout_height="60dp"/>
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:paddingLeft="10dp"
+                android:id="@+id/imageButtonSignInGoogle"
+                android:layout_weight="1"
+                android:src="@drawable/google_icon"
+                android:layout_width="60dp"
+                android:layout_height="60dp"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp">
+            <TextView
+                android:layout_marginEnd="10dp"
+                android:layout_weight="0.3"
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Don't have an account?"
+                android:textColor="#000"
+                android:textSize="20dp" />
+            <TextView
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:id="@+id/textViewSignUp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sign Up"
+                android:textColor="#FF0000"
+                android:textSize="20dp"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>
