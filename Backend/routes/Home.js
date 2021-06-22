@@ -2,7 +2,7 @@ const router = require("express").Router();
 
 const Product = require("../models/Product");
 const Category = require("../models/Category");
-const SubCategory = require("../models/SubCategory");
+const Restaurants = require("../models/Restaurants");
 
 router.get("/getHomeProduct", async (req, res) => {
   try {
@@ -10,9 +10,20 @@ router.get("/getHomeProduct", async (req, res) => {
 
     const kidsSection = await Product.find({ kidSection: true });
     const popular = await Product.find({ popular: true });
+    let restaurants = await Restaurants.find({ status: true });
+    for (var key in restaurants) {
+      const restroImages = await Product.findOne({
+        restaurantId: restaurants[key]._id,
+      }).select("image");
 
+      restaurants[key] = {
+        ...restaurants[key]._doc,
+        image: restroImages.image,
+      };
+    }
     const HomeData = {
       categoryObject,
+      restaurants,
       kidsSection,
       popular,
     };

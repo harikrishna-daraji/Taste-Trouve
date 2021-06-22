@@ -5,6 +5,7 @@ import com.example.tastetrouve.Models.ItemProductModel;
 
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -19,5 +20,12 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("product/getProductsByMainCategory")
     Call<List<ItemProductModel>> getProductsOfMainCategory(@Field("categoryId") String categoryId);
+
+
+    @FormUrlEncoded
+    @POST("clientUser/register")
+    Call<ResponseBody> registerUser(@Field("email") String email,@Field("password") String password,@Field("displayname")
+            String displayname,@Field("fcmToken") String   fcmToken,@Field(" phoneNumber") String  phoneNumber,@Field("dateOfBirth") String dateOfBirth);
+
 
 }

@@ -30,6 +30,7 @@ public class SignUp extends BaseActivity {
     TextView signin;
     SharedPreferences sharedPreferences;
     private FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +49,7 @@ public class SignUp extends BaseActivity {
         signup = findViewById(R.id.imageButtonSignUp);
 
         signin = findViewById(R.id.textViewSignIN);
+
 
         mAuth = FirebaseAuth.getInstance();
 
