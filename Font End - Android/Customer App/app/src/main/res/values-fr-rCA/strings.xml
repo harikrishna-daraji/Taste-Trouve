@@ -30,4 +30,7 @@
     <string name="password">Mot de passe</string>
     <string name="email">Courriel</string>
     <string name="or_login_with">ou inscrivez-vous avec</string>
+    <string name="full_name">Nom et prénom</string>
+    <string name="date_of_birth">Date de naissance</string>
+    <string name="phone_number">Numéro de téléphone</string>
 </resources>

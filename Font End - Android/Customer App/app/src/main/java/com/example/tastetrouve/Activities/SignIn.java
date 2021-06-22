@@ -36,7 +36,7 @@ public class SignIn extends BaseActivity {
     EditText email,password;
     TextView signup, forgotpassword;
     ImageButton signin;
-    ImageView hide, facebook,google;
+    ImageView facebook,google;
     SharedPreferences sharedPreferences;
     FirebaseAuth mAuth;
 
@@ -59,7 +59,6 @@ public class SignIn extends BaseActivity {
         facebook = findViewById(R.id.imageButtonSignInFacebook);
         google = findViewById(R.id.imageButtonSignInGoogle);
 
-        hide = findViewById(R.id.imageView3);
 
         forgotpassword = findViewById(R.id.forgotPassword);
 

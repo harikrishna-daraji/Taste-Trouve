@@ -3,7 +3,9 @@ package com.example.tastetrouve.Activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -21,17 +23,20 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class SignUp extends AppCompatActivity {
+public class SignUp extends BaseActivity {
 
     EditText name,email,password,phone,dateofbirth;
-    ImageView hide;
     ImageButton signup;
     TextView signin;
-
+    SharedPreferences sharedPreferences;
     private FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(loadStyle(false));
+        sharedPreferences = getApplicationContext().getSharedPreferences("LANGUAGE", Context.MODE_PRIVATE);
+        String language = sharedPreferences.getString("code","en");
+        setLanguage(language);
         setContentView(R.layout.activity_sign_up);
 
         name = findViewById(R.id.fullName);
@@ -39,8 +44,6 @@ public class SignUp extends AppCompatActivity {
         password = findViewById(R.id.editTextTextPassword);
         phone = findViewById(R.id.PhoneNumber);
         dateofbirth = findViewById(R.id.DateOfBirth);
-
-        hide = findViewById(R.id.imageView3);
 
         signup = findViewById(R.id.imageButtonSignUp);
 
