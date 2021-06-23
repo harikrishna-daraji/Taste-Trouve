@@ -15,8 +15,11 @@ import com.bumptech.glide.Glide;
 import com.example.tastetrouve.Activities.ItemDetailsActivity;
 import com.example.tastetrouve.Models.GlobalObjects;
 import com.example.tastetrouve.Models.ItemProductModel;
+import com.example.tastetrouve.Models.KidSectionModel;
+import com.example.tastetrouve.Models.PopularSectionModel;
 import com.example.tastetrouve.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -25,10 +28,22 @@ public class ItemRecycleAdapter extends RecyclerView.Adapter<ItemRecycleAdapter.
 
     Activity activity;
     List<ItemProductModel> itemProductModels;
+    ArrayList<PopularSectionModel> popularSectionModels;
+    List<KidSectionModel> kidSectionModels;
 
     public ItemRecycleAdapter(Activity activity, List<ItemProductModel> itemProductModels) {
         this.activity = activity;
         this.itemProductModels = itemProductModels;
+    }
+
+    public ItemRecycleAdapter(Activity activity, ArrayList<PopularSectionModel> popularSectionModels) {
+        this.activity = activity;
+        this.popularSectionModels = popularSectionModels;
+    }
+
+    public ItemRecycleAdapter(List<KidSectionModel> kidSectionModels, Activity activity) {
+        this.kidSectionModels = kidSectionModels;
+        this.activity = activity;
     }
 
     @NonNull
@@ -40,25 +55,63 @@ public class ItemRecycleAdapter extends RecyclerView.Adapter<ItemRecycleAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        ItemProductModel model = itemProductModels.get(position);
-        Glide.with(activity).load(model.getImage()).placeholder(R.drawable.image_placeholder).into(holder.circleImg);
-        holder.nameTV.setText(model.getName());
-        holder.typeTV.setText(model.getName());
-        holder.priceTV.setText("$"+String.valueOf(model.getPrice()));
-        holder.viewRelative.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(activity, ItemDetailsActivity.class);
-                intent.putExtra("type", GlobalObjects.ModelList.item.toString());
-                intent.putExtra("product",model);
-                activity.startActivity(intent);
-            }
-        });
+        if(itemProductModels != null) {
+            ItemProductModel model = itemProductModels.get(position);
+            Glide.with(activity).load(model.getImage()).placeholder(R.drawable.image_placeholder).into(holder.circleImg);
+            holder.nameTV.setText(model.getName());
+            holder.typeTV.setText(model.getName());
+            holder.priceTV.setText("$"+String.valueOf(model.getPrice()));
+            holder.viewRelative.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(activity, ItemDetailsActivity.class);
+                    intent.putExtra("type", GlobalObjects.ModelList.Item.toString());
+                    intent.putExtra("product",model);
+                    activity.startActivity(intent);
+                }
+            });
+        } else if(kidSectionModels != null) {
+            KidSectionModel model = kidSectionModels.get(position);
+            Glide.with(activity).load(model.getImage()).placeholder(R.drawable.image_placeholder).into(holder.circleImg);
+            holder.nameTV.setText(model.getName());
+            holder.typeTV.setText(model.getName());
+            holder.priceTV.setText("$"+String.valueOf(model.getPrice()));
+            holder.viewRelative.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(activity, ItemDetailsActivity.class);
+                    intent.putExtra("type", GlobalObjects.ModelList.Kid.toString());
+                    intent.putExtra("product",model);
+                    activity.startActivity(intent);
+                }
+            });
+        } else {
+            PopularSectionModel model = popularSectionModels.get(position);
+            Glide.with(activity).load(model.getImage()).placeholder(R.drawable.image_placeholder).into(holder.circleImg);
+            holder.nameTV.setText(model.getName());
+            holder.typeTV.setText(model.getName());
+            holder.priceTV.setText("$"+String.valueOf(model.getPrice()));
+            holder.viewRelative.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(activity, ItemDetailsActivity.class);
+                    intent.putExtra("type", GlobalObjects.ModelList.Popular.toString());
+                    intent.putExtra("product",model);
+                    activity.startActivity(intent);
+                }
+            });
+        }
     }
 
     @Override
     public int getItemCount() {
-        return itemProductModels.size();
+        if(itemProductModels != null) {
+            return itemProductModels.size();
+        } else if(kidSectionModels != null) {
+            return kidSectionModels.size();
+        } else {
+            return popularSectionModels.size();
+        }
     }
 
 

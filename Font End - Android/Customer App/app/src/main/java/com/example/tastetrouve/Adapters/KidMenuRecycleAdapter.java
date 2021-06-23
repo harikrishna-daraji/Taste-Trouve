@@ -50,7 +50,7 @@ public class KidMenuRecycleAdapter extends RecyclerView.Adapter<KidMenuRecycleAd
             public void onClick(View v) {
                 Intent intent = new Intent(activity, ItemDetailsActivity.class);
                 intent.putExtra("product",model);
-                intent.putExtra("type", GlobalObjects.ModelList.kid.toString());
+                intent.putExtra("type", GlobalObjects.ModelList.Kid.toString());
                 activity.startActivity(intent);
             }
         });

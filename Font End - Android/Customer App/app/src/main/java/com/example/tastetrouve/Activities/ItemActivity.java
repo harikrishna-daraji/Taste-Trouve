@@ -12,9 +12,13 @@ import android.widget.TextView;
 import com.example.tastetrouve.Adapters.ItemRecycleAdapter;
 import com.example.tastetrouve.HelperClass.ApiClient;
 import com.example.tastetrouve.HelperClass.ApiInterface;
+import com.example.tastetrouve.Models.GlobalObjects;
 import com.example.tastetrouve.Models.ItemProductModel;
+import com.example.tastetrouve.Models.KidSectionModel;
+import com.example.tastetrouve.Models.PopularSectionModel;
 import com.example.tastetrouve.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -26,6 +30,8 @@ public class ItemActivity extends BaseActivity {
     RecyclerView itemRecycle;
     SharedPreferences sharedPreferences;
     List<ItemProductModel> itemProductModels;
+    ArrayList<PopularSectionModel> popularSectionModels;
+    List<KidSectionModel> kidSectionModels;
     TextView topHeading;
 
     @Override
@@ -44,6 +50,14 @@ public class ItemActivity extends BaseActivity {
         if(getIntent().hasExtra("section") && getIntent().hasExtra("categoryId")) {
             topHeading.setText(getIntent().getStringExtra("section"));
             getProductsOfMainCategory(getIntent().getStringExtra("categoryId"));
+        } else if(getIntent().hasExtra(GlobalObjects.ModelList.Kid.toString())) {
+            topHeading.setText(GlobalObjects.ModelList.Kid.toString());
+            kidSectionModels = (List) getIntent().getStringArrayListExtra(GlobalObjects.ModelList.Kid.toString());
+            itemRecycle.setAdapter(new ItemRecycleAdapter(kidSectionModels,this));
+        } else if(getIntent().hasExtra(GlobalObjects.ModelList.Popular.toString())) {
+            topHeading.setText(GlobalObjects.ModelList.Popular.toString());
+            popularSectionModels = (ArrayList) getIntent().getStringArrayListExtra(GlobalObjects.ModelList.Popular.toString());
+            itemRecycle.setAdapter(new ItemRecycleAdapter(this,popularSectionModels));
         }
 
     }

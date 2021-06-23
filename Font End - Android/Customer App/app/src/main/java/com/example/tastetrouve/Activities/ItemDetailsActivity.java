@@ -43,7 +43,7 @@ public class ItemDetailsActivity extends BaseActivity {
 
     private void manageIntent() {
         if(getIntent().hasExtra("product") && getIntent().hasExtra("type")) {
-            if(getIntent().getStringExtra("type").equals(GlobalObjects.ModelList.item.toString())) {
+            if(getIntent().getStringExtra("type").equals(GlobalObjects.ModelList.Item.toString())) {
                 ItemProductModel model = (ItemProductModel) getIntent().getSerializableExtra("product");
                 Glide.with(this).load(model.getImage()).placeholder(R.drawable.image_placeholder).into(itemImg);
                 itemNameTV.setText(model.getName());
@@ -51,7 +51,7 @@ public class ItemDetailsActivity extends BaseActivity {
                 deliveryTV.setText(model.getDeliveryTime());
                 calorieTV.setText(model.getCalories());
                 descriptionTV.setText(model.getDescription());
-            } else if(getIntent().getStringExtra("type").equals(GlobalObjects.ModelList.popular.toString())) {
+            } else if(getIntent().getStringExtra("type").equals(GlobalObjects.ModelList.Popular.toString())) {
                 PopularSectionModel model = (PopularSectionModel) getIntent().getSerializableExtra("product");
                 Glide.with(this).load(model.getImage()).placeholder(R.drawable.image_placeholder).into(itemImg);
                 itemNameTV.setText(model.getName());
@@ -59,7 +59,7 @@ public class ItemDetailsActivity extends BaseActivity {
                 deliveryTV.setText(model.getDeliveryTime());
                 calorieTV.setText(model.getCalories());
                 descriptionTV.setText(model.getDescription());
-            } else if(getIntent().getStringExtra("type").equals(GlobalObjects.ModelList.kid.toString())) {
+            } else if(getIntent().getStringExtra("type").equals(GlobalObjects.ModelList.Kid.toString())) {
                 KidSectionModel model = (KidSectionModel) getIntent().getSerializableExtra("product");
                 Glide.with(this).load(model.getImage()).placeholder(R.drawable.image_placeholder).into(itemImg);
                 itemNameTV.setText(model.getName());
