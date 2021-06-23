@@ -3,6 +3,7 @@ package com.example.tastetrouve.Models;
 import java.util.List;
 
 public class HomeProductModel {
+    List<RestaurantModel> restaurants;
     List<CategoryModel> categoryObject;
     List<KidSectionModel> kidsSection;
     List<PopularSectionModel> popular;
@@ -17,5 +18,9 @@ public class HomeProductModel {
 
     public List<PopularSectionModel> getPopular() {
         return popular;
+    }
+
+    public List<RestaurantModel> getRestaurants() {
+        return restaurants;
     }
 }

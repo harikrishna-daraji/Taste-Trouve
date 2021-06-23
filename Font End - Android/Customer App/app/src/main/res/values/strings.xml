@@ -32,4 +32,6 @@
     <string name="full_name">Full Name</string>
     <string name="date_of_birth">Date Of Birth</string>
     <string name="phone_number">Phone number</string>
+    <string name="please_enter_email">Please enter email</string>
+    <string name="please_enter_password">Please enter password</string>
 </resources>

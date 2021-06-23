@@ -40,7 +40,7 @@ public class SignUp extends BaseActivity {
     ImageButton signup;
     TextView signin;
     SharedPreferences sharedPreferences;
-    public static SharedPreferences.Editor editor;
+    SharedPreferences.Editor editor;
     private FirebaseAuth mAuth;
 
     @Override

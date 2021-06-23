@@ -29,4 +29,8 @@ public interface ApiInterface {
             String displayname, @Field("fcmToken") String   fcmToken, @Field(" phoneNumber") String  phoneNumber, @Field("dateOfBirth") String dateOfBirth);
 
 
+    @FormUrlEncoded
+    @POST("clientUser/login")
+    Call<UserModel> login(@Field("email") String email, @Field("password") String password);
+
 }

@@ -33,4 +33,6 @@
     <string name="full_name">Nom et prénom</string>
     <string name="date_of_birth">Date de naissance</string>
     <string name="phone_number">Numéro de téléphone</string>
+    <string name="please_enter_email">Veuillez saisir l\'e-mail</string>
+    <string name="please_enter_password">Veuillez entrer le mot de passe</string>
 </resources>

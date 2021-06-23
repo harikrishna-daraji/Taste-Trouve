@@ -26,7 +26,6 @@ public class MainActivity extends BaseActivity {
         new Handler().postDelayed(new Runnable(){
             @Override
             public void run() {
-                /* Create an Intent that will start the Menu-Activity. */
                 Intent mainIntent = new Intent(MainActivity.this, OnBoardingScreen.class);
                 MainActivity.this.startActivity(mainIntent);
                 MainActivity.this.finish();

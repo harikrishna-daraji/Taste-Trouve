@@ -120,7 +120,6 @@ public class HomeActivity extends BaseActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,RecyclerView.HORIZONTAL,false);
         restaurantRecycle = findViewById(R.id.restaurantRecycle);
         restaurantRecycle.setLayoutManager(linearLayoutManager);
-        restaurantRecycle.setAdapter(new RestaurantRecycleAdapter(this));
     }
 
     private void getHomeProducts() {
@@ -132,8 +131,10 @@ public class HomeActivity extends BaseActivity {
                     try {
                         if(response.code() == 200) {
                             homeProductModel = response.body();
+                            Log.i("TAG","TAG Size: "+homeProductModel.getRestaurants().size());
                             topSellingRecycle.setAdapter(new TopSellingRecycleAdapter(HomeActivity.this,homeProductModel.getPopular()));
                             kidMenuRecycle.setAdapter(new KidMenuRecycleAdapter(HomeActivity.this,homeProductModel.getKidsSection()));
+                            restaurantRecycle.setAdapter(new RestaurantRecycleAdapter(HomeActivity.this,homeProductModel.getRestaurants()));
                         } else {
                             Log.i("TAG","TAG: Code: "+response.code()+" Message: "+response.message());
                         }

@@ -27,6 +27,7 @@ public class OnBoardingScreen extends BaseActivity {
 
     private ViewPager2 viewPager2;
     SharedPreferences sharedPreferences;
+
     TextView boardingTV;
     RelativeLayout signInRelative;
     List<String> textList = new ArrayList<>();
@@ -54,6 +55,7 @@ public class OnBoardingScreen extends BaseActivity {
         signInRelative.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent intent = new Intent(OnBoardingScreen.this,SignIn.class);
                 startActivity(intent);
             }
