@@ -1,5 +1,7 @@
 package com.example.tastetrouve.Models;
 
+import android.content.SharedPreferences;
+
 public class GlobalObjects {
 
     public enum ModelList {
