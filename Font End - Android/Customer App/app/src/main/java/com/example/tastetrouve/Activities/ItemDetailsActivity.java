@@ -23,7 +23,7 @@ public class ItemDetailsActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTheme(loadStyle(true));
+        setTheme(loadStyle(false));
         sharedPreferences = getApplicationContext().getSharedPreferences("LANGUAGE", Context.MODE_PRIVATE);
         String language = sharedPreferences.getString("code","en");
         setLanguage(language);
