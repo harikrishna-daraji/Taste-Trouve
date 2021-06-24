@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.tastetrouve.Adapters.ItemRecycleAdapter;
@@ -63,6 +65,13 @@ public class ItemActivity extends BaseActivity {
     }
 
     private void initUI() {
+        findViewById(R.id.backBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
         topHeading = findViewById(R.id.topHeading);
         itemRecycle = findViewById(R.id.itemRecycle);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this,2);

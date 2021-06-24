@@ -35,4 +35,4 @@
                 android:textSize="22sp"
                 android:textStyle="italic" />
         </RelativeLayout>
-    </androidx.cardview.widget.CardView>
+</androidx.cardview.widget.CardView>

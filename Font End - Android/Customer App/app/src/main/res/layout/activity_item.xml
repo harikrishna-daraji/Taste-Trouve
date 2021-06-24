@@ -28,7 +28,7 @@
                 >
                 <ImageView
                     app:tint="?attr/textColor"
-                    android:id="@+id/backBtnCart"
+                    android:id="@+id/backBtn"
                     android:layout_width="23dp"
                     android:layout_height="wrap_content"
                     android:src="@drawable/back_icon"

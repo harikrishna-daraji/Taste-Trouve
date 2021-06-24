@@ -15,16 +15,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TasteTrouve"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Activities.OnBoardingScreen">
-
-        </activity>
+        <activity android:name=".Activities.MainCategoryActivity"></activity>
+        <activity android:name=".Activities.OnBoardingScreen"></activity>
         <activity android:name=".Activities.ItemDetailsActivity" />
         <activity android:name=".Activities.ItemActivity" />
-        <activity android:name=".Activities.HomeActivity"></activity>
+        <activity android:name=".Activities.HomeActivity" />
         <activity android:name=".Activities.SignUp" />
         <activity android:name=".Activities.ForgotPassword" />
-        <activity android:name=".Activities.SignIn">
-        </activity>
+        <activity android:name=".Activities.SignIn"></activity>
         <activity android:name=".Activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
