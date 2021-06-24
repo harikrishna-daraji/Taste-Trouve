@@ -17,6 +17,8 @@
         android:usesCleartextTraffic="true">
         <activity android:name=".Activities.SubcategoryListActivity"></activity>
         <activity android:name=".ResetPasswordActivity" />
+        <activity android:name=".Activities.VerifyOtpActivity"></activity>
+        <activity android:name=".Activities.ResetPasswordActivity" />
         <activity android:name=".ItemDetailsActivity" />
         <activity android:name=".ItemActivity" />
         <activity android:name=".ForgotPassword" />

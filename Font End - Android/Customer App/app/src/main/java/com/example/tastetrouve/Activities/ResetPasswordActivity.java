@@ -1,4 +1,4 @@
-package com.example.tastetrouve;
+package com.example.tastetrouve.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,13 +8,13 @@ import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.tastetrouve.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthCredential;
@@ -60,8 +60,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
         show2 = findViewById(R.id.imageViewShow2);
         show3 = findViewById(R.id.imageViewShow3);
 
-        mAuth = FirebaseAuth.getInstance();
-        user = mAuth.getCurrentUser();
+
 
         show1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,9 +117,12 @@ public class ResetPasswordActivity extends AppCompatActivity {
         String SnewPassword = newpassword.getText().toString();
         String SconfirmPassword = connfirmpassword.getText().toString();
 
+        mAuth = FirebaseAuth.getInstance();
+        user = FirebaseAuth.getInstance().getCurrentUser();
+
         if(SnewPassword.equals(SconfirmPassword)) {
 
-            AuthCredential credential = EmailAuthProvider.getCredential(Semail, SoldPassword);
+            AuthCredential credential = EmailAuthProvider.getCredential( Semail , SoldPassword);
             user.reauthenticate(credential)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override

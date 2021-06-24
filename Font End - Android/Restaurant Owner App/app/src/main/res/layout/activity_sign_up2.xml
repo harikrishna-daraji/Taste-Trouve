@@ -7,7 +7,7 @@
     android:background="@drawable/signupfinal"
     android:padding="20dp"
     android:orientation="vertical"
-    tools:context=".LogInActivity">
+    tools:context=".Activity.LogInActivity">
 
     <TextView
         android:layout_width="wrap_content"

@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
                 uDataArrayList = new ArrayList<>();
                 for(int i=0; i <heroList.size(); i++) {
-                    uDataArrayList.add(new UData(heroList.get(i).getRestaurantName(),heroList.get(i).getEmail(),heroList.get(i).getPhoneNumber(),heroList.get(i).getAddress()));
+                    uDataArrayList.add(new UData(heroList.get(i).getRestaurantName(),heroList.get(i).getEmail(),heroList.get(i).getPhoneNumber(),heroList.get(i).getAddress(),heroList.get(i).get_id()));
 
                 }
 

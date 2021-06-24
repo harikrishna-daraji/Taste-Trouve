@@ -1,6 +1,7 @@
 package com.example.tastetrouveadmin;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
+
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class UAdapter extends RecyclerView.Adapter<UAdapter.ViewHolder> {
 
@@ -48,17 +56,46 @@ public class UAdapter extends RecyclerView.Adapter<UAdapter.ViewHolder> {
         holder.Accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "Accept Clicked", Toast.LENGTH_SHORT).show();
+
+                changeStatus(uDataList.get_id(),"accepted",position,holder);
+
             }
         });
 
         holder.Reject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "Reject Clicked", Toast.LENGTH_SHORT).show();
+                changeStatus(uDataList.get_id(),"declined",position,holder);
             }
         });
     }
+
+    private void changeStatus(String id, String accepted, int position, ViewHolder holder) {
+        Call<List<UData>> call = APIClient.getInstance().getApi().updateRestaurantStatus(id,accepted);
+
+        call.enqueue(new Callback<List<UData>>() {
+            @Override
+            public void onResponse(Call<List<UData>> call, Response<List<UData>> response) {
+
+                Toast.makeText(context, "Status Changed", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<List<UData>> call, Throwable t) {
+                //   Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.d("aa", t.getMessage().toString());
+            }
+
+
+        });
+
+
+        uData.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, uData.size());
+        holder.itemView.setVisibility(View.GONE);
+    }
+
 
     @Override
     public int getItemCount() {

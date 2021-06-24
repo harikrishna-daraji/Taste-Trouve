@@ -1,4 +1,4 @@
-package com.example.tastetrouverestaurantowner;
+package com.example.tastetrouverestaurantowner.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +9,9 @@ import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.example.tastetrouverestaurantowner.Fragment.HomeFragment;
+import com.example.tastetrouverestaurantowner.Fragment.SettingsFragment;
+import com.example.tastetrouverestaurantowner.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -35,11 +38,7 @@ public class MainActivity extends AppCompatActivity {
                 switch (item.getItemId()){
                     case R.id.home :temp=new HomeFragment();
                     break;
-                    case R.id.pending :temp=new PendingOrdersFragment();
-                    break;
-                    case R.id.report :temp=new ReportFragment();
-                    break;
-                    case R.id.accepted :temp=new AcceptedOrderFragment();
+                    case R.id.settings :temp=new SettingsFragment();
                     break;
 
                 }

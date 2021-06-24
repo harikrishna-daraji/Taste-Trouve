@@ -10,7 +10,7 @@ router.get("/getHomeProduct", async (req, res) => {
 
     const kidsSection = await Product.find({ kidSection: true });
     const popular = await Product.find({ popular: true });
-    let restaurants = await Restaurants.find({ status: true });
+    let restaurants = await Restaurants.find({ status: "accepted" });
     for (var key in restaurants) {
       const restroImages = await Product.findOne({
         restaurantId: restaurants[key]._id,
