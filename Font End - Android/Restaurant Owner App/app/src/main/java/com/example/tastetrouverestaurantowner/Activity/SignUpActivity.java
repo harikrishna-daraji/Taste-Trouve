@@ -1,4 +1,4 @@
-package com.example.tastetrouverestaurantowner;
+package com.example.tastetrouverestaurantowner.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,6 +12,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.tastetrouverestaurantowner.APIClient;
+import com.example.tastetrouverestaurantowner.R;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;

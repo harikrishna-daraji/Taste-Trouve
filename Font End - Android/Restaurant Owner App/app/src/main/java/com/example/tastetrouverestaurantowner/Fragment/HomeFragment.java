@@ -1,4 +1,4 @@
-package com.example.tastetrouverestaurantowner;
+package com.example.tastetrouverestaurantowner.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 
 import com.example.tastetrouverestaurantowner.Activity.AddItem;
 import com.example.tastetrouverestaurantowner.Activity.ViewItemsActivity;
+import com.example.tastetrouverestaurantowner.R;
 
 
 public class HomeFragment extends Fragment {

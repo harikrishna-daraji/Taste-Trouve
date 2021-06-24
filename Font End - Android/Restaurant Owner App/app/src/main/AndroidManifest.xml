@@ -16,22 +16,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TasteTrouveRestaurantOwner"
         android:usesCleartextTraffic="true">
-        <activity android:name=".SplashActivity">
+        <activity android:name=".Activity.UpdateItemActivity"></activity>
+        <activity android:name=".Activity.ViewItemsActivity" />
+        <activity android:name=".Activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
-        <activity android:name=".SignUpActivity" />
-        <activity android:name=".LogInActivity">
-
-        </activity>
+        <activity android:name=".Activity.SignUpActivity" />
+        <activity android:name=".Activity.LogInActivity" />
         <activity
-            android:name=".AddItem"
+            android:name=".Activity.AddItem"
             android:label="@string/title_activity_add_item" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".Activity.MainActivity">
 
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->

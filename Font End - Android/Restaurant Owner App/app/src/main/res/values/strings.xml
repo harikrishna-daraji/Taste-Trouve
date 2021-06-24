@@ -19,4 +19,6 @@
     <string name="add_item">Add Item</string>
     <string name="pending_orders">Pending Orders</string>
     <string name="accepted_orders">Accepted Orders</string>
+    <string name="update_product">Update Product</string>
+    <string name="settings">Settings</string>
 </resources>
