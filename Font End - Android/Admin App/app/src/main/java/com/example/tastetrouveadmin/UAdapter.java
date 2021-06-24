@@ -1,6 +1,7 @@
 package com.example.tastetrouveadmin;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,63 +56,45 @@ public class UAdapter extends RecyclerView.Adapter<UAdapter.ViewHolder> {
         holder.Accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                ChangeStatus("accepted" ,uDataList.get_id());
-                Call<ResponseBody> call = APIClient.getInstance().getApi().updateRestaurantStatus(uDataList.get_id(),"accepted ");
 
-                call.enqueue(new Callback<ResponseBody>() {
-                    @Override
-                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show();
-                    }
+                changeStatus(uDataList.get_id(),"accepted",position,holder);
 
-                    @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-                        Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-
-//                    @Override
-//                    public void onResponse(Call<List<ResponseBody>> call, Response<List<ResponseBody>> response) {
-//                        Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show();
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<List<ResponseBody>> call, Throwable t) {
-//
-//                        Toast.makeText(context, "Failure", Toast.LENGTH_SHORT).show();
-//                    }
-
-
-                });
-
-                //Toast.makeText(context, "Accept Clicked", Toast.LENGTH_SHORT).show();
             }
         });
 
         holder.Reject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "Reject Clicked", Toast.LENGTH_SHORT).show();
+                changeStatus(uDataList.get_id(),"declined",position,holder);
             }
         });
     }
 
-    private void ChangeStatus(String approved, String id) {
-//        Call<List<ResponseBody>> call = APIClient.getInstance().getApi().updateRestaurantStatus(approved,id);
-//
-//        call.enqueue(new Callback<ResponseBody>() {
-//
-//            @Override
-//            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-//                Toast.makeText(context,"Status Update", Toast.LENGTH_LONG).show();
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ResponseBody> call, Throwable t) {
-//                Toast.makeText(context, t.getMessage(), Toast.LENGTH_LONG).show();
-//            }
-//        });
-    }
+    private void changeStatus(String id, String accepted, int position, ViewHolder holder) {
+        Call<List<UData>> call = APIClient.getInstance().getApi().updateRestaurantStatus(id,accepted);
 
+        call.enqueue(new Callback<List<UData>>() {
+            @Override
+            public void onResponse(Call<List<UData>> call, Response<List<UData>> response) {
+
+                Toast.makeText(context, "Status Changed", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<List<UData>> call, Throwable t) {
+                //   Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.d("aa", t.getMessage().toString());
+            }
+
+
+        });
+
+
+        uData.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, uData.size());
+        holder.itemView.setVisibility(View.GONE);
+    }
 
 
     @Override

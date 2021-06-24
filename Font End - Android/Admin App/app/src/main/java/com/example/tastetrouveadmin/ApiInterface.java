@@ -15,9 +15,10 @@ public interface ApiInterface {
 
 
 
+
     @FormUrlEncoded
     @PUT("restaurantUsers/UpdateRestuarantStatus")
-    Call<ResponseBody> updateRestaurantStatus(
+    Call<List<UData>> updateRestaurantStatus(
             @Field("restaurantId") String restaurantId,
             @Field("updateStatus") String updateStatus
     );
