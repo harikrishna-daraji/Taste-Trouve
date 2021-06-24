@@ -27,7 +27,7 @@
             android:textStyle="bold"
             android:layout_gravity="center"
             android:textSize="20dp"
-            android:text="Welcome Admin"/>
+            android:text="Welcome Owner"/>
     </LinearLayout>
 
 
