@@ -71,4 +71,29 @@ router.post("/getProductsByMainCategory", async (req, res) => {
   res.json(product);
 });
 
+router.post("/getProductsByRestaurant", async (req, res) => {
+  const { restaurantId } = req.body;
+
+  const product = await Product.find({
+    restaurantId,
+    visibleStatus: true,
+  });
+  res.json(product);
+});
+
+router.put("/deleteProduct", async (req, res) => {
+  let { productId } = req.body;
+  Product.updateOne(
+    { _id: productId },
+    { visibleStatus: false },
+    function (err, docs) {
+      if (err) {
+        res.send(err);
+      } else {
+        res.send("Updated");
+      }
+    }
+  );
+});
+
 module.exports = router;
