@@ -35,7 +35,7 @@ router.post("/register", async (req, res) => {
       fcmToken,
       phoneNumber,
       address,
-      status,
+      status: "pending",
       userType,
     });
 
@@ -77,10 +77,10 @@ router.get("/getRestaurants", async (req, res) => {
 });
 
 router.put("/UpdateRestuarantStatus", async (req, res) => {
-  let { restaurantId } = req.body;
+  let { restaurantId, updateStatus } = req.body;
   Restaurants.updateOne(
     { _id: restaurantId },
-    { status: true },
+    { status: updateStatus },
     function (err, docs) {
       if (err) {
         res.send(err);
