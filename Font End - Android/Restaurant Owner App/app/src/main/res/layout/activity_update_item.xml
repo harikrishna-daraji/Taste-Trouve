@@ -2,16 +2,16 @@
 <ScrollView android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent">
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginHorizontal="20dp"
-    android:orientation="vertical"
-    android:padding="@dimen/box_inset_layout_padding"
-    tools:context=".Activity.AddItem"
-    >
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="20dp"
+        android:orientation="vertical"
+        android:padding="@dimen/box_inset_layout_padding"
+        tools:context=".Activity.AddItem"
+        >
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -19,7 +19,7 @@
             android:textColor="#0D164D"
             android:layout_marginTop="10dp"
             android:textSize="24dp"
-                android:text="Add Product"/>
+            android:text="Update Product"/>
 
         <ImageView
             android:id="@+id/imgView"
@@ -30,21 +30,6 @@
             android:background="@drawable/imageplaceholder"/>
 
 
-        <Spinner
-            android:id="@+id/categorySpinner"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@drawable/spinnerbackground"
-            android:layout_marginTop="20dp"
-            />
-
-        <Spinner
-            android:id="@+id/subCategorySpinner"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@drawable/spinnerbackground"
-            android:layout_marginTop="15dp"
-            />
 
 
         <com.google.android.material.textfield.TextInputLayout
@@ -56,13 +41,13 @@
             android:hint="Name"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/name"
-                    android:layout_width="match_parent"
-                    android:background="@drawable/tealtextbackground"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:background="@drawable/tealtextbackground"
 
-                    android:layout_height="wrap_content"
-                    />
+                android:layout_height="wrap_content"
+                />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -75,13 +60,13 @@
             android:hint="Price"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/price"
-                    android:layout_width="match_parent"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/price"
+                android:layout_width="match_parent"
 
-                    android:background="@drawable/tealtextbackground"
-                    android:layout_height="wrap_content"
-                    />
+                android:background="@drawable/tealtextbackground"
+                android:layout_height="wrap_content"
+                />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -94,12 +79,12 @@
             app:startIconDrawable="@drawable/ic_baseline_no_food_24"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/description"
-                    android:layout_width="match_parent"
-                    android:background="@drawable/tealtextbackground"
-                    android:layout_height="wrap_content"
-                    />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/description"
+                android:layout_width="match_parent"
+                android:background="@drawable/tealtextbackground"
+                android:layout_height="wrap_content"
+                />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -112,12 +97,12 @@
             app:startIconDrawable="@drawable/ic_baseline_no_food_24"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/calories"
-                    android:layout_width="match_parent"
-                    android:background="@drawable/tealtextbackground"
-                    android:layout_height="wrap_content"
-                    />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/calories"
+                android:layout_width="match_parent"
+                android:background="@drawable/tealtextbackground"
+                android:layout_height="wrap_content"
+                />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -130,12 +115,12 @@
             android:hint="Quantity"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/quantity"
-                    android:layout_width="match_parent"
-                    android:background="@drawable/tealtextbackground"
-                    android:layout_height="wrap_content"
-                    />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/quantity"
+                android:layout_width="match_parent"
+                android:background="@drawable/tealtextbackground"
+                android:layout_height="wrap_content"
+                />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -148,12 +133,12 @@
             android:hint="Delivery Time"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/deliveryTime"
-                    android:layout_width="match_parent"
-                    android:background="@drawable/tealtextbackground"
-                    android:layout_height="wrap_content"
-                    />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/deliveryTime"
+                android:layout_width="match_parent"
+                android:background="@drawable/tealtextbackground"
+                android:layout_height="wrap_content"
+                />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -163,7 +148,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:text="@string/add_to_kid_section"
-           />
+            />
 
         <CheckBox
             android:id="@+id/popularItem"
@@ -172,14 +157,14 @@
 
             android:layout_marginTop="15dp"
             android:text="@string/add_to_popular_section"
-           />
+            />
         <Button
-            android:id="@+id/addProduct"
+            android:id="@+id/updateProduct"
             android:layout_width="match_parent"
             android:backgroundTint="#0D164D"
             android:layout_height="wrap_content"
             android:textColor="#ffffff"
-                android:text="@string/add_item"/>
+            android:text="@string/update_product"/>
 
-</LinearLayout>
+    </LinearLayout>
 </ScrollView>

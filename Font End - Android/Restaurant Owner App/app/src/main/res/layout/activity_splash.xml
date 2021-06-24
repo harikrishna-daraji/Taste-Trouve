@@ -6,7 +6,7 @@
     android:background="@drawable/splashscreen"
     android:orientation="vertical"
     android:layout_height="match_parent"
-    tools:context=".SplashActivity">
+    tools:context=".Activity.SplashActivity">
 
 
 

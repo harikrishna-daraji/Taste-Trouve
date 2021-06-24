@@ -6,7 +6,10 @@ const RestaurantsSchema = new mongoose.Schema({
   fcmToken: { type: String },
   phoneNumber: { type: String },
   address: { type: String },
-  status: { type: Boolean },
+  status: {
+    type: String,
+    enum: ["pending", "accepted", "declined"],
+  },
   userType: {
     type: String,
     enum: ["admin", "restaurantOwner"],

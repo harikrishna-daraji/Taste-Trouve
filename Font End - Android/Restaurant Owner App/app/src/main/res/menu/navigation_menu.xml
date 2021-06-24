@@ -5,16 +5,16 @@
 
     android:title="@string/home"/>
 
-    <item android:id="@+id/pending"
-    android:icon="@drawable/ic_baseline_fastfood_24"
+    <item android:id="@+id/settings"
+    android:icon="@drawable/ic_baseline_settings_24"
 
-    android:title="@string/pending"/>
+    android:title="@string/settings"/>
 
-    <item android:id="@+id/accepted"
-    android:icon="@drawable/ic_baseline_favorite_border_24"
-    android:title="@string/accepted"/>
+<!--    <item android:id="@+id/accepted"-->
+<!--    android:icon="@drawable/ic_baseline_favorite_border_24"-->
+<!--    android:title="@string/accepted"/>-->
 
-    <item android:id="@+id/report"
-    android:icon="@drawable/ic_baseline_file_copy_24"
-    android:title="@string/report"/>
+<!--    <item android:id="@+id/report"-->
+<!--    android:icon="@drawable/ic_baseline_file_copy_24"-->
+<!--    android:title="@string/report"/>-->
 </menu>

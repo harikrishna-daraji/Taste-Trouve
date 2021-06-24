@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:background="@drawable/homescreen"
     android:layout_height="match_parent"
-    tools:context=".HomeFragment">
+    tools:context=".Fragment.HomeFragment">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -27,7 +27,7 @@
             android:textStyle="bold"
             android:layout_gravity="center"
             android:textSize="20dp"
-            android:text="Welcome Admin"/>
+            android:text="Welcome Owner"/>
     </LinearLayout>
 
 
@@ -45,17 +45,20 @@
     android:orientation="vertical"
     android:layout_height="130dp">
 <ImageView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:src="@drawable/ic_baseline_no_food_24"/>
+    android:layout_width="30dp"
+    android:layout_height="30dp"
+    android:src="@drawable/ic_baseline_settings_24"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="15dp"
+        android:layout_marginTop="10dp"
         android:textColor="#ffffff"
         android:text="@string/create_item"/>
 </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/viewItems"
     android:layout_width="150dp"
             android:layout_marginLeft="40dp"
     android:background="@drawable/roundblue"
@@ -63,13 +66,15 @@
     android:orientation="vertical"
     android:layout_height="130dp">
 <ImageView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:src="@drawable/ic_baseline_no_food_24"/>
+    android:layout_width="30dp"
+    android:layout_height="30dp"
+    android:src="@drawable/ic_baseline_remove_red_eye_24"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#ffffff"
+        android:textSize="15dp"
+        android:layout_marginTop="10dp"
         android:text="@string/view_items"/>
 </LinearLayout>
 
@@ -89,14 +94,16 @@
             android:orientation="vertical"
             android:layout_height="130dp">
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:src="@drawable/ic_baseline_no_food_24"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="15dp"
+                android:layout_marginTop="10dp"
                 android:textColor="#ffffff"
-                android:text="@string/create_item"/>
+                android:text="@string/pending_orders"/>
         </LinearLayout>
 
         <LinearLayout
@@ -107,14 +114,16 @@
             android:orientation="vertical"
             android:layout_height="130dp">
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_baseline_no_food_24"/>
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_baseline_celebration_24"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="15dp"
+                android:layout_marginTop="10dp"
                 android:textColor="#ffffff"
-                android:text="@string/view_items"/>
+                android:text="@string/accepted_orders"/>
         </LinearLayout>
 
     </LinearLayout>
@@ -133,14 +142,16 @@
             android:orientation="vertical"
             android:layout_height="130dp">
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_baseline_no_food_24"/>
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_baseline_auto_graph_24"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="15dp"
+                android:layout_marginTop="10dp"
                 android:textColor="#ffffff"
-                android:text="@string/create_item"/>
+                android:text="Report"/>
         </LinearLayout>
 
         <LinearLayout
@@ -151,12 +162,14 @@
             android:orientation="vertical"
             android:layout_height="130dp">
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:src="@drawable/ic_baseline_no_food_24"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="15dp"
+                android:layout_marginTop="10dp"
                 android:textColor="#ffffff"
                 android:text="@string/view_items"/>
         </LinearLayout>
