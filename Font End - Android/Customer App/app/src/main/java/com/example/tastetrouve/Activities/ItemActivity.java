@@ -19,6 +19,7 @@ import com.example.tastetrouve.Models.GlobalObjects;
 import com.example.tastetrouve.Models.ItemProductModel;
 import com.example.tastetrouve.Models.KidSectionModel;
 import com.example.tastetrouve.Models.PopularSectionModel;
+import com.example.tastetrouve.Models.SubCategoryModel;
 import com.example.tastetrouve.R;
 import com.google.android.gms.common.api.Api;
 
@@ -36,7 +37,7 @@ public class ItemActivity extends BaseActivity {
     List<ItemProductModel> itemProductModels;
     ArrayList<PopularSectionModel> popularSectionModels;
     List<KidSectionModel> kidSectionModels;
-    TextView topHeading;
+    TextView topHeading, noResultTV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,11 +63,12 @@ public class ItemActivity extends BaseActivity {
             topHeading.setText(GlobalObjects.ModelList.Popular.toString());
             popularSectionModels = (ArrayList) getIntent().getStringArrayListExtra(GlobalObjects.ModelList.Popular.toString());
             itemRecycle.setAdapter(new ItemRecycleAdapter(this,popularSectionModels));
-        } else if(getIntent().hasExtra(GlobalObjects.ModelList.Restaurant.toString()) && getIntent().hasExtra(GlobalObjects.ModelList.Category.toString())) {
+        } else if(getIntent().hasExtra(GlobalObjects.ModelList.Restaurant.toString()) && getIntent().hasExtra(GlobalObjects.ModelList.Category.toString()) && getIntent().hasExtra(GlobalObjects.ModelList.Subcategory.toString())) {
             String categoryID = getIntent().getStringExtra(GlobalObjects.ModelList.Category.toString());
-            String subCategoryID = getIntent().getStringExtra(GlobalObjects.ModelList.Subcategory.toString());
+            SubCategoryModel model = (SubCategoryModel) getIntent().getSerializableExtra(GlobalObjects.ModelList.Subcategory.toString());
             String restaurantID = getIntent().getStringExtra(GlobalObjects.ModelList.Restaurant.toString());
-            getProductOfRestaurant(categoryID,subCategoryID,restaurantID);
+            getProductOfRestaurant(categoryID,model.get_id(),restaurantID);
+            topHeading.setText(model.getName());
         }
 
     }
@@ -79,6 +81,7 @@ public class ItemActivity extends BaseActivity {
             }
         });
 
+        noResultTV = findViewById(R.id.noResultTV);
         topHeading = findViewById(R.id.topHeading);
         itemRecycle = findViewById(R.id.itemRecycle);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this,2);
@@ -96,6 +99,14 @@ public class ItemActivity extends BaseActivity {
                         if(response.code() == 200) {
                             itemProductModels = response.body();
                             itemRecycle.setAdapter(new ItemRecycleAdapter(ItemActivity.this,itemProductModels));
+
+                            if(itemProductModels.size() == 0) {
+                                noResultTV.setVisibility(View.VISIBLE);
+                                itemRecycle.setVisibility(View.GONE);
+                            } else {
+                                noResultTV.setVisibility(View.GONE);
+                                itemRecycle.setVisibility(View.VISIBLE);
+                            }
                         }
                     } catch (Exception ex) {
                         Log.i("TAG","TAG "+ex.getMessage());
@@ -124,6 +135,13 @@ public class ItemActivity extends BaseActivity {
                         if(response.code() == 200) {
                             itemProductModels = response.body();
                             itemRecycle.setAdapter(new ItemRecycleAdapter(ItemActivity.this,itemProductModels));
+                            if(itemProductModels.size() == 0) {
+                                noResultTV.setVisibility(View.VISIBLE);
+                                itemRecycle.setVisibility(View.GONE);
+                            } else {
+                                noResultTV.setVisibility(View.GONE);
+                                itemRecycle.setVisibility(View.VISIBLE);
+                            }
                         }
                     } catch (Exception ex) {
                         Log.i("TAG","TAG "+ex.getMessage());

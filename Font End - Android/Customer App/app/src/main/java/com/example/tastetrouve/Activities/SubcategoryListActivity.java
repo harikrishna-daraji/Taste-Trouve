@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.example.tastetrouve.Adapters.SubCategoryRecycleAdapter;
 import com.example.tastetrouve.HelperClass.ApiClient;
 import com.example.tastetrouve.HelperClass.ApiInterface;
+import com.example.tastetrouve.Models.CategoryModel;
 import com.example.tastetrouve.Models.GlobalObjects;
 import com.example.tastetrouve.Models.SubCategoryModel;
 import com.example.tastetrouve.R;
@@ -56,9 +57,10 @@ public class SubcategoryListActivity extends BaseActivity {
 
     private void manageIntent() {
         if(getIntent().hasExtra(GlobalObjects.ModelList.Restaurant.toString()) && getIntent().hasExtra(GlobalObjects.ModelList.Category.toString())) {
-            String categoryID = getIntent().getStringExtra(GlobalObjects.ModelList.Category.toString());
+            CategoryModel categoryModel = (CategoryModel)getIntent().getSerializableExtra(GlobalObjects.ModelList.Category.toString());
             String restaurantID = getIntent().getStringExtra(GlobalObjects.ModelList.Restaurant.toString());
-            getSubCategory(categoryID,restaurantID);
+            topHeading.setText(categoryModel.getName());
+            getSubCategory(categoryModel.get_id(),restaurantID);
         }
     }
 

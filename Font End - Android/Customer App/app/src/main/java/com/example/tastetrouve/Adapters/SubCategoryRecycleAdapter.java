@@ -54,7 +54,7 @@ public class SubCategoryRecycleAdapter extends RecyclerView.Adapter<SubCategoryR
                 Intent intent = new Intent(activity, ItemActivity.class);
                 intent.putExtra(GlobalObjects.ModelList.Category.toString(),categoryID);
                 intent.putExtra(GlobalObjects.ModelList.Restaurant.toString(),restaurantID);
-                intent.putExtra(GlobalObjects.ModelList.Subcategory.toString(),model.get_id());
+                intent.putExtra(GlobalObjects.ModelList.Subcategory.toString(),model);
                 activity.startActivity(intent);
             }
         });

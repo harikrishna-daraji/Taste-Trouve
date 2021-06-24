@@ -8,6 +8,7 @@
     tools:context=".Activities.SubcategoryListActivity">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:background="?attr/backgroundColor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/appBarTop"

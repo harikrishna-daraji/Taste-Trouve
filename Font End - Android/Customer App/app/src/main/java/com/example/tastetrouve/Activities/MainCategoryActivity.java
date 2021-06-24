@@ -41,6 +41,12 @@ public class MainCategoryActivity extends BaseActivity {
     }
 
     private void initUI() {
+        findViewById(R.id.backBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         topHeading = findViewById(R.id.topHeading);
         appetizerImg = findViewById(R.id.appetizerImg);
         mainCourseImg = findViewById(R.id.mainCourseImg);
@@ -50,7 +56,7 @@ public class MainCategoryActivity extends BaseActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainCategoryActivity.this,SubcategoryListActivity.class);
                 intent.putExtra(GlobalObjects.ModelList.Restaurant.toString(),restaurantModel.get_id());
-                intent.putExtra(GlobalObjects.ModelList.Category.toString(),appetizerModel.get_id());
+                intent.putExtra(GlobalObjects.ModelList.Category.toString(),appetizerModel);
                 startActivity(intent);
             }
         });
@@ -60,7 +66,7 @@ public class MainCategoryActivity extends BaseActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainCategoryActivity.this,SubcategoryListActivity.class);
                 intent.putExtra(GlobalObjects.ModelList.Restaurant.toString(),restaurantModel.get_id());
-                intent.putExtra(GlobalObjects.ModelList.Category.toString(),main_CourseModel.get_id());
+                intent.putExtra(GlobalObjects.ModelList.Category.toString(),main_CourseModel);
                 startActivity(intent);
             }
         });
@@ -70,7 +76,7 @@ public class MainCategoryActivity extends BaseActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainCategoryActivity.this,SubcategoryListActivity.class);
                 intent.putExtra(GlobalObjects.ModelList.Restaurant.toString(),restaurantModel.get_id());
-                intent.putExtra(GlobalObjects.ModelList.Category.toString(),dessertModel.get_id());
+                intent.putExtra(GlobalObjects.ModelList.Category.toString(),dessertModel);
                 startActivity(intent);
             }
         });

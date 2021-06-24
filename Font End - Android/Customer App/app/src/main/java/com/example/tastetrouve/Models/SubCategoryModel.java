@@ -1,6 +1,8 @@
 package com.example.tastetrouve.Models;
 
-public class SubCategoryModel {
+import java.io.Serializable;
+
+public class SubCategoryModel implements Serializable {
     String _id;
     String name;
     String image;

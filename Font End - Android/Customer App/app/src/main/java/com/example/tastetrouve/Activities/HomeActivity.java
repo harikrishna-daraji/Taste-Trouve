@@ -21,6 +21,7 @@ import com.example.tastetrouve.Models.CategoryModel;
 import com.example.tastetrouve.Models.GlobalObjects;
 import com.example.tastetrouve.Models.HomeProductModel;
 import com.example.tastetrouve.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 
@@ -47,6 +48,10 @@ public class HomeActivity extends BaseActivity {
     }
 
     private void initUI() {
+//        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavView);
+//        bottomNavigationView.setBackground(null);
+//        bottomNavigationView.getMenu().getItem(2).setEnabled(false);
+
         findViewById(R.id.appetizerLinear).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,7 +89,7 @@ public class HomeActivity extends BaseActivity {
                 Intent intent = new Intent(HomeActivity.this,ItemActivity.class);
                 intent.putExtra("section", GlobalObjects.Category.dessert.toString());
                 for(CategoryModel model: homeProductModel.getCategoryObject()) {
-                    if(model.getName().equals("Drinks")) {
+                    if(model.getName().equals("Dessert")) {
                         intent.putExtra("categoryId",model.get_id());
                         break;
                     }
