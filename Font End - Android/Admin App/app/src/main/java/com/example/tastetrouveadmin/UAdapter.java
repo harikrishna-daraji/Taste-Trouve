@@ -13,6 +13,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
+
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class UAdapter extends RecyclerView.Adapter<UAdapter.ViewHolder> {
 
@@ -48,7 +55,35 @@ public class UAdapter extends RecyclerView.Adapter<UAdapter.ViewHolder> {
         holder.Accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "Accept Clicked", Toast.LENGTH_SHORT).show();
+//                ChangeStatus("accepted" ,uDataList.get_id());
+                Call<ResponseBody> call = APIClient.getInstance().getApi().updateRestaurantStatus(uDataList.get_id(),"accepted ");
+
+                call.enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+
+//                    @Override
+//                    public void onResponse(Call<List<ResponseBody>> call, Response<List<ResponseBody>> response) {
+//                        Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show();
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<List<ResponseBody>> call, Throwable t) {
+//
+//                        Toast.makeText(context, "Failure", Toast.LENGTH_SHORT).show();
+//                    }
+
+
+                });
+
+                //Toast.makeText(context, "Accept Clicked", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -59,6 +94,25 @@ public class UAdapter extends RecyclerView.Adapter<UAdapter.ViewHolder> {
             }
         });
     }
+
+    private void ChangeStatus(String approved, String id) {
+//        Call<List<ResponseBody>> call = APIClient.getInstance().getApi().updateRestaurantStatus(approved,id);
+//
+//        call.enqueue(new Callback<ResponseBody>() {
+//
+//            @Override
+//            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+//                Toast.makeText(context,"Status Update", Toast.LENGTH_LONG).show();
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ResponseBody> call, Throwable t) {
+//                Toast.makeText(context, t.getMessage(), Toast.LENGTH_LONG).show();
+//            }
+//        });
+    }
+
+
 
     @Override
     public int getItemCount() {

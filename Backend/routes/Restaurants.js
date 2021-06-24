@@ -78,6 +78,8 @@ router.get("/getRestaurants", async (req, res) => {
 
 router.put("/UpdateRestuarantStatus", async (req, res) => {
   let { restaurantId, updateStatus } = req.body;
+
+  
   Restaurants.updateOne(
     { _id: restaurantId },
     { status: updateStatus },

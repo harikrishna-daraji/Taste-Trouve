@@ -1,13 +1,23 @@
 package com.example.tastetrouveadmin;
 
 public class UData {
+    String _id;
     String restaurantName,email,phoneNumber,address;
 
-    public UData(String restaurantName, String email, String phoneNumber, String address) {
+    public UData(String restaurantName, String email, String phoneNumber, String address , String _id) {
         this.restaurantName = restaurantName;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.address = address;
+        this._id = _id;
+    }
+
+    public String get_id() {
+        return _id;
+    }
+
+    public void set_id(String _id) {
+        this._id = _id;
     }
 
     public String getRestaurantName() {
