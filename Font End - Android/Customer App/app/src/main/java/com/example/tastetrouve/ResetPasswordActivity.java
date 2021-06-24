@@ -151,7 +151,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
                     });
         }else{
             newpassword.requestFocus();
-            newpassword.setError("New Passwords do not mattch");
+            newpassword.setError("New Passwords do not match");
         }
     }
 }
