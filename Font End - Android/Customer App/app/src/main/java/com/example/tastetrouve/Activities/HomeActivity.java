@@ -138,7 +138,7 @@ public class HomeActivity extends BaseActivity {
                             Log.i("TAG","TAG Size: "+homeProductModel.getRestaurants().size());
                             topSellingRecycle.setAdapter(new TopSellingRecycleAdapter(HomeActivity.this,homeProductModel.getPopular()));
                             kidMenuRecycle.setAdapter(new KidMenuRecycleAdapter(HomeActivity.this,homeProductModel.getKidsSection()));
-                            restaurantRecycle.setAdapter(new RestaurantRecycleAdapter(HomeActivity.this,homeProductModel.getRestaurants()));
+                            restaurantRecycle.setAdapter(new RestaurantRecycleAdapter(HomeActivity.this,homeProductModel.getRestaurants(),homeProductModel.getCategoryObject()));
                         } else {
                             Log.i("TAG","TAG: Code: "+response.code()+" Message: "+response.message());
                         }

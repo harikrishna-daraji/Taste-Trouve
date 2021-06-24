@@ -2,6 +2,7 @@ package com.example.tastetrouve.HelperClass;
 
 import com.example.tastetrouve.Models.HomeProductModel;
 import com.example.tastetrouve.Models.ItemProductModel;
+import com.example.tastetrouve.Models.SubCategoryModel;
 import com.example.tastetrouve.Models.UserModel;
 
 import java.util.List;
@@ -32,5 +33,13 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("clientUser/login")
     Call<UserModel> login(@Field("email") String email, @Field("password") String password);
+
+    @FormUrlEncoded
+    @POST("subCategory/getSubById")
+    Call<List<SubCategoryModel>> getSubCategoryOfCategory(@Field("categoryId") String categoryId);
+
+    @FormUrlEncoded
+    @POST("product/getProducts")
+    Call<List<ItemProductModel>> getProductOfRestaurant(@Field("restaurantId") String restaurantId,@Field("categoryId") String categoryId, @Field("subCategoryId") String subCategoryId);
 
 }
