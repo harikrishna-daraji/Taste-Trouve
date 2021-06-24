@@ -67,7 +67,7 @@ router.post("/login", async (req, res) => {
 
 router.get("/getRestaurants", async (req, res) => {
   try {
-    const restaurant = await Restaurants.find({ status: false });
+    const restaurant = await Restaurants.find({ status: "pending" });
 
     res.send(restaurant);
   } catch (err) {
