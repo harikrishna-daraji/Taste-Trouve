@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -34,6 +36,8 @@ public class SignIn extends AppCompatActivity {
     TextView signup, forgotpassword;
     ImageButton signin,facebook,google;
     ImageView hide;
+
+    boolean show = true;
 
     FirebaseAuth mAuth;
 
@@ -65,10 +69,11 @@ public class SignIn extends AppCompatActivity {
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
+
         forgotpassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                startActivity(new Intent(SignIn.this,ForgotPassword.class));
             }
         });
 
@@ -93,6 +98,19 @@ public class SignIn extends AppCompatActivity {
                 signIn();
             }
         });
+
+        hide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(show == true){
+                   password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                   show = false;
+                }else{
+                    password.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    show = true;
+                }
+            }
+        });
     }
 
 
@@ -106,6 +124,8 @@ public class SignIn extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             Toast.makeText(SignIn.this, "Signed in successfully", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(SignIn.this,HomeActivity.class));
+                            finish();
                         }   else{
                             Toast.makeText(SignIn.this, "Failed to Login. Enter correct credentials", Toast.LENGTH_SHORT).show();
                         }

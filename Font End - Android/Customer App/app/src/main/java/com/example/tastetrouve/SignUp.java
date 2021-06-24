@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
@@ -28,6 +30,8 @@ public class SignUp extends AppCompatActivity {
     ImageView hide;
     ImageButton signup;
     TextView signin;
+
+    boolean Hide = true;
 
     private FirebaseAuth mAuth;
     @Override
@@ -56,6 +60,24 @@ public class SignUp extends AppCompatActivity {
             public void onClick(View v) {
 
                 RegisterUser();
+            }
+        });
+        hide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(Hide == true){
+                    password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    Hide = false;
+                }else{
+                    password.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    Hide = true;
+                }
+            }
+        });
+        signin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(SignUp.this,SignIn.class));
             }
         });
     }
