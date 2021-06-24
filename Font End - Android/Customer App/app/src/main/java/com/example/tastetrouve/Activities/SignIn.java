@@ -119,19 +119,6 @@ public class SignIn extends BaseActivity {
                 signIn();
             }
         });
-
-        hide.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(show == true){
-                   password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                   show = false;
-                }else{
-                    password.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                    show = true;
-                }
-            }
-        });
     }
 
     boolean isValidEmail(String email) {
