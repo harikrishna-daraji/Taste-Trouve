@@ -17,4 +17,6 @@
     <string name="add_to_kid_section">Add to Kid Section</string>
     <string name="add_to_popular_section">Add to Popular Section</string>
     <string name="add_item">Add Item</string>
+    <string name="pending_orders">Pending Orders</string>
+    <string name="accepted_orders">Accepted Orders</string>
 </resources>

@@ -14,6 +14,7 @@ const productSchema = new mongoose.Schema({
   quantity: { type: Number },
   kidSection: { type: Boolean },
   popular: { type: Boolean },
+  visibleStatus: { type: Boolean },
   DeliveryTime: { type: String },
 });
 

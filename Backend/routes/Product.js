@@ -39,6 +39,7 @@ router.post("/add", async (req, res) => {
       quantity,
       kidSection,
       popular,
+      visibleStatus: true,
       DeliveryTime,
     });
 
