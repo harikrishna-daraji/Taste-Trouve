@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -80,10 +82,11 @@ public class SignIn extends BaseActivity {
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
+
         forgotpassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                startActivity(new Intent(SignIn.this,ForgotPassword.class));
             }
         });
 
@@ -143,6 +146,8 @@ public class SignIn extends BaseActivity {
                         if(task.isSuccessful()){
                             callLoginApi();
                             Toast.makeText(SignIn.this, "Signed in successfully", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(SignIn.this,HomeActivity.class));
+                            finish();
                         }   else{
                             Toast.makeText(SignIn.this, "Failed to Login. Enter correct credentials", Toast.LENGTH_SHORT).show();
                         }
