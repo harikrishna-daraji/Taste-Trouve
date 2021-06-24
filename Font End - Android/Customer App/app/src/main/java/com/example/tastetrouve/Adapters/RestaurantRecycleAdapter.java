@@ -2,6 +2,7 @@ package com.example.tastetrouve.Adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,9 +14,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.tastetrouve.Activities.MainCategoryActivity;
+import com.example.tastetrouve.Models.GlobalObjects;
 import com.example.tastetrouve.Models.RestaurantModel;
 import com.example.tastetrouve.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RestaurantRecycleAdapter extends RecyclerView.Adapter<RestaurantRecycleAdapter.ViewHolder>{
@@ -43,7 +47,9 @@ public class RestaurantRecycleAdapter extends RecyclerView.Adapter<RestaurantRec
         holder.restaurantRelative.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(activity, MainCategoryActivity.class);
+                intent.putExtra(GlobalObjects.ModelList.Restaurant.toString(),model);
+                activity.startActivity(intent);
             }
         });
     }
