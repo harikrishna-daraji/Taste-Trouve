@@ -1,4 +1,4 @@
-package com.example.tastetrouve;
+package com.example.tastetrouve.Activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,18 +6,23 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.LinearLayout;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.tastetrouve.HelperClass.AbsolutefitLayourManager;
 import com.example.tastetrouve.Adapters.KidMenuRecycleAdapter;
 import com.example.tastetrouve.Adapters.RestaurantRecycleAdapter;
 import com.example.tastetrouve.Adapters.TopSellingRecycleAdapter;
+import com.example.tastetrouve.HelperClass.ApiClient;
+import com.example.tastetrouve.HelperClass.ApiInterface;
 import com.example.tastetrouve.Models.CategoryModel;
 import com.example.tastetrouve.Models.GlobalObjects;
 import com.example.tastetrouve.Models.HomeProductModel;
+import com.example.tastetrouve.R;
+
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -32,7 +37,7 @@ public class HomeActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTheme(loadStyle(true));
+        setTheme(loadStyle(false));
         sharedPreferences = getApplicationContext().getSharedPreferences("LANGUAGE", Context.MODE_PRIVATE);
         String language = sharedPreferences.getString("code","en");
         setLanguage(language);
@@ -45,7 +50,7 @@ public class HomeActivity extends BaseActivity {
         findViewById(R.id.appetizerLinear).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this,ItemActivity.class);
+                Intent intent = new Intent(HomeActivity.this, ItemActivity.class);
                 intent.putExtra("section", GlobalObjects.Category.appetizer.toString());
                 for(CategoryModel model: homeProductModel.getCategoryObject()) {
                     if(model.getName().equals("Appetizers")) {
@@ -92,6 +97,7 @@ public class HomeActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HomeActivity.this,ItemActivity.class);
+                intent.putStringArrayListExtra(GlobalObjects.ModelList.Kid.toString(),(ArrayList)homeProductModel.getKidsSection());
                 startActivity(intent);
             }
         });
@@ -100,6 +106,7 @@ public class HomeActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HomeActivity.this,ItemActivity.class);
+                intent.putStringArrayListExtra(GlobalObjects.ModelList.Popular.toString(),(ArrayList)homeProductModel.getPopular());
                 startActivity(intent);
             }
         });
@@ -117,7 +124,6 @@ public class HomeActivity extends BaseActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,RecyclerView.HORIZONTAL,false);
         restaurantRecycle = findViewById(R.id.restaurantRecycle);
         restaurantRecycle.setLayoutManager(linearLayoutManager);
-        restaurantRecycle.setAdapter(new RestaurantRecycleAdapter(this));
     }
 
     private void getHomeProducts() {
@@ -129,8 +135,10 @@ public class HomeActivity extends BaseActivity {
                     try {
                         if(response.code() == 200) {
                             homeProductModel = response.body();
+                            Log.i("TAG","TAG Size: "+homeProductModel.getRestaurants().size());
                             topSellingRecycle.setAdapter(new TopSellingRecycleAdapter(HomeActivity.this,homeProductModel.getPopular()));
                             kidMenuRecycle.setAdapter(new KidMenuRecycleAdapter(HomeActivity.this,homeProductModel.getKidsSection()));
+                            restaurantRecycle.setAdapter(new RestaurantRecycleAdapter(HomeActivity.this,homeProductModel.getRestaurants()));
                         } else {
                             Log.i("TAG","TAG: Code: "+response.code()+" Message: "+response.message());
                         }

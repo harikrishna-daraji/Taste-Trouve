@@ -1,4 +1,4 @@
-package com.example.tastetrouve;
+package com.example.tastetrouve.HelperClass;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

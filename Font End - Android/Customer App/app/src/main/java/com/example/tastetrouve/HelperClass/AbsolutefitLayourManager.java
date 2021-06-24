@@ -1,4 +1,4 @@
-package com.example.tastetrouve;
+package com.example.tastetrouve.HelperClass;
 import android.content.Context;
 
 import android.util.AttributeSet;

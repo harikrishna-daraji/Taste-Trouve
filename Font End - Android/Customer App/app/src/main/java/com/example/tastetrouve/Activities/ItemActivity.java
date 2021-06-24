@@ -1,19 +1,26 @@
-package com.example.tastetrouve;
+package com.example.tastetrouve.Activities;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.tastetrouve.Adapters.ItemRecycleAdapter;
+import com.example.tastetrouve.HelperClass.ApiClient;
+import com.example.tastetrouve.HelperClass.ApiInterface;
+import com.example.tastetrouve.Models.GlobalObjects;
 import com.example.tastetrouve.Models.ItemProductModel;
+import com.example.tastetrouve.Models.KidSectionModel;
+import com.example.tastetrouve.Models.PopularSectionModel;
+import com.example.tastetrouve.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -25,12 +32,14 @@ public class ItemActivity extends BaseActivity {
     RecyclerView itemRecycle;
     SharedPreferences sharedPreferences;
     List<ItemProductModel> itemProductModels;
+    ArrayList<PopularSectionModel> popularSectionModels;
+    List<KidSectionModel> kidSectionModels;
     TextView topHeading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTheme(loadStyle(true));
+        setTheme(loadStyle(false));
         sharedPreferences = getApplicationContext().getSharedPreferences("LANGUAGE", Context.MODE_PRIVATE);
         String language = sharedPreferences.getString("code","en");
         setLanguage(language);
@@ -43,11 +52,26 @@ public class ItemActivity extends BaseActivity {
         if(getIntent().hasExtra("section") && getIntent().hasExtra("categoryId")) {
             topHeading.setText(getIntent().getStringExtra("section"));
             getProductsOfMainCategory(getIntent().getStringExtra("categoryId"));
+        } else if(getIntent().hasExtra(GlobalObjects.ModelList.Kid.toString())) {
+            topHeading.setText(GlobalObjects.ModelList.Kid.toString());
+            kidSectionModels = (List) getIntent().getStringArrayListExtra(GlobalObjects.ModelList.Kid.toString());
+            itemRecycle.setAdapter(new ItemRecycleAdapter(kidSectionModels,this));
+        } else if(getIntent().hasExtra(GlobalObjects.ModelList.Popular.toString())) {
+            topHeading.setText(GlobalObjects.ModelList.Popular.toString());
+            popularSectionModels = (ArrayList) getIntent().getStringArrayListExtra(GlobalObjects.ModelList.Popular.toString());
+            itemRecycle.setAdapter(new ItemRecycleAdapter(this,popularSectionModels));
         }
 
     }
 
     private void initUI() {
+        findViewById(R.id.backBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
         topHeading = findViewById(R.id.topHeading);
         itemRecycle = findViewById(R.id.itemRecycle);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this,2);
