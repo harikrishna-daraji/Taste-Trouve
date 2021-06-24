@@ -96,4 +96,41 @@ router.put("/deleteProduct", async (req, res) => {
   );
 });
 
+router.put("/update", async (req, res) => {
+  let {
+    productId,
+    name,
+    image,
+    price,
+    description,
+    calories,
+    quantity,
+    kidSection,
+    popular,
+    DeliveryTime,
+  } = req.body;
+
+  Product.updateOne(
+    { _id: productId },
+    {
+      name,
+      image,
+      price,
+      description,
+      calories,
+      quantity,
+      kidSection,
+      popular,
+      DeliveryTime,
+    },
+    function (err, docs) {
+      if (err) {
+        res.send(err);
+      } else {
+        res.send("Updated");
+      }
+    }
+  );
+});
+
 module.exports = router;
