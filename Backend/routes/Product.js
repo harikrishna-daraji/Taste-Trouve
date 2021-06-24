@@ -133,4 +133,9 @@ router.put("/update", async (req, res) => {
   );
 });
 
+router.get("/get", async (req, res) => {
+  const product = await Product.find();
+  res.json(product);
+});
+
 module.exports = router;
