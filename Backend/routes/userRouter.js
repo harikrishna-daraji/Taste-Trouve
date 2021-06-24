@@ -63,10 +63,19 @@ router.delete("/delete", async (req, res) => {
 });
 //token validation
 
-// getting the user that is currently logged in
-// router.get("/getCoach", async (req, res) => {
-//   const users = await User.find({ userType: "coach" });
-//   res.json(users);
-// });
+router.put("/update", async (req, res) => {
+  const data = req.body;
+
+  await User.updateOne(
+    { _id: data.userId },
+    {
+      ...data,
+    }
+  );
+
+  const updatedUser = await User.findById(data.userId);
+
+  return res.send({ data: updatedUser });
+});
 
 module.exports = router;
