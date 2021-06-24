@@ -131,7 +131,7 @@
             android:layout_marginTop="15dp"
             app:startIconDrawable="@drawable/ic_baseline_no_food_24"
             android:hint="Delivery Time"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/deliveryTime"
