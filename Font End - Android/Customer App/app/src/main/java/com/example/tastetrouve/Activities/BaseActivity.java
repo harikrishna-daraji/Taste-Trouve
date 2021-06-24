@@ -1,4 +1,4 @@
-package com.example.tastetrouve;
+package com.example.tastetrouve.Activities;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -6,6 +6,8 @@ import android.content.res.Configuration;
 import android.preference.PreferenceManager;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.tastetrouve.R;
 
 import java.util.Locale;
 

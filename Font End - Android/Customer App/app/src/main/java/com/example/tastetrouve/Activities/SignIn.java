@@ -1,9 +1,11 @@
-package com.example.tastetrouve;
+package com.example.tastetrouve.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,6 +15,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.tastetrouve.HelperClass.ApiClient;
+import com.example.tastetrouve.HelperClass.ApiInterface;
+import com.example.tastetrouve.Models.GlobalObjects;
+import com.example.tastetrouve.Models.UserModel;
+import com.example.tastetrouve.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -26,25 +33,34 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 import static android.content.ContentValues.TAG;
 
-public class SignIn extends AppCompatActivity {
+public class SignIn extends BaseActivity {
     private static final int RC_SIGN_IN = 123;
     EditText email,password;
     TextView signup, forgotpassword;
-    ImageButton signin,facebook,google;
-    ImageView hide;
-
+    ImageButton signin;
+    ImageView facebook,google;
+    SharedPreferences.Editor editor;
+    SharedPreferences sharedPreferences;
     FirebaseAuth mAuth;
 
     GoogleSignInClient mGoogleSignInClient;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(loadStyle(false));
+        sharedPreferences = getApplicationContext().getSharedPreferences("LANGUAGE", Context.MODE_PRIVATE);
+        String language = sharedPreferences.getString("code","en");
+        setLanguage(language);
         setContentView(R.layout.activity_sign_in);
 
-        email = findViewById(R.id.editTextTextPersonName);
-        password = findViewById(R.id.editTextTextPassword);
+        email = findViewById(R.id.emailEditText);
+        password = findViewById(R.id.passwordEditText);
 
         signup = findViewById(R.id.textViewSignUp);
 
@@ -52,7 +68,6 @@ public class SignIn extends AppCompatActivity {
         facebook = findViewById(R.id.imageButtonSignInFacebook);
         google = findViewById(R.id.imageButtonSignInGoogle);
 
-        hide = findViewById(R.id.imageView3);
 
         forgotpassword = findViewById(R.id.forgotPassword);
 
@@ -75,14 +90,22 @@ public class SignIn extends AppCompatActivity {
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(SignIn.this,SignUp.class));
+                startActivity(new Intent(SignIn.this, SignUp.class));
             }
         });
 
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LoginUser();
+                if(isValidEmail(email.getText().toString()) && isValidPassword(password.getText().toString())) {
+                    LoginUser();
+                } else{
+                    if(!isValidEmail(email.getText().toString())) {
+                        GlobalObjects.Toast(getBaseContext(),getString(R.string.please_enter_email));
+                    } else if(!isValidPassword(password.getText().toString())) {
+                        GlobalObjects.Toast(getBaseContext(),getString(R.string.please_enter_password));
+                    }
+                }
             }
         });
 
@@ -95,6 +118,19 @@ public class SignIn extends AppCompatActivity {
         });
     }
 
+    boolean isValidEmail(String email) {
+        if(!email.isEmpty()) {
+            return true;
+        }
+        return false;
+    }
+
+    boolean isValidPassword(String password) {
+        if(!password.isEmpty()) {
+            return true;
+        }
+        return false;
+    }
 
     private void LoginUser() {
         String SEmail = email.getText().toString().trim();
@@ -105,13 +141,49 @@ public class SignIn extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
+                            callLoginApi();
                             Toast.makeText(SignIn.this, "Signed in successfully", Toast.LENGTH_SHORT).show();
-
                         }   else{
                             Toast.makeText(SignIn.this, "Failed to Login. Enter correct credentials", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
+    }
+
+    private void saveLogInStatus(String token) {
+        sharedPreferences = getSharedPreferences("AuthenticationTypes", Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        editor.putString("token",token);
+        editor.putBoolean("signUpDone",true);
+        editor.commit();
+    }
+
+    private void callLoginApi() {
+        try {
+            ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+            apiInterface.login(email.getText().toString(),password.getText().toString()).enqueue(new Callback<UserModel>() {
+                @Override
+                public void onResponse(Call<UserModel> call, Response<UserModel> response) {
+                    try {
+                        Log.i("TAG","TAG: Code "+response.code()+" Message: "+response.message());
+                        if(response.code() == 200) {
+                            UserModel userModel = response.body();
+                            saveLogInStatus(userModel.get_id());
+                            startActivity(new Intent(SignIn.this, HomeActivity.class));
+                        }
+                    } catch (Exception ex) {
+                        Log.i("TAG","TAG "+ex.getMessage());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<UserModel> call, Throwable t) {
+                    Log.i("TAG","TAG: Server Failure"+t.getMessage());
+                }
+            });
+        } catch (Exception ex) {
+            Log.i("TAG","TAG "+ex.getMessage());
+        }
     }
 
     //Google signin - start

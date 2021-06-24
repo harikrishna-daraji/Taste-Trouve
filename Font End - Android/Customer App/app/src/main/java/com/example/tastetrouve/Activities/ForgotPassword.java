@@ -1,4 +1,4 @@
-package com.example.tastetrouve;
+package com.example.tastetrouve.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+
+import com.example.tastetrouve.R;
 
 public class ForgotPassword extends AppCompatActivity {
 

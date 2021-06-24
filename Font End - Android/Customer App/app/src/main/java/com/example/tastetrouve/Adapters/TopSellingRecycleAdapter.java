@@ -1,7 +1,6 @@
 package com.example.tastetrouve.Adapters;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,16 +12,14 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.tastetrouve.ItemDetailsActivity;
+import com.example.tastetrouve.Activities.ItemDetailsActivity;
 import com.example.tastetrouve.Models.GlobalObjects;
-import com.example.tastetrouve.Models.HomeProductModel;
 import com.example.tastetrouve.Models.PopularSectionModel;
 import com.example.tastetrouve.R;
 
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import retrofit2.Callback;
 
 public class TopSellingRecycleAdapter  extends RecyclerView.Adapter<TopSellingRecycleAdapter.ViewHolder>  {
 
@@ -52,7 +49,7 @@ public class TopSellingRecycleAdapter  extends RecyclerView.Adapter<TopSellingRe
             public void onClick(View v) {
                 Intent intent = new Intent(activity, ItemDetailsActivity.class);
                 intent.putExtra("product",model);
-                intent.putExtra("type", GlobalObjects.ModelList.popular.toString());
+                intent.putExtra("type", GlobalObjects.ModelList.Popular.toString());
                 activity.startActivity(intent);
             }
         });

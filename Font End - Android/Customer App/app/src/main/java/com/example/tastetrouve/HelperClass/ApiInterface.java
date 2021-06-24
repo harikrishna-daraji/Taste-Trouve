@@ -1,7 +1,8 @@
-package com.example.tastetrouve;
+package com.example.tastetrouve.HelperClass;
 
 import com.example.tastetrouve.Models.HomeProductModel;
 import com.example.tastetrouve.Models.ItemProductModel;
+import com.example.tastetrouve.Models.UserModel;
 
 import java.util.List;
 
@@ -24,8 +25,12 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("clientUser/register")
-    Call<ResponseBody> registerUser(@Field("email") String email,@Field("password") String password,@Field("displayname")
-            String displayname,@Field("fcmToken") String   fcmToken,@Field(" phoneNumber") String  phoneNumber,@Field("dateOfBirth") String dateOfBirth);
+    Call<UserModel> registerUser(@Field("email") String email, @Field("password") String password, @Field("displayname")
+            String displayname, @Field("fcmToken") String   fcmToken, @Field(" phoneNumber") String  phoneNumber, @Field("dateOfBirth") String dateOfBirth);
 
+
+    @FormUrlEncoded
+    @POST("clientUser/login")
+    Call<UserModel> login(@Field("email") String email, @Field("password") String password);
 
 }

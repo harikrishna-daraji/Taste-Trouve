@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ItemActivity">
+    tools:context=".Activities.ItemActivity">
 
 
     <com.google.android.material.appbar.AppBarLayout
@@ -28,7 +28,7 @@
                 >
                 <ImageView
                     app:tint="?attr/textColor"
-                    android:id="@+id/backBtnCart"
+                    android:id="@+id/backBtn"
                     android:layout_width="23dp"
                     android:layout_height="wrap_content"
                     android:src="@drawable/back_icon"
