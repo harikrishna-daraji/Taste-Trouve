@@ -42,4 +42,7 @@ public interface ApiInterface {
     @POST("product/getProducts")
     Call<List<ItemProductModel>> getProductOfRestaurant(@Field("restaurantId") String restaurantId,@Field("categoryId") String categoryId, @Field("subCategoryId") String subCategoryId);
 
+    @GET("product/get")
+    Call<List<ItemProductModel>> getAllProducts();
+
 }

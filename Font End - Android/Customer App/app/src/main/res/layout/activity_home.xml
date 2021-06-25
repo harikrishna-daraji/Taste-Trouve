@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,285 +7,364 @@
     android:layout_height="match_parent"
     tools:context=".Activities.HomeActivity">
 
-    <com.google.android.material.appbar.AppBarLayout
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/appBarTop">
-
-        <com.google.android.material.appbar.MaterialToolbar
-            android:background="?attr/backgroundColor"
+        android:layout_height="match_parent">
+        <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/toolbar">
-            <LinearLayout
+            android:id="@+id/appBarTop">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:background="?attr/backgroundColor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_weight="1"
-                    android:textColor="?attr/textColor"
-                    android:id="@+id/topHeading"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginTop="0dp"
-                    android:text="@string/welcome_john"
-                    android:textSize="25dp"></TextView>
-                <ImageView
-                    android:layout_weight="0.2"
-                    app:tint = "?attr/textColor"
-                    android:src="@drawable/filter_icon"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"/>
-                <ImageView
-                    android:layout_weight="0.2"
-                    app:tint = "?attr/textColor"
-                    android:src="@drawable/cart_icon"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"/>
+                android:id="@+id/toolbar">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_weight="1"
+                        android:textColor="?attr/textColor"
+                        android:id="@+id/topHeading"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="0dp"
+                        android:text="@string/welcome_john"
+                        android:textSize="25dp"></TextView>
+                    <ImageView
+                        android:layout_weight="0.2"
+                        app:tint = "?attr/textColor"
+                        android:src="@drawable/filter_icon"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"/>
+                    <ImageView
+                        android:layout_weight="0.2"
+                        app:tint = "?attr/textColor"
+                        android:src="@drawable/cart_icon"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"/>
 
-            </LinearLayout>
-        </com.google.android.material.appbar.MaterialToolbar>
+                </LinearLayout>
+            </com.google.android.material.appbar.MaterialToolbar>
 
-    </com.google.android.material.appbar.AppBarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
 
-    <SearchView
-        android:id="@+id/search"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        app:theme="@style/SearchViewStyle"
-        android:background="@drawable/search_shape"
-        android:layout_margin="15dp"
-        android:iconifiedByDefault="false"
-        android:focusableInTouchMode="true"
-        android:queryHint="Search"
-        android:searchIcon="@null"
-        android:queryBackground="@android:color/transparent">
-    </SearchView>
-
-    <ScrollView
-        android:layout_weight="1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
         <LinearLayout
-            android:orientation="vertical"
+            android:id="@+id/searchLinear"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            app:theme="@style/SearchViewStyle"
+            android:background="@drawable/search_shape"
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
+            <TextView
+                android:textSize="20sp"
+                android:layout_gravity="center"
+                android:layout_marginStart="25dp"
+                android:textColor="?attr/textColor"
+                android:text="@string/search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+<!--        <SearchView-->
+<!--            android:id="@+id/search"-->
+<!--            android:layout_width="fill_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:theme="@style/SearchViewStyle"-->
+<!--            android:background="@drawable/search_shape"-->
+<!--            android:layout_margin="15dp"-->
+<!--            android:iconifiedByDefault="false"-->
+<!--            android:clickable="true"-->
+<!--            android:queryHint="Search"-->
+<!--            android:searchIcon="@null"-->
+<!--            android:queryBackground="@android:color/transparent">-->
+<!--        </SearchView>-->
+
+        <ScrollView
+            android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <HorizontalScrollView
-                android:scrollbars="none"
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+                <HorizontalScrollView
+                    android:scrollbars="none"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp">
+                        <LinearLayout
+                            android:id="@+id/appetizerLinear"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:background="@drawable/appetizer_shape"
+                            android:orientation="horizontal"
+                            android:layout_width="150dp"
+                            android:layout_height="match_parent">
+                            <ImageView
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginStart="10dp"
+                                app:tint="@color/white"
+                                android:src="@drawable/appetizer_icon"
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"/>
+                            <TextView
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginStart="15dp"
+                                android:layout_weight="1"
+                                android:textColor="@color/white"
+                                android:text="@string/appetizer"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/main_courseLinear"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:background="@drawable/main_course_shape"
+                            android:orientation="horizontal"
+                            android:layout_width="150dp"
+                            android:layout_height="match_parent">
+                            <ImageView
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginStart="10dp"
+                                app:tint="@color/white"
+                                android:src="@drawable/main_course_icon"
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"/>
+                            <TextView
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginStart="15dp"
+                                android:layout_weight="1"
+                                android:textColor="@color/white"
+                                android:text="@string/main_course"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/dessertLinear"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:background="@drawable/dessert_shape"
+                            android:orientation="horizontal"
+                            android:layout_width="150dp"
+                            android:layout_height="match_parent">
+                            <ImageView
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginStart="10dp"
+                                app:tint="@color/white"
+                                android:src="@drawable/dessert_icon"
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"/>
+                            <TextView
+                                android:layout_marginEnd="10dp"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginStart="15dp"
+                                android:layout_weight="1"
+                                android:textColor="@color/white"
+                                android:text="@string/dessert"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                </HorizontalScrollView>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_marginTop="15dp"
+                    android:id="@+id/restaurantRecycle"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"/>
                 <LinearLayout
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="15dp"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="50dp">
-                    <LinearLayout
-                        android:id="@+id/appetizerLinear"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:background="@drawable/appetizer_shape"
-                        android:orientation="horizontal"
-                        android:layout_width="150dp"
-                        android:layout_height="match_parent">
-                        <ImageView
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="10dp"
-                            app:tint="@color/white"
-                            android:src="@drawable/appetizer_icon"
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"/>
-                        <TextView
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="15dp"
-                            android:layout_weight="1"
-                            android:textColor="@color/white"
-                            android:text="@string/appetizer"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
-                    </LinearLayout>
-                    <LinearLayout
-                        android:id="@+id/main_courseLinear"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:background="@drawable/main_course_shape"
-                        android:orientation="horizontal"
-                        android:layout_width="150dp"
-                        android:layout_height="match_parent">
-                        <ImageView
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="10dp"
-                            app:tint="@color/white"
-                            android:src="@drawable/main_course_icon"
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"/>
-                        <TextView
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="15dp"
-                            android:layout_weight="1"
-                            android:textColor="@color/white"
-                            android:text="@string/main_course"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
-                    </LinearLayout>
-                    <LinearLayout
-                        android:id="@+id/dessertLinear"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:background="@drawable/dessert_shape"
-                        android:orientation="horizontal"
-                        android:layout_width="150dp"
-                        android:layout_height="match_parent">
-                        <ImageView
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="10dp"
-                            app:tint="@color/white"
-                            android:src="@drawable/dessert_icon"
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"/>
-                        <TextView
-                            android:layout_marginEnd="10dp"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="15dp"
-                            android:layout_weight="1"
-                            android:textColor="@color/white"
-                            android:text="@string/dessert"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
-                    </LinearLayout>
+                    <TextView
+                        android:textSize="22dp"
+                        android:layout_weight="0.3"
+                        android:textColor="?attr/textColor"
+                        android:text="@string/kids_menu"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+                    <TextView
+                        android:textStyle="bold"
+                        android:id="@+id/viewAllKidTV"
+                        android:textSize="20dp"
+                        android:layout_weight="1"
+                        android:textColor="@color/green"
+                        android:text="@string/view_all"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
                 </LinearLayout>
-            </HorizontalScrollView>
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_marginTop="15dp"
-                android:id="@+id/restaurantRecycle"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"/>
-            <LinearLayout
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="15dp"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="50dp">
-                <TextView
-                    android:textSize="22dp"
-                    android:layout_weight="0.3"
-                    android:textColor="?attr/textColor"
-                    android:text="@string/kids_menu"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_marginTop="15dp"
+                    android:id="@+id/kidsMenuRecycle"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
-                <TextView
-                    android:textStyle="bold"
-                    android:id="@+id/viewAllKidTV"
-                    android:textSize="20dp"
-                    android:layout_weight="1"
-                    android:textColor="@color/green"
-                    android:text="@string/view_all"
+                    android:layout_height="350dp"/>
+                <LinearLayout
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
-            </LinearLayout>
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_marginTop="15dp"
-                android:id="@+id/kidsMenuRecycle"
-                android:layout_width="match_parent"
-                android:layout_height="350dp"/>
-            <LinearLayout
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="15dp"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="50dp">
-                <TextView
-                    android:textSize="22dp"
-                    android:layout_weight="0.3"
-                    android:textColor="?attr/textColor"
-                    android:text="@string/top_selling"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
-                <TextView
-                    android:textStyle="bold"
-                    android:id="@+id/viewAllTopSellingTV"
-                    android:textSize="20dp"
-                    android:layout_weight="1"
-                    android:textColor="@color/green"
-                    android:text="@string/view_all"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="50dp">
+                    <TextView
+                        android:textSize="22dp"
+                        android:layout_weight="0.3"
+                        android:textColor="?attr/textColor"
+                        android:text="@string/top_selling"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+                    <TextView
+                        android:textStyle="bold"
+                        android:id="@+id/viewAllTopSellingTV"
+                        android:textSize="20dp"
+                        android:layout_weight="1"
+                        android:textColor="@color/green"
+                        android:text="@string/view_all"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
 
+                </LinearLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/topSellingRecycle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
             </LinearLayout>
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/topSellingRecycle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
-    </ScrollView>
-<!--    <androidx.coordinatorlayout.widget.CoordinatorLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content">-->
-<!--        <com.google.android.material.bottomappbar.BottomAppBar-->
-<!--            android:layout_gravity="bottom"-->
-<!--            android:id="@+id/bottomAppBar"-->
-<!--            app:fabCradleMargin="15dp"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content">-->
-<!--            <com.google.android.material.bottomnavigation.BottomNavigationView-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_marginEnd="16dp"-->
-<!--                android:background="?attr/backgroundColor"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:id="@+id/bottomNavView"-->
-<!--                app:menu="@menu/bottom_nav_menu"/>-->
-<!--            </com.google.android.material.bottomappbar.BottomAppBar>-->
-<!--            <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--                android:id="@+id/floatingButton"-->
-<!--                android:src="@drawable/grid_icon"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                app:layout_anchor="@id/bottomAppBar"-->
-<!--                />-->
-<!--        </androidx.coordinatorlayout.widget.CoordinatorLayout>-->
+        </ScrollView>
+        <!--    <androidx.coordinatorlayout.widget.CoordinatorLayout-->
+        <!--        android:layout_width="match_parent"-->
+        <!--        android:layout_height="wrap_content">-->
+        <!--        <com.google.android.material.bottomappbar.BottomAppBar-->
+        <!--            android:layout_gravity="bottom"-->
+        <!--            android:id="@+id/bottomAppBar"-->
+        <!--            app:fabCradleMargin="15dp"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content">-->
+        <!--            <com.google.android.material.bottomnavigation.BottomNavigationView-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_marginEnd="16dp"-->
+        <!--                android:background="?attr/backgroundColor"-->
+        <!--                android:layout_height="match_parent"-->
+        <!--                android:id="@+id/bottomNavView"-->
+        <!--                app:menu="@menu/bottom_nav_menu"/>-->
+        <!--            </com.google.android.material.bottomappbar.BottomAppBar>-->
+        <!--            <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+        <!--                android:id="@+id/floatingButton"-->
+        <!--                android:src="@drawable/grid_icon"-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                app:layout_anchor="@id/bottomAppBar"-->
+        <!--                />-->
+        <!--        </androidx.coordinatorlayout.widget.CoordinatorLayout>-->
         <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabs"
+            android:id="@+id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/backgroundColor"
+            app:tabIconTint="?attr/textColor"
+            app:tabIndicatorColor="?attr/textColor"
+            app:tabIndicatorHeight="2dp"
+            app:tabSelectedTextColor="?attr/textColor"
+            app:tabTextAppearance="@style/MineCustomTabText"
+            app:tabTextColor="?attr/textColor">
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:icon="@drawable/home_icon"
+                android:text="@string/home" />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/listingTabs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:icon="@drawable/search_icon"
+                android:text="@string/search" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:icon="@drawable/grid_icon"
+                android:text="@string/dishes" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:icon="@drawable/report_icon"
+                android:text="@string/recipes" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:icon="@drawable/settings_icon"
+                android:text="@string/settings" />
+
+        </com.google.android.material.tabs.TabLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/blurRelative"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/backgroundColor"
-        app:tabIconTint="?attr/textColor"
-        app:tabIndicatorColor="?attr/textColor"
-        app:tabIndicatorHeight="2dp"
-        app:tabSelectedTextColor="?attr/textColor"
-        app:tabTextAppearance="@style/MineCustomTabText"
-        app:tabTextColor="?attr/textColor">
+        android:layout_height="match_parent">
+        <eightbitlab.com.blurview.BlurView
+            android:id="@+id/blurLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <LinearLayout
+            android:layout_centerInParent="true"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:icon="@drawable/home_icon"
-            android:text="@string/home" />
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="60dp">
+                <SearchView
+                    android:layout_gravity="center"
+                    android:id="@+id/searchView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:searchIcon="@drawable/ic_baseline_search_24" />
+                <EditText
+                    android:layout_weight="1"
+                    android:id="@+id/searchEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="@string/search_for_item"
+                    android:paddingStart="10dp"
+                    android:textColor="?attr/textColor"
+                    android:textColorHint="?attr/textColor"
+                    android:textSize="16sp" />
+                <ImageView
+                    android:id="@+id/closeImg"
+                    android:layout_marginEnd="10dp"
+                    android:layout_gravity="center"
+                    app:tint="?attr/textColor"
+                    android:src="@drawable/ic_baseline_close_24"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"/>
+            </LinearLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/keywordRecycle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </LinearLayout>
+    </RelativeLayout>
 
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/listingTabs"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:icon="@drawable/search_icon"
-            android:text="@string/search" />
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:icon="@drawable/grid_icon"
-            android:text="@string/dishes" />
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:icon="@drawable/report_icon"
-            android:text="@string/recipes" />
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:icon="@drawable/settings_icon"
-            android:text="@string/settings" />
-
-    </com.google.android.material.tabs.TabLayout>
-</LinearLayout>
+</RelativeLayout>
