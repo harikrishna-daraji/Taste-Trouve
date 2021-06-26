@@ -33,6 +33,7 @@ import com.example.tastetrouve.Models.HomeProductModel;
 import com.example.tastetrouve.Models.ItemProductModel;
 import com.example.tastetrouve.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +54,7 @@ public class HomeActivity extends BaseActivity  {
     BlurView blurView;
     RelativeLayout blurRelative;
     EditText searchEditText;
+    TabLayout tabs;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +74,30 @@ public class HomeActivity extends BaseActivity  {
 //        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavView);
 //        bottomNavigationView.setBackground(null);
 //        bottomNavigationView.getMenu().getItem(2).setEnabled(false);
+        tabs =findViewById(R.id.tabs);
+        tabs.getTabAt(1).select();
         blurRelative = findViewById(R.id.blurRelative);
+
+        tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                if(tab.getPosition() == 0) {
+                    GlobalObjects.Toast(getBaseContext(),getString(R.string.favourites)+" "+getString(R.string.comming_soon));
+                } else if(tab.getPosition() == 2) {
+                    GlobalObjects.Toast(getBaseContext(),getString(R.string.settings)+" "+getString(R.string.comming_soon));
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
 
         searchEditText = findViewById(R.id.searchEditText);
         searchEditText.addTextChangedListener(new TextWatcher() {

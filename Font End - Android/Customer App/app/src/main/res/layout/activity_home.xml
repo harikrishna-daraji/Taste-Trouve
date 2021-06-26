@@ -283,15 +283,15 @@
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:icon="@drawable/home_icon"
-                android:text="@string/home" />
+                android:icon="@drawable/ic_baseline_favorite_24"
+                android:text="@string/favourites" />
 
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/listingTabs"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:icon="@drawable/search_icon"
-                android:text="@string/search" />
+<!--            <com.google.android.material.tabs.TabItem-->
+<!--                android:id="@+id/listingTabs"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:icon="@drawable/search_icon"-->
+<!--                android:text="@string/search" />-->
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
@@ -299,11 +299,11 @@
                 android:icon="@drawable/grid_icon"
                 android:text="@string/dishes" />
 
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:icon="@drawable/report_icon"
-                android:text="@string/recipes" />
+<!--            <com.google.android.material.tabs.TabItem-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:icon="@drawable/report_icon"-->
+<!--                android:text="@string/recipes" />-->
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"

@@ -37,4 +37,6 @@
     <string name="please_enter_password">Veuillez entrer le mot de passe</string>
     <string name="no_result">pas de résultat</string>
     <string name="search_for_item">Rechercher des articles</string>
+    <string name="favourites">Favoris</string>
+    <string name="comming_soon">Bientôt disponible</string>
 </resources>
