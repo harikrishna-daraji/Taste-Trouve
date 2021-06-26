@@ -7,7 +7,7 @@ import android.widget.Toast;
 public class GlobalObjects {
 
     public enum ModelList {
-        Kid, Popular, Item;
+        Kid, Popular, Item, Restaurant, Category, Subcategory;
     }
 
     public enum Category {

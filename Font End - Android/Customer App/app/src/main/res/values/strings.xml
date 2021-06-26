@@ -34,4 +34,8 @@
     <string name="phone_number">Phone number</string>
     <string name="please_enter_email">Please enter email</string>
     <string name="please_enter_password">Please enter password</string>
+    <string name="no_result">No Result</string>
+    <string name="search_for_item">Search for items</string>
+    <string name="favourites">Favourites</string>
+    <string name="comming_soon">Comming soon</string>
 </resources>
