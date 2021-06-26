@@ -1,17 +1,26 @@
 package com.example.tastetrouve.Models;
 
 public class Users {
-    public String name,email,phone,dateofbirth, password, fcmToken;
+    public String name,email,phone,dateofbirth, password, fcmToken ,NewPassword;
 
     public Users(){
 
     }
-    public Users(String name,String email,String phone,String dateofbirth, String password){
+    public Users(String name,String email,String phone,String dateofbirth, String password, String NewPassword){
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.dateofbirth = dateofbirth;
         this.password = password;
+        this.NewPassword = NewPassword;
+    }
+
+    public String getNewPassword() {
+        return NewPassword;
+    }
+
+    public void setNewPassword(String newPassword) {
+        NewPassword = newPassword;
     }
 
     public String getName() {

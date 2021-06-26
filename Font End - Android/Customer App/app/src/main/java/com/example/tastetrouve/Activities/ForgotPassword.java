@@ -138,7 +138,7 @@ public class ForgotPassword extends AppCompatActivity {
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-
+                    Toast.makeText(ForgotPassword.this, "Phone Number don't Exist !", Toast.LENGTH_SHORT).show();
                 }
             });
         }else{

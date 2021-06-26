@@ -21,6 +21,7 @@ import com.example.tastetrouve.HelperClass.ApiClient;
 import com.example.tastetrouve.HelperClass.ApiInterface;
 import com.example.tastetrouve.Models.GlobalObjects;
 import com.example.tastetrouve.Models.UserModel;
+import com.example.tastetrouve.Models.Users;
 import com.example.tastetrouve.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -34,6 +35,12 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -136,23 +143,38 @@ public class SignIn extends BaseActivity {
     }
 
     private void LoginUser() {
-        String SEmail = email.getText().toString().trim();
+        String SEmail = email.getText().toString();
         String SPassword = password.getText().toString().trim();
 
-        mAuth.signInWithEmailAndPassword(SEmail,SPassword)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            callLoginApi();
-                            Toast.makeText(SignIn.this, "Signed in successfully", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(SignIn.this,HomeActivity.class));
-                            finish();
-                        }   else{
-                            Toast.makeText(SignIn.this, "Failed to Login. Enter correct credentials", Toast.LENGTH_SHORT).show();
-                        }
+
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+        databaseReference.child("Users").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+
+int count =0;
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    for (DataSnapshot snapshot1 : snapshot.getChildren()) {
+                        count++;
+                        Users users = snapshot1.getValue(Users.class);
+                        Log.d("ema", users.getEmail());
+//                    if (users.getEmail().equals(SEmail)) {
+//                        Log.d("aa","found");
+//                    }
                     }
-                });
+                }
+                Log.d("aa", ""+count);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(SignIn.this, "Failed to load categories", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
     }
 
     private void saveLogInStatus(String token) {
