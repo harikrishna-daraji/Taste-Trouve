@@ -1,26 +1,23 @@
 package com.example.tastetrouve.Models;
 
-public class Users {
-    public String name,email,phone,dateofbirth, password, fcmToken ,NewPassword;
+public class UserTestModel {
+    String name;
+    String password;
+    String email;
+    String phone;
+    String dateofbirth;
+    String NewPassword;
 
-    public Users(){
+    public UserTestModel(){
 
     }
-    public Users(String name,String email,String phone,String dateofbirth, String password, String NewPassword){
+    public UserTestModel(String name, String password, String email, String phone, String dateofbirth, String NewPassword) {
         this.name = name;
+        this.password = password;
         this.email = email;
         this.phone = phone;
         this.dateofbirth = dateofbirth;
-        this.password = password;
         this.NewPassword = NewPassword;
-    }
-
-    public String getNewPassword() {
-        return NewPassword;
-    }
-
-    public void setNewPassword(String newPassword) {
-        NewPassword = newPassword;
     }
 
     public String getName() {
@@ -29,6 +26,14 @@ public class Users {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getEmail() {
@@ -55,19 +60,11 @@ public class Users {
         this.dateofbirth = dateofbirth;
     }
 
-    public String getPassword() {
-        return password;
+    public String getNewPassword() {
+        return NewPassword;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setFcmToken(String fcmToken) {
-        this.fcmToken = fcmToken;
-    }
-
-    public String getFcmToken() {
-        return fcmToken;
+    public void setNewPassword(String newPassword) {
+        NewPassword = newPassword;
     }
 }
