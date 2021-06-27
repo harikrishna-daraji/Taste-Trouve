@@ -21,6 +21,7 @@ import com.example.tastetrouve.HelperClass.ApiClient;
 import com.example.tastetrouve.HelperClass.ApiInterface;
 import com.example.tastetrouve.Models.GlobalObjects;
 import com.example.tastetrouve.Models.UserModel;
+import com.example.tastetrouve.Models.UserTestModel;
 import com.example.tastetrouve.Models.Users;
 import com.example.tastetrouve.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -57,6 +58,7 @@ public class SignIn extends BaseActivity {
     SharedPreferences.Editor editor;
     SharedPreferences sharedPreferences;
     FirebaseAuth mAuth;
+    boolean flag;
 
     GoogleSignInClient mGoogleSignInClient;
     @Override
@@ -146,25 +148,44 @@ public class SignIn extends BaseActivity {
         String SEmail = email.getText().toString();
         String SPassword = password.getText().toString().trim();
 
-
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
         databaseReference.child("Users").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-
-int count =0;
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    for (DataSnapshot snapshot1 : snapshot.getChildren()) {
-                        count++;
-                        Users users = snapshot1.getValue(Users.class);
-                        Log.d("ema", users.getEmail());
-//                    if (users.getEmail().equals(SEmail)) {
-//                        Log.d("aa","found");
-//                    }
+                    flag=false;
+                        UserTestModel users = snapshot.getValue(UserTestModel.class);
+                    if (users.getEmail().equals(SEmail)) {
+                 flag=true;
+                        //Log.d("aa",users.getNewPassword());
+                        String SNewPassword = users.getNewPassword();
+                        String SOldPassword = users.getPassword();
+
+                        if(SPassword.equals(SNewPassword)){
+                            mAuth.signInWithEmailAndPassword(SEmail,SOldPassword)
+                                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<AuthResult> task) {
+                                            Toast.makeText(SignIn.this, "Login Successfully", Toast.LENGTH_SHORT).show();
+                                            startActivity(new Intent(SignIn.this,HomeActivity.class));
+                                        }
+                                    });
+                                break;
+                        }else{
+                            password.requestFocus();
+                            password.setError("Enter correct Password");
+                            Toast.makeText(SignIn.this, "Enter Correct Password !", Toast.LENGTH_SHORT).show();
+                        }
+
                     }
+
+
                 }
-                Log.d("aa", ""+count);
+                  if(flag == false){
+                    email.requestFocus();
+                    email.setError("Email does not Exist in Database. Please SignUp First");
+                }
+
 
             }
 
