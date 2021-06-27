@@ -67,7 +67,7 @@ router.put("/update", async (req, res) => {
   const data = req.body;
   console.log(data);
 
-  var myquery = { email: data.email };
+  var myquery = { phoneNumber: data.phoneNumber };
   var newvalues = { $set: { ...data } };
   await User.updateOne(myquery, newvalues, function (err, res) {
     if (err) throw err;
