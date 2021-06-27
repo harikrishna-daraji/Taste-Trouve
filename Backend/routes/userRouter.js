@@ -65,17 +65,15 @@ router.delete("/delete", async (req, res) => {
 
 router.put("/update", async (req, res) => {
   const data = req.body;
+  console.log(data);
 
-  await User.updateOne(
-    { email: data.email },
-    {
-      ...data,
-    }
-  );
+  var myquery = { email: data.email };
+  var newvalues = { $set: { ...data } };
+  await User.updateOne(myquery, newvalues, function (err, res) {
+    if (err) throw err;
+  });
 
-  const updatedUser = await User.findById(data.userId);
-
-  return res.send({ data: updatedUser });
+  return res.send({ data: "updatedUser" });
 });
 
 module.exports = router;
