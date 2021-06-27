@@ -67,7 +67,7 @@ router.put("/update", async (req, res) => {
   const data = req.body;
 
   await User.updateOne(
-    { _id: data.userId },
+    { email: data.email },
     {
       ...data,
     }
