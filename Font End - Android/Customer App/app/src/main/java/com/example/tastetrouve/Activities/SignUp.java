@@ -79,6 +79,7 @@ public class SignUp extends BaseActivity {
             String SPassword = password.getText().toString().trim();
             String SPhone = phone.getText().toString().trim();
             String SDateofbirth = dateofbirth.getText().toString().trim();
+            String NewPassword = password.getText().toString();
 
         if(SName.isEmpty()){
             name.requestFocus();
@@ -102,13 +103,12 @@ public class SignUp extends BaseActivity {
             dateofbirth.requestFocus();
             dateofbirth.setError("Date of birth is required");
         }else {
-
             mAuth.createUserWithEmailAndPassword(SEmail, SPassword)
                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
 
-                            Users user = new Users(SName, SEmail, SPhone, SDateofbirth,SPassword);
+                            Users user = new Users(SName, SEmail, SPhone, SDateofbirth, SPassword, NewPassword);
                             FirebaseDatabase.getInstance().getReference("Users")
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                     .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -117,6 +117,7 @@ public class SignUp extends BaseActivity {
                                     if (task.isSuccessful()) {
                                         Log.i("TAG","TAG: Firebase user is created");
                                         registerUser(user,FirebaseAuth.getInstance().getCurrentUser().getUid());
+                                        startActivity(new Intent(SignUp.this,SignIn.class));
                                     } else {
                                         Toast.makeText(SignUp.this, "User creation failed", Toast.LENGTH_SHORT).show();
                                     }
