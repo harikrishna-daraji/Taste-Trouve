@@ -96,8 +96,27 @@ public class ForgotPassword extends AppCompatActivity {
                                                         .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                                             @Override
                                                             public void onClick(DialogInterface dialog, int which) {
+                                                                // logic to get new password from user table
 
-                                                                startActivity(new Intent(ForgotPassword.this, SignIn.class));
+                                                                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+                                                                databaseReference.child("Users").addValueEventListener(new ValueEventListener() {
+                                                                    @Override
+                                                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                                        for (DataSnapshot snapshot3 : snapshot.getChildren()) {
+
+                                                                            UserTestModel users = snapshot.getValue(UserTestModel.class);
+                                                                            if (users.getEmail().equals(Semailphone)){
+                                                                                
+                                                                            }
+                                                                        }
+                                                                    }
+
+                                                                    @Override
+                                                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                                                    }
+                                                                });
+
                                                             }
                                                         })
                                                         .create();
