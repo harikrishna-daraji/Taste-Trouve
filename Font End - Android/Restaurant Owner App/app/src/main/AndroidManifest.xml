@@ -19,6 +19,7 @@
         <activity android:name=".Activity.UpdateItemActivity"></activity>
         <activity android:name=".Activity.ViewItemsActivity" />
         <activity android:name=".Activity.SplashActivity">
+            <!-- add intent back here-->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,7 +30,9 @@
         <activity android:name=".Activity.LogInActivity" />
         <activity
             android:name=".Activity.AddItem"
-            android:label="@string/title_activity_add_item" />
+            android:label="@string/title_activity_add_item" >
+
+        </activity>
         <activity android:name=".Activity.MainActivity">
 
             <!-- <intent-filter> -->

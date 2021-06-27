@@ -44,11 +44,13 @@
                 android:layout_height="wrap_content"
                 android:text="name"/>
             <TextView
+                android:textColor="@color/black"
                 android:id="@+id/price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="price"/>
             <TextView
+                android:textColor="@color/black"
                 android:id="@+id/calories"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -63,6 +65,7 @@
             android:layout_height="match_parent">
             <ImageView
                 android:id="@+id/edit"
+                app:tint="@color/black"
                 android:layout_marginTop="20dp"
                 android:src="@drawable/ic_baseline_chevron_right_24"
                 android:layout_width="wrap_content"

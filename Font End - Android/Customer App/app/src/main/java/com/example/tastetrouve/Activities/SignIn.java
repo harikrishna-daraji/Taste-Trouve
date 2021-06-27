@@ -167,7 +167,7 @@ public class SignIn extends BaseActivity {
                                         @Override
                                         public void onComplete(@NonNull Task<AuthResult> task) {
                                             Toast.makeText(SignIn.this, "Login Successfully", Toast.LENGTH_SHORT).show();
-                                            startActivity(new Intent(SignIn.this,HomeActivity.class));
+                                            callLoginApi();
                                         }
                                     });
                                 break;

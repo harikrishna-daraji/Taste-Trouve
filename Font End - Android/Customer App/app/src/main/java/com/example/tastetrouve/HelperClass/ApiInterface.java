@@ -45,4 +45,7 @@ public interface ApiInterface {
     @GET("product/get")
     Call<List<ItemProductModel>> getAllProducts();
 
+//    @GET("clientUser/update")
+//    Call<>
+
 }

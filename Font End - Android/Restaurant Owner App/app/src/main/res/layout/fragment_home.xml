@@ -173,7 +173,7 @@
                 android:textSize="15dp"
                 android:layout_marginTop="10dp"
                 android:textColor="#ffffff"
-                android:text="@string/view_items"/>
+                android:text="@string/available_driver"/>
         </LinearLayout>
 
     </LinearLayout>
