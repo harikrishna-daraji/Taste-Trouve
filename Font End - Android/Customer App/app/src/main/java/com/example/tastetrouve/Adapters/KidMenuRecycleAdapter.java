@@ -58,7 +58,11 @@ public class KidMenuRecycleAdapter extends RecyclerView.Adapter<KidMenuRecycleAd
 
     @Override
     public int getItemCount() {
-        return kidSectionModelList.size();
+        if(kidSectionModelList.size() > 5) {
+            return 5;
+        } else {
+            return kidSectionModelList.size();
+        }
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

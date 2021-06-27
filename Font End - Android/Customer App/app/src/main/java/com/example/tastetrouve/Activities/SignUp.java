@@ -187,6 +187,8 @@ public class SignUp extends BaseActivity {
                             saveLogInStatus(response.body().get_id());
                             Toast.makeText(SignUp.this, "User Created", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(SignUp.this, HomeActivity.class));
+                        } else {
+
                         }
                     } catch (Exception ex) {
                         Log.i("TAG","TAG "+ex.getMessage());
