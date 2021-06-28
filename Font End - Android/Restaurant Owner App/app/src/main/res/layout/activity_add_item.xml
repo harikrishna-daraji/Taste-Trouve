@@ -54,7 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            app:startIconDrawable="@drawable/ic_baseline_no_food_24"
+            app:startIconDrawable="@drawable/ic_baseline_supervised_user_circle_24"
             android:hint="Name"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
@@ -73,7 +73,7 @@
             app:startIconTint="@color/black"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:startIconDrawable="@drawable/ic_baseline_no_food_24"
+            app:startIconDrawable="@drawable/ic_baseline_attach_money_24"
             android:layout_marginTop="15dp"
             android:hint="Price"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
@@ -115,7 +115,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:hint="Calories"
-            app:startIconDrawable="@drawable/ic_baseline_no_food_24"
+            app:startIconDrawable="@drawable/ic_baseline_bolt_24"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -134,7 +134,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            app:startIconDrawable="@drawable/ic_baseline_no_food_24"
+            app:startIconDrawable="@drawable/ic_baseline_production_quantity_limits_24"
             android:hint="Quantity"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
@@ -154,7 +154,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            app:startIconDrawable="@drawable/ic_baseline_no_food_24"
+            app:startIconDrawable="@drawable/ic_baseline_lock_clock_24"
             android:hint="Delivery Time"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 

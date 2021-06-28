@@ -4,7 +4,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:layout_marginTop="15dp"
-    android:layout_weight="3"
     android:layout_height="wrap_content">
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -16,7 +15,7 @@
         >
 
     <LinearLayout
-        android:layout_weight="1"
+
         android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="match_parent">
@@ -33,13 +32,13 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:orientation="vertical"
-            android:layout_weight="1"
+
             android:gravity="center"
             android:layout_marginRight="50dp"
             android:layout_height="match_parent">
             <TextView
                 android:id="@+id/name"
-                android:layout_width="wrap_content"
+                android:layout_width="125dp"
                 android:textColor="@color/primaryteal"
                 android:layout_height="wrap_content"
                 android:text="name"/>
@@ -59,10 +58,8 @@
         </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:layout_marginLeft="75dp"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
             <ImageView
                 android:id="@+id/edit"
                 app:tint="@color/black"
