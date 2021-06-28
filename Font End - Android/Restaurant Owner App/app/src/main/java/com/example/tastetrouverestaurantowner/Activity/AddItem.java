@@ -216,7 +216,13 @@ public class AddItem extends AppCompatActivity {
                     call.enqueue(new Callback<ResponseBody>() {
                         @Override
                         public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-
+                            try {
+                                if(response.code() == 200) {
+                                    finish();
+                                }
+                            } catch (Exception ex) {
+                                Log.i("TAG","TAG "+ex.getMessage());
+                            }
                         }
 
                         @Override
