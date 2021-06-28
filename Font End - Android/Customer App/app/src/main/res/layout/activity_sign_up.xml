@@ -184,6 +184,7 @@
             android:inputType="date"
             android:layout_height="60dp">
 
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/DateOfBirth"
                 android:layout_width="match_parent"
@@ -192,7 +193,12 @@
                 android:textColorHint="@android:color/black"
                 app:passwordToggleTint="@android:color/black"
                 android:textColor="@android:color/black"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+
+                android:clickable="false"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false">
 
             </com.google.android.material.textfield.TextInputEditText>
 

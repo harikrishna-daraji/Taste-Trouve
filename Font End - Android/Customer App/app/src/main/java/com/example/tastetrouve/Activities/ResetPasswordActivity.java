@@ -50,6 +50,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
     String Semail,Phone;
     String SnewPassword,SconfirmPassword;
 
+    Boolean flag = false;
     boolean value1 = true;
     boolean value2 = true;
 
@@ -122,7 +123,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
     private void PasswordChange() {
         SnewPassword = newpassword.getText().toString();
         SconfirmPassword = connfirmpassword.getText().toString();
-
+        flag = false;
         Phone = getIntent().getStringExtra("Phone");
 //        mAuth = FirebaseAuth.getInstance();
 //        user = FirebaseAuth.getInstance().getCurrentUser();
@@ -137,9 +138,10 @@ public class ResetPasswordActivity extends AppCompatActivity {
                         for (DataSnapshot snapshot2 : snapshot.getChildren()) {
                             UserTestModel users = snapshot2.getValue(UserTestModel.class);
                             String firebasephone = "+1" + users.getPhone();
-                            if (firebasephone.equals(Phone)) {
+                            if (firebasephone.equals(Phone) && flag == false) {
                                 String SEMAIL = users.getEmail();
                                 users.setNewPassword(SnewPassword);
+
                                 databaseReference.child("Users").child(snapshot2.getKey()).setValue(users).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
@@ -152,6 +154,12 @@ public class ResetPasswordActivity extends AppCompatActivity {
                                         Log.i("TAG","TAG: Firebase failure: "+e.getMessage());
                                     }
                                 });
+
+                                databaseReference.child("Users").child(snapshot2.getKey()).setValue(users);
+                                Toast.makeText(ResetPasswordActivity.this, "Password updated Successfully", Toast.LENGTH_SHORT).show();
+                                flag = true;
+                                startActivity(new Intent(ResetPasswordActivity.this,SignIn.class));
+
                             }
                         }
                     }
