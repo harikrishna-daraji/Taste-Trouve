@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Taste Trouve</string>
-    <string name="welcome_john">Welcome John</string>
+    <string name="welcome">Welcome</string>
     <string name="appetizer">Appetizer</string>
     <string name="main_course">Main Course</string>
     <string name="dessert">Dessert</string>
@@ -23,9 +23,9 @@
     <string name="delivery_time">40 min</string>
     <string name="random_text">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</string>
     <string name="calorie_digit">328 kcal</string>
-    <string name="boarding_one_text">Varieties of Restaurants</string>
-    <string name="boarding_two_text">Easy deliveries</string>
-    <string name="boarding_three_text">Sign up now!</string>
+    <string name="boarding_one_text">Varieties of Dishes</string>
+    <string name="boarding_two_text">Special Offers</string>
+    <string name="boarding_three_text">Sign up now to enjoy deliciousness!</string>
     <string name="password">Password</string>
     <string name="email">Email</string>
     <string name="or_login_with">or sign up with</string>
@@ -34,4 +34,10 @@
     <string name="phone_number">Phone number</string>
     <string name="please_enter_email">Please enter email</string>
     <string name="please_enter_password">Please enter password</string>
+    <string name="no_result">No Result</string>
+    <string name="search_for_item">Search for items</string>
+    <string name="favourites">Favourites</string>
+    <string name="comming_soon">Comming soon</string>
+    <string name="user_is_already_registered">User is already registered</string>
 </resources>
+

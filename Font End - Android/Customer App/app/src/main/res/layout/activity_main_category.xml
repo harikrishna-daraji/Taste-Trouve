@@ -8,6 +8,7 @@
     tools:context=".Activities.MainCategoryActivity">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:background="?attr/backgroundColor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/appBarTop"
@@ -73,10 +74,11 @@
                     android:layout_height="match_parent">
 
                     <ImageView
+                        android:id="@+id/appetizerImg"
                         android:src="@drawable/image_placeholder"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:scaleType="fitCenter" />
+                        android:scaleType="centerCrop" />
 
                     <TextView
                         android:text="@string/appetizer"
@@ -109,10 +111,11 @@
                     android:layout_height="match_parent">
 
                     <ImageView
+                        android:id="@+id/mainCourseImg"
                         android:src="@drawable/image_placeholder"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:scaleType="fitCenter" />
+                        android:scaleType="centerCrop" />
 
                     <TextView
                         android:text="@string/main_course"
@@ -145,10 +148,11 @@
                     android:layout_height="match_parent">
 
                     <ImageView
+                        android:id="@+id/dessertImg"
                         android:src="@drawable/image_placeholder"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:scaleType="fitCenter" />
+                        android:scaleType="centerCrop" />
 
                     <TextView
                         android:text="@string/dessert"

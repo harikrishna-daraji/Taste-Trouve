@@ -23,6 +23,8 @@
         android:layout_height="match_parent">
 
     <EditText
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
         android:id="@+id/adminname"
         android:paddingLeft="20dp"
         android:height="35dp"
@@ -32,6 +34,8 @@
         android:hint="Restaurant Name"/>
 
     <EditText
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
         android:id="@+id/adminEmail"
         android:paddingLeft="20dp"
         android:height="35dp"
@@ -43,6 +47,8 @@
 
 
     <EditText
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
         android:id="@+id/adminPhone"
         android:layout_marginTop="30dp"
         android:paddingLeft="20dp"
@@ -51,6 +57,8 @@
         android:layout_height="35dp"
         android:hint="Phone"/>
     <EditText
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
         android:id="@+id/adminAddress"
         android:layout_marginTop="30dp"
         android:paddingLeft="20dp"
@@ -60,6 +68,8 @@
         android:hint="Address"/>
 
     <EditText
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
         android:id="@+id/adminPassword"
         android:paddingLeft="20dp"
         android:layout_marginTop="30dp"
@@ -81,6 +91,7 @@
         android:text="SignUp"/>
 
         <TextView
+            android:textColor="@color/black"
             android:id="@+id/login"
             android:layout_width="wrap_content"
             android:layout_gravity="center_horizontal"

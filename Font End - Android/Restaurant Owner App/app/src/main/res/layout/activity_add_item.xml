@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView android:layout_height="match_parent"
+    android:background="@color/white"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent">
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -48,7 +49,8 @@
 
 
         <com.google.android.material.textfield.TextInputLayout
-
+            android:textColorHint="@color/black"
+            app:startIconTint="@color/black"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
@@ -60,14 +62,15 @@
                     android:id="@+id/name"
                     android:layout_width="match_parent"
                     android:background="@drawable/tealtextbackground"
-
+                    android:textColor="@color/black"
                     android:layout_height="wrap_content"
                     />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-
+            android:textColorHint="@color/black"
+            app:startIconTint="@color/black"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:startIconDrawable="@drawable/ic_baseline_attach_money_24"
@@ -78,7 +81,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/price"
                     android:layout_width="match_parent"
-
+                    android:textColor="@color/black"
                     android:background="@drawable/tealtextbackground"
                     android:layout_height="wrap_content"
                     />
@@ -86,7 +89,8 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-
+            android:textColorHint="@color/black"
+            app:startIconTint="@color/black"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
@@ -97,6 +101,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/description"
                     android:layout_width="match_parent"
+                    android:textColor="@color/black"
                     android:background="@drawable/tealtextbackground"
                     android:layout_height="wrap_content"
                     />
@@ -104,7 +109,8 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-
+            android:textColorHint="@color/black"
+            app:startIconTint="@color/black"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
@@ -114,6 +120,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/calories"
+                    android:textColor="@color/black"
                     android:layout_width="match_parent"
                     android:background="@drawable/tealtextbackground"
                     android:layout_height="wrap_content"
@@ -122,7 +129,8 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-
+            android:textColorHint="@color/black"
+            app:startIconTint="@color/black"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
@@ -132,6 +140,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/quantity"
+                    android:textColor="@color/black"
                     android:layout_width="match_parent"
                     android:background="@drawable/tealtextbackground"
                     android:layout_height="wrap_content"
@@ -140,7 +149,8 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-
+            android:textColorHint="@color/black"
+            app:startIconTint="@color/black"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
@@ -150,6 +160,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/deliveryTime"
+                    android:textColor="@color/black"
                     android:layout_width="match_parent"
                     android:background="@drawable/tealtextbackground"
                     android:layout_height="wrap_content"
@@ -158,6 +169,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <CheckBox
+            android:textColor="@color/black"
             android:id="@+id/kidSection"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -169,7 +181,7 @@
             android:id="@+id/popularItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+                android:textColor="@color/black"
             android:layout_marginTop="15dp"
             android:text="@string/add_to_popular_section"
            />

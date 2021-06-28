@@ -76,7 +76,7 @@ public class AddItem extends AppCompatActivity {
         getSupportActionBar().hide(); // hide the title bar
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN); //enable full screen
-        setContentView(R.layout.activity_log_in);
+//        setContentView(R.layout.activity_log_in);
         setContentView(R.layout.activity_add_item);
 
 

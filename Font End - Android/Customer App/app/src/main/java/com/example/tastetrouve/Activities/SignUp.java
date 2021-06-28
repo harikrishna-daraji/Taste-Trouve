@@ -22,6 +22,7 @@ import com.example.tastetrouve.Models.UserModel;
 import com.example.tastetrouve.R;
 import com.example.tastetrouve.Models.Users;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -79,6 +80,7 @@ public class SignUp extends BaseActivity {
             String SPassword = password.getText().toString().trim();
             String SPhone = phone.getText().toString().trim();
             String SDateofbirth = dateofbirth.getText().toString().trim();
+            String NewPassword = password.getText().toString();
 
         if(SName.isEmpty()){
             name.requestFocus();
@@ -102,13 +104,11 @@ public class SignUp extends BaseActivity {
             dateofbirth.requestFocus();
             dateofbirth.setError("Date of birth is required");
         }else {
-
             mAuth.createUserWithEmailAndPassword(SEmail, SPassword)
                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-
-                            Users user = new Users(SName, SEmail, SPhone, SDateofbirth,SPassword);
+                            Users user = new Users(SName, SEmail, SPhone, SDateofbirth, SPassword, NewPassword);
                             FirebaseDatabase.getInstance().getReference("Users")
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                     .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -121,9 +121,19 @@ public class SignUp extends BaseActivity {
                                         Toast.makeText(SignUp.this, "User creation failed", Toast.LENGTH_SHORT).show();
                                     }
                                 }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.i("TAG","TAG: Firebase real time database failure");
+                                }
                             });
                         }
-                    });
+                    }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.i("TAG","TAG: mAuth failure: "+e.getMessage());
+                }
+            });
         }
     }
 
@@ -178,7 +188,7 @@ public class SignUp extends BaseActivity {
     private void registerUser(Users user, String fcmToken) {
         try {
             ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-            apiInterface.registerUser(user.email,user.password,user.name,fcmToken,user.phone,user.dateofbirth).enqueue(new Callback<UserModel>() {
+            apiInterface.registerUser(user.getEmail(),user.getPassword(),user.getName(),fcmToken,user.getPhone(),user.getDateofbirth()).enqueue(new Callback<UserModel>() {
                 @Override
                 public void onResponse(Call<UserModel> call, Response<UserModel> response) {
                     try {
@@ -187,6 +197,8 @@ public class SignUp extends BaseActivity {
                             saveLogInStatus(response.body().get_id());
                             Toast.makeText(SignUp.this, "User Created", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(SignUp.this, HomeActivity.class));
+                        } else {
+
                         }
                     } catch (Exception ex) {
                         Log.i("TAG","TAG "+ex.getMessage());

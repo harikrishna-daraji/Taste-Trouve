@@ -1,6 +1,8 @@
 package com.example.tastetrouve.Models;
 
-public class CategoryModel {
+import java.io.Serializable;
+
+public class CategoryModel implements Serializable {
     String _id;
     String name;
     String image;
