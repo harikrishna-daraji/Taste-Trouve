@@ -159,7 +159,6 @@ public class SignUp extends BaseActivity {
                                     if (task.isSuccessful()) {
                                         Log.i("TAG","TAG: Firebase user is created");
                                         registerUser(user,FirebaseAuth.getInstance().getCurrentUser().getUid());
-                                        startActivity(new Intent(SignUp.this,SignIn.class));
                                     } else {
                                         Toast.makeText(SignUp.this, "User creation failed", Toast.LENGTH_SHORT).show();
                                     }
