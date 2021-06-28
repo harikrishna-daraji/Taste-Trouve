@@ -46,7 +46,7 @@ public class ForgotPassword extends AppCompatActivity {
 
     String codeeBySystem;
 
-
+boolean flag = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,8 +96,27 @@ public class ForgotPassword extends AppCompatActivity {
                                                         .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                                             @Override
                                                             public void onClick(DialogInterface dialog, int which) {
+                                                                // logic to get new password from user table
 
-                                                                startActivity(new Intent(ForgotPassword.this, SignIn.class));
+                                                                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+                                                                databaseReference.child("Users").addValueEventListener(new ValueEventListener() {
+                                                                    @Override
+                                                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                                        for (DataSnapshot snapshot3 : snapshot.getChildren()) {
+
+                                                                            UserTestModel users = snapshot.getValue(UserTestModel.class);
+                                                                            if (users.getEmail().equals(Semailphone)){
+                                                                                
+                                                                            }
+                                                                        }
+                                                                    }
+
+                                                                    @Override
+                                                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                                                    }
+                                                                });
+
                                                             }
                                                         })
                                                         .create();
@@ -109,18 +128,20 @@ public class ForgotPassword extends AppCompatActivity {
                     });
         } else if (Patterns.PHONE.matcher(Semailphone).matches()) {
             Toast.makeText(this, "This is a phone number", Toast.LENGTH_SHORT).show();
-
+            flag = false;
             DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
             databaseReference.child("Users").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     for (DataSnapshot snapshot1 : snapshot.getChildren()) {
                         UserTestModel users = snapshot1.getValue(UserTestModel.class);
-                        if (users.getPhone().equals(Semailphone)) {
+                        if (users.getPhone().equals(Semailphone) && flag == false) {
+
                             Log.d("aa", users.getPhone());
                             String SOldPassword = users.getPassword();
                             String SPhone = "+1"+Semailphone;
                             Log.d("aa", SPhone);
+                            flag = true;
                             SendVerificationCodeToUsers(SPhone);
                             break;
                         }
