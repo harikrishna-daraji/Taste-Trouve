@@ -15,7 +15,8 @@ import android.widget.Toast;
 
 import com.example.tastetrouverestaurantowner.APIClient;
 import com.example.tastetrouverestaurantowner.R;
-
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -95,16 +96,27 @@ public class SignUpActivity extends AppCompatActivity {
             return false;
         }
         String email=adminEmail.getText().toString();
-        if (TextUtils.isEmpty(email)) {
+//        if (TextUtils.isEmpty(email)) {
+//            adminEmail.requestFocus();
+//            adminEmail.setError("EMAIL CANNOT BE EMPTY");
+//            return false;
+//        }
+
+        if(!isValidateEmail()) {
             adminEmail.requestFocus();
-            adminEmail.setError("EMAIL CANNOT BE EMPTY");
+            adminEmail.setError("Enter valid E-Mail address");
             return false;
         }
 
         String phone=adminPhone.getText().toString();
-        if (TextUtils.isEmpty(phone)) {
+//        if (TextUtils.isEmpty(phone)) {
+//            adminPhone.requestFocus();
+//            adminPhone.setError("PHONE CANNOT BE EMPTY");
+//            return false;
+//        }
+        if(!isValidPhoneNumber()) {
             adminPhone.requestFocus();
-            adminPhone.setError("PHONE CANNOT BE EMPTY");
+            adminPhone.setError("Enter Valid Phone number");
             return false;
         }
 
@@ -116,14 +128,61 @@ public class SignUpActivity extends AppCompatActivity {
         }
 
         String password=adminPassword.getText().toString();
-        if (TextUtils.isEmpty(password)) {
-            adminPassword.requestFocus();
-            adminPassword.setError("PASSWORD CANNOT BE EMPTY");
-            return false;
+//        if (TextUtils.isEmpty(password)) {
+//            adminPassword.requestFocus();
+//            adminPassword.setError("PASSWORD CANNOT BE EMPTY");
+//            return false;
+//        }
+         if(!isValidatePassword()) {
+             adminPassword.requestFocus();
+             adminPassword.setError("Password must be between 8 to 20 and contain at least one special symbol, uppercase, lowercase and number");
+             return false;
         }
 
 
 
         return true;
+    }
+
+
+
+    private boolean isValidateEmail() {
+        //Regular Expression
+        String regex = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+        //Compile regular expression to get the pattern
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(adminEmail.getText().toString().trim());
+        if (matcher.matches()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    private boolean isValidatePassword() {
+        // Regex to check valid password.
+        String regex = "^(?=.*[0-9])"
+                + "(?=.*[a-z])(?=.*[A-Z])"
+                + "(?=.*[@#$%^&+=])"
+                + "(?=\\S+$).{8,20}$";
+
+        // Compile the ReGex
+        Pattern p = Pattern.compile(regex);
+        // Pattern class contains matcher() method
+        // to find matching between given password
+        // and regular expression.
+        Matcher m = p.matcher(adminPassword.getText().toString().trim());
+
+        // Return if the password
+        // matched the ReGex
+        return m.matches();
+    }
+
+    boolean isValidPhoneNumber() {
+        Pattern pattern;
+        Matcher matcher;
+        final String PHONE_PATTERN = "^[+]?[0-9]{10,13}$";
+        pattern = Pattern.compile(PHONE_PATTERN);
+        matcher = pattern.matcher(adminPhone.getText().toString());
+        return matcher.matches();
     }
 }
