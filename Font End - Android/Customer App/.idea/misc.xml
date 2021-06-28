@@ -6,6 +6,7 @@
         <entry key="app/src/main/res/drawable/text_box.xml" value="0.1984375" />
         <entry key="app/src/main/res/layout/activity_forgot_password.xml" value="0.16822916666666668" />
         <entry key="app/src/main/res/layout/activity_on_boarding_screen.xml" value="0.24818840579710144" />
+        <entry key="app/src/main/res/layout/activity_reset_password.xml" value="0.18645833333333334" />
         <entry key="app/src/main/res/layout/activity_sign_in.xml" value="0.18229166666666666" />
         <entry key="app/src/main/res/layout/boarding_slider_container.xml" value="0.125" />
       </map>

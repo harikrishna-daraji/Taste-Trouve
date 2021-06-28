@@ -98,24 +98,4 @@ public class VerifyOtpActivity extends AppCompatActivity {
         });
 
     }
-
-    private void updateUser(String email, String password) {
-        try {
-            ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-            apiInterface.updateUser(email,password).enqueue(new Callback<ResponseBody>() {
-                @Override
-                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-
-                }
-
-                @Override
-                public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-                }
-            });
-        } catch (Exception ex) {
-            Log.i("TAG","TAG: "+ex.getMessage());
-        }
-    }
-
 }

@@ -47,6 +47,6 @@ public interface ApiInterface {
     Call<List<ItemProductModel>> getAllProducts();
 
     @PUT("clientUser/update")
-    Call<ResponseBody> updateUser(@Field("email") String email, @Field("password") String password);
+    Call<ResponseBody> updateUser(@Field("phone") String phone, @Field("password") String password);
 
 }
