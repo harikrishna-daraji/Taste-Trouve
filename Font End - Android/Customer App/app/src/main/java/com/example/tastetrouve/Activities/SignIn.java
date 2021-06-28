@@ -103,6 +103,7 @@ public class SignIn extends BaseActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(SignIn.this, SignUp.class));
+                finish();
             }
         });
 

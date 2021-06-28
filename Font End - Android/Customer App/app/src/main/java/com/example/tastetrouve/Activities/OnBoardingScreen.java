@@ -58,6 +58,7 @@ public class OnBoardingScreen extends BaseActivity {
 
                 Intent intent = new Intent(OnBoardingScreen.this,SignIn.class);
                 startActivity(intent);
+                finish();
             }
         });
 
