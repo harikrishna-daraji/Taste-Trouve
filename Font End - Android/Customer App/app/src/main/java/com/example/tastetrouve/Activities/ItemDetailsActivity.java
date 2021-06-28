@@ -3,6 +3,7 @@ package com.example.tastetrouve.Activities;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -69,6 +70,7 @@ public class ItemDetailsActivity extends BaseActivity {
                 descriptionTV.setText(model.getDescription());
             }
         }
+        Log.i("TAG","TAG "+descriptionTV.getText().toString());
     }
 
 }

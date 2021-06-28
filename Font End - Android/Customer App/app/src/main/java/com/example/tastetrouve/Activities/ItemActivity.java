@@ -58,10 +58,24 @@ public class ItemActivity extends BaseActivity {
         } else if(getIntent().hasExtra(GlobalObjects.ModelList.Kid.toString())) {
             topHeading.setText(GlobalObjects.ModelList.Kid.toString());
             kidSectionModels = (List) getIntent().getStringArrayListExtra(GlobalObjects.ModelList.Kid.toString());
+            if(kidSectionModels.size() > 0) {
+                noResultTV.setVisibility(View.GONE);
+                itemRecycle.setVisibility(View.VISIBLE);
+            } else {
+                noResultTV.setVisibility(View.VISIBLE);
+                itemRecycle.setVisibility(View.GONE);
+            }
             itemRecycle.setAdapter(new ItemRecycleAdapter(kidSectionModels,this));
         } else if(getIntent().hasExtra(GlobalObjects.ModelList.Popular.toString())) {
             topHeading.setText(GlobalObjects.ModelList.Popular.toString());
             popularSectionModels = (ArrayList) getIntent().getStringArrayListExtra(GlobalObjects.ModelList.Popular.toString());
+            if(popularSectionModels.size() > 0) {
+                noResultTV.setVisibility(View.GONE);
+                itemRecycle.setVisibility(View.VISIBLE);
+            } else {
+                noResultTV.setVisibility(View.VISIBLE);
+                itemRecycle.setVisibility(View.GONE);
+            }
             itemRecycle.setAdapter(new ItemRecycleAdapter(this,popularSectionModels));
         } else if(getIntent().hasExtra(GlobalObjects.ModelList.Restaurant.toString()) && getIntent().hasExtra(GlobalObjects.ModelList.Category.toString()) && getIntent().hasExtra(GlobalObjects.ModelList.Subcategory.toString())) {
             String categoryID = getIntent().getStringExtra(GlobalObjects.ModelList.Category.toString());

@@ -26,6 +26,8 @@
         android:textColor="#000"
         android:text="Login Details"/>
     <EditText
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
         android:id="@+id/emailLogin"
         android:height="35dp"
         android:layout_marginTop="30dp"
@@ -38,6 +40,8 @@
 
 
     <EditText
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
         android:id="@+id/passwordLogin"
         android:paddingLeft="25dp"
         android:layout_marginTop="20dp"
@@ -54,6 +58,7 @@
         android:layout_height="wrap_content"
         android:text="Login"/>
         <TextView
+            android:textColor="@color/black"
             android:id="@+id/signUp"
             android:layout_width="wrap_content"
             android:layout_gravity="center_horizontal"

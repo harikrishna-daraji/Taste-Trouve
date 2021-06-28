@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -14,10 +15,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.tastetrouve.HelperClass.ApiClient;
+import com.example.tastetrouve.HelperClass.ApiInterface;
 import com.example.tastetrouve.Models.UserTestModel;
 import com.example.tastetrouve.R;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,6 +35,11 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ResetPasswordActivity extends AppCompatActivity {
 
@@ -130,9 +140,18 @@ public class ResetPasswordActivity extends AppCompatActivity {
                             if (firebasephone.equals(Phone)) {
                                 String SEMAIL = users.getEmail();
                                 users.setNewPassword(SnewPassword);
-                                databaseReference.child("Users").child(snapshot2.getKey()).setValue(users);
-                                Toast.makeText(ResetPasswordActivity.this, "Password updated Successfully", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(ResetPasswordActivity.this,SignIn.class));
+                                databaseReference.child("Users").child(snapshot2.getKey()).setValue(users).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        Log.i("TAG","TAG: Firebase success");
+                                        updateUser(Phone,SnewPassword);
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.i("TAG","TAG: Firebase failure: "+e.getMessage());
+                                    }
+                                });
                             }
                         }
                     }
@@ -168,4 +187,27 @@ public class ResetPasswordActivity extends AppCompatActivity {
             // matched the ReGex
             return m.matches();
         }
+    private void updateUser(String phone, String password) {
+        try {
+            ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+            apiInterface.updateUser(phone,password).enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    try {
+                        Toast.makeText(ResetPasswordActivity.this, "Password updated Successfully", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(ResetPasswordActivity.this,SignIn.class));
+                    } catch (Exception ex) {
+                        Log.i("TAG","TAG "+ex.getMessage());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    Log.i("TAG","TAG: Server Failure: "+t.getMessage());
+                }
+            });
+        } catch (Exception ex) {
+            Log.i("TAG","TAG: "+ex.getMessage());
+        }
     }
+}

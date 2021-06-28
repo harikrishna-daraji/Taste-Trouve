@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
                     uDataArrayList.add(new UData(heroList.get(i).getRestaurantName(),heroList.get(i).getEmail(),heroList.get(i).getPhoneNumber(),heroList.get(i).getAddress(),heroList.get(i).get_id()));
 
                 }
-
+                Log.i("TAG","TAG: Size "+heroList.size());
                 UAdapter customAdapter= new UAdapter(uDataArrayList,MainActivity.this);
                 recyclerView.setAdapter(customAdapter);
             }
