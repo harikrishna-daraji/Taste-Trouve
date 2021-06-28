@@ -89,7 +89,7 @@ public class MainCategoryActivity extends BaseActivity {
             topHeading.setText(restaurantModel.getRestaurantName());
             List<CategoryModel> categoryModels = (ArrayList) getIntent().getStringArrayListExtra(GlobalObjects.ModelList.Category.toString());
             for(CategoryModel model: categoryModels) {
-                if(model.getName().equals("Drinks")) {
+                if(model.getName().equals("Dessert")) {
                     dessertModel = model;
                     Glide.with(getBaseContext()).load(model.getImage()).placeholder(R.drawable.image_placeholder).into(dessertImg);
                 } else if(model.getName().equals("Main Course")) {

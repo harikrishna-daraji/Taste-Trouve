@@ -62,9 +62,9 @@ public class OnBoardingScreen extends BaseActivity {
         });
 
         List<SliderItem> sliderItemList = new ArrayList<>();
-        sliderItemList.add(new SliderItem(R.drawable.boarding_image1));
-        sliderItemList.add(new SliderItem(R.drawable.boarding_image1));
-        sliderItemList.add(new SliderItem(R.drawable.boarding_image1));
+        sliderItemList.add(new SliderItem(R.drawable.boarding_0));
+        sliderItemList.add(new SliderItem(R.drawable.boarding_1));
+        sliderItemList.add(new SliderItem(R.drawable.boarding_image3));
 
         viewPager2.setAdapter(new SliderAdapter(sliderItemList,viewPager2));
         viewPager2.setClipToPadding(false);

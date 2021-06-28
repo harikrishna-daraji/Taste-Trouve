@@ -57,7 +57,11 @@ public class TopSellingRecycleAdapter  extends RecyclerView.Adapter<TopSellingRe
 
     @Override
     public int getItemCount() {
-        return popularSectionModels.size();
+        if(popularSectionModels.size() > 6) {
+            return 6;
+        } else {
+            return popularSectionModels.size();
+        }
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

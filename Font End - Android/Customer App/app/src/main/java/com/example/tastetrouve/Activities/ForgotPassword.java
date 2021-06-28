@@ -141,6 +141,7 @@ public class ForgotPassword extends AppCompatActivity {
                             String SPhone = "+1"+Semailphone;
                             Log.d("aa", SPhone);
                             SendVerificationCodeToUsers(SPhone);
+                            break;
                         }
                     }
 

@@ -1,7 +1,7 @@
 package com.example.tastetrouve.Models;
 
 public class Users {
-    public String name,email,phone,dateofbirth, password, fcmToken ,NewPassword;
+    private String name,email,phone,dateofbirth, password, fcmToken ,NewPassword;
 
     public Users(){
 
