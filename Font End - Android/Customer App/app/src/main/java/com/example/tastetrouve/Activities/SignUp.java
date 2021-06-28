@@ -63,6 +63,14 @@ public class SignUp extends BaseActivity {
 
         signin = findViewById(R.id.textViewSignIN);
 
+        signin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SignUp.this,SignIn.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         mAuth = FirebaseAuth.getInstance();
 
