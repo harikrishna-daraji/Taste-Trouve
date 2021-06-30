@@ -1,5 +1,5 @@
 const router = require("express").Router();
-
+const admin = require("firebase-admin");
 const Product = require("../models/Product");
 const Category = require("../models/Category");
 const SubCategory = require("../models/SubCategory");
@@ -127,6 +127,18 @@ router.put("/update", async (req, res) => {
       if (err) {
         res.send(err);
       } else {
+        var payload = {
+          data: {
+            title: "Product Updated",
+            message: "This product has been Updated",
+          },
+        };
+        admin
+          .messaging()
+          .sendToDevice(
+            "fCcVB03BQfW6oQvz-NkC8F:APA91bFIfTmzIwzvct2rEp5PQAclGmF1By3FBDdtq4rssLPVwEp-LOtLrVIStWjcJgX6LPlC2y-tfjgQx37iDD08l0hmFaWCWr_Wp8ggLzerHWJ5MlTgqLbHr4BvLFwVpCLJBbKI82CZ",
+            payload
+          );
         res.send("Updated");
       }
     }
