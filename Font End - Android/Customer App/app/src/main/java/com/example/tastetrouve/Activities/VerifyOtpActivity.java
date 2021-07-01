@@ -3,7 +3,9 @@ package com.example.tastetrouve.Activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -27,10 +29,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class VerifyOtpActivity extends AppCompatActivity {
+public class VerifyOtpActivity extends BaseActivity {
 
     TextView NumberOtp;
-
+    SharedPreferences sharedPreferences;
     EditText Otp1,Otp2,Otp3,Otp4,Otp5,Otp6;
     ImageButton Verify;
 
@@ -40,6 +42,10 @@ public class VerifyOtpActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(loadStyle(false));
+        sharedPreferences = getApplicationContext().getSharedPreferences("LANGUAGE", Context.MODE_PRIVATE);
+        String language = sharedPreferences.getString("code","en");
+        setLanguage(language);
         setContentView(R.layout.activity_verify_otp);
 
         Otp1 = findViewById(R.id.editTextOtp1);

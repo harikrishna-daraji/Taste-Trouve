@@ -6,8 +6,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.util.Log;
@@ -37,19 +39,22 @@ import com.example.tastetrouve.R;
 
 import java.util.concurrent.TimeUnit;
 
-public class ForgotPassword extends AppCompatActivity {
+public class ForgotPassword extends BaseActivity {
 
     EditText emailPhone;
     ImageButton send;
-
+    SharedPreferences sharedPreferences;
     FirebaseAuth mAuth;
-
     String codeeBySystem;
 
 boolean flag = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(loadStyle(false));
+        sharedPreferences = getApplicationContext().getSharedPreferences("LANGUAGE", Context.MODE_PRIVATE);
+        String language = sharedPreferences.getString("code","en");
+        setLanguage(language);
         setContentView(R.layout.activity_forgot_password);
 
         emailPhone = findViewById(R.id.editTextEmailPhone);

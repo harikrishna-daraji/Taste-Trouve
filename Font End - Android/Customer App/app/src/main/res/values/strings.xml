@@ -39,5 +39,7 @@
     <string name="favourites">Favourites</string>
     <string name="comming_soon">Comming soon</string>
     <string name="user_is_already_registered">User is already registered</string>
+    <string name="english">English</string>
+    <string name="french">French</string>
 </resources>
 

@@ -40,4 +40,6 @@
     <string name="favourites">Favoris</string>
     <string name="comming_soon">Bientôt disponible</string>
     <string name="user_is_already_registered">L\'utilisateur est déjà enregistré</string>
+    <string name="english">Anglais</string>
+    <string name="french">Français</string>
 </resources>

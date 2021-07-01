@@ -3,7 +3,9 @@ package com.example.tastetrouve.Activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -41,10 +43,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ResetPasswordActivity extends AppCompatActivity {
+public class ResetPasswordActivity extends BaseActivity {
 
     EditText newpassword,connfirmpassword;
     ImageButton resetPassword;
+    SharedPreferences sharedPreferences;
     ImageView show1,show2;
     TextView email;
     String Semail,Phone;
@@ -62,8 +65,11 @@ public class ResetPasswordActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(loadStyle(false));
+        sharedPreferences = getApplicationContext().getSharedPreferences("LANGUAGE", Context.MODE_PRIVATE);
+        String language = sharedPreferences.getString("code","en");
+        setLanguage(language);
         setContentView(R.layout.activity_reset_password);
-
 
         newpassword = findViewById(R.id.editTextNewPassword);
         connfirmpassword = findViewById(R.id.editTextConfirmNewPassword);
