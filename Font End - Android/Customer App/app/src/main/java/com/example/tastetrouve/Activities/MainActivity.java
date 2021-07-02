@@ -38,7 +38,7 @@ public class MainActivity extends BaseActivity {
         new Handler().postDelayed(new Runnable(){
             @Override
             public void run() {
-                Intent mainIntent = new Intent(MainActivity.this, OnBoardingScreen.class);
+                Intent mainIntent = new Intent(MainActivity.this, LanguageActivity.class);
                 MainActivity.this.startActivity(mainIntent);
                 MainActivity.this.finish();
             }

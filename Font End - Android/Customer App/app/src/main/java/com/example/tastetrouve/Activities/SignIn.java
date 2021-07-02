@@ -167,15 +167,15 @@ public class SignIn extends BaseActivity {
                                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                         @Override
                                         public void onComplete(@NonNull Task<AuthResult> task) {
-                                            Toast.makeText(SignIn.this, "Login Successfully", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(SignIn.this, getString(R.string.login_successfully), Toast.LENGTH_SHORT).show();
                                             callLoginApi();
                                         }
                                     });
                                 break;
                         }else{
                             password.requestFocus();
-                            password.setError("Enter correct Password");
-                            Toast.makeText(SignIn.this, "Enter Correct Password !", Toast.LENGTH_SHORT).show();
+                            password.setError(getString(R.string.enter_correct_password));
+                            Toast.makeText(SignIn.this,getString(R.string.enter_correct_password), Toast.LENGTH_SHORT).show();
                         }
 
                     }
@@ -184,7 +184,7 @@ public class SignIn extends BaseActivity {
                 }
                   if(flag == false){
                     email.requestFocus();
-                    email.setError("Email does not Exist in Database. Please SignUp First");
+                    email.setError(getString(R.string.email_does_not_exist));
                 }
 
 
