@@ -37,7 +37,8 @@
     <string name="no_result">No Result</string>
     <string name="search_for_item">Search for items</string>
     <string name="favourites">Favourites</string>
-    <string name="comming_soon">Comming soon</string>
+    <string name="comming_soon">Coming soon</string>
     <string name="user_is_already_registered">User is already registered</string>
+    <string name="your_order">Your Order</string>
 </resources>
 

@@ -15,25 +15,26 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TasteTrouve"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Activities.SubcategoryListActivity"></activity>
-        <activity android:name=".Activities.VerifyOtpActivity"></activity>
-        <activity android:name=".Activities.ResetPasswordActivity" />
-        <activity android:name=".Activities.ItemDetailsActivity" />
-        <activity android:name=".Activities.MainCategoryActivity" />
-        <activity android:name=".Activities.OnBoardingScreen" />
-        <activity android:name=".Activities.ItemActivity" />
-        <activity android:name=".Activities.HomeActivity" >
-
-        </activity>
-        <activity android:name=".Activities.SignUp" />
-        <activity android:name=".Activities.ForgotPassword" />
-        <activity android:name=".Activities.SignIn" />
-        <activity android:name=".Activities.MainActivity">
+        <activity android:name=".Activities.CartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".Activities.SubcategoryListActivity" />
+        <activity android:name=".Activities.VerifyOtpActivity" />
+        <activity android:name=".Activities.ResetPasswordActivity" />
+        <activity android:name=".Activities.ItemDetailsActivity" />
+        <activity android:name=".Activities.MainCategoryActivity" />
+        <activity android:name=".Activities.OnBoardingScreen" />
+        <activity android:name=".Activities.ItemActivity" />
+        <activity android:name=".Activities.HomeActivity"></activity>
+        <activity android:name=".Activities.SignUp" />
+        <activity android:name=".Activities.ForgotPassword" />
+        <activity android:name=".Activities.SignIn" />
+        <activity android:name=".Activities.MainActivity">
+
         </activity>
     </application>
 
