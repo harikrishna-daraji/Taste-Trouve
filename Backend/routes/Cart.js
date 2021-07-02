@@ -39,23 +39,17 @@ router.post("/getCartByUser", async (req, res) => {
 
   const cart = await Cart.find({
     userId,
-  });
+  }).populate("productId");
   res.json(cart);
 });
 
-router.put("/deleteProduct", async (req, res) => {
-  let { productId } = req.body;
-  Product.updateOne(
-    { _id: productId },
-    { visibleStatus: false },
-    function (err, docs) {
-      if (err) {
-        res.send(err);
-      } else {
-        res.send("Updated");
-      }
-    }
-  );
+router.delete("/delete", async (req, res) => {
+  try {
+    const deleteCart = await Cart.findByIdAndDelete(req.cartId);
+    res.json(deleteCart);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 module.exports = router;
