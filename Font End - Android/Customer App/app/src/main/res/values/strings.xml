@@ -62,6 +62,16 @@
     <string name="fill_out_email_phone">Don\'t worry! Just fill in your email or \nPhone number and we\'ll send you a link\n or otp to reset your password</string>
     <string name="verification">Verification</string>
     <string name="sent_otp_text">We have sent you an OTP\nPlease Enter below to verify forgot password</string>
+    <string name="change_password">Change Password</string>
+    <string name="new_password">New Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="choose_new_confidential_password">Please choose new credentials for your account</string>
+    <string name="password_updated_successfully">Password updated Successfully</string>
+    <string name="we_have_sent_otp">We have sent you an OTP to</string>
+    <string name="enter_below_to_varify_otp">\nPlease Enter below to verify forgot password</string>
+    <string name="enter_valid_code">Please enter valid code</string>
+    <string name="otp_varification_successfuly">Otp Verification completed successfully</string>
+    <string name="otp_failed">Otp Verification Failed</string>
 </resources>
 
 

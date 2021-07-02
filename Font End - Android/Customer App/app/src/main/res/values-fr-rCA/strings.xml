@@ -63,4 +63,14 @@
     <string name="fill_out_email_phone">Ne t\'inquiète pas! Remplissez simplement votre e-mail ou \nnuméro de téléphone et nous vous enverrons un lien\n ou otp pour réinitialiser votre mot de passe</string>
     <string name="verification">Vérification</string>
     <string name="sent_otp_text">Nous vous avons envoyé un OTP\nVeuillez entrer ci-dessous pour vérifier le mot de passe oublié</string>
+    <string name="change_password">Changer le mot de passe</string>
+    <string name="new_password">nouveau mot de passe</string>
+    <string name="confirm_password">Confirmez le mot de passe</string>
+    <string name="choose_new_confidential_password">Veuillez choisir de nouvelles informations d\'identification pour votre compte</string>
+    <string name="password_updated_successfully">Mot de passe mis à jour avec succès</string>
+    <string name="we_have_sent_otp">Nous vous avons envoyé un OTP à</string>
+    <string name="enter_below_to_varify_otp">\nVeuillez entrer ci-dessous pour vérifier le mot de passe oublié</string>
+    <string name="enter_valid_code">Veuillez entrer un code valide</string>
+    <string name="otp_varification_successfuly">Vérification OTP terminée avec succès</string>
+    <string name="otp_failed">Échec de la vérification OTP</string>
 </resources>

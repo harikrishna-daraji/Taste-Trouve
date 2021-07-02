@@ -60,7 +60,7 @@ public class VerifyOtpActivity extends BaseActivity {
 
 
         Phone = getIntent().getStringExtra("phone");
-        NumberOtp.setText("We have sent you an OTP to "+Phone+"\nPlease Enter below to verify forgot password");
+        NumberOtp.setText(getString(R.string.we_have_sent_otp)+Phone+getString(R.string.enter_below_to_varify_otp));
 
         verificationId = getIntent().getStringExtra("verificationCode");
 
@@ -73,7 +73,7 @@ public class VerifyOtpActivity extends BaseActivity {
                         Otp4.getText().toString().trim().isEmpty()||
                         Otp5.getText().toString().trim().isEmpty()||
                         Otp6.getText().toString().trim().isEmpty()){
-                    Toast.makeText(VerifyOtpActivity.this, "Please enter valid code", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(VerifyOtpActivity.this, getString(R.string.enter_valid_code), Toast.LENGTH_SHORT).show();
                 return;
                 }
                 String code = Otp1.getText().toString()+
@@ -90,12 +90,12 @@ public class VerifyOtpActivity extends BaseActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if(task.isSuccessful()){
-                                        Toast.makeText(VerifyOtpActivity.this, "Otp Verification completed successfully", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(VerifyOtpActivity.this, getString(R.string.otp_varification_successfuly), Toast.LENGTH_SHORT).show();
                                         Intent intent = new Intent(VerifyOtpActivity.this,ResetPasswordActivity.class);
                                         intent.putExtra("Phone",Phone);
                                         startActivity(intent);
                                     }else{
-                                        Toast.makeText(VerifyOtpActivity.this, "Otp Verification Failed", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(VerifyOtpActivity.this, getString(R.string.otp_failed), Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });

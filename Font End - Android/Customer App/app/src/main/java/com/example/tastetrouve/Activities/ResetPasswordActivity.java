@@ -135,7 +135,7 @@ public class ResetPasswordActivity extends BaseActivity {
 //        user = FirebaseAuth.getInstance().getCurrentUser();
         if (!validatePassword()) {
             newpassword.requestFocus();
-            newpassword.setError("Password must be between 8 to 20 and contain at least one special symbol, uppercase, lowercase and number");
+            newpassword.setError(getString(R.string.password_condition));
         }else if(SnewPassword.equals(SconfirmPassword)) {
                 DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
                 databaseReference.child("Users").addValueEventListener(new ValueEventListener() {
@@ -162,7 +162,7 @@ public class ResetPasswordActivity extends BaseActivity {
                                 });
 
                                 databaseReference.child("Users").child(snapshot2.getKey()).setValue(users);
-                                Toast.makeText(ResetPasswordActivity.this, "Password updated Successfully", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ResetPasswordActivity.this, getString(R.string.password_updated_successfully), Toast.LENGTH_SHORT).show();
                                 flag = true;
                                 startActivity(new Intent(ResetPasswordActivity.this,SignIn.class));
 
@@ -208,7 +208,7 @@ public class ResetPasswordActivity extends BaseActivity {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     try {
-                        Toast.makeText(ResetPasswordActivity.this, "Password updated Successfully", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ResetPasswordActivity.this, getString(R.string.password_updated_successfully), Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(ResetPasswordActivity.this,SignIn.class));
                     } catch (Exception ex) {
                         Log.i("TAG","TAG "+ex.getMessage());
