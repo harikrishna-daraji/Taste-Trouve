@@ -7,5 +7,6 @@ const userSchema = new mongoose.Schema({
   fcmToken: { type: String },
   phoneNumber: { type: String },
   dateOfBirth: { type: String },
+  isDriver: { type: Boolean, default: false },
 });
 module.exports = User = mongoose.model("User", userSchema);
