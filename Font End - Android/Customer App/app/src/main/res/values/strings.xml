@@ -72,6 +72,7 @@
     <string name="enter_valid_code">Please enter valid code</string>
     <string name="otp_varification_successfuly">Otp Verification completed successfully</string>
     <string name="otp_failed">Otp Verification Failed</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDI3N2LJ0049Exfjp6P49FWtYoel3x_1pY</string>
 </resources>
 
 

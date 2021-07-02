@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.tastetrouve">
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -16,6 +18,14 @@
         android:theme="@style/Theme.TasteTrouve"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".Activities.MapActivity"
+            android:exported="true" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <activity
             android:name=".Activities.LanguageActivity"
             android:exported="true" />
         <activity android:name=".Activities.SubcategoryListActivity" />
@@ -25,7 +35,7 @@
         <activity android:name=".Activities.MainCategoryActivity" />
         <activity android:name=".Activities.OnBoardingScreen" />
         <activity android:name=".Activities.ItemActivity" />
-        <activity android:name=".Activities.HomeActivity"></activity>
+        <activity android:name=".Activities.HomeActivity" />
         <activity android:name=".Activities.SignUp" />
         <activity android:name=".Activities.ForgotPassword" />
         <activity android:name=".Activities.SignIn" />
