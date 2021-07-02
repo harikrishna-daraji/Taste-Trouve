@@ -1,6 +1,16 @@
 const express = require("express");
 const ConnectDB = require("./DB/Connection");
 const cors = require("cors");
+const admin = require("firebase-admin");
+
+var serviceAccount = require("./firebaseKey.json");
+
+if (admin.apps.length === 0) {
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    //  databaseURL: "https://taste-trouve-default-rtdb.firebaseio.com"
+  });
+}
 
 require("dotenv").config();
 //setting up express
@@ -26,6 +36,7 @@ app.use("/api/category", require("./routes/Category"));
 app.use("/api/subCategory", require("./routes/SubCategory"));
 app.use("/api/product", require("./routes/Product"));
 app.use("/api/HomeScreen", require("./routes/Home"));
+app.use("/api/Cart", require("./routes/Cart"));
 
 app.listen(PORT, () => console.log(`the server has started on port :${PORT}`));
 // setting up the mongodb connection with mongoose

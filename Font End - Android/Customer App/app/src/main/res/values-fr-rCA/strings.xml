@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Taste Trouve</string>
+    <string name="channel">TastyTrouve</string>
     <string name="welcome">Bienvenue</string>
     <string name="appetizer">Apéritif</string>
     <string name="main_course">Main Course</string>

@@ -5,8 +5,15 @@ const User = require("../models/userModels");
 
 router.post("/register", async (req, res) => {
   try {
-    let { email, password, displayname, fcmToken, phoneNumber, dateOfBirth } =
-      req.body;
+    let {
+      email,
+      password,
+      displayname,
+      fcmToken,
+      phoneNumber,
+      dateOfBirth,
+      isDriver,
+    } = req.body;
 
     // validation
 
@@ -27,6 +34,7 @@ router.post("/register", async (req, res) => {
       fcmToken,
       phoneNumber,
       dateOfBirth,
+      isDriver,
     });
 
     const savedUser = await newUser.save();
@@ -37,6 +45,7 @@ router.post("/register", async (req, res) => {
 });
 
 //login
+
 router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -52,7 +61,9 @@ router.post("/login", async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+
 //delete
+
 router.delete("/delete", async (req, res) => {
   try {
     const deletedUser = await User.findByIdAndDelete(req.user);
@@ -61,6 +72,7 @@ router.delete("/delete", async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+
 //token validation
 
 router.put("/update", async (req, res) => {

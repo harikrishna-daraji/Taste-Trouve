@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Taste Trouve</string>
     <string name="welcome">Welcome</string>
+    <string name="channel">TastyTrouve</string>
     <string name="appetizer">Appetizer</string>
     <string name="main_course">Main Course</string>
     <string name="dessert">Dessert</string>
