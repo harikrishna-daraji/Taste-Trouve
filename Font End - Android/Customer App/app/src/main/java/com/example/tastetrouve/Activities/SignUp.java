@@ -126,25 +126,25 @@ public class SignUp extends BaseActivity {
 
         if(SName.isEmpty()){
             name.requestFocus();
-            name.setError("Name is required");
+            name.setError(getString(R.string.name_required));
         }else
         if(SEmail.isEmpty()){
             email.requestFocus();
-            email.setError("Email is required");
+            email.setError(getString(R.string.email_required));
         }else
         if(!Patterns.EMAIL_ADDRESS.matcher(SEmail).matches()){
             email.requestFocus();
-            email.setError("Enter valid E-Mail address");
+            email.setError(getString(R.string.enter_valid_email));
         } else if(!validatePassword()) {
             password.requestFocus();
-            password.setError("Password must be between 8 to 20 and contain at least one special symbol, uppercase, lowercase and number");
+            password.setError(getString(R.string.password_condition));
         } else if(!isValidPhoneNumber()){
             phone.requestFocus();
-            phone.setError("Phone is required");
+            phone.setError(getString(R.string.phone_required));
         }else
         if(SDateofbirth.isEmpty()){
             dateofbirth.requestFocus();
-            dateofbirth.setError("Date of birth is required");
+            dateofbirth.setError(getString(R.string.birthDate_required));
         }else {
             mAuth.createUserWithEmailAndPassword(SEmail, SPassword)
                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -160,7 +160,7 @@ public class SignUp extends BaseActivity {
                                         Log.i("TAG","TAG: Firebase user is created");
                                         registerUser(user,FirebaseAuth.getInstance().getCurrentUser().getUid());
                                     } else {
-                                        Toast.makeText(SignUp.this, "User creation failed", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(SignUp.this, getString(R.string.user_creation_failed), Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
@@ -237,7 +237,7 @@ public class SignUp extends BaseActivity {
                         Log.i("TAG","TAG: Code: "+response.code()+" Message: "+response.message());
                         if(response.code() == 200) {
                             saveLogInStatus(response.body().get_id());
-                            Toast.makeText(SignUp.this, "User Created", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SignUp.this, getString(R.string.user_created), Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(SignUp.this, HomeActivity.class));
                         } else {
 
