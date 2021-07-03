@@ -110,14 +110,12 @@ public class UAdapter extends RecyclerView.Adapter<UAdapter.ViewHolder> {
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-
             Name = itemView.findViewById(R.id.itemPersonName);
             Address = itemView.findViewById(R.id.itemAddress);
             Email = itemView.findViewById(R.id.itemEmail);
             Phone = itemView.findViewById(R.id.itemPhone);
             Accept = itemView.findViewById(R.id.itemAccept);
             Reject = itemView.findViewById(R.id.itemReject);
-
         }
     }
 }
