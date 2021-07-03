@@ -49,4 +49,12 @@ public interface ApiInterface {
     @PUT("clientUser/update")
     Call<ResponseBody> updateUser(@Field("phone") String phone, @Field("password") String password);
 
+    @FormUrlEncoded
+    @POST("address/add")
+    Call<ResponseBody> addAddress(@Field("userId") String userId, @Field("address") String address, @Field("lat") String lat, @Field("long") String _long);
+
+    @FormUrlEncoded
+    @POST("address/getAddresByUser")
+    Call<ResponseBody> getAddressList(@Field("userId") String userId);
+
 }

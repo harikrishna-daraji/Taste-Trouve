@@ -81,4 +81,5 @@
     <string name="logout_warning_messagae">Voulez-vous vraiment vous déconnecter?</string>
     <string name="yes">Oui</string>
     <string name="no">Non</string>
+    <string name="add__new_address">Ajouter une nouvelle adresse</string>
 </resources>

@@ -200,6 +200,7 @@ public class SignIn extends BaseActivity {
     }
 
     private void saveLogInStatus(String token) {
+        Log.i("TAG","TAG: Token: "+token);
         sharedPreferences = getSharedPreferences("AuthenticationTypes", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
         editor.putString("token",token);
