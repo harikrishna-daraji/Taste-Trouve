@@ -21,11 +21,6 @@
             android:name=".Activities.MapActivity"
             android:exported="true" >
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <meta-data
@@ -42,7 +37,13 @@
         <activity android:name=".Activities.MainCategoryActivity" />
         <activity android:name=".Activities.OnBoardingScreen" />
         <activity android:name=".Activities.ItemActivity" />
-        <activity android:name=".Activities.HomeActivity" />
+        <activity android:name=".Activities.HomeActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".Activities.SignUp" />
         <activity android:name=".Activities.ForgotPassword" />
         <activity android:name=".Activities.SignIn" />
