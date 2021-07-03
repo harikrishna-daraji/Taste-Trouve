@@ -75,4 +75,10 @@
     <string name="enter_valid_code">Veuillez entrer un code valide</string>
     <string name="otp_varification_successfuly">Vérification OTP terminée avec succès</string>
     <string name="otp_failed">Échec de la vérification OTP</string>
+    <string name="manager_profile">Gérer le profil</string>
+    <string name="logout">Se déconnecter</string>
+    <string name="manage_address">Gérer l\'adresse</string>
+    <string name="logout_warning_messagae">Voulez-vous vraiment vous déconnecter?</string>
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
 </resources>
