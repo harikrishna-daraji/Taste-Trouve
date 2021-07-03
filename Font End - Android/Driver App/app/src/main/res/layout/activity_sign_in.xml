@@ -30,15 +30,24 @@
         tools:layout_editor_absoluteX="102dp"
         tools:layout_editor_absoluteY="129dp" />
 
-    <EditText
-        android:id="@+id/editTextEmailPhone"
-        android:layout_width="300dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="15dp"
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="Phone or Email" />
+        android:textColorHint="#B9B8B8">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextEmailPhone"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:hint="Email or Phone"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:background="#fff"
+            app:passwordToggleEnabled="true"
+            android:inputType="textEmailAddress"></com.google.android.material.textfield.TextInputEditText>
+
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
@@ -65,6 +74,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Forgot Password"
+        android:layout_marginTop="5dp"
         android:textColor="#FF0000"
         android:textSize="20dp"
         android:layout_marginRight="40dp"
@@ -83,8 +93,8 @@
 
     <ImageButton
         android:id="@+id/SignUp"
-        android:layout_width="250dp"
-        android:layout_height="50dp"
+        android:layout_width="245dp"
+        android:layout_height="45dp"
         android:layout_gravity="center"
         android:layout_marginTop="15dp"
         android:background="@null"
