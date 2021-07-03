@@ -3,7 +3,9 @@ package com.example.tastetrouve.Activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -27,10 +29,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class VerifyOtpActivity extends AppCompatActivity {
+public class VerifyOtpActivity extends BaseActivity {
 
     TextView NumberOtp;
-
+    SharedPreferences sharedPreferences;
     EditText Otp1,Otp2,Otp3,Otp4,Otp5,Otp6;
     ImageButton Verify;
 
@@ -40,6 +42,10 @@ public class VerifyOtpActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(loadStyle(false));
+        sharedPreferences = getApplicationContext().getSharedPreferences("LANGUAGE", Context.MODE_PRIVATE);
+        String language = sharedPreferences.getString("code","en");
+        setLanguage(language);
         setContentView(R.layout.activity_verify_otp);
 
         Otp1 = findViewById(R.id.editTextOtp1);
@@ -54,7 +60,7 @@ public class VerifyOtpActivity extends AppCompatActivity {
 
 
         Phone = getIntent().getStringExtra("phone");
-        NumberOtp.setText("We have sent you an OTP to "+Phone+"\nPlease Enter below to verify forgot password");
+        NumberOtp.setText(getString(R.string.we_have_sent_otp)+Phone+getString(R.string.enter_below_to_varify_otp));
 
         verificationId = getIntent().getStringExtra("verificationCode");
 
@@ -67,7 +73,7 @@ public class VerifyOtpActivity extends AppCompatActivity {
                         Otp4.getText().toString().trim().isEmpty()||
                         Otp5.getText().toString().trim().isEmpty()||
                         Otp6.getText().toString().trim().isEmpty()){
-                    Toast.makeText(VerifyOtpActivity.this, "Please enter valid code", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(VerifyOtpActivity.this, getString(R.string.enter_valid_code), Toast.LENGTH_SHORT).show();
                 return;
                 }
                 String code = Otp1.getText().toString()+
@@ -84,12 +90,12 @@ public class VerifyOtpActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if(task.isSuccessful()){
-                                        Toast.makeText(VerifyOtpActivity.this, "Otp Verification completed successfully", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(VerifyOtpActivity.this, getString(R.string.otp_varification_successfuly), Toast.LENGTH_SHORT).show();
                                         Intent intent = new Intent(VerifyOtpActivity.this,ResetPasswordActivity.class);
                                         intent.putExtra("Phone",Phone);
                                         startActivity(intent);
                                     }else{
-                                        Toast.makeText(VerifyOtpActivity.this, "Otp Verification Failed", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(VerifyOtpActivity.this, getString(R.string.otp_failed), Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });

@@ -14,7 +14,7 @@
         android:id="@+id/textView8"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Verification"
+        android:text="@string/verification"
         android:textColor="#000"
         android:layout_marginTop="100dp"
         android:textSize="60dp"
@@ -26,7 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:text="We have sent you an OTP\nPlease Enter below to verify forgot password"
+        android:text="@string/sent_otp_text"
         android:textAlignment="center"
          />
     <LinearLayout

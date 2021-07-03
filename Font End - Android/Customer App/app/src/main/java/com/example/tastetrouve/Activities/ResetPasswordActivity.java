@@ -3,7 +3,9 @@ package com.example.tastetrouve.Activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -41,15 +43,17 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ResetPasswordActivity extends AppCompatActivity {
+public class ResetPasswordActivity extends BaseActivity {
 
     EditText newpassword,connfirmpassword;
     ImageButton resetPassword;
+    SharedPreferences sharedPreferences;
     ImageView show1,show2;
     TextView email;
     String Semail,Phone;
     String SnewPassword,SconfirmPassword;
 
+    Boolean flag = false;
     boolean value1 = true;
     boolean value2 = true;
 
@@ -61,8 +65,11 @@ public class ResetPasswordActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(loadStyle(false));
+        sharedPreferences = getApplicationContext().getSharedPreferences("LANGUAGE", Context.MODE_PRIVATE);
+        String language = sharedPreferences.getString("code","en");
+        setLanguage(language);
         setContentView(R.layout.activity_reset_password);
-
 
         newpassword = findViewById(R.id.editTextNewPassword);
         connfirmpassword = findViewById(R.id.editTextConfirmNewPassword);
@@ -122,13 +129,13 @@ public class ResetPasswordActivity extends AppCompatActivity {
     private void PasswordChange() {
         SnewPassword = newpassword.getText().toString();
         SconfirmPassword = connfirmpassword.getText().toString();
-
+        flag = false;
         Phone = getIntent().getStringExtra("Phone");
 //        mAuth = FirebaseAuth.getInstance();
 //        user = FirebaseAuth.getInstance().getCurrentUser();
         if (!validatePassword()) {
             newpassword.requestFocus();
-            newpassword.setError("Password must be between 8 to 20 and contain at least one special symbol, uppercase, lowercase and number");
+            newpassword.setError(getString(R.string.password_condition));
         }else if(SnewPassword.equals(SconfirmPassword)) {
                 DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
                 databaseReference.child("Users").addValueEventListener(new ValueEventListener() {
@@ -137,9 +144,10 @@ public class ResetPasswordActivity extends AppCompatActivity {
                         for (DataSnapshot snapshot2 : snapshot.getChildren()) {
                             UserTestModel users = snapshot2.getValue(UserTestModel.class);
                             String firebasephone = "+1" + users.getPhone();
-                            if (firebasephone.equals(Phone)) {
+                            if (firebasephone.equals(Phone) && flag == false) {
                                 String SEMAIL = users.getEmail();
                                 users.setNewPassword(SnewPassword);
+
                                 databaseReference.child("Users").child(snapshot2.getKey()).setValue(users).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
@@ -152,6 +160,12 @@ public class ResetPasswordActivity extends AppCompatActivity {
                                         Log.i("TAG","TAG: Firebase failure: "+e.getMessage());
                                     }
                                 });
+
+                                databaseReference.child("Users").child(snapshot2.getKey()).setValue(users);
+                                Toast.makeText(ResetPasswordActivity.this, getString(R.string.password_updated_successfully), Toast.LENGTH_SHORT).show();
+                                flag = true;
+                                startActivity(new Intent(ResetPasswordActivity.this,SignIn.class));
+
                             }
                         }
                     }
@@ -194,7 +208,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     try {
-                        Toast.makeText(ResetPasswordActivity.this, "Password updated Successfully", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ResetPasswordActivity.this, getString(R.string.password_updated_successfully), Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(ResetPasswordActivity.this,SignIn.class));
                     } catch (Exception ex) {
                         Log.i("TAG","TAG "+ex.getMessage());

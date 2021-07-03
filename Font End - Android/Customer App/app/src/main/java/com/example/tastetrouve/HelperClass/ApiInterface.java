@@ -28,7 +28,7 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("clientUser/register")
     Call<UserModel> registerUser(@Field("email") String email, @Field("password") String password, @Field("displayname")
-            String displayname, @Field("fcmToken") String   fcmToken, @Field(" phoneNumber") String  phoneNumber, @Field("dateOfBirth") String dateOfBirth);
+            String displayname, @Field("fcmToken") String   fcmToken, @Field("phoneNumber") String  phoneNumber, @Field("dateOfBirth") String dateOfBirth);
 
 
     @FormUrlEncoded
