@@ -3,9 +3,9 @@ const Schema = mongoose.Schema;
 
 const addressSchema = new mongoose.Schema({
   userId: { type: Schema.Types.ObjectId, ref: "User" },
-  streetName: { type: String },
-  appartment: { type: String },
-  postalCode: { type: Number },
+  address: { type: String },
+  lat: { type: String },
+  long: { type: String },
 });
 
 module.exports = Address = mongoose.model("Address", addressSchema);
