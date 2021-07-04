@@ -1,4 +1,4 @@
-package com.example.tastetrouverestaurantowner;
+package com.example.tastetrouvedriver.Helper;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -25,7 +25,7 @@ public class APIClient {
         return  mInstance;
         }
 
-       public  ApiInterface getApi(){
-        return  retrofit.create(ApiInterface.class);
+       public com.example.tastetrouvedriver.Helper.ApiInterface getApi(){
+        return  retrofit.create(com.example.tastetrouvedriver.Helper.ApiInterface.class);
        }
     }
