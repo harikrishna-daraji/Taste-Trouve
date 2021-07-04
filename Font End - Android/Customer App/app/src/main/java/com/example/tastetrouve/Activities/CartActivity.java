@@ -37,7 +37,6 @@ public class CartActivity  extends BaseActivity {
 
     private void fetchdata() {
         cartModelArrayList=new ArrayList<>();
-        ArrayList<String> newList = new ArrayList<>();
 
 
         cartModelArrayList.add(new CartModel("1","https://tse4.mm.bing.net/th?id=OIP.eIL72CWEe-BgPKk9brhv0wHaHA&pid=Api&P=0&w=173&h=165","sugar cotton",24,1));
