@@ -14,6 +14,8 @@ public class GlobalObjects {
         main_course, appetizer, dessert;
     }
 
+    public static final int MAP_REQUEST_CODE = 100;
+
     public static void Toast(Context context, String message) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }

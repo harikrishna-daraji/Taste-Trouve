@@ -32,10 +32,7 @@ public class LanguageActivity extends BaseActivity {
                 editor.putString("code","en");
                 editor.commit();
                 editor.apply();
-
-                Intent intent = new Intent(LanguageActivity.this, OnBoardingScreen.class);
-                startActivity(intent);
-                finish();
+                handleLogin();
             }
         });
 
@@ -45,12 +42,22 @@ public class LanguageActivity extends BaseActivity {
                 editor.putString("code","fr");
                 editor.commit();
                 editor.apply();
-
-                Intent intent = new Intent(LanguageActivity.this, OnBoardingScreen.class);
-                startActivity(intent);
-                finish();
+                handleLogin();
             }
         });
+    }
+
+    private void handleLogin() {
+        sharedPreferences = getSharedPreferences("AuthenticationTypes", Context.MODE_PRIVATE);
+        boolean isLogin = sharedPreferences.getBoolean("signUpDone",false);
+        Intent intent;
+        if(isLogin) {
+            intent = new Intent(LanguageActivity.this,HomeActivity.class);
+        } else {
+            intent = new Intent(LanguageActivity.this, OnBoardingScreen.class);
+        }
+        startActivity(intent);
+        finish();
     }
 
 }
