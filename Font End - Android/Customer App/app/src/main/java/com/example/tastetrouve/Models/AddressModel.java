@@ -20,7 +20,7 @@ public class AddressModel implements Serializable {
             userId = jsonObject.getString("userId");
             address = jsonObject.getString("address");
             lat = jsonObject.getString("lat");
-            _long = jsonObject.getString("_long");
+            _long = jsonObject.getString("long");
         } catch (Exception ex) {
             Log.i("TAG","TAG: AddressModel Exception: "+ex.getMessage());
         }

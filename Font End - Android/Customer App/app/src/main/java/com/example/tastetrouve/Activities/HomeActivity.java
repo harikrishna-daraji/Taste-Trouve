@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.SearchView;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -210,5 +211,11 @@ public class HomeActivity extends BaseActivity implements HomeInterfaceMethods {
     @Override
     public void openSearchRelative() {
         blurRelative.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        settingsFragment.onActivityResult(requestCode,resultCode,data);
     }
 }

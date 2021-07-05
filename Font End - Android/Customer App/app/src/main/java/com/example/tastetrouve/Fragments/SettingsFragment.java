@@ -11,15 +11,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.tastetrouve.Activities.MapActivity;
 import com.example.tastetrouve.Activities.SignIn;
 import com.example.tastetrouve.Adapters.AddressRecycleAdapter;
 import com.example.tastetrouve.HelperClass.ApiClient;
 import com.example.tastetrouve.HelperClass.ApiInterface;
 import com.example.tastetrouve.Models.AddressModel;
+import com.example.tastetrouve.Models.GlobalObjects;
 import com.example.tastetrouve.R;
 
 import org.json.JSONArray;
@@ -64,6 +67,15 @@ public class SettingsFragment extends Fragment {
         addressListLinear = root.findViewById(R.id.addressListLinear);
         addressRecycle = root.findViewById(R.id.addressRecycle);
         addressRecycle.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        root.findViewById(R.id.addNewAddressLinear).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), MapActivity.class);
+                getActivity().startActivityForResult(intent, GlobalObjects.MAP_REQUEST_CODE);
+            }
+        });
+
         root.findViewById(R.id.manageProfileLinear).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -140,6 +152,8 @@ public class SettingsFragment extends Fragment {
     }
 
     private void getAddressList() {
+        addressModelList.clear();
+        addressRecycle.setAdapter(new AddressRecycleAdapter(getActivity(),addressModelList));
         String token = getUserToken();
         if(!token.isEmpty()) {
             try {
@@ -175,4 +189,11 @@ public class SettingsFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == GlobalObjects.MAP_REQUEST_CODE && data.getBooleanExtra("addressStored",false)) {
+            getAddressList();
+        }
+    }
 }

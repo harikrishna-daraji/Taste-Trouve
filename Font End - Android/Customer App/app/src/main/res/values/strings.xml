@@ -84,4 +84,5 @@
     <string name="yes">Yes</string>
     <string name="no">no</string>
     <string name="add__new_address">Add new address</string>
+    <string name="save">Save</string>
 </resources>

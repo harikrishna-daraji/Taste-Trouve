@@ -82,4 +82,5 @@
     <string name="yes">Oui</string>
     <string name="no">Non</string>
     <string name="add__new_address">Ajouter une nouvelle adresse</string>
+    <string name="save">Sauvegarder</string>
 </resources>
