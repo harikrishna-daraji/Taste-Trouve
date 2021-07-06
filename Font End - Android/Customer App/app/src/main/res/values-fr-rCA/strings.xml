@@ -85,4 +85,6 @@
     <string name="save">Sauvegarder</string>
     <string name="add_to_cart">Ajouter au panier</string>
     <string name="quantity">Quantité</string>
+    <string name="added_to_cart">Ajouté au panier</string>
+    <string name="cart_failure">Échec de l\'ajout au panier</string>
 </resources>

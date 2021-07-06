@@ -87,4 +87,6 @@
     <string name="save">Save</string>
     <string name="add_to_cart">Add to cart</string>
     <string name="quantity">Quantity</string>
+    <string name="added_to_cart">Added to cart</string>
+    <string name="cart_failure">Failed to add to cart</string>
 </resources>

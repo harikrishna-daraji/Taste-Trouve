@@ -1,5 +1,6 @@
 package com.example.tastetrouve.HelperClass;
 
+import com.example.tastetrouve.Models.CartModel;
 import com.example.tastetrouve.Models.HomeProductModel;
 import com.example.tastetrouve.Models.ItemProductModel;
 import com.example.tastetrouve.Models.SubCategoryModel;
@@ -56,5 +57,14 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("address/getAddresByUser")
     Call<ResponseBody> getAddressList(@Field("userId") String userId);
+
+
+    @FormUrlEncoded
+    @POST("Cart/add")
+    Call<ResponseBody> addToCart(@Field("userId") String userId, @Field("productId") String productId, @Field("quantity") String quantity);
+
+    @FormUrlEncoded
+    @POST("Cart/getCartByUser")
+    Call<List<CartModel>> getUserCart(@Field("userId") String userId);
 
 }
