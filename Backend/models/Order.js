@@ -10,6 +10,13 @@ const orderSchema = new mongoose.Schema({
   },
   tax: { type: Number },
   total: { type: Number },
+  products: [
+    {
+      name: { type: String },
+      image: { type: String },
+      price: { type: String },
+    },
+  ],
 });
 
 module.exports = Order = mongoose.model("Order", orderSchema);
