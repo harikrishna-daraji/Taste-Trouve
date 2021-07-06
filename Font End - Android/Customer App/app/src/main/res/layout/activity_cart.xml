@@ -137,6 +137,7 @@
             android:text="$ 126"/>
     </LinearLayout>
     <Button
+        android:id="@+id/PlaceOrder"
         android:layout_width="match_parent"
         android:layout_marginTop="15dp"
         android:layout_marginHorizontal="10dp"

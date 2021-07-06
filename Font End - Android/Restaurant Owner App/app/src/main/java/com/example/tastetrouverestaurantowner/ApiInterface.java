@@ -39,7 +39,6 @@ public interface ApiInterface {
             @Field("phoneNumber") String phoneNumber,
             @Field("status") Boolean status,
             @Field("userType") String userType
-
     );
 
 
@@ -47,9 +46,7 @@ public interface ApiInterface {
     @POST("restaurantUsers/login")
     Call<ResponseBody> loginUser(
             @Field("email") String email,
-            @Field("password") String password
-
-
+            @Field("password") String passwor
     );
 
     @FormUrlEncoded
