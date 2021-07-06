@@ -14,21 +14,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.tastetrouve.Models.CartModel;
+import com.example.tastetrouve.Models.CartProductModel;
 import com.example.tastetrouve.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CartRecyclerAdapter  extends RecyclerView.Adapter<CartRecyclerAdapter.MyViewHolder> {
 
-    ArrayList<CartModel> cartModelArrayList;
+    List<CartModel> cartModelArrayList;
     Context context;
 
-    public CartRecyclerAdapter(ArrayList<CartModel> cartModelArrayList, Context context) {
+    public CartRecyclerAdapter(List<CartModel> cartModelArrayList, Context context) {
         this.cartModelArrayList = cartModelArrayList;
         this.context = context;
     }
-
-
 
     public  static class MyViewHolder extends RecyclerView.ViewHolder
     {
@@ -78,18 +78,13 @@ public class CartRecyclerAdapter  extends RecyclerView.Adapter<CartRecyclerAdapt
         ImageView minus=holder.minus;
 
 
+        CartProductModel model = cartModelArrayList.get(position).getProductId();
 
-        name.setText(cartModelArrayList.get(position).getName());
-        price.setText(cartModelArrayList.get(position).getPrice().toString());
-        quantity.setText(cartModelArrayList.get(position).getQuantity().toString());
-        name.setText(cartModelArrayList.get(position).getName());
+        name.setText(model.getName());
+        price.setText("$"+model.getPrice());
+        quantity.setText(cartModelArrayList.get(position).getQuantity());
 
-
-        Glide.with(context).load(cartModelArrayList.get(position).getImage()).placeholder(R.drawable.image_placeholder).into(holder.image);
-
-
-
-
+        Glide.with(context).load(model.getImage()).placeholder(R.drawable.image_placeholder).into(holder.image);
     }
 
 

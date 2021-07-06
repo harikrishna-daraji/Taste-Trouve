@@ -2,57 +2,24 @@ package com.example.tastetrouve.Models;
 
 public class CartModel {
 
-    String id,image,name;
-    Integer price,quantity;
+    String _id;
+    String userId;
+    CartProductModel productId;
+    String quantity;
 
-
-    public String getId() {
-        return id;
+    public String get_id() {
+        return _id;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public String getUserId() {
+        return userId;
     }
 
-    public String getImage() {
-        return image;
+    public CartProductModel getProductId() {
+        return productId;
     }
 
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getPrice() {
-        return price;
-    }
-
-    public void setPrice(Integer price) {
-        this.price = price;
-    }
-
-    public Integer getQuantity() {
+    public String getQuantity() {
         return quantity;
     }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
-
-    public CartModel(String id, String image, String name, Integer price, Integer quantity) {
-        this.id = id;
-        this.image = image;
-        this.name = name;
-        this.price = price;
-        this.quantity = quantity;
-    }
-
-
 }
