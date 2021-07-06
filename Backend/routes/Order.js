@@ -2,11 +2,11 @@ const router = require("express").Router();
 const admin = require("firebase-admin");
 const Product = require("../models/Product");
 const Order = require("../models/Order");
-const OrderItem = require("../models/OrderItem");
+// const OrderItem = require("../models/OrderItem");
 
 router.post("/add", async (req, res) => {
   try {
-    const { userId, addressId, delivery, Products } = req.body;
+    const { userId, addressId, delivery, tax, total, Products } = req.body;
 
     const newOrder = new Order({
       userId,
@@ -15,18 +15,10 @@ router.post("/add", async (req, res) => {
       orderStatus: "pending",
       tax,
       total,
+      products: Products,
     });
-    const savedOrder = await newOrder.save();
 
-    for (var key in Products) {
-      const newOrderItem = new OrderItem({
-        orderId: savedOrder._id,
-        userId,
-        productId: Products[key].productid,
-        quantity: Products[key].quant,
-      });
-      await newOrderItem.save();
-    }
+    const savedOrder = await newOrder.save();
 
     res.json(savedOrder);
   } catch (err) {

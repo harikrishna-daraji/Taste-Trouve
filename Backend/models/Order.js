@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+const Schema = mongoose.Schema;
 const orderSchema = new mongoose.Schema({
   userId: { type: Schema.Types.ObjectId, ref: "User" },
   addressId: { type: Schema.Types.ObjectId, ref: "Address" },
