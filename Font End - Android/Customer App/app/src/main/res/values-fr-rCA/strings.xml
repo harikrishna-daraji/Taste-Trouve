@@ -21,7 +21,7 @@
     <string name="mexican">Mexicaine</string>
     <string name="items">Articles</string>
     <string name="item_name">Nom de l\'article</string>
-    <string name="quantity_digit">01</string>
+    <string name="quantity_digit">1</string>
     <string name="delivery_time">40 min</string>
     <string name="random_text">C\'est un fait établi de longue date qu\'un lecteur sera distrait par le contenu lisible d\'une page en regardant sa mise en page. L\'intérêt d\'utiliser Lorem Ipsum est qu\'il a une distribution de lettres plus ou moins normale, par opposition à l\'utilisation de \'Content here, content here\', ce qui le fait ressembler à un anglais lisible. De nombreux logiciels de publication assistée par ordinateur et éditeurs de pages Web utilisent désormais Lorem Ipsum comme texte de modèle par défaut, et une recherche de « lorem ipsum » permettra de découvrir de nombreux sites Web encore à leurs balbutiements. Différentes versions ont évolué au fil des années, parfois par accident, parfois volontairement (humour injecté, etc.).</string>
     <string name="calorie_digit">328 kcal</string>
@@ -83,4 +83,8 @@
     <string name="no">Non</string>
     <string name="add__new_address">Ajouter une nouvelle adresse</string>
     <string name="save">Sauvegarder</string>
+    <string name="add_to_cart">Ajouter au panier</string>
+    <string name="quantity">Quantité</string>
+    <string name="added_to_cart">Ajouté au panier</string>
+    <string name="cart_failure">Échec de l\'ajout au panier</string>
 </resources>

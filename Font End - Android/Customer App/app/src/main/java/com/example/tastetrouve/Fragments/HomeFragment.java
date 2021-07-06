@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import androidx.fragment.app.Fragment;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.tastetrouve.Activities.CartActivity;
 import com.example.tastetrouve.Activities.HomeActivity;
 import com.example.tastetrouve.Activities.ItemActivity;
 import com.example.tastetrouve.Adapters.KidMenuRecycleAdapter;
@@ -62,6 +64,15 @@ public class HomeFragment extends Fragment {
     }
 
     private void initUI() {
+
+        root.findViewById(R.id.cartImg).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), CartActivity.class);
+                startActivity(intent);
+            }
+        });
+
         root.findViewById(R.id.appetizerLinear).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

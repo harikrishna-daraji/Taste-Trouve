@@ -38,6 +38,7 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"/>
                 <ImageView
+                    android:id="@+id/cartImg"
                     android:layout_weight="0.2"
                     app:tint = "?attr/textColor"
                     android:src="@drawable/cart_icon"
