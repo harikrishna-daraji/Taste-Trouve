@@ -64,8 +64,9 @@ router.post("/updateQuantity", async (req, res) => {
 });
 
 router.delete("/delete", async (req, res) => {
+  const { cartId } = req.body;
   try {
-    const deleteCart = await Cart.findByIdAndDelete(req.cartId);
+    const deleteCart = await Cart.findByIdAndDelete(cartId);
     res.json(deleteCart);
   } catch (err) {
     res.status(500).json({ error: err.message });
