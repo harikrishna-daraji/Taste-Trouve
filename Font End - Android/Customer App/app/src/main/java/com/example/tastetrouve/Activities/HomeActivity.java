@@ -16,17 +16,23 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.SearchView;
 
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tastetrouve.Adapters.KeywordRecycleAdapter;
+import com.example.tastetrouve.Fragments.FavouriteFragment;
+import com.example.tastetrouve.Fragments.HomeFragment;
+import com.example.tastetrouve.Fragments.SettingsFragment;
 import com.example.tastetrouve.HelperClass.AbsolutefitLayourManager;
 import com.example.tastetrouve.Adapters.KidMenuRecycleAdapter;
 import com.example.tastetrouve.Adapters.RestaurantRecycleAdapter;
 import com.example.tastetrouve.Adapters.TopSellingRecycleAdapter;
 import com.example.tastetrouve.HelperClass.ApiClient;
 import com.example.tastetrouve.HelperClass.ApiInterface;
+import com.example.tastetrouve.Interfaces.HomeInterfaceMethods;
 import com.example.tastetrouve.Models.CategoryModel;
 import com.example.tastetrouve.Models.GlobalObjects;
 import com.example.tastetrouve.Models.HomeProductModel;
@@ -44,17 +50,21 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class HomeActivity extends BaseActivity  {
+public class HomeActivity extends BaseActivity implements HomeInterfaceMethods {
 
-    RecyclerView topSellingRecycle, kidMenuRecycle, restaurantRecycle, keywordRecycle;
+
     SharedPreferences sharedPreferences;
-    HomeProductModel homeProductModel;
     List<ItemProductModel> itemProductModels;
     List<ItemProductModel> filteredItemProductModel = new ArrayList<>();
     BlurView blurView;
     RelativeLayout blurRelative;
-    EditText searchEditText;
+    RecyclerView keywordRecycle;
     TabLayout tabs;
+    EditText searchEditText;
+    HomeFragment homeFragment;
+    SettingsFragment settingsFragment;
+    FavouriteFragment favouriteFragment;
+
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,8 +74,10 @@ public class HomeActivity extends BaseActivity  {
         String language = sharedPreferences.getString("code","en");
         setLanguage(language);
         setContentView(R.layout.activity_home);
+        homeFragment = new HomeFragment();
+        favouriteFragment = new FavouriteFragment();
+        settingsFragment = new SettingsFragment();
         initUI();
-        getHomeProducts();
         getAllProducts();
         blurBackground();
     }
@@ -78,13 +90,18 @@ public class HomeActivity extends BaseActivity  {
         tabs.getTabAt(1).select();
         blurRelative = findViewById(R.id.blurRelative);
 
+        openNavigationMenu(homeFragment);
+
+
         tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 if(tab.getPosition() == 0) {
-                    GlobalObjects.Toast(getBaseContext(),getString(R.string.favourites)+" "+getString(R.string.comming_soon));
+                    openNavigationMenu(favouriteFragment);
+                } else if(tab.getPosition() == 1) {
+                    openNavigationMenu(homeFragment);
                 } else if(tab.getPosition() == 2) {
-                    GlobalObjects.Toast(getBaseContext(),getString(R.string.settings)+" "+getString(R.string.comming_soon));
+                    openNavigationMenu(settingsFragment);
                 }
             }
 
@@ -125,12 +142,7 @@ public class HomeActivity extends BaseActivity  {
             }
         });
 
-        findViewById(R.id.searchLinear).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                blurRelative.setVisibility(View.VISIBLE);
-            }
-        });
+
 
         findViewById(R.id.closeImg).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,84 +157,6 @@ public class HomeActivity extends BaseActivity  {
         blurView = findViewById(R.id.blurLayout);
         keywordRecycle = findViewById(R.id.keywordRecycle);
         keywordRecycle.setLayoutManager(new LinearLayoutManager(this));
-
-        findViewById(R.id.appetizerLinear).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, ItemActivity.class);
-                intent.putExtra("section", GlobalObjects.Category.appetizer.toString());
-                for(CategoryModel model: homeProductModel.getCategoryObject()) {
-                    if(model.getName().equals("Appetizers")) {
-                        intent.putExtra("categoryId",model.get_id());
-                        break;
-                    }
-                }
-                startActivity(intent);
-            }
-        });
-
-
-        findViewById(R.id.main_courseLinear).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this,ItemActivity.class);
-                intent.putExtra("section", GlobalObjects.Category.main_course.toString());
-                for(CategoryModel model: homeProductModel.getCategoryObject()) {
-                    if(model.getName().equals("Main Course")) {
-                        intent.putExtra("categoryId",model.get_id());
-                        break;
-                    }
-                }
-                startActivity(intent);
-            }
-        });
-
-        findViewById(R.id.dessertLinear).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this,ItemActivity.class);
-                intent.putExtra("section", GlobalObjects.Category.dessert.toString());
-                for(CategoryModel model: homeProductModel.getCategoryObject()) {
-                    if(model.getName().equals("Dessert")) {
-                        intent.putExtra("categoryId",model.get_id());
-                        break;
-                    }
-                }
-                startActivity(intent);
-            }
-        });
-
-        findViewById(R.id.viewAllKidTV).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this,ItemActivity.class);
-                intent.putStringArrayListExtra(GlobalObjects.ModelList.Kid.toString(),(ArrayList)homeProductModel.getKidsSection());
-                startActivity(intent);
-            }
-        });
-
-        findViewById(R.id.viewAllTopSellingTV).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this,ItemActivity.class);
-                intent.putStringArrayListExtra(GlobalObjects.ModelList.Popular.toString(),(ArrayList)homeProductModel.getPopular());
-                startActivity(intent);
-            }
-        });
-
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this,2);
-        topSellingRecycle = findViewById(R.id.topSellingRecycle);
-        topSellingRecycle.setLayoutManager(gridLayoutManager);
-
-
-        AbsolutefitLayourManager absolutefitLayourManager = new AbsolutefitLayourManager(this,1,GridLayoutManager.HORIZONTAL,false);
-        kidMenuRecycle = findViewById(R.id.kidsMenuRecycle);
-        kidMenuRecycle.setLayoutManager(absolutefitLayourManager);
-
-
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,RecyclerView.HORIZONTAL,false);
-        restaurantRecycle = findViewById(R.id.restaurantRecycle);
-        restaurantRecycle.setLayoutManager(linearLayoutManager);
     }
 
     private void blurBackground() {
@@ -241,35 +175,7 @@ public class HomeActivity extends BaseActivity  {
                 .setHasFixedTransformationMatrix(true);
     }
 
-    private void getHomeProducts() {
-        try {
-            ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-            apiInterface.getHomeProduct().enqueue(new Callback<HomeProductModel>() {
-                @Override
-                public void onResponse(Call<HomeProductModel> call, Response<HomeProductModel> response) {
-                    try {
-                        if(response.code() == 200) {
-                            homeProductModel = response.body();
-                            topSellingRecycle.setAdapter(new TopSellingRecycleAdapter(HomeActivity.this,homeProductModel.getPopular()));
-                            kidMenuRecycle.setAdapter(new KidMenuRecycleAdapter(HomeActivity.this,homeProductModel.getKidsSection()));
-                            restaurantRecycle.setAdapter(new RestaurantRecycleAdapter(HomeActivity.this,homeProductModel.getRestaurants(),homeProductModel.getCategoryObject()));
-                        } else {
-                            Log.i("TAG","TAG: Code: "+response.code()+" Message: "+response.message());
-                        }
-                    } catch (Exception ex) {
-                        Log.i("TAG","TAG "+ex.getMessage());
-                    }
-                }
 
-                @Override
-                public void onFailure(Call<HomeProductModel> call, Throwable t) {
-                    Log.i("TAG","TAG: Server failure: "+t.getMessage());
-                }
-            });
-        } catch (Exception ex) {
-            Log.i("TAG","TAG "+ex.getMessage());
-        }
-    }
 
     private void getAllProducts() {
         try {
@@ -298,4 +204,18 @@ public class HomeActivity extends BaseActivity  {
         }
     }
 
+    private void openNavigationMenu(Fragment fragment) {
+        getSupportFragmentManager().beginTransaction().replace(R.id.containerHomeRelative, fragment).commit();
+    }
+
+    @Override
+    public void openSearchRelative() {
+        blurRelative.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        settingsFragment.onActivityResult(requestCode,resultCode,data);
+    }
 }
