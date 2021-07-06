@@ -14,7 +14,9 @@ router.post("/add", async (req, res) => {
 
     if (checkOldEntry.length > 0) {
       var myquery = { _id: checkOldEntry[0]._id };
-      var newvalues = { $set: { quantity: checkOldEntry[0].quantity + 1 } };
+      var newvalues = {
+        $set: { quantity: checkOldEntry[0].quantity + parseInt(quantity) },
+      };
       await Cart.updateOne(myquery, newvalues, function (err, res) {
         if (err) throw err;
       });
