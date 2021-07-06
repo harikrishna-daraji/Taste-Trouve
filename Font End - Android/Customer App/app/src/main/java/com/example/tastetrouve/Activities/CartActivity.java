@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 
 import com.example.tastetrouve.Adapters.CartRecyclerAdapter;
 import com.example.tastetrouve.HelperClass.ApiClient;
@@ -29,6 +30,7 @@ public class CartActivity  extends BaseActivity {
     RecyclerView recyclerView;
     List<CartModel> cartModelArrayList = new ArrayList<>();
     CartRecyclerAdapter cartRecyclerAdapter;
+    TextView subTotalTV, textTV, deliveryTV, totalTV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

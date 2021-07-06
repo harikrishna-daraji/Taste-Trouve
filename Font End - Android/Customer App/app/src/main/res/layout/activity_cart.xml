@@ -73,6 +73,7 @@
                 android:layout_height="wrap_content"
                 android:text="Subtotal"/>
             <TextView
+                android:id="@+id/subTotalTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="$ 126"/>
@@ -89,6 +90,7 @@
                 android:layout_height="wrap_content"
                 android:text="Taxes @15%"/>
             <TextView
+                android:id="@+id/textTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="$ 126"/>
@@ -104,9 +106,10 @@
                 android:layout_height="wrap_content"
                 android:text="Delivery"/>
             <TextView
+                android:id="@+id/deliveryTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="$ 126"/>
+                android:text="$5"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -125,6 +128,7 @@
             android:layout_height="wrap_content"
             android:text="Total"/>
         <TextView
+            android:id="@+id/totalTV"
             android:layout_width="wrap_content"
             android:textStyle="bold"
             android:textColor="@color/black"
