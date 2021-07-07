@@ -34,6 +34,12 @@ public interface ApiInterface {
     );
 
 
+    @FormUrlEncoded
+    @POST("restaurantUsers/login")
+    Call<ResponseBody> signIn(
+            @Field("email") String email,
+            @Field("password") String password
+    );
 
 
 }
