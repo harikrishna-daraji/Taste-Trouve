@@ -7,6 +7,7 @@ import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.PUT;
 
 public interface ApiInterface {
@@ -22,6 +23,18 @@ public interface ApiInterface {
             @Field("restaurantId") String restaurantId,
             @Field("updateStatus") String updateStatus
     );
+
+    @FormUrlEncoded
+    @POST("restaurantUsers/register")
+    Call<ResponseBody> SignUp(
+            @Field("restaurantName") String restaurantName,
+            @Field("email") String email,
+            @Field("password") String password,
+            @Field("userType") String userType
+    );
+
+
+
 
 }
 
