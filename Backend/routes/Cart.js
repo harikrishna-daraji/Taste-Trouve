@@ -14,7 +14,9 @@ router.post("/add", async (req, res) => {
 
     if (checkOldEntry.length > 0) {
       var myquery = { _id: checkOldEntry[0]._id };
-      var newvalues = { $set: { quantity: checkOldEntry[0].quantity + 1 } };
+      var newvalues = {
+        $set: { quantity: checkOldEntry[0].quantity + parseInt(quantity) },
+      };
       await Cart.updateOne(myquery, newvalues, function (err, res) {
         if (err) throw err;
       });
@@ -43,9 +45,28 @@ router.post("/getCartByUser", async (req, res) => {
   res.json(cart);
 });
 
+router.post("/updateQuantity", async (req, res) => {
+  const { cartId, quantity } = req.body;
+
+  var myquery = { _id: cartId };
+  var newvalues = {
+    $set: { quantity: parseInt(quantity) },
+  };
+
+  if (parseInt(quantity) == 0) {
+    await Cart.findByIdAndDelete(cartId);
+  } else {
+    await Cart.updateOne(myquery, newvalues, function (err, res) {
+      if (err) throw err;
+    });
+  }
+  return res.json({ data: "cartUpdated" });
+});
+
 router.delete("/delete", async (req, res) => {
+  const { cartId } = req.body;
   try {
-    const deleteCart = await Cart.findByIdAndDelete(req.cartId);
+    const deleteCart = await Cart.findByIdAndDelete(cartId);
     res.json(deleteCart);
   } catch (err) {
     res.status(500).json({ error: err.message });

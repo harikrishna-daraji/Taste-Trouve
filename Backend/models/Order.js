@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+const Schema = mongoose.Schema;
 const orderSchema = new mongoose.Schema({
   userId: { type: Schema.Types.ObjectId, ref: "User" },
   addressId: { type: Schema.Types.ObjectId, ref: "Address" },
@@ -10,6 +10,13 @@ const orderSchema = new mongoose.Schema({
   },
   tax: { type: Number },
   total: { type: Number },
+  products: [
+    {
+      name: { type: String },
+      image: { type: String },
+      price: { type: String },
+    },
+  ],
 });
 
 module.exports = Order = mongoose.model("Order", orderSchema);
