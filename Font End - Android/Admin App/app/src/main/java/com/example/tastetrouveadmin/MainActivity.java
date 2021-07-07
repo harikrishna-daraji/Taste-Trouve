@@ -27,17 +27,15 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-       // api = APIClient.getClient().create(ApiInterface.class);
 
-        Log.d("aa", "onCreate: ");
         Call<List<UData>> call = APIClient.getInstance().getApi().getUser();
 
         call.enqueue(new Callback<List<UData>>() {
             @Override
             public void onResponse(Call<List<UData>> call, Response<List<UData>> response) {
-                Log.d("aa", "innn");
+
                 List<UData> heroList = response.body();
-                Log.d("aa", "in");
+
 
                 uDataArrayList = new ArrayList<>();
                 for(int i=0; i <heroList.size(); i++) {
