@@ -143,11 +143,7 @@ public class CartRecyclerAdapter  extends RecyclerView.Adapter<CartRecyclerAdapt
                         Log.i("TAG","TAG: Code: "+response.code()+" Message: "+response.message());
                         Log.i("TAG","TAG: enum value "+cartOperation.toString());
                         if(response.code() == 200) {
-                            if(cartOperation == GlobalObjects.CartOperation.add || cartOperation == GlobalObjects.CartOperation.minus) {
-                                notifyItemChanged(index);
-                            } else {
-                                cartInterface.refreshRecycle();
-                            }
+                            cartInterface.refreshRecycle();
                         }
                     } catch (Exception ex) {
                         Log.i("TAG","TAG "+ex.getMessage());

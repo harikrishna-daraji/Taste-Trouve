@@ -21,9 +21,11 @@ import com.example.tastetrouve.HelperClass.ApiClient;
 import com.example.tastetrouve.HelperClass.ApiInterface;
 import com.example.tastetrouve.Interfaces.CartInterface;
 import com.example.tastetrouve.Models.CartModel;
+import com.example.tastetrouve.Models.CartProductModel;
 import com.example.tastetrouve.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,9 +41,9 @@ public class CartActivity  extends BaseActivity implements CartInterface {
     RecyclerView recyclerView;
     List<CartModel> cartModelArrayList = new ArrayList<>();
     CartRecyclerAdapter cartRecyclerAdapter;
-    TextView subTotalTV, textTV, deliveryTV, totalTV;
+    TextView subTotalTV, texesTV, deliveryTV, totalTV;
     Button placeOrder;
-
+    double subTotal = 0, total=0, taxes=0;
 
 
     @Override
@@ -52,6 +54,16 @@ public class CartActivity  extends BaseActivity implements CartInterface {
         String language = sharedPreferences.getString("code","en");
         setLanguage(language);
         setContentView(R.layout.activity_cart);
+        initUI();
+        getCartDetails();
+    }
+
+
+    private void initUI() {
+        subTotalTV = findViewById(R.id.subTotalTV);
+        texesTV = findViewById(R.id.texesTV);
+        deliveryTV = findViewById(R.id.deliveryTV);
+        totalTV = findViewById(R.id.totalTV);
         recyclerView = findViewById(R.id.cartlist);
         layoutManager = new LinearLayoutManager( this);
         recyclerView.setLayoutManager(layoutManager);
@@ -113,7 +125,6 @@ public class CartActivity  extends BaseActivity implements CartInterface {
                 }
             }
         });
-        getCartDetails();
     }
 
     private String getUserToken() {
@@ -137,6 +148,16 @@ public class CartActivity  extends BaseActivity implements CartInterface {
                     public void onResponse(Call<List<CartModel>> call, Response<List<CartModel>> response) {
                         try {
                             cartModelArrayList = response.body();
+
+                            for(CartModel cartModel: cartModelArrayList) {
+                                CartProductModel cartProductModel = cartModel.getProductId();
+                                subTotal = subTotal + cartProductModel.getPrice() * cartModel.getQuantity();
+                            }
+                            subTotalTV.setText(roundNumber(subTotal));
+                            taxes = subTotal * 0.15;
+                            texesTV.setText(roundNumber(taxes));
+                            total = subTotal + taxes + 5;
+                            totalTV.setText(roundNumber(total));
                             cartRecyclerAdapter= new CartRecyclerAdapter(cartModelArrayList,CartActivity.this);
                             recyclerView.setAdapter(cartRecyclerAdapter);
                         } catch (Exception ex) {
@@ -155,9 +176,17 @@ public class CartActivity  extends BaseActivity implements CartInterface {
         }
     }
 
+    private String roundNumber(double number) {
+        DecimalFormat df = new DecimalFormat("####0.00");
+        return "$"+df.format(number);
+    }
+
     @Override
     public void refreshRecycle() {
         cartModelArrayList.clear();
+        total = 0;
+        subTotal = 0;
+        taxes = 0;
         getCartDetails();
     }
 }

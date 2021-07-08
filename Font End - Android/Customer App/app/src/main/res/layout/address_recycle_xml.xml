@@ -4,19 +4,42 @@
     android:background="@drawable/search_shape"
     android:layout_marginTop="2.5dp"
     android:layout_marginBottom="2.5dp"
+    android:orientation="horizontal"
     android:layout_marginStart="5dp"
     android:layout_marginEnd="5dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="10dp"
+            android:src="@drawable/ic_baseline_location_on_24"
+            app:tint="@color/location_marker_color"
+            android:layout_width="25dp"
+            android:layout_height="25dp"/>
 
-    <TextView
-        android:textColor="?attr/textColor"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginStart="10dp"
+        <TextView
+            android:textColor="?attr/textColor"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:id="@+id/addressRecycleTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <ImageView
         android:layout_marginEnd="10dp"
-        android:id="@+id/addressRecycleTV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="10dp"
+        android:src="@drawable/ic_baseline_close_24"
+        app:tint="?attr/textColor"
+        android:layout_width="25dp"
+        android:layout_height="25dp"/>
 
 </LinearLayout>
