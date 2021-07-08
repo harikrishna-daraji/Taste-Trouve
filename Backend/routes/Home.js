@@ -4,12 +4,16 @@ const Product = require("../models/Product");
 const Category = require("../models/Category");
 const Restaurants = require("../models/Restaurants");
 
-router.get("/getHomeProduct", async (req, res) => {
+router.post("/getHomeProduct", async (req, res) => {
+  const { userId } = req.body;
   try {
     const categoryObject = await Category.find();
 
     const kidsSection = await Product.find({ kidSection: true });
     const popular = await Product.find({ popular: true });
+    const cart = await Cart.find({
+      userId,
+    });
     let restaurants = await Restaurants.find({ status: "accepted" });
     for (var key in restaurants) {
       const restroImages = await Product.findOne({
@@ -26,6 +30,7 @@ router.get("/getHomeProduct", async (req, res) => {
       restaurants,
       kidsSection,
       popular,
+      cart: cart.length,
     };
     res.send(HomeData);
   } catch (err) {
