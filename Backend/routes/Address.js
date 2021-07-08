@@ -33,6 +33,15 @@ router.post("/getAddresByUser", async (req, res) => {
   res.json(product);
 });
 
+router.delete("/delete", async (req, res) => {
+  const { addressId } = req.body;
+  try {
+    const deleteAddress = await Address.findByIdAndDelete(addressId);
+    res.json(deleteAddress);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 // router.put("/update", async (req, res) => {
 //   const data = req.body;
 //   console.log(data);
