@@ -102,7 +102,14 @@ public class CartActivity  extends BaseActivity {
                     });
                     bottomSheetDialog.setContentView(bottomSheetView);
                     bottomSheetDialog.show();
-                }else{
+                }else if(card != null){
+
+                    BottomSheetDialog bottomSheetDialog1 = new BottomSheetDialog(
+                            CartActivity.this,R.style.BottomSheetDialogTheme
+                    );
+                    View bottomSheetView1 = LayoutInflater.from(getApplicationContext())
+                            .inflate(R.layout.layout_bottom_sheet1,findViewById(R.id.bottomSheetContainer)
+                            );
 
                 }
             }
