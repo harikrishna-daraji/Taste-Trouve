@@ -10,6 +10,7 @@ public class CartProductModel {
     int price;
     String description;
     String calories;
+
     int quantity;
     boolean kidSection;
     boolean popular;

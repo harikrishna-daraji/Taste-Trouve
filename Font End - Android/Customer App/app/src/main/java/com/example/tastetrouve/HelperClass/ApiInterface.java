@@ -67,4 +67,8 @@ public interface ApiInterface {
     @POST("Cart/getCartByUser")
     Call<List<CartModel>> getUserCart(@Field("userId") String userId);
 
+    @FormUrlEncoded
+    @POST("Cart/updateQuantity")
+    Call<ResponseBody> updateCart(@Field("cartId") String cartId, @Field("quantity") String quantity);
+
 }

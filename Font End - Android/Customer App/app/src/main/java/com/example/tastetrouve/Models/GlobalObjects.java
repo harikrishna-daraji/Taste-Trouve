@@ -10,6 +10,10 @@ public class GlobalObjects {
         Kid, Popular, Item, Restaurant, Category, Subcategory;
     }
 
+    public enum CartOperation {
+        add, minus, remove
+    }
+
     public enum Category {
         main_course, appetizer, dessert;
     }
@@ -19,5 +23,6 @@ public class GlobalObjects {
     public static void Toast(Context context, String message) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
+
 
 }

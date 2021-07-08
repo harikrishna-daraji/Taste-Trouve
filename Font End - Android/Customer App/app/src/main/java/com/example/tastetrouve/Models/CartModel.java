@@ -5,7 +5,9 @@ public class CartModel {
     String _id;
     String userId;
     CartProductModel productId;
-    String quantity;
+
+
+    int quantity;
 
     public String get_id() {
         return _id;
@@ -19,7 +21,11 @@ public class CartModel {
         return productId;
     }
 
-    public String getQuantity() {
+    public int getQuantity() {
         return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }

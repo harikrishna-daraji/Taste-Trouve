@@ -19,6 +19,7 @@ import com.bumptech.glide.disklrucache.DiskLruCache;
 import com.example.tastetrouve.Adapters.CartRecyclerAdapter;
 import com.example.tastetrouve.HelperClass.ApiClient;
 import com.example.tastetrouve.HelperClass.ApiInterface;
+import com.example.tastetrouve.Interfaces.CartInterface;
 import com.example.tastetrouve.Models.CartModel;
 import com.example.tastetrouve.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -30,7 +31,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CartActivity  extends BaseActivity {
+public class CartActivity  extends BaseActivity implements CartInterface {
 
     private static final String KEY_CARD = "card";
     RecyclerView.LayoutManager layoutManager;
@@ -56,7 +57,12 @@ public class CartActivity  extends BaseActivity {
         recyclerView.setLayoutManager(layoutManager);
         placeOrder = findViewById(R.id.PlaceOrder);
 
-
+        findViewById(R.id.backBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
 
 
@@ -147,5 +153,11 @@ public class CartActivity  extends BaseActivity {
                 Log.i("TAG","TAG: "+ex.getMessage());
             }
         }
+    }
+
+    @Override
+    public void refreshRecycle() {
+        cartModelArrayList.clear();
+        getCartDetails();
     }
 }
