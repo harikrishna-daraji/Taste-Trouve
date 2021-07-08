@@ -3,16 +3,17 @@
     android:id="@+id/bottomSheetContainer"
     android:layout_width="match_parent"
     android:background="@drawable/bottom_sheet_background"
-    android:layout_height="wrap_content"
+    android:layout_height="400dp"
     android:orientation="horizontal">
 <LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical">
     <TextView
         android:text="Add New Card"
         android:textSize="30dp"
         android:textColor="#000"
+        android:layout_marginTop="25dp"
         android:textStyle="bold"
         android:shadowColor="@color/blue_dark"
         android:textAlignment="center"
@@ -23,6 +24,7 @@
         android:id="@+id/CardName"
         android:layout_gravity="center"
         android:layout_width="300dp"
+        android:layout_marginTop="25dp"
         android:hint="Name"
         android:layout_height="wrap_content"/>
 
@@ -30,12 +32,14 @@
         android:id="@+id/CardNumber"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
         android:layout_gravity="center"
         android:hint="Card Number"/>
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
 
         >
         <EditText
@@ -57,12 +61,14 @@
             />
     </LinearLayout>
     <Button
+
         android:id="@+id/AddCard"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:text="Add Card"
         android:textStyle="bold"
         android:layout_gravity="center"
+        android:layout_marginTop="25dp"
         android:shadowColor="#000"
         android:backgroundTint="#FF0000"
         />
