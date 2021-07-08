@@ -36,20 +36,20 @@
                 app:srcCompat="@drawable/user" />
 
             <EditText
-                android:id="@+id/name"
+                android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="50dp"
                 android:height="55dp"
                 android:background="@drawable/roundbordertextfield"
-                android:hint="Enter Name"
+                android:hint="Enter Email"
                 android:paddingLeft="20dp"
                 android:textColor="@color/black"
                 android:textColorHint="@color/black" />
 
             <EditText
-                android:id="@+id/password"
+                android:id="@+id/adminpassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
@@ -63,7 +63,7 @@
 
 
             <Button
-                android:id="@+id/signUp"
+                android:id="@+id/signIn"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginHorizontal="70dp"
@@ -86,15 +86,16 @@
                     android:orientation="vertical"
                     android:layout_gravity="center_horizontal"
                     android:layout_height="wrap_content">
-                    <ImageView
-                        android:layout_width="100dp"
-                        android:layout_height="50dp"
-                        android:layout_gravity="center"
-                        android:src="@drawable/arrow"
-                        />
+<!--                    <ImageView-->
+<!--                        android:layout_width="100dp"-->
+<!--                        android:layout_height="50dp"-->
+<!--                        android:layout_gravity="center"-->
+<!--                        android:src="@drawable/arrow"-->
+<!--                        />-->
                     <TextView
-                        android:id="@+id/signup"
+                        android:id="@+id/signupadmin"
                         android:layout_width="250dp"
+                        android:layout_marginTop="30dp"
                         android:layout_height="50dp"
                         android:textAlignment="center"
                         android:textStyle="bold"
