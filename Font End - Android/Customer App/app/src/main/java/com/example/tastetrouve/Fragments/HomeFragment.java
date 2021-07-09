@@ -1,6 +1,7 @@
 package com.example.tastetrouve.Fragments;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -159,33 +160,48 @@ public class HomeFragment extends Fragment {
         restaurantRecycle.setLayoutManager(linearLayoutManager);
     }
 
-    private void getHomeProducts() {
-        try {
-            ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-            apiInterface.getHomeProduct().enqueue(new Callback<HomeProductModel>() {
-                @Override
-                public void onResponse(Call<HomeProductModel> call, Response<HomeProductModel> response) {
-                    try {
-                        if(response.code() == 200) {
-                            homeProductModel = response.body();
-                            topSellingRecycle.setAdapter(new TopSellingRecycleAdapter(getActivity(),homeProductModel.getPopular()));
-                            kidMenuRecycle.setAdapter(new KidMenuRecycleAdapter(getActivity(),homeProductModel.getKidsSection()));
-                            restaurantRecycle.setAdapter(new RestaurantRecycleAdapter(getActivity(),homeProductModel.getRestaurants(),homeProductModel.getCategoryObject()));
-                        } else {
-                            Log.i("TAG","TAG: Code: "+response.code()+" Message: "+response.message());
-                        }
-                    } catch (Exception ex) {
-                        Log.i("TAG","TAG "+ex.getMessage());
-                    }
-                }
 
-                @Override
-                public void onFailure(Call<HomeProductModel> call, Throwable t) {
-                    Log.i("TAG","TAG: Server failure: "+t.getMessage());
-                }
-            });
-        } catch (Exception ex) {
-            Log.i("TAG","TAG "+ex.getMessage());
+    private String getUserToken() {
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("AuthenticationTypes",getContext().MODE_PRIVATE);
+        boolean isLoggedIn = sharedPreferences.getBoolean("signUpDone",false);
+        if(isLoggedIn) {
+            String token = sharedPreferences.getString("token","");
+            return token;
+        } else {
+            return "";
+        }
+    }
+
+    private void getHomeProducts() {
+        String token = getUserToken();
+        if(!token.isEmpty()) {
+            try {
+                ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+                apiInterface.getHomeProduct(token).enqueue(new Callback<HomeProductModel>() {
+                    @Override
+                    public void onResponse(Call<HomeProductModel> call, Response<HomeProductModel> response) {
+                        try {
+                            if(response.code() == 200) {
+                                homeProductModel = response.body();
+                                topSellingRecycle.setAdapter(new TopSellingRecycleAdapter(getActivity(),homeProductModel.getPopular()));
+                                kidMenuRecycle.setAdapter(new KidMenuRecycleAdapter(getActivity(),homeProductModel.getKidsSection()));
+                                restaurantRecycle.setAdapter(new RestaurantRecycleAdapter(getActivity(),homeProductModel.getRestaurants(),homeProductModel.getCategoryObject()));
+                            } else {
+                                Log.i("TAG","TAG: Code: "+response.code()+" Message: "+response.message());
+                            }
+                        } catch (Exception ex) {
+                            Log.i("TAG","TAG "+ex.getMessage());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<HomeProductModel> call, Throwable t) {
+                        Log.i("TAG","TAG: Server failure: "+t.getMessage());
+                    }
+                });
+            } catch (Exception ex) {
+                Log.i("TAG","TAG "+ex.getMessage());
+            }
         }
     }
 

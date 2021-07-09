@@ -18,8 +18,9 @@ import retrofit2.http.PUT;
 
 public interface ApiInterface {
 
-    @GET("HomeScreen/getHomeProduct")
-    Call<HomeProductModel> getHomeProduct();
+    @FormUrlEncoded
+    @POST("HomeScreen/getHomeProduct")
+    Call<HomeProductModel> getHomeProduct(@Field("userId") String userId);
 
     @FormUrlEncoded
     @POST("product/getProductsByMainCategory")
