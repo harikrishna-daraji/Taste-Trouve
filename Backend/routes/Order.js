@@ -2,6 +2,7 @@ const router = require("express").Router();
 const admin = require("firebase-admin");
 const Product = require("../models/Product");
 const Order = require("../models/Order");
+const moment = require("moment");
 // const OrderItem = require("../models/OrderItem");
 
 router.post("/add", async (req, res) => {
@@ -16,6 +17,7 @@ router.post("/add", async (req, res) => {
       tax,
       total,
       products: Products,
+      orderDate: moment().format("LL"),
     });
 
     const savedOrder = await newOrder.save();

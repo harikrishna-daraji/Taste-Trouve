@@ -12,12 +12,14 @@ const orderSchema = new mongoose.Schema({
   total: { type: Number },
   products: [
     {
+      id: { type: String },
       name: { type: String },
       image: { type: String },
       price: { type: String },
       quantity: { type: String },
     },
   ],
+  orderDate: { type: String },
 });
 
 module.exports = Order = mongoose.model("Order", orderSchema);
