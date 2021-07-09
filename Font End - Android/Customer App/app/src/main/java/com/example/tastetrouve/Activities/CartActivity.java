@@ -1,6 +1,5 @@
 package com.example.tastetrouve.Activities;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -10,30 +9,37 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.disklrucache.DiskLruCache;
+import com.example.tastetrouve.Adapters.AddressRecycleAdapter;
 import com.example.tastetrouve.Adapters.CartRecyclerAdapter;
 import com.example.tastetrouve.HelperClass.ApiClient;
 import com.example.tastetrouve.HelperClass.ApiInterface;
 import com.example.tastetrouve.Interfaces.CartInterface;
+import com.example.tastetrouve.Models.AddressModel;
 import com.example.tastetrouve.Models.CartModel;
 import com.example.tastetrouve.Models.CartProductModel;
 import com.example.tastetrouve.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
+import org.json.JSONArray;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CartActivity  extends BaseActivity implements CartInterface {
+public class CartActivity  extends BaseActivity implements CartInterface, AdapterView.OnItemSelectedListener {
 
     private static final String KEY_CARD = "card";
     RecyclerView.LayoutManager layoutManager;
@@ -44,6 +50,9 @@ public class CartActivity  extends BaseActivity implements CartInterface {
     TextView subTotalTV, texesTV, deliveryTV, totalTV;
     Button placeOrder;
     double subTotal = 0, total=0, taxes=0;
+    List<AddressModel> addressModelList = new ArrayList<>();
+    List<String> stringAddressList = new ArrayList<>();
+    Strinng 
 
 
     @Override
@@ -56,6 +65,7 @@ public class CartActivity  extends BaseActivity implements CartInterface {
         setContentView(R.layout.activity_cart);
         initUI();
         getCartDetails();
+        getAddressList();
     }
 
 
@@ -83,7 +93,8 @@ public class CartActivity  extends BaseActivity implements CartInterface {
             @Override
             public void onClick(View v) {
 
-                String card = sharedPreferences.getString(KEY_CARD,null);
+                sharedPreferences = getApplicationContext().getSharedPreferences("KEY_CARD",Context.MODE_PRIVATE);
+                String card = sharedPreferences.getString("CardNumber",null);
                 if(card == null){
 
                     BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(
@@ -98,7 +109,7 @@ public class CartActivity  extends BaseActivity implements CartInterface {
                             EditText name,card,expiry,cvv;
 
                             name = bottomSheetView.findViewById(R.id.CardName);
-                            card = bottomSheetView.findViewById(R.id.CardNumber);
+                            card = bottomSheetView.findViewById(R.id.cardNumberTV);
                             expiry = bottomSheetView.findViewById(R.id.CardExpiryDate);
                             cvv = bottomSheetView.findViewById(R.id.CardCVV);
 
@@ -108,7 +119,7 @@ public class CartActivity  extends BaseActivity implements CartInterface {
                             String Scvv = cvv.getText().toString();
 
                             Toast.makeText(CartActivity.this, "Add Card", Toast.LENGTH_SHORT).show();
-                            SharedPreferences sharedPreferences = getSharedPreferences("KEY_CARD",MODE_PRIVATE);
+                            sharedPreferences = getApplicationContext().getSharedPreferences("KEY_CARD",Context.MODE_PRIVATE);
 
                             SharedPreferences.Editor editor = sharedPreferences.edit();
 
@@ -116,6 +127,7 @@ public class CartActivity  extends BaseActivity implements CartInterface {
                             editor.putString("CardNumber",Scard);
                             editor.putString("CardExpiry",Sexpiry);
                             editor.putString("CardCvv",Scvv);
+                            editor.apply();
                         }
                     });
                     bottomSheetDialog.setContentView(bottomSheetView);
@@ -128,6 +140,20 @@ public class CartActivity  extends BaseActivity implements CartInterface {
                     View bottomSheetView1 = LayoutInflater.from(getApplicationContext())
                             .inflate(R.layout.layout_bottom_sheet1,findViewById(R.id.bottomSheetContainer)
                             );
+
+
+                    TextView cardNumberTV =  bottomSheetView1.findViewById(R.id.cardNumberTV);
+                    cardNumberTV.setText(card);
+
+                    Spinner addressSpinner = bottomSheetView1.findViewById(R.id.addressSpinner);
+
+                    ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(CartActivity.this, android.R.layout.simple_spinner_item, stringAddressList);
+                    spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    addressSpinner.setAdapter(spinnerAdapter);
+                    addressSpinner.setOnItemSelectedListener(CartActivity.this);
+
+                    bottomSheetDialog1.setContentView(bottomSheetView1);
+                    bottomSheetDialog1.show();
 
                 }
             }
@@ -183,6 +209,41 @@ public class CartActivity  extends BaseActivity implements CartInterface {
         }
     }
 
+    private void getAddressList() {
+        addressModelList.clear();
+        String token = getUserToken();
+        if(!token.isEmpty()) {
+            try {
+                ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+                apiInterface.getAddressList(token).enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        try {
+                            Log.i("TAG","TAG: Code: "+response.code()+" Message: "+response.message());
+                            if(response.code() == 200) {
+                                JSONArray jsonArray = new JSONArray(response.body().string());
+                                for(int index=0;index<jsonArray.length();index++) {
+                                    AddressModel addressModel = new AddressModel(jsonArray.getJSONObject(index));
+                                    stringAddressList.add(addressModel.getAddress());
+                                    addressModelList.add(addressModel);
+                                }
+                            }
+                        } catch (Exception ex) {
+                            Log.i("TAG","TAG: Exception: "+ex.getMessage());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Log.i("TAG","TAG:  Server Failure: "+t.getMessage());
+                    }
+                });
+            } catch (Exception ex) {
+                Log.i("TAG","TAG Exception: "+ex.getMessage());
+            }
+        }
+    }
+
     private String roundNumber(double number) {
         DecimalFormat df = new DecimalFormat("####0.00");
         return "$"+df.format(number);
@@ -195,5 +256,15 @@ public class CartActivity  extends BaseActivity implements CartInterface {
         subTotal = 0;
         taxes = 0;
         getCartDetails();
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }
