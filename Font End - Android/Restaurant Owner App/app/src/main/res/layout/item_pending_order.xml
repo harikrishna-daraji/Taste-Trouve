@@ -93,6 +93,23 @@
             android:background="#706B6B"
             android:layout_marginTop="16dp"
             android:orientation="vertical" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/pendingOrderRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:clipToPadding="false"
+
+
+            />
+        <LinearLayout
+            android:id="@+id/productOrder"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="#706B6B"
+            android:layout_marginTop="16dp"
+            android:orientation="vertical" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
