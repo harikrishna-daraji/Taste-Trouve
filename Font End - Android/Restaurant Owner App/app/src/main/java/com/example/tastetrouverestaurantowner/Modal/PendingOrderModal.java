@@ -3,27 +3,28 @@ package com.example.tastetrouverestaurantowner.Modal;
 import java.util.List;
 
 public class PendingOrderModal {
-    String orderId,orderDate,totalPrice,itemCount,address,status,userName,userPhone;
-    List<ProductOrderModal> productOrderModalList;
+    String _id,orderDate,total,address,orderStatus,userName,userPhone;
+    int itemCount;
+    List<ProductOrderModal> products;
 
-    public PendingOrderModal(String orderId, String orderDate, String totalPrice, String itemCount, String address, String status, String userName, String userPhone, List<ProductOrderModal> productOrderModalList) {
-        this.orderId = orderId;
+    public PendingOrderModal(String _id, String orderDate, String total, int itemCount, String address, String orderStatus, String userName, String userPhone, List<ProductOrderModal> products) {
+        this._id = _id;
         this.orderDate = orderDate;
-        this.totalPrice = totalPrice;
+        this.total = total;
         this.itemCount = itemCount;
         this.address = address;
-        this.status = status;
+        this.orderStatus = orderStatus;
         this.userName = userName;
         this.userPhone = userPhone;
-        this.productOrderModalList = productOrderModalList;
+        this.products = products;
     }
 
     public String getOrderId() {
-        return orderId;
+        return _id;
     }
 
     public void setOrderId(String orderId) {
-        this.orderId = orderId;
+        this._id = _id;
     }
 
     public String getOrderDate() {
@@ -35,18 +36,18 @@ public class PendingOrderModal {
     }
 
     public String getTotalPrice() {
-        return totalPrice;
+        return total;
     }
 
-    public void setTotalPrice(String totalPrice) {
-        this.totalPrice = totalPrice;
+    public void setTotalPrice(String total) {
+        this.total = total;
     }
 
-    public String getItemCount() {
+    public int getItemCount() {
         return itemCount;
     }
 
-    public void setItemCount(String itemCount) {
+    public void setItemCount(int itemCount) {
         this.itemCount = itemCount;
     }
 
@@ -59,11 +60,11 @@ public class PendingOrderModal {
     }
 
     public String getStatus() {
-        return status;
+        return orderStatus;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setStatus(String orderStatus) {
+        this.orderStatus = orderStatus;
     }
 
     public String getUserName() {
@@ -83,11 +84,11 @@ public class PendingOrderModal {
     }
 
     public List<ProductOrderModal> getProductOrderModalList() {
-        return productOrderModalList;
+        return products;
     }
 
-    public void setProductOrderModalList(List<ProductOrderModal> productOrderModalList) {
-        this.productOrderModalList = productOrderModalList;
+    public void setProductOrderModalList(List<ProductOrderModal> products) {
+        this.products = products;
     }
 
 

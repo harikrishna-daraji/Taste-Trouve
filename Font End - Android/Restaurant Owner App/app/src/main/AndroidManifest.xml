@@ -16,7 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TasteTrouveRestaurantOwner"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Activity.PendingOrdersActivity"></activity>
+        <activity android:name=".Activity.DriversActivity"></activity>
+        <activity android:name=".Activity.PendingOrdersActivity" />
         <activity android:name=".Activity.UpdateItemActivity" />
         <activity android:name=".Activity.ViewItemsActivity" />
         <activity android:name=".Activity.SplashActivity">
@@ -32,7 +33,7 @@
         <activity android:name=".Activity.LogInActivity" />
         <activity
             android:name=".Activity.AddItem"
-            android:label="@string/title_activity_add_item"></activity>
+            android:label="@string/title_activity_add_item" />
         <activity android:name=".Activity.MainActivity">
 
             <!-- <intent-filter> -->

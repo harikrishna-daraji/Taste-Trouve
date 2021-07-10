@@ -113,7 +113,7 @@ public class PendingOrdersAdapter extends RecyclerView.Adapter<PendingOrdersAdap
         orderTotal.setText("$ "+pendingOrderModalArrayList.get(position).getTotalPrice());
         orderDate.setText(pendingOrderModalArrayList.get(position).getOrderDate());
 
-        orderCount.setText(pendingOrderModalArrayList.get(position).getItemCount());
+        orderCount.setText(pendingOrderModalArrayList.get(position).getItemCount()+" items");
 
         address.setText(pendingOrderModalArrayList.get(position).getAddress());
         userName.setText(pendingOrderModalArrayList.get(position).getUserName());
