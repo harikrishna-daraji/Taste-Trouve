@@ -5,30 +5,53 @@ const Cart = require("../models/Cart");
 
 router.post("/add", async (req, res) => {
   try {
-    const { userId, productId, quantity } = req.body;
+    const { userId, productId, quantity, restaurantId } = req.body;
 
     const checkOldEntry = await Cart.find({
       userId,
       productId,
     });
 
-    if (checkOldEntry.length > 0) {
-      var myquery = { _id: checkOldEntry[0]._id };
-      var newvalues = {
-        $set: { quantity: checkOldEntry[0].quantity + parseInt(quantity) },
-      };
-      await Cart.updateOne(myquery, newvalues, function (err, res) {
-        if (err) throw err;
-      });
-      return res.json({ data: "cartUpdated" });
+    const compareCart = await Cart.find({
+      userId,
+    });
+
+    if (compareCart.length > 0) {
+      if (compareCart[0].restaurantId == restaurantId) {
+        if (checkOldEntry.length > 0) {
+          var myquery = { _id: checkOldEntry[0]._id };
+          var newvalues = {
+            $set: { quantity: checkOldEntry[0].quantity + parseInt(quantity) },
+          };
+          await Cart.updateOne(myquery, newvalues, function (err, res) {
+            if (err) throw err;
+          });
+          return res.json({ message: "Item quantity is updated" });
+        } else {
+          const newCart = new Cart({
+            userId,
+            productId,
+            quantity,
+            restaurantId,
+          });
+          const savedCart = await newCart.save();
+          return res.json({ message: "Item added to cart" });
+        }
+      } else {
+        return res.json({
+          message:
+            "Please choose the item from same restaurant or clear/proceed the cart",
+        });
+      }
     } else {
       const newCart = new Cart({
         userId,
         productId,
         quantity,
+        restaurantId,
       });
       const savedCart = await newCart.save();
-      res.json(savedCart);
+      return res.json({ message: "Item added to cart" });
     }
   } catch (err) {
     console.log(err.message);
