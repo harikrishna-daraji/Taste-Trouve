@@ -41,6 +41,22 @@ router.post("/getOrderByOwner", async (req, res) => {
   res.json(order);
 });
 
+router.put("/UpdateOrderStatus", async (req, res) => {
+  let { orderId, updateStatus } = req.body;
+
+  Order.updateOne(
+    { _id: orderId },
+    { orderStatus: updateStatus },
+    function (err, docs) {
+      if (err) {
+        res.send(err);
+      } else {
+        res.send("Updated");
+      }
+    }
+  );
+});
+
 // router.delete("/delete", async (req, res) => {
 //   const { cartId } = req.body;
 //   try {
