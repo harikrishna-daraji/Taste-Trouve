@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -43,6 +44,7 @@ public class HomeFragment extends Fragment {
     private View root;
     RecyclerView topSellingRecycle, kidMenuRecycle, restaurantRecycle;
     HomeProductModel homeProductModel;
+    TextView cartCountTV;
 
     public HomeFragment() {
 
@@ -145,6 +147,8 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        cartCountTV = root.findViewById(R.id.cartCountTV);
+
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),2);
         topSellingRecycle = root.findViewById(R.id.topSellingRecycle);
         topSellingRecycle.setLayoutManager(gridLayoutManager);
@@ -186,6 +190,7 @@ public class HomeFragment extends Fragment {
                                 topSellingRecycle.setAdapter(new TopSellingRecycleAdapter(getActivity(),homeProductModel.getPopular()));
                                 kidMenuRecycle.setAdapter(new KidMenuRecycleAdapter(getActivity(),homeProductModel.getKidsSection()));
                                 restaurantRecycle.setAdapter(new RestaurantRecycleAdapter(getActivity(),homeProductModel.getRestaurants(),homeProductModel.getCategoryObject()));
+                                cartCountTV.setText(homeProductModel.getCart());
                             } else {
                                 Log.i("TAG","TAG: Code: "+response.code()+" Message: "+response.message());
                             }

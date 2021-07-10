@@ -7,45 +7,60 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:id="@+id/appBarTop">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:background="?attr/backgroundColor"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:id="@+id/toolbar">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_weight="1"
-                    android:textColor="?attr/textColor"
-                    android:id="@+id/topHeading"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginTop="0dp"
-                    android:text="@string/welcome"
-                    android:textSize="25dp"></TextView>
-                <ImageView
-                    android:layout_weight="0.2"
-                    app:tint = "?attr/textColor"
-                    android:src="@drawable/filter_icon"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"/>
-                <ImageView
-                    android:id="@+id/cartImg"
-                    android:layout_weight="0.2"
-                    app:tint = "?attr/textColor"
-                    android:src="@drawable/cart_icon"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"/>
-
-            </LinearLayout>
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:textColor="?attr/textColor"
+                        android:id="@+id/topHeading"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="0dp"
+                        android:text="@string/welcome"
+                        android:textSize="25dp"></TextView>
+                    <ImageView
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="0.2"
+                        app:tint = "?attr/textColor"
+                        android:src="@drawable/filter_icon"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"/>
+                    <RelativeLayout
+                        android:layout_weight="0.2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+                        <ImageView
+                            android:layout_centerVertical="true"
+                            android:id="@+id/cartImg"
+                            app:tint = "?attr/textColor"
+                            android:src="@drawable/cart_icon"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"/>
+                        <TextView
+                            android:id="@+id/cartCountTV"
+                            android:paddingTop="5dp"
+                            android:textStyle="bold"
+                            android:paddingLeft="25dp"
+                            android:textColor="?attr/textColor"
+                            android:text="100"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                    </RelativeLayout>
+                </LinearLayout>
         </com.google.android.material.appbar.MaterialToolbar>
 
     </com.google.android.material.appbar.AppBarLayout>

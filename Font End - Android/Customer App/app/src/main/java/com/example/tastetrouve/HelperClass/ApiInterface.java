@@ -5,9 +5,13 @@ import com.example.tastetrouve.Models.HomeProductModel;
 import com.example.tastetrouve.Models.ItemProductModel;
 import com.example.tastetrouve.Models.SubCategoryModel;
 import com.example.tastetrouve.Models.UserModel;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.HashMap;
 import java.util.List;
 
 import okhttp3.ResponseBody;
@@ -81,5 +85,9 @@ public interface ApiInterface {
     @FormUrlEncoded
     @HTTP(method = "DELETE", path = "address/delete", hasBody = true)
     Call<ResponseBody> deleteAddress(@Field("addressId") String addressId);
+
+
+    @POST("Order/add")
+    Call<ResponseBody> addOrder(@Body JSONObject jsonObject);
 
 }

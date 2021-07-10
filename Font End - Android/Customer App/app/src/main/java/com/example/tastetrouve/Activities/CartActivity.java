@@ -13,6 +13,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ExpandableListView;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,13 +27,17 @@ import com.example.tastetrouve.Interfaces.CartInterface;
 import com.example.tastetrouve.Models.AddressModel;
 import com.example.tastetrouve.Models.CartModel;
 import com.example.tastetrouve.Models.CartProductModel;
+import com.example.tastetrouve.Models.GlobalObjects;
 import com.example.tastetrouve.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.gson.JsonArray;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import okhttp3.ResponseBody;
@@ -52,7 +58,7 @@ public class CartActivity  extends BaseActivity implements CartInterface, Adapte
     double subTotal = 0, total=0, taxes=0;
     List<AddressModel> addressModelList = new ArrayList<>();
     List<String> stringAddressList = new ArrayList<>();
-    String selectedAddress ="";
+    AddressModel selectedAddressModel;
 
 
     @Override
@@ -155,6 +161,12 @@ public class CartActivity  extends BaseActivity implements CartInterface, Adapte
                     addressSpinner.setAdapter(spinnerAdapter);
                     addressSpinner.setOnItemSelectedListener(CartActivity.this);
 
+                    bottomSheetView1.findViewById(R.id.confirmImg).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            prepareOrderParameters();
+                        }
+                    });
 
 
                     bottomSheetDialog1.setContentView(bottomSheetView1);
@@ -265,11 +277,79 @@ public class CartActivity  extends BaseActivity implements CartInterface, Adapte
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        selectedAddress = stringAddressList.get(position);
+        selectedAddressModel = addressModelList.get(position);
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    private JSONArray prepareProductArray() {
+        JSONArray jsonArray = new JSONArray();
+        try {
+            for(CartModel cartModel: cartModelArrayList) {
+                jsonArray.put(cartModel.getProductId().prepareOrderModel());
+            }
+        } catch (Exception ex) {
+            Log.i("TAG","TAG: Order Json array exception: "+ex.getMessage());
+        }
+        return jsonArray;
+    }
+
+    private void prepareOrderParameters() {
+        try {
+            String userId = getUserToken();
+            String restaurantId = cartModelArrayList.get(0).getProductId().getRestaurantId();
+            String addressId = selectedAddressModel.get_id();
+            int delivery = 5;
+            int tax = (int) taxes;
+            int totalInt = (int) total;
+
+            if(!userId.isEmpty() && !restaurantId.isEmpty() && !addressId.isEmpty()) {
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("userId",userId);
+                jsonObject.put("addressId",addressId);
+                jsonObject.put("restaurantId",restaurantId);
+                jsonObject.put("delivery",delivery);
+                jsonObject.put("tax",tax);
+                jsonObject.put("total",totalInt);
+                jsonObject.put("Products",prepareProductArray());
+                makeOrderApi(jsonObject);
+            } else {
+                Log.i("TAG","TAG: Parameters are empty");
+            }
+        } catch (Exception ex) {
+            Log.i("TAG","TAG "+ex.getMessage());
+        }
+    }
+
+    private void makeOrderApi(JSONObject jsonObject) {
+        try {
+            ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+            apiInterface.addOrder(jsonObject).enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    try {
+                        if(response.code() == 200) {
+                            cartModelArrayList.clear();
+                            cartRecyclerAdapter= new CartRecyclerAdapter(cartModelArrayList,CartActivity.this);
+                            recyclerView.setAdapter(cartRecyclerAdapter);
+                            GlobalObjects.Toast(getBaseContext(),getString(R.string.order_placed));
+                        }
+                    } catch (Exception ex) {
+                        Log.i("TAG","TAG "+ex.getMessage());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    Log.i("TAG","TAG "+t.getMessage());
+                }
+            });
+
+        } catch (Exception ex) {
+            Log.i("TAG","TAG "+ex.getMessage());
+        }
     }
 }

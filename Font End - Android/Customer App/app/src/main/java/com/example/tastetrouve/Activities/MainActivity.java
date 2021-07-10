@@ -31,7 +31,7 @@ public class MainActivity extends BaseActivity {
         FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
             @Override
             public void onComplete(@NonNull Task<String> task) {
-                Log.d("aa", task.getResult());
+               Log.i("TAG","TAG "+task.getResult());
             }
         });
 

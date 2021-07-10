@@ -1,5 +1,14 @@
 package com.example.tastetrouve.Models;
 
+import android.util.Log;
+
+import com.google.gson.JsonObject;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+
 public class CartProductModel {
     String _id;
     String restaurantId;
@@ -71,5 +80,20 @@ public class CartProductModel {
 
     public String getDeliveryTime() {
         return DeliveryTime;
+    }
+
+
+    public JSONObject prepareOrderModel() {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("id",_id);
+            jsonObject.put("name",name);
+            jsonObject.put("quantity",String.valueOf(quantity));
+            jsonObject.put("image",image);
+            jsonObject.put("price",String.valueOf(price));
+        } catch (Exception ex) {
+            Log.i("TAG","TAG: CartProductModel Order json making error: "+ex.getMessage());
+        }
+        return  jsonObject;
     }
 }
