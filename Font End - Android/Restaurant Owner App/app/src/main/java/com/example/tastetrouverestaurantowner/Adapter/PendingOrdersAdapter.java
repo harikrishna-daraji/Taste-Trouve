@@ -61,7 +61,7 @@ public class PendingOrdersAdapter extends RecyclerView.Adapter<PendingOrdersAdap
             this.address = (TextView)itemview.findViewById(R.id.address);
             this.userName = (TextView)itemview.findViewById(R.id.userName);
             this.userPhone = (TextView)itemview.findViewById(R.id.userPhone);
-            this.pendingOrderRecycler = (RecyclerView)itemview.findViewById(R.id.pendingOrderRecycler);
+            this.pendingOrderRecycler = (RecyclerView)itemview.findViewById(R.id.produtREcycler);
             this.status = (TextView)itemview.findViewById(R.id.status);
         }
     }
@@ -72,7 +72,7 @@ public class PendingOrdersAdapter extends RecyclerView.Adapter<PendingOrdersAdap
     @Override
     public PendingOrdersAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater li= LayoutInflater.from(parent.getContext());
-        View view=li.inflate(R.layout.item_product_order,parent,false);
+        View view=li.inflate(R.layout.item_pending_order,parent,false);
         PendingOrdersAdapter.MyViewHolder myViewHolder= new PendingOrdersAdapter.MyViewHolder(view);
 
         return myViewHolder;
@@ -89,12 +89,12 @@ public class PendingOrdersAdapter extends RecyclerView.Adapter<PendingOrdersAdap
         TextView userName=holder.userName;
         TextView userPhone=holder.userPhone;
         TextView status=holder.status;
-        RecyclerView pendingOrderRecycler=holder.pendingOrderRecycler;
+
 
         // Add sub recycler view
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(
-                pendingOrderRecycler.getContext(),
+                holder.pendingOrderRecycler.getContext(),
                 LinearLayoutManager.VERTICAL,
                 false
         );
@@ -104,9 +104,9 @@ public class PendingOrdersAdapter extends RecyclerView.Adapter<PendingOrdersAdap
         // Create sub item view adapter
         ProductOrderAdapter subItemAdapter = new ProductOrderAdapter((ArrayList<ProductOrderModal>) pendingOrderModalArrayList.get(position).getProductOrderModalList(),context);
 
-        pendingOrderRecycler.setLayoutManager(layoutManager);
-        pendingOrderRecycler.setAdapter(subItemAdapter);
-        pendingOrderRecycler.setRecycledViewPool(viewPool);
+        holder.pendingOrderRecycler.setLayoutManager(layoutManager);
+        holder.pendingOrderRecycler.setAdapter(subItemAdapter);
+        holder.pendingOrderRecycler.setRecycledViewPool(viewPool);
 
 
         orderId.setText(pendingOrderModalArrayList.get(position).getOrderId());

@@ -31,14 +31,14 @@ router.post("/add", async (req, res) => {
   }
 });
 
-// router.post("/getCartByUser", async (req, res) => {
-//   const { userId } = req.body;
+router.post("/getOrderByOwner", async (req, res) => {
+  const { restaurantId } = req.body;
 
-//   const cart = await Cart.find({
-//     userId,
-//   }).populate("productId");
-//   res.json(cart);
-// });
+  const order = await Order.find({
+    restaurantId,
+  });
+  res.json(order);
+});
 
 // router.delete("/delete", async (req, res) => {
 //   const { cartId } = req.body;

@@ -33,7 +33,7 @@ public class ProductOrderAdapter extends RecyclerView.Adapter<ProductOrderAdapte
     Context context;
     ApiInterface api;
 
-    public ProductOrderAdapter(ArrayList<ProductOrderModal> productOrderModalArrayList, Context context) {
+    public ProductOrderAdapter(ArrayList<ProductOrderModal> productOrderModalArrayList,Context context ) {
         this.productOrderModalArrayList = productOrderModalArrayList;
         this.context = context;
     }
