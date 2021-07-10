@@ -95,13 +95,13 @@
                 android:layout_marginStart="10dp"
                 android:src="@drawable/ic_baseline_location_on_24"
                 android:tint="@color/location_marker_color"
-                android:layout_width="80dp"
-                android:layout_height="80dp"/>
+                android:layout_width="50dp"
+                android:layout_height="50dp"/>
 
             <Spinner
                 android:id="@+id/addressSpinner"
                 android:layout_width="200dp"
-                android:layout_height="100dp"/>
+                android:layout_height="50dp"/>
 <!--            <TextView-->
 <!--                android:id="@+id/addressTV"-->
 <!--                android:layout_width="200dp"-->

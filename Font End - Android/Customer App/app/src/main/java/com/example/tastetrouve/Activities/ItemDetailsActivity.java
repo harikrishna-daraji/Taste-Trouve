@@ -22,6 +22,9 @@ import com.example.tastetrouve.Models.KidSectionModel;
 import com.example.tastetrouve.Models.PopularSectionModel;
 import com.example.tastetrouve.R;
 import com.google.android.gms.common.api.Api;
+import com.google.gson.JsonObject;
+
+import org.json.JSONObject;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -34,7 +37,7 @@ public class ItemDetailsActivity extends BaseActivity {
     ImageView itemImg;
     int quantity = 1, totalQuantity;
     TextView itemNameTV, kidPriceTV, deliveryTV, calorieTV, descriptionTV, quantityTV, adjustableQuantTV;
-    String productId;
+    String productId, restaurantId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +100,7 @@ public class ItemDetailsActivity extends BaseActivity {
                 quantityTV.setText(getString(R.string.quantity)+": "+model.getQuantity());
                 totalQuantity = model.getQuantity();
                 productId = model.get_id();
+                restaurantId = model.getRestaurantId();
             } else if(getIntent().getStringExtra("type").equals(GlobalObjects.ModelList.Popular.toString())) {
                 PopularSectionModel model = (PopularSectionModel) getIntent().getSerializableExtra("product");
                 Glide.with(this).load(model.getImage()).placeholder(R.drawable.image_placeholder).into(itemImg);
@@ -109,6 +113,7 @@ public class ItemDetailsActivity extends BaseActivity {
                 quantityTV.setText(getString(R.string.quantity)+": "+model.getQuantity());
                 totalQuantity = model.getQuantity();
                 productId = model.get_id();
+                restaurantId = model.getRestaurantId();
             } else if(getIntent().getStringExtra("type").equals(GlobalObjects.ModelList.Kid.toString())) {
                 KidSectionModel model = (KidSectionModel) getIntent().getSerializableExtra("product");
                 Glide.with(this).load(model.getImage()).placeholder(R.drawable.image_placeholder).into(itemImg);
@@ -120,6 +125,7 @@ public class ItemDetailsActivity extends BaseActivity {
                 quantityTV.setText(getString(R.string.quantity)+": "+model.getQuantity());
                 totalQuantity = model.getQuantity();
                 productId = model.get_id();
+                restaurantId = model.getRestaurantId();
             }
         }
         Log.i("TAG","TAG "+descriptionTV.getText().toString());
@@ -141,13 +147,15 @@ public class ItemDetailsActivity extends BaseActivity {
         if(!token.isEmpty()) {
             try {
                 ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-                apiInterface.addToCart(token,productId,String.valueOf(quantity)).enqueue(new Callback<ResponseBody>() {
+                apiInterface.addToCart(token,productId,String.valueOf(quantity),restaurantId).enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         try {
                             Log.i("TAG","TAG: Code "+response.code()+" Message: "+response.message());
                             if(response.code() == 200) {
-                                GlobalObjects.Toast(getBaseContext(),getString(R.string.added_to_cart));
+                                JSONObject jsonObject = new JSONObject(response.body().string());
+                                String message = jsonObject.getString("message");
+                                GlobalObjects.Toast(getBaseContext(),message);
                             } else {
                                 GlobalObjects.Toast(getBaseContext(),getString(R.string.cart_failure));
                             }

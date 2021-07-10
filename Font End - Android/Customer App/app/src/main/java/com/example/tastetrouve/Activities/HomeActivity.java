@@ -32,6 +32,7 @@ import com.example.tastetrouve.Adapters.RestaurantRecycleAdapter;
 import com.example.tastetrouve.Adapters.TopSellingRecycleAdapter;
 import com.example.tastetrouve.HelperClass.ApiClient;
 import com.example.tastetrouve.HelperClass.ApiInterface;
+import com.example.tastetrouve.Interfaces.AddressInterface;
 import com.example.tastetrouve.Interfaces.HomeInterfaceMethods;
 import com.example.tastetrouve.Models.CategoryModel;
 import com.example.tastetrouve.Models.GlobalObjects;
@@ -50,7 +51,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class HomeActivity extends BaseActivity implements HomeInterfaceMethods {
+public class HomeActivity extends BaseActivity implements HomeInterfaceMethods, AddressInterface {
 
 
     SharedPreferences sharedPreferences;
@@ -217,5 +218,10 @@ public class HomeActivity extends BaseActivity implements HomeInterfaceMethods {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         settingsFragment.onActivityResult(requestCode,resultCode,data);
+    }
+
+    @Override
+    public void deleteAddress(String address) {
+        settingsFragment.deleteAddress(address);
     }
 }

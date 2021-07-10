@@ -4,12 +4,14 @@ import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.tastetrouve.Interfaces.AddressInterface;
 import com.example.tastetrouve.Models.AddressModel;
 import com.example.tastetrouve.R;
 
@@ -19,10 +21,12 @@ public class AddressRecycleAdapter extends RecyclerView.Adapter<AddressRecycleAd
 
     Activity activity;
     List<AddressModel> addressModelList;
+    AddressInterface addressInterface;
 
     public AddressRecycleAdapter(Activity activity, List<AddressModel> addressModelList) {
         this.activity =  activity;
         this.addressModelList = addressModelList;
+        this.addressInterface = (AddressInterface) activity;
     }
 
     @NonNull
@@ -35,6 +39,12 @@ public class AddressRecycleAdapter extends RecyclerView.Adapter<AddressRecycleAd
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.address.setText(addressModelList.get(position).getAddress());
+        holder.closeImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addressInterface.deleteAddress(addressModelList.get(position).get_id());
+            }
+        });
     }
 
     @Override
@@ -45,10 +55,12 @@ public class AddressRecycleAdapter extends RecyclerView.Adapter<AddressRecycleAd
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView address;
+        ImageView closeImg;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             address = itemView.findViewById(R.id.addressRecycleTV);
+            closeImg = itemView.findViewById(R.id.closeImg);
         }
     }
 
