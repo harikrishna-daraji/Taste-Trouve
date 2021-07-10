@@ -2,6 +2,7 @@ const router = require("express").Router();
 const admin = require("firebase-admin");
 const Product = require("../models/Product");
 const Order = require("../models/Order");
+const Cart = require("../models/Cart");
 const moment = require("moment");
 // const OrderItem = require("../models/OrderItem");
 
@@ -24,6 +25,8 @@ router.post("/add", async (req, res) => {
 
     const savedOrder = await newOrder.save();
 
+    const deleteCart = await Cart.deleteMany({ userId });
+
     res.json(savedOrder);
   } catch (err) {
     console.log(err.message);
@@ -31,14 +34,57 @@ router.post("/add", async (req, res) => {
   }
 });
 
-// router.post("/getCartByUser", async (req, res) => {
-//   const { userId } = req.body;
+router.post("/getOrderByOwner", async (req, res) => {
+  const { restaurantId, orderStatus } = req.body;
 
-//   const cart = await Cart.find({
-//     userId,
-//   }).populate("productId");
-//   res.json(cart);
-// });
+  const order = await Order.find({
+    restaurantId,
+    orderStatus,
+  }).populate("userId addressId");
+  res.json(order);
+});
+
+router.put("/UpdateOrderStatus", async (req, res) => {
+  let { orderId, updateStatus } = req.body;
+
+  if (updateStatus == "accepted") {
+    const order = await Order.find({
+      _id: orderId,
+    });
+
+    for (var key in order[0].products) {
+      const selectedProduct = await Product.find({
+        _id: order[0].products[key].id,
+      });
+
+      await Product.updateOne(
+        { _id: order[0].products[key].id },
+        {
+          quantity:
+            parseInt(selectedProduct[0].quantity) -
+            parseInt(order[0].products[key].quantity),
+        },
+        function (err, docs) {
+          if (err) {
+          } else {
+          }
+        }
+      );
+    }
+  }
+
+  Order.updateOne(
+    { _id: orderId },
+    { orderStatus: updateStatus },
+    function (err, docs) {
+      if (err) {
+        res.send(err);
+      } else {
+        res.send("Updated");
+      }
+    }
+  );
+});
 
 // router.delete("/delete", async (req, res) => {
 //   const { cartId } = req.body;

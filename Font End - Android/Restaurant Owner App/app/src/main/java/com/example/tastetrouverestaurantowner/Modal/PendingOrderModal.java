@@ -3,27 +3,33 @@ package com.example.tastetrouverestaurantowner.Modal;
 import java.util.List;
 
 public class PendingOrderModal {
-    String orderId,orderDate,totalPrice,itemCount,address,status,userName,userPhone;
-    List<ProductOrderModal> productOrderModalList;
+    public String _id,orderDate,total,orderStatus;
+    public List<ProductOrderModal> products;
 
-    public PendingOrderModal(String orderId, String orderDate, String totalPrice, String itemCount, String address, String status, String userName, String userPhone, List<ProductOrderModal> productOrderModalList) {
-        this.orderId = orderId;
-        this.orderDate = orderDate;
-        this.totalPrice = totalPrice;
-        this.itemCount = itemCount;
-        this.address = address;
-        this.status = status;
-        this.userName = userName;
-        this.userPhone = userPhone;
-        this.productOrderModalList = productOrderModalList;
+    public Address addressId;
+
+    public OrderUser userId;
+
+    public OrderUser getUserId() {
+        return userId;
+    }
+
+    public void setUserId(OrderUser userId) {
+        this.userId = userId;
+    }
+
+
+
+    public PendingOrderModal() {
+
     }
 
     public String getOrderId() {
-        return orderId;
+        return _id;
     }
 
     public void setOrderId(String orderId) {
-        this.orderId = orderId;
+        this._id = _id;
     }
 
     public String getOrderDate() {
@@ -35,59 +41,41 @@ public class PendingOrderModal {
     }
 
     public String getTotalPrice() {
-        return totalPrice;
+        return total;
     }
 
-    public void setTotalPrice(String totalPrice) {
-        this.totalPrice = totalPrice;
+    public void setTotalPrice(String total) {
+        this.total = total;
     }
 
-    public String getItemCount() {
-        return itemCount;
+    public int getItemCount() {
+        return products.size();
     }
 
-    public void setItemCount(String itemCount) {
-        this.itemCount = itemCount;
+    public Address getAddressId() {
+        return addressId;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
+    public void setAddressId(Address addressId) {
+        this.addressId = addressId;
     }
 
     public String getStatus() {
-        return status;
+        return orderStatus;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setStatus(String orderStatus) {
+        this.orderStatus = orderStatus;
     }
 
-    public String getUserName() {
-        return userName;
-    }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getUserPhone() {
-        return userPhone;
-    }
-
-    public void setUserPhone(String userPhone) {
-        this.userPhone = userPhone;
-    }
 
     public List<ProductOrderModal> getProductOrderModalList() {
-        return productOrderModalList;
+        return products;
     }
 
-    public void setProductOrderModalList(List<ProductOrderModal> productOrderModalList) {
-        this.productOrderModalList = productOrderModalList;
+    public void setProductOrderModalList(List<ProductOrderModal> products) {
+        this.products = products;
     }
 
 

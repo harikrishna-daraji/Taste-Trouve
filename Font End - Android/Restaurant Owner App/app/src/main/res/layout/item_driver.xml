@@ -17,20 +17,20 @@
         <LinearLayout
 
             android:orientation="horizontal"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/image"
-                android:layout_width="40dp"
+                android:layout_width="80dp"
                 android:layout_marginRight="50dp"
-                android:layout_height="40dp"
-                android:src="@drawable/profile"
+                android:layout_height="80dp"
+                android:src="@drawable/driver"
                 app:civ_border_width="2dp"
                 app:civ_border_color="#ffffff"/>
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:orientation="vertical"
 
                 android:gravity="center"
@@ -42,29 +42,39 @@
                     android:textColor="@color/primaryteal"
                     android:layout_height="wrap_content"
                     android:text="name"/>
-                <LinearLayout
+                <TextView
+                    android:textColor="@color/black"
+                    android:id="@+id/email"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
-                    android:orientation="horizontal">
-                    <TextView
-                        android:textColor="@color/black"
-                        android:id="@+id/price"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="price"/>
-                    <TextView
-                        android:textColor="@color/black"
-                        android:id="@+id/quantity"
-                        android:layout_marginLeft="20dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="quantity"/>
-                </LinearLayout>
-
+                    android:text="email"/>
+                <TextView
+                    android:textColor="@color/black"
+                    android:id="@+id/phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="phone"/>
 
             </LinearLayout>
-
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/edit"
+                    app:tint="@color/black"
+                    android:layout_marginTop="20dp"
+                  android:text="Status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:id="@+id/delete"
+                    android:layout_marginTop="10dp"
+                    android:text="Online"
+                    android:textColor="#4CAF50"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
         </LinearLayout>
 
 

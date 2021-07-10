@@ -33,7 +33,7 @@ public class ProductOrderAdapter extends RecyclerView.Adapter<ProductOrderAdapte
     Context context;
     ApiInterface api;
 
-    public ProductOrderAdapter(ArrayList<ProductOrderModal> productOrderModalArrayList, Context context) {
+    public ProductOrderAdapter(ArrayList<ProductOrderModal> productOrderModalArrayList,Context context ) {
         this.productOrderModalArrayList = productOrderModalArrayList;
         this.context = context;
     }
@@ -84,7 +84,7 @@ public class ProductOrderAdapter extends RecyclerView.Adapter<ProductOrderAdapte
 
         name.setText(productOrderModalArrayList.get(position).getName());
         price.setText("$ "+productOrderModalArrayList.get(position).getPrice().toString());
-        quantity.setText(productOrderModalArrayList.get(position).getQuantity());
+        quantity.setText(productOrderModalArrayList.get(position).getQuantity()+" quantity");
 
         Glide.with(context)
                 .asBitmap()

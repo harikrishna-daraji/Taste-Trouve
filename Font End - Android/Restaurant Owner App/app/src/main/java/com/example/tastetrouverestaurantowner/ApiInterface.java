@@ -1,5 +1,7 @@
 package com.example.tastetrouverestaurantowner;
 
+import com.example.tastetrouverestaurantowner.Modal.DriverModal;
+import com.example.tastetrouverestaurantowner.Modal.PendingOrderModal;
 import com.example.tastetrouverestaurantowner.Modal.ProductModal;
 
 import java.util.List;
@@ -8,6 +10,7 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 
@@ -56,6 +59,13 @@ public interface ApiInterface {
     );
 
     @FormUrlEncoded
+    @POST("Order/getOrderByOwner")
+    Call<List<PendingOrderModal>> getPendingOrders(
+            @Field("restaurantId") String restaurantId,
+            @Field("orderStatus") String orderStatus
+    );
+
+    @FormUrlEncoded
     @PUT("product/deleteProduct")
     Call<List<ProductModal>> deleteProduct(
             @Field("productId") String productId
@@ -76,4 +86,15 @@ public interface ApiInterface {
             @Field("popular") Boolean popular,
             @Field("DeliveryTime") String DeliveryTime
     );
+
+    @FormUrlEncoded
+    @PUT("Order/UpdateOrderStatus")
+    Call<ResponseBody> updateOrderStatus(
+            @Field("orderId") String orderId,
+            @Field("updateStatus") String updateStatus
+    );
+
+    @GET("clientUser/getDrivers")
+    Call<List<DriverModal>> getDrivers();
+
 }
