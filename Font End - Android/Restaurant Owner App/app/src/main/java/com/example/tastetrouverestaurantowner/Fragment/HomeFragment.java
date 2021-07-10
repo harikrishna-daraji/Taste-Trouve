@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.example.tastetrouverestaurantowner.Activity.AcceptedOrderActivity;
 import com.example.tastetrouverestaurantowner.Activity.AddItem;
 import com.example.tastetrouverestaurantowner.Activity.DriversActivity;
 import com.example.tastetrouverestaurantowner.Activity.PendingOrdersActivity;
@@ -19,7 +20,7 @@ import com.example.tastetrouverestaurantowner.R;
 
 public class HomeFragment extends Fragment {
 
-  LinearLayout createItem,viewItems,pendingOrder,avaliableDrivers;
+  LinearLayout createItem,viewItems,pendingOrder,avaliableDrivers,acceptedactivity;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -43,6 +44,7 @@ public class HomeFragment extends Fragment {
         viewItems=(LinearLayout)view.findViewById(R.id.viewItems);
         pendingOrder=(LinearLayout)view.findViewById(R.id.pendingOrder);
         avaliableDrivers=(LinearLayout)view.findViewById(R.id.avaliableDrivers);
+        acceptedactivity=(LinearLayout)view.findViewById(R.id.acceptedactivity);
 
         createItem.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,6 +79,16 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent();
                 intent.setClass(getActivity(), DriversActivity.class);
+                getActivity().startActivity(intent);
+            }
+        });
+
+
+        acceptedactivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(getActivity(), AcceptedOrderActivity.class);
                 getActivity().startActivity(intent);
             }
         });
