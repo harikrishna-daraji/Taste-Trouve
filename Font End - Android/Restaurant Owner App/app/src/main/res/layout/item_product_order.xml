@@ -38,22 +38,30 @@
                 android:layout_height="match_parent">
                 <TextView
                     android:id="@+id/name"
-                    android:layout_width="125dp"
+                    android:layout_width="wrap_content"
                     android:textColor="@color/primaryteal"
                     android:layout_height="wrap_content"
                     android:text="name"/>
-                <TextView
-                    android:textColor="@color/black"
-                    android:id="@+id/price"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="price"/>
-                <TextView
-                    android:textColor="@color/black"
-                    android:id="@+id/quantity"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="quantity"/>
+
+                    android:orientation="horizontal">
+                    <TextView
+                        android:textColor="@color/black"
+                        android:id="@+id/price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="price"/>
+                    <TextView
+                        android:textColor="@color/black"
+                        android:id="@+id/quantity"
+                        android:layout_marginLeft="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="quantity"/>
+                </LinearLayout>
+
 
             </LinearLayout>
 

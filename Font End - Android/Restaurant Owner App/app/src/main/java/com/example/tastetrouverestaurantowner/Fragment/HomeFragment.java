@@ -11,13 +11,14 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.example.tastetrouverestaurantowner.Activity.AddItem;
+import com.example.tastetrouverestaurantowner.Activity.PendingOrdersActivity;
 import com.example.tastetrouverestaurantowner.Activity.ViewItemsActivity;
 import com.example.tastetrouverestaurantowner.R;
 
 
 public class HomeFragment extends Fragment {
 
-  LinearLayout createItem,viewItems;
+  LinearLayout createItem,viewItems,pendingOrder;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -39,6 +40,8 @@ public class HomeFragment extends Fragment {
         View view= inflater.inflate(R.layout.fragment_home, container, false);
         createItem=(LinearLayout)view.findViewById(R.id.createItem);
         viewItems=(LinearLayout)view.findViewById(R.id.viewItems);
+        pendingOrder=(LinearLayout)view.findViewById(R.id.pendingOrder);
+
         createItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,6 +59,16 @@ public class HomeFragment extends Fragment {
                 getActivity().startActivity(intent);
             }
         });
+
+        pendingOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(getActivity(), PendingOrdersActivity.class);
+                getActivity().startActivity(intent);
+            }
+        });
+
         return  view;
     }
 }
