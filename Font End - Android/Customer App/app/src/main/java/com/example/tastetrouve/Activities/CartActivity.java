@@ -52,7 +52,7 @@ public class CartActivity  extends BaseActivity implements CartInterface, Adapte
     double subTotal = 0, total=0, taxes=0;
     List<AddressModel> addressModelList = new ArrayList<>();
     List<String> stringAddressList = new ArrayList<>();
-    Strinng 
+    String selectedAddress ="";
 
 
     @Override
@@ -147,10 +147,15 @@ public class CartActivity  extends BaseActivity implements CartInterface, Adapte
 
                     Spinner addressSpinner = bottomSheetView1.findViewById(R.id.addressSpinner);
 
+                    TextView totalPriceTV = bottomSheetView1.findViewById(R.id.totalPriceTV);
+                    totalPriceTV.setText(roundNumber(total));
+
                     ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(CartActivity.this, android.R.layout.simple_spinner_item, stringAddressList);
                     spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     addressSpinner.setAdapter(spinnerAdapter);
                     addressSpinner.setOnItemSelectedListener(CartActivity.this);
+
+
 
                     bottomSheetDialog1.setContentView(bottomSheetView1);
                     bottomSheetDialog1.show();
@@ -260,7 +265,7 @@ public class CartActivity  extends BaseActivity implements CartInterface, Adapte
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+        selectedAddress = stringAddressList.get(position);
     }
 
     @Override

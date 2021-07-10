@@ -10,6 +10,7 @@ import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -71,5 +72,9 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("Cart/updateQuantity")
     Call<ResponseBody> updateCart(@Field("cartId") String cartId, @Field("quantity") String quantity);
+
+    @FormUrlEncoded
+    @DELETE("address/delete")
+    Call<ResponseBody> deleteAddress(@Field("addressId") String addressId);
 
 }
