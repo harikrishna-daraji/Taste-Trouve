@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textAppearance="?textAppearanceSubtitle2"
-                android:textColor="@color/primaryteal"
+                android:textColor="#0D164D"
                 tools:text="Order #-M8gT3_9c48iiffi444" />
 
             <TextView

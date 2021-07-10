@@ -87,6 +87,13 @@ public interface ApiInterface {
             @Field("DeliveryTime") String DeliveryTime
     );
 
+    @FormUrlEncoded
+    @PUT("Order/UpdateOrderStatus")
+    Call<ResponseBody> updateOrderStatus(
+            @Field("orderId") String orderId,
+            @Field("updateStatus") String updateStatus
+    );
+
     @GET("clientUser/getDrivers")
     Call<List<DriverModal>> getDrivers();
 
