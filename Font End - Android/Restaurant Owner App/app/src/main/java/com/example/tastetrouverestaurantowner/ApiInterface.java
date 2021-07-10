@@ -1,5 +1,6 @@
 package com.example.tastetrouverestaurantowner;
 
+import com.example.tastetrouverestaurantowner.Modal.PendingOrderModal;
 import com.example.tastetrouverestaurantowner.Modal.ProductModal;
 
 import java.util.List;
@@ -52,6 +53,12 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("product/getProductsByRestaurant")
     Call<List<ProductModal>> getproducts(
+            @Field("restaurantId") String restaurantId
+    );
+
+    @FormUrlEncoded
+    @POST("Order/getOrderByOwner")
+    Call<List<PendingOrderModal>> getPendingOrders(
             @Field("restaurantId") String restaurantId
     );
 

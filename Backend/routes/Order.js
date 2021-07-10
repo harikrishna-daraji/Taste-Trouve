@@ -36,7 +36,7 @@ router.post("/getOrderByOwner", async (req, res) => {
 
   const order = await Order.find({
     restaurantId,
-  });
+  }).populate("userId addressId");
   res.json(order);
 });
 
