@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.SearchView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -39,14 +40,18 @@ import com.example.tastetrouve.Models.GlobalObjects;
 import com.example.tastetrouve.Models.HomeProductModel;
 import com.example.tastetrouve.Models.ItemProductModel;
 import com.example.tastetrouve.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import eightbitlab.com.blurview.BlurView;
 import eightbitlab.com.blurview.RenderScriptBlur;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -81,6 +86,35 @@ public class HomeActivity extends BaseActivity implements HomeInterfaceMethods, 
         initUI();
         getAllProducts();
         blurBackground();
+
+
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+            @Override
+            public void onComplete(@NonNull Task<String> task) {
+                try {
+                    ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+                    apiInterface.updateUserFcmToken(task.getResult()).enqueue(new Callback<ResponseBody>() {
+                        @Override
+                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                            try {
+                                if(response.code() == 200) {
+                                    Log.i("TAG","TAG: Fcm token in updated");
+                                }
+                            } catch (Exception ex) {
+                                Log.i("TAG","TAG "+ex.getMessage());
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+                            Log.i("TAG","TAG: Serve failure: "+t.getMessage());
+                        }
+                    });
+                } catch (Exception ex) {
+                    Log.i("TAG","TAG "+ex.getMessage());
+                }
+            }
+        });
     }
 
     private void initUI() {
