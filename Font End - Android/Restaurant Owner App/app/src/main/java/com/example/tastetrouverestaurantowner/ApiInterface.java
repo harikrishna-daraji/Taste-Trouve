@@ -1,5 +1,6 @@
 package com.example.tastetrouverestaurantowner;
 
+import com.example.tastetrouverestaurantowner.Modal.DriverModal;
 import com.example.tastetrouverestaurantowner.Modal.PendingOrderModal;
 import com.example.tastetrouverestaurantowner.Modal.ProductModal;
 
@@ -9,6 +10,7 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 
@@ -84,4 +86,8 @@ public interface ApiInterface {
             @Field("popular") Boolean popular,
             @Field("DeliveryTime") String DeliveryTime
     );
+
+    @GET("clientUser/getDrivers")
+    Call<List<DriverModal>> getDrivers();
+
 }
