@@ -1,5 +1,6 @@
 package com.example.tastetrouve.HelperClass;
 
+import com.example.tastetrouve.Models.CartModel;
 import com.example.tastetrouve.Models.HomeProductModel;
 import com.example.tastetrouve.Models.ItemProductModel;
 import com.example.tastetrouve.Models.SubCategoryModel;
@@ -28,7 +29,7 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("clientUser/register")
     Call<UserModel> registerUser(@Field("email") String email, @Field("password") String password, @Field("displayname")
-            String displayname, @Field("fcmToken") String   fcmToken, @Field(" phoneNumber") String  phoneNumber, @Field("dateOfBirth") String dateOfBirth);
+            String displayname, @Field("fcmToken") String   fcmToken, @Field("phoneNumber") String  phoneNumber, @Field("dateOfBirth") String dateOfBirth);
 
 
     @FormUrlEncoded
@@ -48,5 +49,22 @@ public interface ApiInterface {
 
     @PUT("clientUser/update")
     Call<ResponseBody> updateUser(@Field("phone") String phone, @Field("password") String password);
+
+    @FormUrlEncoded
+    @POST("address/add")
+    Call<ResponseBody> addAddress(@Field("userId") String userId, @Field("address") String address, @Field("lat") String lat, @Field("long") String _long);
+
+    @FormUrlEncoded
+    @POST("address/getAddresByUser")
+    Call<ResponseBody> getAddressList(@Field("userId") String userId);
+
+
+    @FormUrlEncoded
+    @POST("Cart/add")
+    Call<ResponseBody> addToCart(@Field("userId") String userId, @Field("productId") String productId, @Field("quantity") String quantity);
+
+    @FormUrlEncoded
+    @POST("Cart/getCartByUser")
+    Call<List<CartModel>> getUserCart(@Field("userId") String userId);
 
 }

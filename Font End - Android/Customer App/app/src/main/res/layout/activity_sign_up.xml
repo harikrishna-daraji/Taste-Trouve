@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="48dp"
             android:fontFamily="sans-serif-black"
-            android:text="Sign Up"
+            android:text="@string/sign_up"
             android:textAlignment="center"
             android:textSize="50sp"
             android:textStyle="bold"
@@ -31,7 +31,7 @@
             android:id="@+id/bannerDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sign uo to get started"
+            android:text="@string/sign_up_to_get_started"
             android:textAlignment="center"
             android:textSize="18sp"
             android:textStyle="normal"
@@ -184,6 +184,7 @@
             android:inputType="date"
             android:layout_height="60dp">
 
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/DateOfBirth"
                 android:layout_width="match_parent"
@@ -192,7 +193,12 @@
                 android:textColorHint="@android:color/black"
                 app:passwordToggleTint="@android:color/black"
                 android:textColor="@android:color/black"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+
+                android:clickable="false"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false">
 
             </com.google.android.material.textfield.TextInputEditText>
 
@@ -222,7 +228,7 @@
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Already have an account ?"
+                android:text="@string/already_have_account"
                 android:textColor="#000"
                 android:textSize="20dp" />
 
@@ -231,7 +237,7 @@
                 android:id="@+id/textViewSignIN"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sign In"
+                android:text="@string/sign_in"
                 android:textColor="#FF0000"
                 android:textSize="20dp" />
         </LinearLayout>

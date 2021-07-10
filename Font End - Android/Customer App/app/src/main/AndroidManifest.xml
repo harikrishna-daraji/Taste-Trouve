@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.tastetrouve">
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -15,26 +17,55 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TasteTrouve"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Activities.SubcategoryListActivity"></activity>
-        <activity android:name=".Activities.VerifyOtpActivity"></activity>
+
+        <activity android:name=".Activities.CartActivity">
+
+        </activity>
+
+        <activity
+            android:name=".Activities.MapActivity"
+            android:exported="true" >
+
+        </activity>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <activity
+            android:name=".Activities.LanguageActivity"
+            android:exported="true" />
+
+        <activity android:name=".Activities.SubcategoryListActivity" />
+        <activity android:name=".Activities.VerifyOtpActivity" />
         <activity android:name=".Activities.ResetPasswordActivity" />
         <activity android:name=".Activities.ItemDetailsActivity" />
         <activity android:name=".Activities.MainCategoryActivity" />
         <activity android:name=".Activities.OnBoardingScreen" />
         <activity android:name=".Activities.ItemActivity" />
-        <activity android:name=".Activities.HomeActivity" >
+
+
+
+        <activity android:name=".Activities.HomeActivity">
 
         </activity>
-        <activity android:name=".Activities.SignUp" />
+
+        <activity android:name=".Activities.SignUp" >
+
+        </activity>
         <activity android:name=".Activities.ForgotPassword" />
-        <activity android:name=".Activities.SignIn" />
+        <activity android:name=".Activities.SignIn" >
+
+        </activity>
         <activity android:name=".Activities.MainActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <service
             android:name=".Services.MyFirebaseMessaging">
             <intent-filter>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bottomSheetContainer"
+    android:layout_width="match_parent"
+    android:background="@drawable/bottom_sheet_background"
+    android:layout_height="400dp"
+    android:orientation="horizontal">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <TextView
+        android:text="Add New Card"
+        android:textSize="30dp"
+        android:textColor="#000"
+        android:layout_marginTop="25dp"
+        android:textStyle="bold"
+        android:shadowColor="@color/blue_dark"
+        android:textAlignment="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:id="@+id/CardName"
+        android:layout_gravity="center"
+        android:layout_width="300dp"
+        android:layout_marginTop="25dp"
+        android:hint="Name"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:id="@+id/CardNumber"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:layout_gravity="center"
+        android:hint="Card Number"/>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+
+        >
+        <EditText
+            android:id="@+id/CardExpiryDate"
+            android:layout_width="125dp"
+            android:layout_height="wrap_content"
+            android:hint="MM/YY"
+            android:layout_marginLeft="55dp"
+            android:textAlignment="center"
+
+            />
+        <EditText
+            android:id="@+id/CardCVV"
+            android:layout_width="125dp"
+            android:layout_height="wrap_content"
+            android:hint="CVV"
+            android:layout_marginLeft="50dp"
+            android:textAlignment="center"
+            />
+    </LinearLayout>
+    <Button
+
+        android:id="@+id/AddCard"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="Add Card"
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        android:layout_marginTop="25dp"
+        android:shadowColor="#000"
+        android:backgroundTint="#FF0000"
+        />
+
+</LinearLayout>
+
+</LinearLayout>

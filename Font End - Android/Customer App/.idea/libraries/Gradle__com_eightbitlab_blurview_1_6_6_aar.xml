@@ -1,12 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.eightbitlab:blurview:1.6.6@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/762a84af76d3cbf922e859e1b50ebb0a/jetified-blurview-1.6.6/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/762a84af76d3cbf922e859e1b50ebb0a/jetified-blurview-1.6.6/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/762a84af76d3cbf922e859e1b50ebb0a/jetified-blurview-1.6.6/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5d4fc84266ac54ecffb74e7e804c08d4/jetified-blurview-1.6.6/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5d4fc84266ac54ecffb74e7e804c08d4/jetified-blurview-1.6.6/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5d4fc84266ac54ecffb74e7e804c08d4/jetified-blurview-1.6.6/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e82b17f7ce61a05219bb634cc46fe05f/jetified-blurview-1.6.6/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e82b17f7ce61a05219bb634cc46fe05f/jetified-blurview-1.6.6/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e82b17f7ce61a05219bb634cc46fe05f/jetified-blurview-1.6.6/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.eightbitlab/blurview/1.6.6/2f7ee16f6111ac64fc39dd1e82200acfdbf1ea6d/blurview-1.6.6-javadoc.jar!/" />
