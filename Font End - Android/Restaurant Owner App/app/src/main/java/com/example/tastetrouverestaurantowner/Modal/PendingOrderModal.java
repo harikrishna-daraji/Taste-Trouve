@@ -3,20 +3,25 @@ package com.example.tastetrouverestaurantowner.Modal;
 import java.util.List;
 
 public class PendingOrderModal {
-    String _id,orderDate,total,address,orderStatus,userName,userPhone;
-    int itemCount;
-    List<ProductOrderModal> products;
+    public String _id,orderDate,total,orderStatus;
+    public List<ProductOrderModal> products;
 
-    public PendingOrderModal(String _id, String orderDate, String total, int itemCount, String address, String orderStatus, String userName, String userPhone, List<ProductOrderModal> products) {
-        this._id = _id;
-        this.orderDate = orderDate;
-        this.total = total;
-        this.itemCount = itemCount;
-        this.address = address;
-        this.orderStatus = orderStatus;
-        this.userName = userName;
-        this.userPhone = userPhone;
-        this.products = products;
+    public Address addressId;
+
+    public OrderUser userId;
+
+    public OrderUser getUserId() {
+        return userId;
+    }
+
+    public void setUserId(OrderUser userId) {
+        this.userId = userId;
+    }
+
+
+
+    public PendingOrderModal() {
+
     }
 
     public String getOrderId() {
@@ -44,19 +49,15 @@ public class PendingOrderModal {
     }
 
     public int getItemCount() {
-        return itemCount;
+        return products.size();
     }
 
-    public void setItemCount(int itemCount) {
-        this.itemCount = itemCount;
+    public Address getAddressId() {
+        return addressId;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
+    public void setAddressId(Address addressId) {
+        this.addressId = addressId;
     }
 
     public String getStatus() {
@@ -67,21 +68,7 @@ public class PendingOrderModal {
         this.orderStatus = orderStatus;
     }
 
-    public String getUserName() {
-        return userName;
-    }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getUserPhone() {
-        return userPhone;
-    }
-
-    public void setUserPhone(String userPhone) {
-        this.userPhone = userPhone;
-    }
 
     public List<ProductOrderModal> getProductOrderModalList() {
         return products;
