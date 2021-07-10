@@ -160,6 +160,31 @@ public class PendingOrdersAdapter extends RecyclerView.Adapter<PendingOrdersAdap
             }
         });
 
+
+        decline_order_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Call<ResponseBody> call = APIClient.getInstance().getApi().updateOrderStatus(pendingOrderModalArrayList.get(position).getOrderId(),"declined");
+
+                call.enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        Toast.makeText(context, "Order Rejected", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Toast.makeText(context, t.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+
+                pendingOrderModalArrayList.remove(position);
+                notifyItemRemoved(position);
+                notifyItemRangeChanged(position, pendingOrderModalArrayList.size());
+                holder.itemView.setVisibility(View.GONE);
+            }
+        });
+
     }
 
 
