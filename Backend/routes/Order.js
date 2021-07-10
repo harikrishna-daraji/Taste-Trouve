@@ -2,6 +2,7 @@ const router = require("express").Router();
 const admin = require("firebase-admin");
 const Product = require("../models/Product");
 const Order = require("../models/Order");
+const Cart = require("../models/Cart");
 const moment = require("moment");
 // const OrderItem = require("../models/OrderItem");
 
@@ -23,6 +24,8 @@ router.post("/add", async (req, res) => {
     });
 
     const savedOrder = await newOrder.save();
+
+    const deleteCart = await Cart.deleteMany({ userId });
 
     res.json(savedOrder);
   } catch (err) {
