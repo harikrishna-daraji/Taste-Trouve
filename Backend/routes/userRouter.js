@@ -35,6 +35,7 @@ router.post("/register", async (req, res) => {
       phoneNumber,
       dateOfBirth,
       isDriver,
+      isOnline,
     });
 
     const savedUser = await newUser.save();
@@ -44,7 +45,10 @@ router.post("/register", async (req, res) => {
   }
 });
 
-//login
+router.get("/getDrivers", async (req, res) => {
+  const driver = await User.find({ isDriver: true, isOnline: true });
+  res.json(driver);
+});
 
 router.post("/login", async (req, res) => {
   try {

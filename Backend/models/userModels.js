@@ -8,5 +8,6 @@ const userSchema = new mongoose.Schema({
   phoneNumber: { type: String },
   dateOfBirth: { type: String },
   isDriver: { type: Boolean, default: false },
+  isOnline: { type: Boolean, default: false },
 });
 module.exports = User = mongoose.model("User", userSchema);
