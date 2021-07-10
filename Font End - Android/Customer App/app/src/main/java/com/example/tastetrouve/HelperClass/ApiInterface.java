@@ -5,21 +5,31 @@ import com.example.tastetrouve.Models.HomeProductModel;
 import com.example.tastetrouve.Models.ItemProductModel;
 import com.example.tastetrouve.Models.SubCategoryModel;
 import com.example.tastetrouve.Models.UserModel;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.HashMap;
 import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.HTTP;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 
 public interface ApiInterface {
 
-    @GET("HomeScreen/getHomeProduct")
-    Call<HomeProductModel> getHomeProduct();
+    @FormUrlEncoded
+    @POST("HomeScreen/getHomeProduct")
+    Call<HomeProductModel> getHomeProduct(@Field("userId") String userId);
 
     @FormUrlEncoded
     @POST("product/getProductsByMainCategory")
@@ -61,10 +71,23 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("Cart/add")
-    Call<ResponseBody> addToCart(@Field("userId") String userId, @Field("productId") String productId, @Field("quantity") String quantity);
+    Call<ResponseBody> addToCart(@Field("userId") String userId, @Field("productId") String productId, @Field("quantity") String quantity, @Field("restaurantId") String restaurantId);
 
     @FormUrlEncoded
     @POST("Cart/getCartByUser")
     Call<List<CartModel>> getUserCart(@Field("userId") String userId);
+
+    @FormUrlEncoded
+    @POST("Cart/updateQuantity")
+    Call<ResponseBody> updateCart(@Field("cartId") String cartId, @Field("quantity") String quantity);
+
+
+    @FormUrlEncoded
+    @HTTP(method = "DELETE", path = "address/delete", hasBody = true)
+    Call<ResponseBody> deleteAddress(@Field("addressId") String addressId);
+
+
+    @POST("Order/add")
+    Call<ResponseBody> addOrder(@Body JSONObject jsonObject);
 
 }

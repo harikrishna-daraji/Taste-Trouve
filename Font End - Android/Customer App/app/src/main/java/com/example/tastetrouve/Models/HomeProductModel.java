@@ -7,6 +7,7 @@ public class HomeProductModel {
     List<CategoryModel> categoryObject;
     List<KidSectionModel> kidsSection;
     List<PopularSectionModel> popular;
+    String cart;
 
     public List<CategoryModel> getCategoryObject() {
         return categoryObject;
@@ -22,5 +23,9 @@ public class HomeProductModel {
 
     public List<RestaurantModel> getRestaurants() {
         return restaurants;
+    }
+
+    public String getCart() {
+        return cart;
     }
 }

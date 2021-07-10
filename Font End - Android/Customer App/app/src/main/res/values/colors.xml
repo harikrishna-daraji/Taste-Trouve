@@ -22,4 +22,6 @@
     <attr name="tintBackgroundColor" format="color"/>
     <attr name="bottomAppBarColor" format="color"/>
     <color name="separator2">#FF000000</color>
+    <color name="location_marker_color">#e74b3c</color>
+
 </resources>

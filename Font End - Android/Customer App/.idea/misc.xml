@@ -26,11 +26,12 @@
         <entry key="app/src/main/res/layout/cart_item.xml" value="0.1765625" />
         <entry key="app/src/main/res/layout/favourite_fragment_xml.xml" value="0.20104166666666667" />
         <entry key="app/src/main/res/layout/home_fragment_xml.xml" value="0.20104166666666667" />
+        <entry key="app/src/main/res/layout/layout_bottom_sheet1.xml" value="0.20677083333333332" />
         <entry key="app/src/main/res/layout/setting_fragment_xml.xml" value="0.20104166666666667" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

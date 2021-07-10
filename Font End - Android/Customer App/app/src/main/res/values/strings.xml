@@ -89,4 +89,6 @@
     <string name="quantity">Quantity</string>
     <string name="added_to_cart">Added to cart</string>
     <string name="cart_failure">Failed to add to cart</string>
+    <string name="quantity_not_in_stock">Quantity is not stock</string>
+    <string name="order_placed">Order is placed</string>
 </resources>

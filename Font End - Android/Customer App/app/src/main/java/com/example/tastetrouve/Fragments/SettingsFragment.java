@@ -21,9 +21,11 @@ import com.example.tastetrouve.Activities.SignIn;
 import com.example.tastetrouve.Adapters.AddressRecycleAdapter;
 import com.example.tastetrouve.HelperClass.ApiClient;
 import com.example.tastetrouve.HelperClass.ApiInterface;
+import com.example.tastetrouve.Interfaces.AddressInterface;
 import com.example.tastetrouve.Models.AddressModel;
 import com.example.tastetrouve.Models.GlobalObjects;
 import com.example.tastetrouve.R;
+import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -186,6 +188,31 @@ public class SettingsFragment extends Fragment {
             } catch (Exception ex) {
                 Log.i("TAG","TAG Exception: "+ex.getMessage());
             }
+        }
+    }
+
+    public void deleteAddress(String address) {
+        try {
+            ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+            apiInterface.deleteAddress(address).enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    try {
+                        if(response.code() == 200) {
+                            getAddressList();
+                        }
+                    } catch (Exception ex) {
+                        Log.i("TAG","TAG ");
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    Log.i("TAG","TAG "+t.getMessage());
+                }
+            });
+        } catch (Exception ex) {
+            Log.i("TAG","TAG "+ex.getMessage());
         }
     }
 
