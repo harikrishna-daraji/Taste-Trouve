@@ -59,7 +59,8 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("Order/getOrderByOwner")
     Call<List<PendingOrderModal>> getPendingOrders(
-            @Field("restaurantId") String restaurantId
+            @Field("restaurantId") String restaurantId,
+            @Field("orderStatus") String orderStatus
     );
 
     @FormUrlEncoded

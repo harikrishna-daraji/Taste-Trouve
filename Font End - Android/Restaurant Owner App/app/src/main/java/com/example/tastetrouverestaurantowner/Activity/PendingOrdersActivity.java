@@ -40,7 +40,7 @@ public class PendingOrdersActivity extends AppCompatActivity {
         @SuppressLint("WrongConstant") SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_APPEND);
         String ownerId = sh.getString("ownerId","");
 
-        Call<List<PendingOrderModal>> call = APIClient.getInstance().getApi().getPendingOrders(ownerId);
+        Call<List<PendingOrderModal>> call = APIClient.getInstance().getApi().getPendingOrders(ownerId,"pending");
 
         call.enqueue(new Callback<List<PendingOrderModal>>() {
             @Override
