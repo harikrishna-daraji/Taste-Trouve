@@ -47,6 +47,32 @@ router.post("/getOrderByOwner", async (req, res) => {
 router.put("/UpdateOrderStatus", async (req, res) => {
   let { orderId, updateStatus } = req.body;
 
+  if (updateStatus == "accepted") {
+    const order = await Order.find({
+      _id: orderId,
+    });
+
+    for (var key in order[0].products) {
+      const selectedProduct = await Product.find({
+        _id: order[0].products[key].id,
+      });
+
+      await Product.updateOne(
+        { _id: order[0].products[key].id },
+        {
+          quantity:
+            parseInt(selectedProduct[0].quantity) -
+            parseInt(order[0].products[key].quantity),
+        },
+        function (err, docs) {
+          if (err) {
+          } else {
+          }
+        }
+      );
+    }
+  }
+
   Order.updateOne(
     { _id: orderId },
     { orderStatus: updateStatus },
