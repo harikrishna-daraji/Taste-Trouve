@@ -61,6 +61,10 @@ public interface ApiInterface {
     Call<ResponseBody> updateUser(@Field("phone") String phone, @Field("password") String password);
 
     @FormUrlEncoded
+    @PUT("clientUser/update")
+    Call<ResponseBody> updateUserFcmToken(@Field("fcmToken") String fcmToken);
+
+    @FormUrlEncoded
     @POST("address/add")
     Call<ResponseBody> addAddress(@Field("userId") String userId, @Field("address") String address, @Field("lat") String lat, @Field("long") String _long);
 
