@@ -199,12 +199,14 @@ public class SignIn extends BaseActivity {
 
     }
 
-    private void saveLogInStatus(String token) {
+    private void saveLogInStatus(String token, String phone) {
         Log.i("TAG","TAG: Token: "+token);
         sharedPreferences = getSharedPreferences("AuthenticationTypes", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
         editor.putString("token",token);
+        editor.putString("phone",phone);
         editor.putBoolean("signUpDone",true);
+        editor.apply();
         editor.commit();
     }
 
@@ -218,7 +220,7 @@ public class SignIn extends BaseActivity {
                         Log.i("TAG","TAG: Code "+response.code()+" Message: "+response.message());
                         if(response.code() == 200) {
                             UserModel userModel = response.body();
-                            saveLogInStatus(userModel.get_id());
+                            saveLogInStatus(userModel.get_id(),userModel.getPhoneNumber());
                             startActivity(new Intent(SignIn.this, HomeActivity.class));
                         }
                     } catch (Exception ex) {
