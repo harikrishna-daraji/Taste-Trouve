@@ -2,15 +2,15 @@
   <library name="Gradle: androidx.wear:wear:1.1.0@aar">
     <ANNOTATIONS>
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/2569790e43adae9980a32b788ce605d7/wear-1.1.0/annotations.zip!/" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/940b60b60a90543caeb8698869f67210/wear-1.1.0/annotations.zip!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/60e924339e51e4d29e892f7ed2d9f7c0/wear-1.1.0/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/2569790e43adae9980a32b788ce605d7/wear-1.1.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/2569790e43adae9980a32b788ce605d7/wear-1.1.0/AndroidManifest.xml" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/2569790e43adae9980a32b788ce605d7/wear-1.1.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/940b60b60a90543caeb8698869f67210/wear-1.1.0/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/940b60b60a90543caeb8698869f67210/wear-1.1.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/940b60b60a90543caeb8698869f67210/wear-1.1.0/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/60e924339e51e4d29e892f7ed2d9f7c0/wear-1.1.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/60e924339e51e4d29e892f7ed2d9f7c0/wear-1.1.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/60e924339e51e4d29e892f7ed2d9f7c0/wear-1.1.0/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
