@@ -14,7 +14,10 @@ router.post("/getHomeProduct", async (req, res) => {
     const cart = await Cart.find({
       userId,
     });
-    let restaurants = await Restaurants.find({ status: "accepted" });
+    let restaurants = await Restaurants.find({
+      status: "accepted",
+      userType: "restaurantOwner",
+    });
 
     for (var key in restaurants) {
       const restroImages = await Product.findOne({
