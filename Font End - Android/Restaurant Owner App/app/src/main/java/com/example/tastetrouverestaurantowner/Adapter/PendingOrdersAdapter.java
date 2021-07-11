@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.tastetrouverestaurantowner.APIClient;
+import com.example.tastetrouverestaurantowner.Activity.DriversActivity;
 import com.example.tastetrouverestaurantowner.Activity.MainActivity;
 import com.example.tastetrouverestaurantowner.Activity.UpdateItemActivity;
 import com.example.tastetrouverestaurantowner.ApiInterface;
@@ -145,6 +146,8 @@ public class PendingOrdersAdapter extends RecyclerView.Adapter<PendingOrdersAdap
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         Toast.makeText(context, "Order Accepted", Toast.LENGTH_SHORT).show();
+                        Intent intent =new Intent(context, DriversActivity.class);
+                        context.startActivity(intent);
                     }
 
                     @Override
