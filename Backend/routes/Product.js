@@ -22,7 +22,6 @@ router.post("/add", async (req, res) => {
       DeliveryTime,
     } = req.body;
 
-    console.log(kidSection);
     const categoryObject = await Category.find({ name: categoryId });
 
     const CategoryObjectId = categoryObject[0]._id;
@@ -30,11 +29,27 @@ router.post("/add", async (req, res) => {
     const subCategoryObjectId = subcategoryObject[0]._id;
 
     if (kidSection == "true") {
-      console.log("in if");
       var payload = {
         data: {
           title: "New Product Added",
           message: name + " has been added in the kids section",
+        },
+      };
+
+      const user = await User.find({ isDriver: false }).select("fcmToken");
+
+      let fcmArray = user.map(function (element) {
+        return element.fcmToken;
+      });
+
+      admin.messaging().sendToDevice(fcmArray, payload);
+    }
+
+    if (popular == "true") {
+      var payload = {
+        data: {
+          title: "New Product Added",
+          message: name + " has been added in the popular section",
         },
       };
 

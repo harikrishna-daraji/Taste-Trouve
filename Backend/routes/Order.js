@@ -50,7 +50,16 @@ router.put("/UpdateOrderStatus", async (req, res) => {
   if (updateStatus == "accepted") {
     const order = await Order.find({
       _id: orderId,
-    });
+    }).populate("userId");
+
+    var payload = {
+      data: {
+        title: "Order Accepted",
+        message: "HURRY !! Your order is now proccsed by owner",
+      },
+    };
+
+    admin.messaging().sendToDevice(order[0].userId.fcmToken, payload);
 
     for (var key in order[0].products) {
       const selectedProduct = await Product.find({
