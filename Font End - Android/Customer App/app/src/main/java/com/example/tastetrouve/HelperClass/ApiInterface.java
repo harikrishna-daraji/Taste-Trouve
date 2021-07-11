@@ -23,6 +23,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.HTTP;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 
@@ -59,11 +60,11 @@ public interface ApiInterface {
     Call<List<ItemProductModel>> getAllProducts();
 
     @PUT("clientUser/update")
-    Call<ResponseBody> updateUser(@Field("phone") String phone, @Field("password") String password);
+    Call<ResponseBody> updateUser(@Field("phoneNumber") String phone, @Field("password") String password);
 
     @FormUrlEncoded
     @PUT("clientUser/update")
-    Call<ResponseBody> updateUserFcmToken(@Field("fcmToken") String fcmToken);
+    Call<ResponseBody> updateUserFcmToken(@Field("phoneNumber") String phone ,@Field("fcmToken") String fcmToken);
 
     @FormUrlEncoded
     @POST("address/add")

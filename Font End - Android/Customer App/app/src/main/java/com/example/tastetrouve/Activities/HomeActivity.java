@@ -92,8 +92,12 @@ public class HomeActivity extends BaseActivity implements HomeInterfaceMethods, 
             @Override
             public void onComplete(@NonNull Task<String> task) {
                 try {
+
+                    sharedPreferences = getSharedPreferences("AuthenticationTypes", Context.MODE_PRIVATE);
+                    String phone = sharedPreferences.getString("phone","");
+                    Log.i("TAG","phone"+phone);
                     ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-                    apiInterface.updateUserFcmToken(task.getResult()).enqueue(new Callback<ResponseBody>() {
+                    apiInterface.updateUserFcmToken(phone,task.getResult()).enqueue(new Callback<ResponseBody>() {
                         @Override
                         public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                             try {
