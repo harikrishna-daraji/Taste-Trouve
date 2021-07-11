@@ -51,18 +51,16 @@ router.post("/getOrderByUser", async (req, res) => {
     userId,
   }).populate("userId addressId");
 
-  console.log(order);
   res.json(order);
 });
 
-router.post("/getOrderByUser", async (req, res) => {
-  const { userId } = req.body;
+router.post("/getOrderById", async (req, res) => {
+  const { orederId } = req.body;
 
   const order = await Order.find({
-    userId,
-  }).populate("userId addressId");
+    _id: orederId,
+  });
 
-  console.log(order);
   res.json(order);
 });
 
