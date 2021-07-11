@@ -23,6 +23,7 @@ import com.example.tastetrouverestaurantowner.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -48,6 +49,7 @@ public class DriverAdapter extends RecyclerView.Adapter<DriverAdapter.MyViewHold
         TextView name;
         TextView email;
         TextView phone;
+        TextView assign;
 
 
         MyViewHolder (View itemview)
@@ -58,6 +60,7 @@ public class DriverAdapter extends RecyclerView.Adapter<DriverAdapter.MyViewHold
             this.name=(TextView)itemview.findViewById(R.id.name);
             this.email = (TextView)itemview.findViewById(R.id.email);
             this.phone = (TextView)itemview.findViewById(R.id.phone);
+            this.assign = (TextView)itemview.findViewById(R.id.assign);
         }
     }
 
@@ -79,13 +82,34 @@ public class DriverAdapter extends RecyclerView.Adapter<DriverAdapter.MyViewHold
         TextView name=holder.name;
         TextView email=holder.email;
         TextView phone=holder.phone;
+        TextView assign=holder.assign;
 
 
         name.setText(driverModalArrayList.get(position).getDisplayname());
         email.setText(driverModalArrayList.get(position).getEmail());
         phone.setText(driverModalArrayList.get(position).getPhoneNumber());
 
-
+        assign.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Call<ResponseBody> call = APIClient.getInstance().getApi().assignDriver(productModalArrayList.get(position).get_id());
+//
+//                call.enqueue(new Callback<ResponseBody>() {
+//                    @Override
+//                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+//
+//                        Toast.makeText(context, "Product deleted", Toast.LENGTH_SHORT).show();
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+//                        Toast.makeText(context, "failed", Toast.LENGTH_SHORT).show();
+//                    }
+//
+//
+//                });
+            }
+        });
 
 
     }

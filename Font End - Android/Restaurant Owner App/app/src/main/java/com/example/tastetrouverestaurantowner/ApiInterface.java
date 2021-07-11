@@ -66,6 +66,13 @@ public interface ApiInterface {
     );
 
     @FormUrlEncoded
+    @POST("trackOrder/add")
+    Call<ResponseBody> assignDriver(
+            @Field("deliveryUser") String deliveryUser,
+            @Field("orderId") String orderId
+    );
+
+    @FormUrlEncoded
     @PUT("product/deleteProduct")
     Call<List<ProductModal>> deleteProduct(
             @Field("productId") String productId
