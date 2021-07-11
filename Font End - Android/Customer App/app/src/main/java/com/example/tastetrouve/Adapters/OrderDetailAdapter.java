@@ -1,7 +1,6 @@
 package com.example.tastetrouve.Adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,18 +14,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.tastetrouve.Activities.OrderDetail;
 import com.example.tastetrouve.Models.MyOrderModel;
+import com.example.tastetrouve.Models.OrderDetailModel;
+import com.example.tastetrouve.Models.ProductOrderModel;
 import com.example.tastetrouve.R;
 
 import java.util.List;
 
-public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.MyViewHolder> {
+public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.MyViewHolder> {
 
 
-    List<MyOrderModel> myOrderModels;
+    List<ProductOrderModel> myOrderModels;
     Context context;
 
 
-    public MyOrderAdapter(List<MyOrderModel> myOrderModels, Context context) {
+    public OrderDetailAdapter(List<ProductOrderModel> myOrderModels, Context context) {
         this.myOrderModels = myOrderModels;
         this.context = context;
     }
@@ -40,8 +41,8 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.MyViewHo
         TextView orderId;
         TextView price;
         TextView date;
-       ImageView moreDetail;
-       ImageView image;
+        ImageView image;
+
 
 
         Button accept_order_button,decline_order_button;
@@ -53,8 +54,7 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.MyViewHo
             this.orderId=(TextView) itemview.findViewById(R.id.orderId);
             this.price=(TextView)itemview.findViewById(R.id.price);
             this.date = (TextView)itemview.findViewById(R.id.date);
-            this.moreDetail = (ImageView) itemview.findViewById(R.id.moreDetail);
-            this.image = (ImageView) itemview.findViewById(R.id.image);
+            this.image = (ImageView)itemview.findViewById(R.id.image);
 
         }
     }
@@ -63,21 +63,20 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.MyViewHo
 
     @NonNull
     @Override
-    public MyOrderAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public OrderDetailAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater li= LayoutInflater.from(parent.getContext());
-        View view=li.inflate(R.layout.item_myorder,parent,false);
-        MyOrderAdapter.MyViewHolder myViewHolder= new MyOrderAdapter.MyViewHolder(view);
+        View view=li.inflate(R.layout.item_orderdetail,parent,false);
+        OrderDetailAdapter.MyViewHolder myViewHolder= new OrderDetailAdapter.MyViewHolder(view);
 
         return myViewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyOrderAdapter.MyViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull OrderDetailAdapter.MyViewHolder holder, final int position) {
 
         TextView orderId=holder.orderId;
         TextView price=holder.price;
         TextView date=holder.date;
-        ImageView moreDetail=holder.moreDetail;
         ImageView image=holder.image;
 
 
@@ -85,28 +84,16 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.MyViewHo
 
 
 
-        orderId.setText(myOrderModels.get(position).get_id());
-        price.setText("$ "+myOrderModels.get(position).getTotal());
-        date.setText(myOrderModels.get(position).getOrderDate());
+        orderId.setText(myOrderModels.get(position).getName());
+        price.setText("$ "+myOrderModels.get(position).getPrice());
+        date.setText("Quantity "+myOrderModels.get(position).getQuantity());
 
         Glide.with(context)
                 .asBitmap()
-                .load(myOrderModels.get(position).getOrderImage())
+                .load(myOrderModels.get(position).getImage())
                 .into(image);
 
 
-        moreDetail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-
-                Intent intent =new Intent(context, OrderDetail.class);
-                intent.putExtra("orderId", myOrderModels.get(position).get_id());
-                context.startActivity(intent);
-
-            }
-        });
 
     }
 

@@ -2,13 +2,9 @@ package com.example.tastetrouve.Models;
 
 import java.util.List;
 
-public class MyOrderModel {
-    public String _id,orderDate,total,orderStatus,orderImage;
+public class OrderDetailModel {
+    public String _id,orderDate,total,orderStatus,delivery,tax;
     public List<ProductOrderModel> products;
-
-    public String getOrderImage() {
-        return products.get(0).getImage();
-    }
 
     public String get_id() {
         return _id;
@@ -42,6 +38,22 @@ public class MyOrderModel {
         this.orderStatus = orderStatus;
     }
 
+    public String getDelivery() {
+        return delivery;
+    }
+
+    public void setDelivery(String delivery) {
+        this.delivery = delivery;
+    }
+
+    public String getTax() {
+        return tax;
+    }
+
+    public void setTax(String tax) {
+        this.tax = tax;
+    }
+
     public List<ProductOrderModel> getProducts() {
         return products;
     }
@@ -50,11 +62,13 @@ public class MyOrderModel {
         this.products = products;
     }
 
-    public MyOrderModel(String _id, String orderDate, String total, String orderStatus, List<ProductOrderModel> products) {
+    public OrderDetailModel(String _id, String orderDate, String total, String orderStatus, String delivery, String tax, List<ProductOrderModel> products) {
         this._id = _id;
         this.orderDate = orderDate;
         this.total = total;
         this.orderStatus = orderStatus;
+        this.delivery = delivery;
+        this.tax = tax;
         this.products = products;
     }
 }
