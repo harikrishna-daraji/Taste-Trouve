@@ -91,4 +91,5 @@
     <string name="cart_failure">Failed to add to cart</string>
     <string name="quantity_not_in_stock">Quantity is not stock</string>
     <string name="order_placed">Order is placed</string>
+    <string name="my_orders">My Orders</string>
 </resources>

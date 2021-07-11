@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tastetrouve.Activities.MapActivity;
+import com.example.tastetrouve.Activities.MyOrdersActivity;
 import com.example.tastetrouve.Activities.SignIn;
 import com.example.tastetrouve.Adapters.AddressRecycleAdapter;
 import com.example.tastetrouve.HelperClass.ApiClient;
@@ -43,7 +44,7 @@ public class SettingsFragment extends Fragment {
     private View root;
     RecyclerView addressRecycle;
     List<AddressModel> addressModelList = new ArrayList<>();
-    LinearLayout addressListLinear;
+    LinearLayout addressListLinear,myOrders;
 
     public SettingsFragment() {
 
@@ -67,8 +68,19 @@ public class SettingsFragment extends Fragment {
 
     private void initUI() {
         addressListLinear = root.findViewById(R.id.addressListLinear);
+        myOrders = root.findViewById(R.id.myOrders);
         addressRecycle = root.findViewById(R.id.addressRecycle);
         addressRecycle.setLayoutManager(new LinearLayoutManager(getContext()));
+
+
+        myOrders.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(getActivity(), MyOrdersActivity.class);
+                getActivity().startActivity(intent);
+            }
+        });
 
         root.findViewById(R.id.addNewAddressLinear).setOnClickListener(new View.OnClickListener() {
             @Override
