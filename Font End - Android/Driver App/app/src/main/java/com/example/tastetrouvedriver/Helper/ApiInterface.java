@@ -29,7 +29,7 @@ public interface ApiInterface {
 
 
     @FormUrlEncoded
-    @POST("restaurantUsers/login")
+    @POST("clientUser/driverLogin")
     Call<ResponseBody> loginUser(
             @Field("email") String email,
             @Field("password") String password
