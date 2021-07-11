@@ -15,11 +15,13 @@ router.post("/getHomeProduct", async (req, res) => {
       userId,
     });
     let restaurants = await Restaurants.find({ status: "accepted" });
+
     for (var key in restaurants) {
       const restroImages = await Product.findOne({
         restaurantId: restaurants[key]._id,
       }).select("image");
 
+      console.log(restaurants[key]);
       restaurants[key] = {
         ...restaurants[key]._doc,
         image: restroImages.image,
