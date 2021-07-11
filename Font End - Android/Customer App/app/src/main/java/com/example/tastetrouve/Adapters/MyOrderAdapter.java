@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.tastetrouve.Activities.OrderDetail;
 import com.example.tastetrouve.Models.MyOrderModel;
 import com.example.tastetrouve.R;
@@ -40,6 +41,7 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.MyViewHo
         TextView price;
         TextView date;
        ImageView moreDetail;
+       ImageView image;
 
 
         Button accept_order_button,decline_order_button;
@@ -52,6 +54,7 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.MyViewHo
             this.price=(TextView)itemview.findViewById(R.id.price);
             this.date = (TextView)itemview.findViewById(R.id.date);
             this.moreDetail = (ImageView) itemview.findViewById(R.id.moreDetail);
+            this.image = (ImageView) itemview.findViewById(R.id.image);
 
         }
     }
@@ -75,6 +78,7 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.MyViewHo
         TextView price=holder.price;
         TextView date=holder.date;
         ImageView moreDetail=holder.moreDetail;
+        ImageView image=holder.image;
 
 
 
@@ -83,7 +87,13 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.MyViewHo
 
         orderId.setText(myOrderModels.get(position).get_id());
         price.setText("$ "+myOrderModels.get(position).getTotal());
-        date.setText("Total "+myOrderModels.get(position).getOrderDate());
+        date.setText(myOrderModels.get(position).getOrderDate());
+
+        Glide.with(context)
+                .asBitmap()
+                .load(myOrderModels.get(position).getOrderImage())
+                .into(image);
+
 
         moreDetail.setOnClickListener(new View.OnClickListener() {
             @Override

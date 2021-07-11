@@ -3,8 +3,12 @@ package com.example.tastetrouve.Models;
 import java.util.List;
 
 public class MyOrderModel {
-    public String _id,orderDate,total,orderStatus;
+    public String _id,orderDate,total,orderStatus,orderImage;
     public List<ProductOrderModel> products;
+
+    public String getOrderImage() {
+        return products.get(0).getImage();
+    }
 
     public String get_id() {
         return _id;
