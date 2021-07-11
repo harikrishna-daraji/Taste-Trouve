@@ -92,4 +92,7 @@
     <string name="quantity_not_in_stock">Quantity is not stock</string>
     <string name="order_placed">Order is placed</string>
     <string name="threshold_condition">Order is placed, but this order can be picked up only</string>
+
+    <string name="my_orders">My Orders</string>
+
 </resources>

@@ -66,6 +66,23 @@ router.post("/login", async (req, res) => {
   }
 });
 
+
+router.post("/driverLogin", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    // validate
+    if (!email || !password)
+      return res.status(400).json({ msg: "Not all fields have been entered." });
+
+    const user = await User.findOne({ email: email, password: password,isDriver:true });
+
+    res.json(user);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 //delete
 
 router.delete("/delete", async (req, res) => {
@@ -81,7 +98,6 @@ router.delete("/delete", async (req, res) => {
 
 router.put("/update", async (req, res) => {
   const data = req.body;
-  console.log(data);
 
   var myquery = { phoneNumber: data.phoneNumber };
   var newvalues = { $set: { ...data } };

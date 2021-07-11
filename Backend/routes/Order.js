@@ -44,13 +44,42 @@ router.post("/getOrderByOwner", async (req, res) => {
   res.json(order);
 });
 
+router.post("/getOrderByUser", async (req, res) => {
+  const { userId } = req.body;
+
+  const order = await Order.find({
+    userId,
+  }).populate("userId addressId");
+
+  res.json(order);
+});
+
+router.post("/getOrderById", async (req, res) => {
+  const { orederId } = req.body;
+
+  const order = await Order.find({
+    _id: orederId,
+  });
+
+  res.json(order);
+});
+
 router.put("/UpdateOrderStatus", async (req, res) => {
   let { orderId, updateStatus } = req.body;
 
   if (updateStatus == "accepted") {
     const order = await Order.find({
       _id: orderId,
-    });
+    }).populate("userId");
+
+    var payload = {
+      data: {
+        title: "Order Accepted",
+        message: "HURRY !! Your order is now proccsed by owner",
+      },
+    };
+
+    admin.messaging().sendToDevice(order[0].userId.fcmToken, payload);
 
     for (var key in order[0].products) {
       const selectedProduct = await Product.find({
@@ -73,7 +102,7 @@ router.put("/UpdateOrderStatus", async (req, res) => {
     }
   }
 
-  Order.updateOne(
+  await Order.updateOne(
     { _id: orderId },
     { orderStatus: updateStatus },
     function (err, docs) {

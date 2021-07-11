@@ -17,16 +17,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TasteTrouve"
         android:usesCleartextTraffic="true">
-
-        <activity android:name=".Activities.CartActivity">
-
-        </activity>
-
+        <activity android:name=".Activities.OrderDetail"></activity>
+        <activity android:name=".Activities.MyOrdersActivity" />
+        <activity android:name=".Activities.CartActivity" />
         <activity
             android:name=".Activities.MapActivity"
-            android:exported="true" >
-
-        </activity>
+            android:exported="true" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -35,7 +31,6 @@
         <activity
             android:name=".Activities.LanguageActivity"
             android:exported="true" />
-
         <activity android:name=".Activities.SubcategoryListActivity" />
         <activity android:name=".Activities.VerifyOtpActivity" />
         <activity android:name=".Activities.ResetPasswordActivity" />
@@ -43,22 +38,11 @@
         <activity android:name=".Activities.MainCategoryActivity" />
         <activity android:name=".Activities.OnBoardingScreen" />
         <activity android:name=".Activities.ItemActivity" />
-
-
-
-        <activity android:name=".Activities.HomeActivity">
-
-        </activity>
-
-        <activity android:name=".Activities.SignUp" >
-
-        </activity>
+        <activity android:name=".Activities.HomeActivity" />
+        <activity android:name=".Activities.SignUp" />
         <activity android:name=".Activities.ForgotPassword" />
-        <activity android:name=".Activities.SignIn" >
-
-        </activity>
+        <activity android:name=".Activities.SignIn" />
         <activity android:name=".Activities.MainActivity">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -66,10 +50,9 @@
             </intent-filter>
         </activity>
 
-        <service
-            android:name=".Services.MyFirebaseMessaging">
+        <service android:name=".Services.MyFirebaseMessaging">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
     </application>

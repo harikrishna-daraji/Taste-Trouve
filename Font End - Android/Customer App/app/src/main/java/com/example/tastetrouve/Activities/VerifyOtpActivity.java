@@ -93,6 +93,7 @@ public class VerifyOtpActivity extends BaseActivity {
                                         Toast.makeText(VerifyOtpActivity.this, getString(R.string.otp_varification_successfuly), Toast.LENGTH_SHORT).show();
                                         Intent intent = new Intent(VerifyOtpActivity.this,ResetPasswordActivity.class);
                                         intent.putExtra("Phone",Phone);
+                                        
                                         startActivity(intent);
                                     }else{
                                         Toast.makeText(VerifyOtpActivity.this, getString(R.string.otp_failed), Toast.LENGTH_SHORT).show();
