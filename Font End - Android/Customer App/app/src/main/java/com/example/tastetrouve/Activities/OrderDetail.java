@@ -12,5 +12,11 @@ public class OrderDetail extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_detail);
+
+        String orderId = getIntent().getStringExtra("orderId");
+
+        
+
+
     }
 }
