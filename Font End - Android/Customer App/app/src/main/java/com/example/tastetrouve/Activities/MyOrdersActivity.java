@@ -10,8 +10,10 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.example.tastetrouve.Adapters.MyOrderAdapter;
 import com.example.tastetrouve.HelperClass.ApiClient;
 import com.example.tastetrouve.HelperClass.ApiInterface;
+import com.example.tastetrouve.Models.ItemProductModel;
 import com.example.tastetrouve.Models.MyOrderModel;
 import com.example.tastetrouve.Models.UserModel;
 import com.example.tastetrouve.R;
@@ -36,20 +38,23 @@ public class MyOrdersActivity extends AppCompatActivity {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        @SuppressLint("WrongConstant") SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_APPEND);
-        String ownerId = sh.getString("ownerId","");
+
+        SharedPreferences sharedPreferences = getSharedPreferences("AuthenticationTypes",MODE_PRIVATE);
+            String token = sharedPreferences.getString("token","");
+
+
 
         try {
             ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-            apiInterface.login(email.getText().toString(),password.getText().toString()).enqueue(new Callback<UserModel>() {
+            apiInterface.getMyOrders(token).enqueue(new Callback<List<MyOrderModel>>() {
                 @Override
-                public void onResponse(Call<UserModel> call, Response<UserModel> response) {
+                public void onResponse(Call<List<MyOrderModel>> call, Response<List<MyOrderModel>> response) {
                     try {
-                        Log.i("TAG","TAG: Code "+response.code()+" Message: "+response.message());
+
                         if(response.code() == 200) {
-                            UserModel userModel = response.body();
-                            saveLogInStatus(userModel.get_id());
-                            startActivity(new Intent(SignIn.this, HomeActivity.class));
+                            myOrderModels = response.body();
+                            MyOrderAdapter customAdapter= new MyOrderAdapter(myOrderModels,MyOrdersActivity.this);
+                            recyclerView.setAdapter(customAdapter);
                         }
                     } catch (Exception ex) {
                         Log.i("TAG","TAG "+ex.getMessage());
@@ -57,8 +62,8 @@ public class MyOrdersActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onFailure(Call<UserModel> call, Throwable t) {
-                    Log.i("TAG","TAG: Server Failure"+t.getMessage());
+                public void onFailure(Call<List<MyOrderModel>> call, Throwable t) {
+                    Log.i("TAG","TAG: "+t.getMessage());
                 }
             });
         } catch (Exception ex) {

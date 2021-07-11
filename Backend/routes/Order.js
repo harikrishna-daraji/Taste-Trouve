@@ -44,6 +44,17 @@ router.post("/getOrderByOwner", async (req, res) => {
   res.json(order);
 });
 
+router.post("/getOrderByUser", async (req, res) => {
+  const { userId } = req.body;
+
+  const order = await Order.find({
+    userId,
+  }).populate("userId addressId");
+
+  console.log(order);
+  res.json(order);
+});
+
 router.put("/UpdateOrderStatus", async (req, res) => {
   let { orderId, updateStatus } = req.body;
 

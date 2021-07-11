@@ -3,6 +3,7 @@ package com.example.tastetrouve.HelperClass;
 import com.example.tastetrouve.Models.CartModel;
 import com.example.tastetrouve.Models.HomeProductModel;
 import com.example.tastetrouve.Models.ItemProductModel;
+import com.example.tastetrouve.Models.MyOrderModel;
 import com.example.tastetrouve.Models.SubCategoryModel;
 import com.example.tastetrouve.Models.UserModel;
 import com.google.gson.JsonArray;
@@ -72,6 +73,12 @@ public interface ApiInterface {
     @POST("address/getAddresByUser")
     Call<ResponseBody> getAddressList(@Field("userId") String userId);
 
+    @FormUrlEncoded
+    @POST("Order/getOrderByUser")
+    Call<List<MyOrderModel>> getMyOrders(
+            @Field("userId") String userId
+
+    );
 
     @FormUrlEncoded
     @POST("Cart/add")
