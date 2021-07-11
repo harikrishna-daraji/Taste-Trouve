@@ -64,6 +64,26 @@ router.post("/getOrderById", async (req, res) => {
   res.json(order);
 });
 
+router.post("/getReportByOwner", async (req, res) => {
+  const { restaurantId } = req.body;
+
+  const order = await Order.find({
+    restaurantId,
+    orderStatus: "accepted",
+  }).select("total");
+
+  let values = order.map(function (element) {
+    return element.total;
+  });
+
+  const sum = values.reduce(function (sum, number) {
+    const updatedSum = sum + number;
+    return updatedSum;
+  }, 0);
+
+  res.json(sum);
+});
+
 router.put("/UpdateOrderStatus", async (req, res) => {
   let { orderId, updateStatus } = req.body;
 
