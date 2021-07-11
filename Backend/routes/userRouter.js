@@ -98,7 +98,6 @@ router.delete("/delete", async (req, res) => {
 
 router.put("/update", async (req, res) => {
   const data = req.body;
-  console.log(data);
 
   var myquery = { phoneNumber: data.phoneNumber };
   var newvalues = { $set: { ...data } };
