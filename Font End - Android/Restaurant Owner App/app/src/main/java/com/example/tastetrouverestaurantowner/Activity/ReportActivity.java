@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import com.example.tastetrouverestaurantowner.R;
+
 public class ReportActivity extends AppCompatActivity {
 
     @Override
