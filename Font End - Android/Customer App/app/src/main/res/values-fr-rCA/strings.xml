@@ -89,5 +89,6 @@
     <string name="cart_failure">Échec de l\'ajout au panier</string>
     <string name="quantity_not_in_stock">La quantité n\'est pas en stock</string>
     <string name="order_placed">La commande est passée</string>
+    <string name="threshold_condition">La commande est passée, mais cette commande ne peut être récupérée que</string>
     <string name="my_orders">My Orders</string>
 </resources>

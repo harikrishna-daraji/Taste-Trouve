@@ -335,7 +335,11 @@ public class CartActivity  extends BaseActivity implements CartInterface, Adapte
                             cartModelArrayList.clear();
                             cartRecyclerAdapter= new CartRecyclerAdapter(cartModelArrayList,CartActivity.this);
                             recyclerView.setAdapter(cartRecyclerAdapter);
-                            GlobalObjects.Toast(getBaseContext(),getString(R.string.order_placed));
+                            if(total < 30) {
+                                GlobalObjects.Toast(getBaseContext(),getString(R.string.threshold_condition));
+                            } else {
+                                GlobalObjects.Toast(getBaseContext(),getString(R.string.order_placed));
+                            }
                         }
                     } catch (Exception ex) {
                         Log.i("TAG","TAG "+ex.getMessage());
