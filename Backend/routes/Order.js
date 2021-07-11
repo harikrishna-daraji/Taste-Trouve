@@ -82,7 +82,7 @@ router.put("/UpdateOrderStatus", async (req, res) => {
     }
   }
 
-  Order.updateOne(
+  await Order.updateOne(
     { _id: orderId },
     { orderStatus: updateStatus },
     function (err, docs) {
