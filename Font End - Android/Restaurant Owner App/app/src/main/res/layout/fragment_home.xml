@@ -136,7 +136,7 @@
         android:layout_marginTop="20dp"
         android:orientation="horizontal">
         <LinearLayout
-            android:id="@+id/viewOrder"
+            android:id="@+id/reportlayout"
             android:layout_width="150dp"
             android:background="@drawable/roundteal"
             android:gravity="center"

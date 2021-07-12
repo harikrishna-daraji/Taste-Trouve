@@ -53,6 +53,12 @@ public interface ApiInterface {
     );
 
     @FormUrlEncoded
+    @POST("Order/getReportByOwner")
+    Call<ResponseBody> getReportByOwner(
+            @Field("restaurantId") String restaurantId
+    );
+
+    @FormUrlEncoded
     @POST("product/getProductsByRestaurant")
     Call<List<ProductModal>> getproducts(
             @Field("restaurantId") String restaurantId
