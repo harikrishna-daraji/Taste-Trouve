@@ -33,9 +33,12 @@ import com.example.tastetrouve.Models.GlobalObjects;
 import com.example.tastetrouve.Models.HomeProductModel;
 import com.example.tastetrouve.R;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -61,17 +64,8 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        sharedPreferences = getActivity().getSharedPreferences("AuthenticationTypes", Context.MODE_PRIVATE);
-        int count = sharedPreferences.getInt("cart_count",0);
-        if(count ==  1) {
-            int temp_Count =  Integer.parseInt(homeProductModel.getCart());
-            temp_Count = temp_Count + 1;
-            cartCountTV.setText(temp_Count+"");
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putInt("cart_count",0);
-            editor.apply();
-        }
-
+        Log.i("TAG","TAG: Resume called");
+        getCartCount();
     }
 
     @Override
@@ -81,7 +75,37 @@ public class HomeFragment extends Fragment {
         root = inflater.inflate(R.layout.home_fragment_xml, container, false);
         initUI();
         getHomeProducts();
+        getCartCount();
         return root;
+    }
+
+    private void getCartCount() {
+        String token = getUserToken();
+        if(!token.isEmpty()) {
+            try {
+                ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+                apiInterface.getCartCount(token).enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        try {
+                            JSONObject finalResponse = new JSONObject(response.body().string());
+                            int count = finalResponse.getInt("cart");
+                            cartCountTV.setText(String.valueOf(count));
+                            Log.i("TAG","TAG: Cart count arrived");
+                        } catch (Exception ex) {
+                            Log.i("TAG","TAG "+ex.getMessage());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                    }
+                });
+            } catch (Exception ex) {
+                Log.i("TAG","TAG "+ex.getMessage());
+            }
+        }
     }
 
     private void initUI() {
