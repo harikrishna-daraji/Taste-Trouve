@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -60,6 +61,7 @@ public class CartActivity  extends BaseActivity implements CartInterface, Adapte
     List<AddressModel> addressModelList = new ArrayList<>();
     List<String> stringAddressList = new ArrayList<>();
     AddressModel selectedAddressModel;
+    LinearLayout no_result_Linear;
 
 
     @Override
@@ -85,6 +87,7 @@ public class CartActivity  extends BaseActivity implements CartInterface, Adapte
         layoutManager = new LinearLayoutManager( this);
         recyclerView.setLayoutManager(layoutManager);
         placeOrder = findViewById(R.id.PlaceOrder);
+        no_result_Linear = findViewById(R.id.no_result_Linear);
 
         findViewById(R.id.backBtn).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -223,6 +226,13 @@ public class CartActivity  extends BaseActivity implements CartInterface, Adapte
                             totalTV.setText(roundNumber(total));
                             cartRecyclerAdapter= new CartRecyclerAdapter(cartModelArrayList,CartActivity.this);
                             recyclerView.setAdapter(cartRecyclerAdapter);
+
+                            if(cartModelArrayList.size() == 0) {
+                                no_result_Linear.setVisibility(View.VISIBLE);
+                            } else {
+                                no_result_Linear.setVisibility(View.GONE);
+                            }
+
                         } catch (Exception ex) {
                             Log.i("TAG","TAG "+ex.getMessage());
                         }

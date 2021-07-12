@@ -111,4 +111,8 @@ public interface ApiInterface {
     @POST("Order/add")
     Call<ResponseBody> addOrder(@Body HashMap<String,Object> jsonObject);
 
+    @POST("getCartCountByUser")
+    Call<ResponseBody>
+
+
 }

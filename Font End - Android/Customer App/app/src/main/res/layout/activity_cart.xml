@@ -55,6 +55,9 @@
         android:layout_height="320dp"
         xmlns:android="http://schemas.android.com/apk/res/android" />
     <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/no_result_Linear"
+        android:layout_gravity="center_vertical"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
