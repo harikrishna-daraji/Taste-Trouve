@@ -91,6 +91,17 @@ public interface ApiInterface {
             @Field("productId") String productId
     );
 
+    @FormUrlEncoded
+    @PUT("restaurantUsers/update")
+    Call<ResponseBody> updateadmin(
+            @Field("resId") String resId,
+            @Field("restaurantName") String restaurantName,
+            @Field("email") String email,
+            @Field("password") String password,
+            @Field("phoneNumber") String phoneNumber,
+            @Field("address") String address
+    );
+
 
     @FormUrlEncoded
     @PUT("product/update")

@@ -6,6 +6,8 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -30,6 +32,7 @@ import retrofit2.Response;
 public class UpdateActivity extends AppCompatActivity {
 
     EditText nameupdate,emailupdate,phoneupdate,addressupdate,passwordupdate;
+    Button update;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +42,7 @@ public class UpdateActivity extends AppCompatActivity {
         phoneupdate=findViewById(R.id.phoneupdate);
         addressupdate=findViewById(R.id.addressupdate);
         passwordupdate=findViewById(R.id.passwordupdate);
+        update=findViewById(R.id.update);
 
 
         @SuppressLint("WrongConstant") SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_APPEND);
@@ -75,10 +79,6 @@ public class UpdateActivity extends AppCompatActivity {
 
                 }
 
-
-
-
-
             }
 
             @Override
@@ -89,6 +89,35 @@ public class UpdateActivity extends AppCompatActivity {
 
 
 
+        });
+
+
+        update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+
+                Call<ResponseBody> call = APIClient.getInstance().getApi().updateadmin(ownerId,
+                        nameupdate.getText().toString(), emailupdate.getText().toString(),passwordupdate.getText().toString(),
+                        phoneupdate.getText().toString(),addressupdate.getText().toString() );
+
+                call.enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        Intent myintent = new Intent(UpdateActivity.this, MainActivity.class);
+                        startActivity(myintent);
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                    }
+                });
+
+
+
+            }
         });
     }
 }

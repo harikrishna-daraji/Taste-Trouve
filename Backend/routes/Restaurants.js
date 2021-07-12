@@ -107,6 +107,21 @@ router.put("/UpdateRestuarantStatus", async (req, res) => {
   );
 });
 
+router.put("/update", async (req, res) => {
+  const data = req.body;
+
+  var myquery = { _id: data.resId };
+  var newvalues = { $set: { ...data } };
+
+  await Restaurants.updateOne(myquery, newvalues, function (err, res) {
+    if (err)
+console.log(err);
+		throw err;
+  });
+
+  return res.send({ data: "updatedUser" });
+});
+
 // //delete
 // router.delete("/delete", auth, async (req, res) => {
 //   try {
