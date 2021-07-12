@@ -84,6 +84,7 @@ public class LogInActivity extends AppCompatActivity {
                             SharedPreferences.Editor myEdit = sharedPreferences.edit();
                             try {
                                 myEdit.putString("ownerId", jsonObject.getString("_id"));
+                                myEdit.putBoolean("signUpDone",true);
                                 myEdit.commit();
                             } catch (JSONException e) {
                                 e.printStackTrace();
