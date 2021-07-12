@@ -66,8 +66,9 @@
         android:height="55dp"
         android:background="@drawable/roundbordername"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter Password"/>
+        android:layout_height="55dp"
+        android:hint="Enter Password"
+        android:inputType="textPassword"/>
 
 <LinearLayout
     android:layout_width="match_parent"
