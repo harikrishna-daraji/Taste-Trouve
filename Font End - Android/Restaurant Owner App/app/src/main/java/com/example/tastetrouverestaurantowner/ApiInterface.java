@@ -3,6 +3,7 @@ package com.example.tastetrouverestaurantowner;
 import com.example.tastetrouverestaurantowner.Modal.DriverModal;
 import com.example.tastetrouverestaurantowner.Modal.PendingOrderModal;
 import com.example.tastetrouverestaurantowner.Modal.ProductModal;
+import com.example.tastetrouverestaurantowner.Modal.UserModal;
 
 import java.util.List;
 
@@ -50,6 +51,12 @@ public interface ApiInterface {
     Call<ResponseBody> loginUser(
             @Field("email") String email,
             @Field("password") String password
+    );
+
+    @FormUrlEncoded
+    @POST("restaurantUsers/login")
+    Call<List<UserModal>> getuserdetails(
+            @Field("resId") String resId
     );
 
     @FormUrlEncoded

@@ -76,6 +76,20 @@ router.get("/getRestaurants", async (req, res) => {
   }
 });
 
+router.post("/getRestaurantsById", async (req, res) => {
+  try {
+    const { resId } = req.body;
+
+    const user = await Restaurants.findOne({
+      _id: resId,
+    });
+
+    res.json(user);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 router.put("/UpdateRestuarantStatus", async (req, res) => {
   let { restaurantId, updateStatus } = req.body;
 

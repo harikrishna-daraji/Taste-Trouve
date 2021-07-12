@@ -1,15 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="?attr/backgroundColor"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".Fragment.SettingsFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    android:layout_height="match_parent">
+    <com.google.android.material.appbar.AppBarLayout
+        android:background="?attr/backgroundColor"
         android:layout_width="match_parent"
-        android:gravity="center"
-        android:layout_height="match_parent"
-        android:text="Settings screen" />
+        android:layout_height="wrap_content"
+        android:id="@+id/appBarTop">
 
-</FrameLayout>
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/topHeading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="0dp"
+                    android:text="Settings"
+                    android:textColor="#000"
+                    android:textSize="25dp"></TextView>
+            </LinearLayout>
+        </com.google.android.material.appbar.MaterialToolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/manageProfileLinear"
+                android:layout_width="match_parent"
+                android:layout_height="80dp">
+                <TextView
+                    android:layout_marginStart="15dp"
+                    android:layout_gravity="center_vertical"
+                    android:text="Manage Profile"
+                    android:textColor="#000"
+                    android:textSize="20sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="5dp"
+                android:background="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"/>
+
+
+
+            <LinearLayout
+                android:id="@+id/logoutLinear"
+                android:layout_width="match_parent"
+                android:layout_height="80dp">
+                <TextView
+                    android:layout_marginStart="15dp"
+                    android:layout_gravity="center_vertical"
+                    android:text="Logout"
+                    android:textColor="#000"
+                    android:textSize="20sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="5dp"
+                android:background="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"/>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
