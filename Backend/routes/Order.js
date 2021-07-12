@@ -66,7 +66,6 @@ router.post("/getOrderById", async (req, res) => {
 
 router.post("/getReportByOwner", async (req, res) => {
   const { restaurantId } = req.body;
-
   const order = await Order.find({
     restaurantId,
     orderStatus: "accepted",
@@ -81,7 +80,7 @@ router.post("/getReportByOwner", async (req, res) => {
     return updatedSum;
   }, 0);
 
-  res.json(sum);
+  res.json({ total: sum.toString() });
 });
 
 router.put("/UpdateOrderStatus", async (req, res) => {
