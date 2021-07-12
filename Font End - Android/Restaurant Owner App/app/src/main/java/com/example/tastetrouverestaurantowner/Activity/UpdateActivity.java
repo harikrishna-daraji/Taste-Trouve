@@ -3,9 +3,11 @@ package com.example.tastetrouverestaurantowner.Activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.tastetrouverestaurantowner.APIClient;
 import com.example.tastetrouverestaurantowner.Adapter.ViewItemAdapter;
@@ -13,9 +15,14 @@ import com.example.tastetrouverestaurantowner.Modal.ProductModal;
 import com.example.tastetrouverestaurantowner.Modal.UserModal;
 import com.example.tastetrouverestaurantowner.R;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -37,24 +44,45 @@ public class UpdateActivity extends AppCompatActivity {
         @SuppressLint("WrongConstant") SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_APPEND);
         String ownerId = sh.getString("ownerId","");
 
-        Call<List<UserModal>> call = APIClient.getInstance().getApi().getuserdetails(ownerId);
+        Call<ResponseBody> call = APIClient.getInstance().getApi().getuserdetails(ownerId);
 
-        call.enqueue(new Callback<List<UserModal>>() {
+        call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<List<UserModal>> call, Response<List<UserModal>> response) {
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
-                List<UserModal> adminlist = response.body();
+                if (response != null) {
+                    JSONObject jsonObject = null;
+                    try {
+                        jsonObject = new JSONObject(response.body().string());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
 
-                nameupdate.setText(adminlist.get(0).getRestaurantName());
-                emailupdate.setText(adminlist.get(0).getEmail());
-                phoneupdate.setText(adminlist.get(0).getPhoneNumber());
+
+                    try {
+
+                        nameupdate.setText(jsonObject.getString("restaurantName"));
+                        emailupdate.setText(jsonObject.getString("email"));
+                        phoneupdate.setText(jsonObject.getString("phoneNumber"));
+                        addressupdate.setText(jsonObject.getString("address"));
+                        passwordupdate.setText(jsonObject.getString("password"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+
+                }
+
+
 
 
 
             }
 
             @Override
-            public void onFailure(Call<List<UserModal>> call, Throwable t) {
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
 
             }
 

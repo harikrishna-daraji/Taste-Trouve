@@ -54,8 +54,8 @@ public interface ApiInterface {
     );
 
     @FormUrlEncoded
-    @POST("restaurantUsers/login")
-    Call<List<UserModal>> getuserdetails(
+    @POST("restaurantUsers/getRestaurantsById")
+    Call<ResponseBody> getuserdetails(
             @Field("resId") String resId
     );
 
