@@ -81,7 +81,7 @@ router.post("/getReportByOwner", async (req, res) => {
     return updatedSum;
   }, 0);
 
-  res.json({ total: sum });
+  res.json({ total: sum.toString() });
 });
 
 router.put("/UpdateOrderStatus", async (req, res) => {
