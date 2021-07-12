@@ -95,8 +95,8 @@
                 android:layout_marginStart="10dp"
                 android:src="@drawable/ic_baseline_location_on_24"
                 android:tint="@color/location_marker_color"
-                android:layout_width="50dp"
-                android:layout_height="50dp"/>
+                android:layout_width="40dp"
+                android:layout_height="40dp"/>
 
             <Spinner
                 android:id="@+id/addressSpinner"

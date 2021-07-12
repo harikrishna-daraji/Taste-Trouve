@@ -4,9 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import com.example.tastetrouve.Adapters.MyOrderAdapter;
@@ -23,17 +25,30 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class OrderDetail extends AppCompatActivity {
+public class OrderDetail extends  BaseActivity  {
 
 
     List<OrderDetailModel> orderDetails;
     RecyclerView recyclerView;
-    TextView orderIDdetail,tax,Delivery,total;
+    TextView orderIDdetail,tax,Delivery,total,orderStatus;
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(loadStyle(false));
+        sharedPreferences = getApplicationContext().getSharedPreferences("LANGUAGE", Context.MODE_PRIVATE);
+        String language = sharedPreferences.getString("code","en");
+        setLanguage(language);
         setContentView(R.layout.activity_order_detail);
+
+        findViewById(R.id.backBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
 
         String orderId = getIntent().getStringExtra("orderId");
 
@@ -42,6 +57,7 @@ public class OrderDetail extends AppCompatActivity {
         tax = findViewById(R.id.tax);
         Delivery = findViewById(R.id.Delivery);
         total = findViewById(R.id.total);
+        orderStatus = findViewById(R.id.orderStatus);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -64,6 +80,7 @@ public class OrderDetail extends AppCompatActivity {
                             tax.setText(orderDetails.get(0).getTax().toString());
                             Delivery.setText(orderDetails.get(0).getDelivery().toString());
                             total.setText(orderDetails.get(0).getTotal().toString());
+                            orderStatus.setText(orderDetails.get(0).getOrderStatus().toString());
                         }
                     } catch (Exception ex) {
                         Log.i("TAG","TAG "+ex.getMessage());
