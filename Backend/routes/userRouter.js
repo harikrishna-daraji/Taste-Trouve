@@ -13,6 +13,7 @@ router.post("/register", async (req, res) => {
       phoneNumber,
       dateOfBirth,
       isDriver,
+      isOnline,
     } = req.body;
 
     // validation
