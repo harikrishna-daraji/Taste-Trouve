@@ -69,6 +69,29 @@
             android:textColor="#000"
             android:layout_height="wrap_content"
             android:text="bdjbjfsd"/>
+    </LinearLayout>   <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#EDF8FA"
+        android:layout_marginHorizontal="30dp"
+        android:padding="10dp"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            android:textColor="#000"
+            android:text="Order Status"/>
+        <TextView
+            android:id="@+id/orderStatus"
+            android:layout_width="wrap_content"
+            android:textSize="15dp"
+            android:layout_marginLeft="10dp"
+            android:textColor="#000"
+            android:layout_height="wrap_content"
+            android:text="bdjbjfsd"/>
     </LinearLayout>
     <TextView
         android:layout_width="wrap_content"

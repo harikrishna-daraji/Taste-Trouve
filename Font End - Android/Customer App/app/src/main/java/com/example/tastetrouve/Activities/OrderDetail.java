@@ -30,7 +30,7 @@ public class OrderDetail extends  BaseActivity  {
 
     List<OrderDetailModel> orderDetails;
     RecyclerView recyclerView;
-    TextView orderIDdetail,tax,Delivery,total;
+    TextView orderIDdetail,tax,Delivery,total,orderStatus;
     SharedPreferences sharedPreferences;
 
     @Override
@@ -57,6 +57,7 @@ public class OrderDetail extends  BaseActivity  {
         tax = findViewById(R.id.tax);
         Delivery = findViewById(R.id.Delivery);
         total = findViewById(R.id.total);
+        orderStatus = findViewById(R.id.orderStatus);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -79,6 +80,7 @@ public class OrderDetail extends  BaseActivity  {
                             tax.setText(orderDetails.get(0).getTax().toString());
                             Delivery.setText(orderDetails.get(0).getDelivery().toString());
                             total.setText(orderDetails.get(0).getTotal().toString());
+                            orderStatus.setText(orderDetails.get(0).getOrderStatus().toString());
                         }
                     } catch (Exception ex) {
                         Log.i("TAG","TAG "+ex.getMessage());
