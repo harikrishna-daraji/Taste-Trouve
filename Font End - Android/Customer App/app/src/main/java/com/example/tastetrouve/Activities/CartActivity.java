@@ -61,7 +61,7 @@ public class CartActivity  extends BaseActivity implements CartInterface, Adapte
     List<AddressModel> addressModelList = new ArrayList<>();
     List<String> stringAddressList = new ArrayList<>();
     AddressModel selectedAddressModel;
-    LinearLayout no_result_Linear;
+    LinearLayout no_result_Linear, totalLinear, subTotalLinear;
 
 
     @Override
@@ -88,6 +88,9 @@ public class CartActivity  extends BaseActivity implements CartInterface, Adapte
         recyclerView.setLayoutManager(layoutManager);
         placeOrder = findViewById(R.id.PlaceOrder);
         no_result_Linear = findViewById(R.id.no_result_Linear);
+        totalLinear = findViewById(R.id.totalLinear);
+        subTotalLinear = findViewById(R.id.subTotalLinear);
+
 
         findViewById(R.id.backBtn).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -229,8 +232,14 @@ public class CartActivity  extends BaseActivity implements CartInterface, Adapte
 
                             if(cartModelArrayList.size() == 0) {
                                 no_result_Linear.setVisibility(View.VISIBLE);
+                                totalLinear.setVisibility(View.GONE);
+                                subTotalLinear.setVisibility(View.GONE);
+                                placeOrder.setVisibility(View.GONE);
                             } else {
                                 no_result_Linear.setVisibility(View.GONE);
+                                totalLinear.setVisibility(View.VISIBLE);
+                                subTotalLinear.setVisibility(View.VISIBLE);
+                                placeOrder.setVisibility(View.VISIBLE);
                             }
 
                         } catch (Exception ex) {
