@@ -90,10 +90,7 @@ public class ViewItemAdapter extends RecyclerView.Adapter<ViewItemAdapter.MyView
         price.setText("$ "+productModalArrayList.get(position).getPrice().toString());
         calories.setText(productModalArrayList.get(position).getCalories()+" kcal");
 
-        Glide.with(context)
-                .asBitmap()
-                .load(productModalArrayList.get(position).getImage())
-                .into(image);
+        Glide.with(context).load(productModalArrayList.get(position).getImage()).placeholder(R.drawable.imageplaceholder).into(image);
 
             delete.setOnClickListener(new View.OnClickListener() {
                 @Override

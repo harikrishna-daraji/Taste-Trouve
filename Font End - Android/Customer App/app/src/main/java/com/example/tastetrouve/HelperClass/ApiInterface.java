@@ -3,6 +3,8 @@ package com.example.tastetrouve.HelperClass;
 import com.example.tastetrouve.Models.CartModel;
 import com.example.tastetrouve.Models.HomeProductModel;
 import com.example.tastetrouve.Models.ItemProductModel;
+import com.example.tastetrouve.Models.MyOrderModel;
+import com.example.tastetrouve.Models.OrderDetailModel;
 import com.example.tastetrouve.Models.SubCategoryModel;
 import com.example.tastetrouve.Models.UserModel;
 import com.google.gson.JsonArray;
@@ -14,6 +16,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.List;
 
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -22,6 +25,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.HTTP;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 
@@ -58,11 +62,11 @@ public interface ApiInterface {
     Call<List<ItemProductModel>> getAllProducts();
 
     @PUT("clientUser/update")
-    Call<ResponseBody> updateUser(@Field("phone") String phone, @Field("password") String password);
+    Call<ResponseBody> updateUser(@Field("phoneNumber") String phone, @Field("password") String password);
 
     @FormUrlEncoded
     @PUT("clientUser/update")
-    Call<ResponseBody> updateUserFcmToken(@Field("fcmToken") String fcmToken);
+    Call<ResponseBody> updateUserFcmToken(@Field("phoneNumber") String phone ,@Field("fcmToken") String fcmToken);
 
     @FormUrlEncoded
     @POST("address/add")
@@ -72,6 +76,19 @@ public interface ApiInterface {
     @POST("address/getAddresByUser")
     Call<ResponseBody> getAddressList(@Field("userId") String userId);
 
+    @FormUrlEncoded
+    @POST("Order/getOrderByUser")
+    Call<List<MyOrderModel>> getMyOrders(
+            @Field("userId") String userId
+
+    );
+
+    @FormUrlEncoded
+    @POST("Order/getOrderById")
+    Call<List<OrderDetailModel>> getMyOrdersByUser(
+            @Field("orederId") String orederId
+
+    );
 
     @FormUrlEncoded
     @POST("Cart/add")
@@ -92,6 +109,6 @@ public interface ApiInterface {
 
 
     @POST("Order/add")
-    Call<ResponseBody> addOrder(@Body JSONObject jsonObject);
+    Call<ResponseBody> addOrder(@Body HashMap<String,Object> jsonObject);
 
 }

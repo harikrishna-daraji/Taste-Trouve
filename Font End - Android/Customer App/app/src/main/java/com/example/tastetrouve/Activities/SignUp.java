@@ -219,11 +219,13 @@ public class SignUp extends BaseActivity {
         return matcher.matches();
     }
 
-    private void saveLogInStatus(String token) {
+    private void saveLogInStatus(String token, String phone) {
         sharedPreferences = getSharedPreferences("AuthenticationTypes", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
         editor.putString("token",token);
+        editor.putString("phone",phone);
         editor.putBoolean("signUpDone",true);
+        editor.apply();
         editor.commit();
     }
 
@@ -236,7 +238,7 @@ public class SignUp extends BaseActivity {
                     try {
                         Log.i("TAG","TAG: Code: "+response.code()+" Message: "+response.message());
                         if(response.code() == 200) {
-                            saveLogInStatus(response.body().get_id());
+                            saveLogInStatus(response.body().get_id(),response.body().getPhoneNumber());
                             Toast.makeText(SignUp.this, getString(R.string.user_created), Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(SignUp.this, HomeActivity.class));
                         } else {

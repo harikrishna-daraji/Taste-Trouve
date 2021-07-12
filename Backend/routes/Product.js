@@ -3,6 +3,7 @@ const admin = require("firebase-admin");
 const Product = require("../models/Product");
 const Category = require("../models/Category");
 const SubCategory = require("../models/SubCategory");
+const User = require("../models/userModels");
 
 router.post("/add", async (req, res) => {
   try {
@@ -27,6 +28,40 @@ router.post("/add", async (req, res) => {
     const subcategoryObject = await SubCategory.find({ name: subCategoryId });
     const subCategoryObjectId = subcategoryObject[0]._id;
 
+    if (kidSection == "true") {
+      var payload = {
+        data: {
+          title: "New Product Added",
+          message: name + " has been added in the kids section",
+        },
+      };
+
+      const user = await User.find({ isDriver: false }).select("fcmToken");
+
+      let fcmArray = user.map(function (element) {
+        return element.fcmToken;
+      });
+
+      admin.messaging().sendToDevice(fcmArray, payload);
+    }
+
+    if (popular == "true") {
+      var payload = {
+        data: {
+          title: "New Product Added",
+          message: name + " has been added in the popular section",
+        },
+      };
+
+      const user = await User.find({ isDriver: false }).select("fcmToken");
+
+      let fcmArray = user.map(function (element) {
+        return element.fcmToken;
+      });
+
+      admin.messaging().sendToDevice(fcmArray, payload);
+    }
+
     const newProduct = new Product({
       restaurantId,
       categoryId: CategoryObjectId,
@@ -44,6 +79,7 @@ router.post("/add", async (req, res) => {
     });
 
     const savedProduct = await newProduct.save();
+
     res.json(savedProduct);
   } catch (err) {
     console.log(err.message);
@@ -127,18 +163,18 @@ router.put("/update", async (req, res) => {
       if (err) {
         res.send(err);
       } else {
-        var payload = {
-          data: {
-            title: "Product Updated",
-            message: "This product has been Updated",
-          },
-        };
-        admin
-          .messaging()
-          .sendToDevice(
-            "fCcVB03BQfW6oQvz-NkC8F:APA91bFIfTmzIwzvct2rEp5PQAclGmF1By3FBDdtq4rssLPVwEp-LOtLrVIStWjcJgX6LPlC2y-tfjgQx37iDD08l0hmFaWCWr_Wp8ggLzerHWJ5MlTgqLbHr4BvLFwVpCLJBbKI82CZ",
-            payload
-          );
+        // var payload = {
+        //   data: {
+        //     title: "Product Updated",
+        //     message: "This product has been Updated",
+        //   },
+        // };
+        // admin
+        //   .messaging()
+        //   .sendToDevice(
+        //     "fCcVB03BQfW6oQvz-NkC8F:APA91bFIfTmzIwzvct2rEp5PQAclGmF1By3FBDdtq4rssLPVwEp-LOtLrVIStWjcJgX6LPlC2y-tfjgQx37iDD08l0hmFaWCWr_Wp8ggLzerHWJ5MlTgqLbHr4BvLFwVpCLJBbKI82CZ",
+        //     payload
+        //   );
         res.send("Updated");
       }
     }

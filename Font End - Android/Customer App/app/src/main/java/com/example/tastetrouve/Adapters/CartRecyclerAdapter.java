@@ -90,22 +90,25 @@ public class CartRecyclerAdapter  extends RecyclerView.Adapter<CartRecyclerAdapt
         ImageView minus=holder.minus;
 
 
-        CartProductModel model = cartModelArrayList.get(position).getProductId();
+        CartProductModel productModel = cartModelArrayList.get(position).getProductId();
+        CartModel cartModel = cartModelArrayList.get(position);
 
-        name.setText(model.getName());
-        price.setText("$"+model.getPrice());
-        quantity.setText(""+cartModelArrayList.get(position).getQuantity());
+        name.setText(productModel.getName());
+        price.setText("$"+productModel.getPrice());
+        quantity.setText(""+cartModel.getQuantity());
 
-        Glide.with(context).load(model.getImage()).placeholder(R.drawable.image_placeholder).into(holder.image);
+        cartModel.getProductId().setCartQuantity(cartModel.getQuantity());
+
+        Glide.with(context).load(productModel.getImage()).placeholder(R.drawable.image_placeholder).into(holder.image);
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(cartModelArrayList.get(position).getQuantity() < model.getQuantity()) {
-                    cartModelArrayList.get(position).setQuantity(cartModelArrayList.get(position).getQuantity() + 1);
-                    updateCart(cartModelArrayList.get(position).get_id(),String.valueOf(cartModelArrayList.get(position).getQuantity()),position, GlobalObjects.CartOperation.add);
+                if(cartModel.getQuantity() < productModel.getQuantity()) {
+                    cartModel.setQuantity(cartModel.getQuantity() + 1);
+                    updateCart(cartModel.get_id(),String.valueOf(cartModelArrayList.get(position).getQuantity()),position, GlobalObjects.CartOperation.add);
                 } else {
-                    GlobalObjects.Toast(context,(cartModelArrayList.get(position).getQuantity()+1)+" "+context.getString(R.string.quantity_not_in_stock));
+                    GlobalObjects.Toast(context,(cartModel.getQuantity()+1)+" "+context.getString(R.string.quantity_not_in_stock));
                 }
             }
         });
@@ -113,13 +116,13 @@ public class CartRecyclerAdapter  extends RecyclerView.Adapter<CartRecyclerAdapt
         minus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(cartModelArrayList.get(position).getQuantity() > 0) {
-                    cartModelArrayList.get(position).setQuantity(cartModelArrayList.get(position).getQuantity() - 1);
-                    if(cartModelArrayList.get(position).getQuantity() == 0) {
-                        updateCart(cartModelArrayList.get(position).get_id(),String.valueOf(cartModelArrayList.get(position).getQuantity()),position,GlobalObjects.CartOperation.remove);
+                if(cartModel.getQuantity() > 0) {
+                    cartModel.setQuantity(cartModel.getQuantity() - 1);
+                    if(cartModel.getQuantity() == 0) {
+                        updateCart(cartModelArrayList.get(position).get_id(),String.valueOf(cartModel.getQuantity()),position,GlobalObjects.CartOperation.remove);
                     } else {
                         Log.i("TAG","TAG: else called");
-                        updateCart(cartModelArrayList.get(position).get_id(),String.valueOf(cartModelArrayList.get(position).getQuantity()),position,GlobalObjects.CartOperation.minus);
+                        updateCart(cartModelArrayList.get(position).get_id(),String.valueOf(cartModel.getQuantity()),position,GlobalObjects.CartOperation.minus);
                     }
                 }
             }

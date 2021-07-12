@@ -25,6 +25,7 @@ public class CartProductModel {
     boolean popular;
     boolean visibleStatus;
     String DeliveryTime;
+    int cartQuantity=0;
 
     public String get_id() {
         return _id;
@@ -83,17 +84,20 @@ public class CartProductModel {
     }
 
 
-    public JSONObject prepareOrderModel() {
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("id",_id);
-            jsonObject.put("name",name);
-            jsonObject.put("quantity",String.valueOf(quantity));
-            jsonObject.put("image",image);
-            jsonObject.put("price",String.valueOf(price));
-        } catch (Exception ex) {
-            Log.i("TAG","TAG: CartProductModel Order json making error: "+ex.getMessage());
-        }
-        return  jsonObject;
+    public void setCartQuantity(int cartQuantity) {
+        this.cartQuantity = cartQuantity;
     }
+
+
+    public HashMap<String,Object> prepareOrderModel() {
+        HashMap<String,Object> hashMap = new HashMap<>();
+        hashMap.put("id",_id);
+        hashMap.put("name",name);
+        hashMap.put("quantity",String.valueOf(cartQuantity));
+        Log.i("TAG","TAG: Cart qantity is "+cartQuantity);
+        hashMap.put("image",image);
+        hashMap.put("price",String.valueOf(price));
+        return hashMap;
+    }
+
 }

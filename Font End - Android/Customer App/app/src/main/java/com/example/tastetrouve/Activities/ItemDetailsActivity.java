@@ -156,6 +156,12 @@ public class ItemDetailsActivity extends BaseActivity {
                                 JSONObject jsonObject = new JSONObject(response.body().string());
                                 String message = jsonObject.getString("message");
                                 GlobalObjects.Toast(getBaseContext(),message);
+                                if(!message.equalsIgnoreCase("item quantity is updated")) {
+                                    sharedPreferences = getSharedPreferences("AuthenticationTypes", Context.MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                    editor.putInt("cart_count",1);
+                                    editor.apply();
+                                }
                             } else {
                                 GlobalObjects.Toast(getBaseContext(),getString(R.string.cart_failure));
                             }

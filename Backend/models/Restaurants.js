@@ -13,6 +13,7 @@ const RestaurantsSchema = new mongoose.Schema({
   userType: {
     type: String,
     enum: ["admin", "restaurantOwner"],
+    default: "restaurantOwner",
   },
 });
 module.exports = Restaurants = mongoose.model("Restaurants", RestaurantsSchema);
