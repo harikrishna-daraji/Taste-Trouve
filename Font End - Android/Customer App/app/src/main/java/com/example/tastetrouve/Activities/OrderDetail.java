@@ -4,9 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import com.example.tastetrouve.Adapters.MyOrderAdapter;
@@ -23,17 +25,30 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class OrderDetail extends AppCompatActivity {
+public class OrderDetail extends  BaseActivity  {
 
 
     List<OrderDetailModel> orderDetails;
     RecyclerView recyclerView;
     TextView orderIDdetail,tax,Delivery,total;
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(loadStyle(false));
+        sharedPreferences = getApplicationContext().getSharedPreferences("LANGUAGE", Context.MODE_PRIVATE);
+        String language = sharedPreferences.getString("code","en");
+        setLanguage(language);
         setContentView(R.layout.activity_order_detail);
+
+        findViewById(R.id.backBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
 
         String orderId = getIntent().getStringExtra("orderId");
 

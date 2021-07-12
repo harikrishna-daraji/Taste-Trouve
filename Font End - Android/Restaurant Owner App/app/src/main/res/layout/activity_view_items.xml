@@ -7,7 +7,24 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".Activity.ViewItemsActivity">
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:textColor="#000"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_height="wrap_content"
+            android:text="My Products"/>
+        <LinearLayout
+            android:layout_marginTop="5dp"
+            android:background="@color/black"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"/>
+    </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/productList"
         android:layout_width="match_parent"
