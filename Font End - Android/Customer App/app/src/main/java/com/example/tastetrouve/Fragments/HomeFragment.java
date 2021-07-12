@@ -1,5 +1,6 @@
 package com.example.tastetrouve.Fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -45,6 +46,7 @@ public class HomeFragment extends Fragment {
     RecyclerView topSellingRecycle, kidMenuRecycle, restaurantRecycle;
     HomeProductModel homeProductModel;
     TextView cartCountTV;
+    SharedPreferences sharedPreferences;
 
     public HomeFragment() {
 
@@ -53,6 +55,22 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        sharedPreferences = getActivity().getSharedPreferences("AuthenticationTypes", Context.MODE_PRIVATE);
+        int count = sharedPreferences.getInt("cart_count",0);
+        if(count ==  1) {
+            int temp_Count =  Integer.parseInt(homeProductModel.getCart());
+            temp_Count = temp_Count + 1;
+            cartCountTV.setText(temp_Count+"");
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putInt("cart_count",0);
+            editor.apply();
+        }
 
     }
 
@@ -178,6 +196,7 @@ public class HomeFragment extends Fragment {
 
     private void getHomeProducts() {
         String token = getUserToken();
+        Log.i("TAG","TAG: Token id: "+token);
         if(!token.isEmpty()) {
             try {
                 ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);

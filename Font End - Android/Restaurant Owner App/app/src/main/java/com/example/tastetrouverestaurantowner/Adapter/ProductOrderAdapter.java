@@ -83,7 +83,7 @@ public class ProductOrderAdapter extends RecyclerView.Adapter<ProductOrderAdapte
 
 
         name.setText(productOrderModalArrayList.get(position).getName());
-        price.setText("$ "+productOrderModalArrayList.get(position).getPrice().toString());
+        price.setText("$ "+productOrderModalArrayList.get(position).getPrice());
         quantity.setText(productOrderModalArrayList.get(position).getQuantity()+" quantity");
 
         Glide.with(context)
