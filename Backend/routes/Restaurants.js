@@ -11,8 +11,9 @@ router.post("/register", async (req, res) => {
       password,
       fcmToken,
       phoneNumber,
+      lat,
+      lng,
       address,
-      status,
       userType,
     } = req.body;
 
@@ -34,6 +35,8 @@ router.post("/register", async (req, res) => {
       password,
       fcmToken,
       phoneNumber,
+      lat,
+      lng,
       address,
       status: "pending",
       userType,
@@ -93,7 +96,6 @@ router.post("/getRestaurantsById", async (req, res) => {
 router.put("/UpdateRestuarantStatus", async (req, res) => {
   let { restaurantId, updateStatus } = req.body;
 
-  
   Restaurants.updateOne(
     { _id: restaurantId },
     { status: updateStatus },
@@ -114,9 +116,8 @@ router.put("/update", async (req, res) => {
   var newvalues = { $set: { ...data } };
 
   await Restaurants.updateOne(myquery, newvalues, function (err, res) {
-    if (err)
-console.log(err);
-		throw err;
+    if (err) console.log(err);
+    throw err;
   });
 
   return res.send({ data: "updatedUser" });
