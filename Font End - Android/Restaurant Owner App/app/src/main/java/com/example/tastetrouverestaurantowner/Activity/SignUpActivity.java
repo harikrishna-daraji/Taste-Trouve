@@ -1,10 +1,12 @@
 package com.example.tastetrouverestaurantowner.Activity;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -14,7 +16,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tastetrouverestaurantowner.APIClient;
+import com.example.tastetrouverestaurantowner.GlobalObjects;
 import com.example.tastetrouverestaurantowner.R;
+
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import okhttp3.ResponseBody;
@@ -28,19 +33,30 @@ public class SignUpActivity extends AppCompatActivity {
     EditText adminname,adminEmail,adminPhone,adminPassword,adminAddress;
     Button signUp;
     TextView login;
+    String latitude, longitude, address;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE); //will hide the title
-        getSupportActionBar().hide(); // hide the title bar
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN); //enable full screen
+//        requestWindowFeature(Window.FEATURE_NO_TITLE); //will hide the title
+//        getSupportActionBar().hide(); // hide the title bar
+//        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//                WindowManager.LayoutParams.FLAG_FULLSCREEN); //enable full screen
         setContentView(R.layout.activity_sign_up2);
 
         adminname=(EditText)findViewById(R.id.adminname);
         adminPhone=(EditText)findViewById(R.id.adminPhone);
         adminPassword=(EditText)findViewById(R.id.adminPassword);
+
         adminAddress=(EditText)findViewById(R.id.adminAddress);
+        adminAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SignUpActivity.this,MapActivity.class);
+                startActivityForResult(intent,GlobalObjects.MAP_REQUEST_CODE);
+            }
+        });
+
         login=(TextView) findViewById(R.id.login);
         adminEmail=(EditText)findViewById(R.id.adminEmail);
         signUp=(Button) findViewById(R.id.signUp);
@@ -184,5 +200,17 @@ public class SignUpActivity extends AppCompatActivity {
         pattern = Pattern.compile(PHONE_PATTERN);
         matcher = pattern.matcher(adminPhone.getText().toString());
         return matcher.matches();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == GlobalObjects.MAP_REQUEST_CODE) {
+            latitude = data.getStringExtra("latitude");
+            longitude = data.getStringExtra("longitude");
+            address = data.getStringExtra("address");
+
+            adminAddress.setText(address);
+        }
     }
 }

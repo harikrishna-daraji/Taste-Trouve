@@ -57,6 +57,7 @@
         android:layout_height="35dp"
         android:hint="Phone"/>
     <EditText
+        android:focusableInTouchMode="false"
         android:textColor="@color/black"
         android:textColorHint="@color/black"
         android:id="@+id/adminAddress"
