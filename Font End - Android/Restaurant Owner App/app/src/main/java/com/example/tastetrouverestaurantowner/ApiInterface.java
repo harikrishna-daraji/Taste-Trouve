@@ -42,7 +42,9 @@ public interface ApiInterface {
             @Field("fcmToken") String fcmToken,
             @Field("phoneNumber") String phoneNumber,
             @Field("status") Boolean status,
-            @Field("userType") String userType
+            @Field("userType") String userType,
+            @Field("lat") String lat,
+            @Field("lng") String lng
     );
 
 

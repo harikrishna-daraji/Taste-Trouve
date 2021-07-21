@@ -72,7 +72,7 @@ public class SignUpActivity extends AppCompatActivity {
                             adminPassword.getText().toString(),
                             "",
                             adminPhone.getText().toString(),
-                            false, "restaurantOwner"
+                            false, "restaurantOwner",latitude,longitude
                     );
 
                 call.enqueue(new Callback<ResponseBody>() {
