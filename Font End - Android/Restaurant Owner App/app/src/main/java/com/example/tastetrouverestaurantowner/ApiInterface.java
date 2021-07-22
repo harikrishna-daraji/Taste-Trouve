@@ -82,7 +82,8 @@ public interface ApiInterface {
     @POST("trackOrder/add")
     Call<ResponseBody> assignDriver(
             @Field("deliveryUser") String deliveryUser,
-            @Field("orderId") String orderId
+            @Field("orderId") String orderId,
+            @Field("restroId") String restroId
     );
 
     @FormUrlEncoded

@@ -4,6 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.example.tastetrouverestaurantowner.APIClient;
@@ -24,6 +27,7 @@ import retrofit2.Response;
 public class DriversActivity extends AppCompatActivity {
 
     ApiInterface api;
+
     ArrayList<DriverModal> driverModalArrayList;
     RecyclerView recyclerView;
 
@@ -33,6 +37,12 @@ public class DriversActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drivers);
+
+        Intent intent = getIntent();
+        String orderId = intent.getStringExtra("orderId");
+
+        @SuppressLint("WrongConstant") SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_APPEND);
+        String ownerId = sh.getString("ownerId","");
 
         recyclerView = findViewById(R.id.avaliabledriverrecycler);
 
@@ -56,7 +66,7 @@ public class DriversActivity extends AppCompatActivity {
 
                 }
 
-                DriverAdapter customAdapter= new DriverAdapter(driverModalArrayList,DriversActivity.this);
+                DriverAdapter customAdapter= new DriverAdapter(driverModalArrayList,DriversActivity.this,orderId,ownerId);
                 recyclerView.setAdapter(customAdapter);
             }
 
