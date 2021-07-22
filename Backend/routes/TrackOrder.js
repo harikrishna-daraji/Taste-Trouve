@@ -5,11 +5,12 @@ const TrackOrder = require("../models/TrackOrder");
 
 router.post("/add", async (req, res) => {
   try {
-    let { deliveryUser, orderId } = req.body;
+    let { deliveryUser, orderId, restroId } = req.body;
 
     const newtrack = new TrackOrder({
       deliveryUser,
       orderId,
+      restroId,
     });
 
     const savedtrack = await newtrack.save();

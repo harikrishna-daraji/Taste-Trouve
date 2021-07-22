@@ -58,6 +58,7 @@ public class PendingOrdersAdapter extends RecyclerView.Adapter<PendingOrdersAdap
         TextView userName;
         TextView userPhone;
         TextView status;
+
         RecyclerView pendingOrderRecycler;
 
    Button accept_order_button,decline_order_button;
@@ -140,6 +141,7 @@ public class PendingOrdersAdapter extends RecyclerView.Adapter<PendingOrdersAdap
         accept_order_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String currentOrderId=pendingOrderModalArrayList.get(position).getOrderId();
                 Call<ResponseBody> call = APIClient.getInstance().getApi().updateOrderStatus(pendingOrderModalArrayList.get(position).getOrderId(),"accepted");
 
                 call.enqueue(new Callback<ResponseBody>() {
@@ -147,6 +149,7 @@ public class PendingOrdersAdapter extends RecyclerView.Adapter<PendingOrdersAdap
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         Toast.makeText(context, "Order Accepted", Toast.LENGTH_SHORT).show();
                         Intent intent =new Intent(context, DriversActivity.class);
+                        intent.putExtra("orderId", currentOrderId);
                         context.startActivity(intent);
                     }
 
