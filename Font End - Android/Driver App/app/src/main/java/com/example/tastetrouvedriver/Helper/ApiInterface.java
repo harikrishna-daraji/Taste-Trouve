@@ -37,5 +37,6 @@ public interface ApiInterface {
 
     );
 
+    @FormUrlEncoded
 
 }
