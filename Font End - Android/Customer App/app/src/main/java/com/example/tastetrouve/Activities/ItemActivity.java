@@ -66,6 +66,10 @@ public class ItemActivity extends BaseActivity {
                 itemRecycle.setVisibility(View.GONE);
             }
             itemRecycle.setAdapter(new ItemRecycleAdapter(kidSectionModels,this));
+        }else if(getIntent().hasExtra(GlobalObjects.ModelList.Restaurant.toString())) {
+            topHeading.setText("Drinks");
+            String restaurantID = getIntent().getStringExtra(GlobalObjects.ModelList.Restaurant.toString());
+            loadDrinks(restaurantID);
         } else if(getIntent().hasExtra(GlobalObjects.ModelList.Popular.toString())) {
             topHeading.setText(GlobalObjects.ModelList.Popular.toString());
             popularSectionModels = (ArrayList) getIntent().getStringArrayListExtra(GlobalObjects.ModelList.Popular.toString());
@@ -85,6 +89,41 @@ public class ItemActivity extends BaseActivity {
             topHeading.setText(model.getName());
         }
 
+    }
+
+    private void loadDrinks(String restaurantID) {
+        try {
+            ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+            apiInterface.getDrinksProducts(restaurantID).enqueue(new Callback<List<ItemProductModel>>() {
+                @Override
+                public void onResponse(Call<List<ItemProductModel>> call, Response<List<ItemProductModel>> response) {
+                    try {
+                        Log.i("TAG","TAG: Code: "+response.code()+" Message: "+response.message());
+                        if(response.code() == 200) {
+                            itemProductModels = response.body();
+                            itemRecycle.setAdapter(new ItemRecycleAdapter(ItemActivity.this,itemProductModels));
+
+                            if(itemProductModels.size() == 0) {
+                                noResultTV.setVisibility(View.VISIBLE);
+                                itemRecycle.setVisibility(View.GONE);
+                            } else {
+                                noResultTV.setVisibility(View.GONE);
+                                itemRecycle.setVisibility(View.VISIBLE);
+                            }
+                        }
+                    } catch (Exception ex) {
+                        Log.i("TAG","TAG "+ex.getMessage());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<List<ItemProductModel>> call, Throwable t) {
+                    Log.i("TAG","TAG: Server Failure: "+t.getMessage());
+                }
+            });
+        } catch (Exception ex) {
+            Log.i("TAG","TAG "+ex.getMessage());
+        }
     }
 
     private void initUI() {
