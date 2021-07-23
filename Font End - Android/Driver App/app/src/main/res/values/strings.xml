@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Taste Trouve Driver</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDI3N2LJ0049Exfjp6P49FWtYoel3x_1pY</string>
+    <string name="settings">Settings</string>
+    <string name="home">Home</string>
+    <string name="past_order">Past orders</string>
+    <string name="online">Online</string>
+    <string name="offline">Offline</string>
+    <string name="go">Go</string>
+    <string name="new_order">New Order</string>
+    <string name="finish_order">Finish Order</string>
+    <string name="pizza_pizza">Pizza Pizza</string>
+    <string name="finish_delivery">Finish delivery</string>
 </resources>

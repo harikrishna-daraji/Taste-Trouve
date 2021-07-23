@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/appetizer_shape.xml" value="0.18229166666666666" />
+        <entry key="app/src/main/res/drawable/ic_baseline_favorite_24.xml" value="0.18229166666666666" />
         <entry key="app/src/main/res/drawable/main_course_shape.xml" value="0.15520833333333334" />
         <entry key="app/src/main/res/drawable/red_outline_border.xml" value="0.26666666666666666" />
         <entry key="app/src/main/res/drawable/search_shape.xml" value="0.15520833333333334" />
