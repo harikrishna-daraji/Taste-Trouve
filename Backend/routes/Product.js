@@ -98,6 +98,17 @@ router.post("/getProducts", async (req, res) => {
   res.json(product);
 });
 
+router.post("/getDrinksProducts", async (req, res) => {
+  const { restaurantId } = req.body;
+
+  const product = await Product.find({
+    restaurantId,
+    categoryId: "60c845afb91443700feb8e6f",
+  });
+  
+  res.json(product);
+});
+
 router.post("/getProductsByMainCategory", async (req, res) => {
   const { categoryId } = req.body;
 

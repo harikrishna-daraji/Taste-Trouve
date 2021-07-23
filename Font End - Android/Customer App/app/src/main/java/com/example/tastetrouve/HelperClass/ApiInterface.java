@@ -41,6 +41,11 @@ public interface ApiInterface {
 
 
     @FormUrlEncoded
+    @POST("product/getDrinksProducts")
+    Call<List<ItemProductModel>> getDrinksProducts(@Field("restaurantId") String restaurantId);
+
+
+    @FormUrlEncoded
     @POST("clientUser/register")
     Call<UserModel> registerUser(@Field("email") String email, @Field("password") String password, @Field("displayname")
             String displayname, @Field("fcmToken") String   fcmToken, @Field("phoneNumber") String  phoneNumber, @Field("dateOfBirth") String dateOfBirth);
