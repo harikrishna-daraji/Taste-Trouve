@@ -4,6 +4,7 @@ const Product = require("../models/Product");
 const Category = require("../models/Category");
 const SubCategory = require("../models/SubCategory");
 const User = require("../models/userModels");
+const Favourite = require("../models/favourite");
 
 router.post("/add", async (req, res) => {
   try {
@@ -95,6 +96,7 @@ router.post("/getProducts", async (req, res) => {
     categoryId,
     subCategoryId,
   });
+
   res.json(product);
 });
 
@@ -109,11 +111,24 @@ router.post("/getDrinksProducts", async (req, res) => {
 });
 
 router.post("/getProductsByMainCategory", async (req, res) => {
-  const { categoryId } = req.body;
+  const { categoryId, userId } = req.body;
 
   const product = await Product.find({
     categoryId,
   });
+
+  for (var key in product) {
+    const fav = await Favourite.findOne({
+      userId,
+      productId: product[key]._id,
+    }).select("image");
+
+    product[key] = {
+      ...product[key]._doc,
+      favourite: fav.length > 0 ? "true" : "false",
+    };
+  }
+
   res.json(product);
 });
 
