@@ -6,12 +6,13 @@ const Favourite = require("../models/favourite");
 router.post("/toogleFav", async (req, res) => {
   try {
     const { userId, productId, flag } = req.body;
+    console.log(flag);
 
     const newFav = new Favourite({
       userId,
       productId,
     });
-    if (flag == "true") {
+    if (flag == "false") {
       const savedFavourite = await newFav.save();
     } else {
       const fav = await Favourite.find({
@@ -30,7 +31,7 @@ router.post("/toogleFav", async (req, res) => {
   }
 });
 
-router.post("/getCartByUser", async (req, res) => {
+router.post("/getFavByUser", async (req, res) => {
   const { userId } = req.body;
 
   const cart = await Favourite.find({

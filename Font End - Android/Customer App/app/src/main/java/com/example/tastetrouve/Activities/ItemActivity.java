@@ -103,9 +103,10 @@ public class ItemActivity extends BaseActivity {
     }
 
     private void getProductsOfMainCategory(String categoryId) {
+        String token = getUserToken();
         try {
             ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-            apiInterface.getProductsOfMainCategory(categoryId).enqueue(new Callback<List<ItemProductModel>>() {
+            apiInterface.getProductsOfMainCategory(categoryId,token).enqueue(new Callback<List<ItemProductModel>>() {
                 @Override
                 public void onResponse(Call<List<ItemProductModel>> call, Response<List<ItemProductModel>> response) {
                     try {
@@ -134,6 +135,17 @@ public class ItemActivity extends BaseActivity {
             });
         } catch (Exception ex) {
             Log.i("TAG","TAG "+ex.getMessage());
+        }
+    }
+
+    private String getUserToken() {
+        SharedPreferences sharedPreferences = getSharedPreferences("AuthenticationTypes",MODE_PRIVATE);
+        boolean isLoggedIn = sharedPreferences.getBoolean("signUpDone",false);
+        if(isLoggedIn) {
+            String token = sharedPreferences.getString("token","");
+            return token;
+        } else {
+            return "";
         }
     }
 

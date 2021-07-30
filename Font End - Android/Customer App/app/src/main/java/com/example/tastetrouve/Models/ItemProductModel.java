@@ -3,7 +3,7 @@ package com.example.tastetrouve.Models;
 import java.io.Serializable;
 
 public class ItemProductModel implements Serializable {
-    String _id, restaurantId, categoryId, subCategoryId, name, image, description, calories, DeliveryTime;
+    String _id, restaurantId, categoryId, subCategoryId, name, image, description, calories, DeliveryTime,favourite;
     int price, quantity;
     boolean kidSection;
     boolean popular;
@@ -58,5 +58,13 @@ public class ItemProductModel implements Serializable {
 
     public boolean isPopular() {
         return popular;
+    }
+
+    public String getFavourite() {
+        return favourite;
+    }
+
+    public void setFavourite(String favourite) {
+        this.favourite = favourite;
     }
 }

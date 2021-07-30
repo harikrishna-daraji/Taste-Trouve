@@ -121,11 +121,11 @@ router.post("/getProductsByMainCategory", async (req, res) => {
     const fav = await Favourite.findOne({
       userId,
       productId: product[key]._id,
-    }).select("image");
+    });
 
     product[key] = {
       ...product[key]._doc,
-      favourite: fav.length > 0 ? "true" : "false",
+      favourite: fav == null ? "false" : "true",
     };
   }
 

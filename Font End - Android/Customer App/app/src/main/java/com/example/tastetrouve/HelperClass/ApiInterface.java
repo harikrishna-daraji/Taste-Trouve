@@ -37,7 +37,9 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("product/getProductsByMainCategory")
-    Call<List<ItemProductModel>> getProductsOfMainCategory(@Field("categoryId") String categoryId);
+    Call<List<ItemProductModel>> getProductsOfMainCategory(
+            @Field("categoryId") String categoryId ,
+            @Field("userId") String userId );
 
 
     @FormUrlEncoded
@@ -101,6 +103,13 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("Cart/updateQuantity")
     Call<ResponseBody> updateCart(@Field("cartId") String cartId, @Field("quantity") String quantity);
+
+@FormUrlEncoded
+    @POST("favourite/toogleFav")
+    Call<ResponseBody> toggleFav(@Field("userId") String userId,
+                                 @Field("productId") String productId,
+                                 @Field("flag") String flag
+                                );
 
 
     @FormUrlEncoded
