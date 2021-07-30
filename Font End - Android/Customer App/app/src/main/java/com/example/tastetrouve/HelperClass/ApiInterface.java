@@ -59,10 +59,13 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("product/getProducts")
-    Call<List<ItemProductModel>> getProductOfRestaurant(@Field("restaurantId") String restaurantId,@Field("categoryId") String categoryId, @Field("subCategoryId") String subCategoryId);
-
-    @GET("product/get")
-    Call<List<ItemProductModel>> getAllProducts();
+    Call<List<ItemProductModel>> getProductOfRestaurant(@Field("restaurantId") String restaurantId,@Field("categoryId") String categoryId,
+                                                        @Field("subCategoryId") String subCategoryId,
+                                                        @Field("userId") String userId
+                                                        );
+    @FormUrlEncoded
+    @POST("product/get")
+    Call<List<ItemProductModel>> getAllProducts(@Field("userId") String userId);
 
     @PUT("clientUser/update")
     Call<ResponseBody> updateUser(@Field("phoneNumber") String phone, @Field("password") String password);

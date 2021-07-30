@@ -89,13 +89,25 @@ router.post("/add", async (req, res) => {
 });
 
 router.post("/getProducts", async (req, res) => {
-  const { restaurantId, categoryId, subCategoryId } = req.body;
+  const { restaurantId, categoryId, subCategoryId, userId } = req.body;
 
   const product = await Product.find({
     restaurantId,
     categoryId,
     subCategoryId,
   });
+
+  for (var key in product) {
+    const fav = await Favourite.findOne({
+      userId,
+      productId: product[key]._id,
+    });
+
+    product[key] = {
+      ...product[key]._doc,
+      favourite: fav == null ? "false" : "true",
+    };
+  }
 
   res.json(product);
 });
@@ -206,8 +218,21 @@ router.put("/update", async (req, res) => {
   );
 });
 
-router.get("/get", async (req, res) => {
+router.post("/get", async (req, res) => {
+  const { userId } = req.body;
   const product = await Product.find();
+
+  for (var key in product) {
+    const fav = await Favourite.findOne({
+      userId,
+      productId: product[key]._id,
+    });
+
+    product[key] = {
+      ...product[key]._doc,
+      favourite: fav == null ? "false" : "true",
+    };
+  }
   res.json(product);
 });
 

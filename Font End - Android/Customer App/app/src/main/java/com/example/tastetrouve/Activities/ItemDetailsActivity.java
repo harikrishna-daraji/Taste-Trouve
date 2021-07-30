@@ -182,6 +182,18 @@ LinearLayout favoutite;
                 totalQuantity = model.getQuantity();
                 productId = model.get_id();
                 restaurantId = model.getRestaurantId();
+                favoriteValue=model.getFavourite();
+                Log.d("TAG", "favoriteValue "+favoriteValue);
+                favoutite.setBackgroundColor(
+                        favoriteValue.equals("true")?
+                                Color.parseColor("#F3E4E2"):
+                                Color.parseColor("#DDF8DE") );
+                favouriteText.setTextColor(favoriteValue.equals("true")?
+                        Color.parseColor("#BC180C"):
+                        Color.parseColor("#036707") );
+
+                favouriteText.setText(favoriteValue.equals("true")? "Remove from Favourites":"Add to Favourites");
+
             } else if(getIntent().getStringExtra("type").equals(GlobalObjects.ModelList.Kid.toString())) {
                 KidSectionModel model = (KidSectionModel) getIntent().getSerializableExtra("product");
                 Glide.with(this).load(model.getImage()).placeholder(R.drawable.image_placeholder).into(itemImg);
@@ -194,6 +206,18 @@ LinearLayout favoutite;
                 totalQuantity = model.getQuantity();
                 productId = model.get_id();
                 restaurantId = model.getRestaurantId();
+                favoriteValue=model.getFavourite();
+                Log.d("TAG", "favoriteValue "+favoriteValue);
+                favoutite.setBackgroundColor(
+                        favoriteValue.equals("true")?
+                                Color.parseColor("#F3E4E2"):
+                                Color.parseColor("#DDF8DE") );
+                favouriteText.setTextColor(favoriteValue.equals("true")?
+                        Color.parseColor("#BC180C"):
+                        Color.parseColor("#036707") );
+
+                favouriteText.setText(favoriteValue.equals("true")? "Remove from Favourites":"Add to Favourites");
+
             }
         }
         Log.i("TAG","TAG "+descriptionTV.getText().toString());
