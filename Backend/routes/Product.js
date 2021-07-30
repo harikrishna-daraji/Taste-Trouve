@@ -21,6 +21,8 @@ router.post("/add", async (req, res) => {
       kidSection,
       popular,
       DeliveryTime,
+      specialOffer,
+      specialType,
     } = req.body;
 
     const categoryObject = await Category.find({ name: categoryId });
@@ -76,7 +78,9 @@ router.post("/add", async (req, res) => {
       kidSection,
       popular,
       visibleStatus: true,
-      DeliveryTime,
+      DeliveryTime: DeliveryTime.toString(),
+      specialOffer,
+      specialType,
     });
 
     const savedProduct = await newProduct.save();
@@ -119,6 +123,28 @@ router.post("/getDrinksProducts", async (req, res) => {
     restaurantId,
     categoryId: "60c845afb91443700feb8e6f",
   });
+  res.json(product);
+});
+
+router.post("/getSpecialOfferProducts", async (req, res) => {
+  const { userId } = req.body;
+
+  const product = await Product.find({
+    specialOffer: true,
+  });
+
+  for (var key in product) {
+    const fav = await Favourite.findOne({
+      userId,
+      productId: product[key]._id,
+    });
+
+    product[key] = {
+      ...product[key]._doc,
+      favourite: fav == null ? "false" : "true",
+    };
+  }
+
   res.json(product);
 });
 

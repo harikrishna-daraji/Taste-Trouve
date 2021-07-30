@@ -17,10 +17,7 @@ const productSchema = new mongoose.Schema({
   visibleStatus: { type: Boolean },
   DeliveryTime: { type: String },
   specialOffer: { type: Boolean },
-  specialType: {
-    type: String,
-    enum: ["Christmas", "Black Friday", "Booking Day"],
-  },
+  specialType: { type: String },
 });
 
 module.exports = Product = mongoose.model("Product", productSchema);
