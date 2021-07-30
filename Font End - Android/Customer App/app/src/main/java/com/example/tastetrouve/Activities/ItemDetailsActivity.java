@@ -115,7 +115,7 @@ LinearLayout favoutite;
                                 Log.d("fav", favoriteValue);
                                 favoutite.setBackgroundColor(
                                         favoriteValue.equals("true")?
-                                                Color.parseColor("#F8CAC6"):
+                                                Color.parseColor("#F3E4E2"):
                                                 Color.parseColor("#DDF8DE") );
                                 favouriteText.setTextColor(favoriteValue.equals("true")?
                                         Color.parseColor("#BC180C"):
@@ -161,7 +161,7 @@ LinearLayout favoutite;
                 Log.d("TAG", "favoriteValue "+favoriteValue);
                 favoutite.setBackgroundColor(
                         favoriteValue.equals("true")?
-                        Color.parseColor("#F8CAC6"):
+                        Color.parseColor("#F3E4E2"):
                                 Color.parseColor("#DDF8DE") );
                 favouriteText.setTextColor(favoriteValue.equals("true")?
                         Color.parseColor("#BC180C"):

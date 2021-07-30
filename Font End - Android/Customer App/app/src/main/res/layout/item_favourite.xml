@@ -13,10 +13,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
+        android:id="@+id/favContainer"
         android:background="?attr/backgroundColor"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="180dp">
+        android:layout_height="wrap_content">
         <ImageView
             android:layout_width="28dp"
             android:layout_height="28dp"

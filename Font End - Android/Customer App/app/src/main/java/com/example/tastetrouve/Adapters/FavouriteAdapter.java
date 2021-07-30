@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -14,8 +15,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.tastetrouve.Activities.ItemDetailsActivity;
 import com.example.tastetrouve.Activities.OrderDetail;
 import com.example.tastetrouve.Models.FavouriteModel;
+import com.example.tastetrouve.Models.GlobalObjects;
 import com.example.tastetrouve.Models.MyOrderModel;
 import com.example.tastetrouve.R;
 
@@ -42,6 +45,7 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.MyVi
         TextView nameTV;
         TextView priceTV;
         TextView description;
+        LinearLayout favContainer;
 
 
 
@@ -55,6 +59,8 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.MyVi
             this.nameTV= itemview.findViewById(R.id.nameTV);
             this.priceTV= itemview.findViewById(R.id.priceTV);
             this.description= itemview.findViewById(R.id.description);
+            this.favContainer= itemview.findViewById(R.id.favContainer);
+
 
 
 
@@ -81,6 +87,7 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.MyVi
         TextView description=holder.description;
 
         ImageView circleImg=holder.circleImg;
+        LinearLayout favContainer=holder.favContainer;
 
 
 
@@ -98,7 +105,17 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.MyVi
                 .into(circleImg);
 
 
+        favContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                favouriteModelList.get(position).getProductId().setFavourite("true");
+                Intent intent = new Intent(context, ItemDetailsActivity.class);
+                intent.putExtra("type", GlobalObjects.ModelList.Item.toString());
+                intent.putExtra("product",favouriteModelList.get(position).getProductId());
+                context.startActivity(intent);
+            }
+        });
 
     }
 
