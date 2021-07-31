@@ -47,7 +47,11 @@ router.post("/register", async (req, res) => {
 });
 
 router.get("/getDrivers", async (req, res) => {
-  const driver = await User.find({ isDriver: true, isOnline: true });
+  const driver = await User.find({
+    isDriver: true,
+    isOnline: true,
+    isBussy: false,
+  });
   res.json(driver);
 });
 
@@ -67,7 +71,6 @@ router.post("/login", async (req, res) => {
   }
 });
 
-
 router.post("/driverLogin", async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -76,7 +79,11 @@ router.post("/driverLogin", async (req, res) => {
     if (!email || !password)
       return res.status(400).json({ msg: "Not all fields have been entered." });
 
-    const user = await User.findOne({ email: email, password: password,isDriver:true });
+    const user = await User.findOne({
+      email: email,
+      password: password,
+      isDriver: true,
+    });
 
     res.json(user);
   } catch (err) {

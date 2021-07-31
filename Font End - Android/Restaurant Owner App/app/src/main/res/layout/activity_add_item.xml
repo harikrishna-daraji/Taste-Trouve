@@ -185,6 +185,22 @@
             android:layout_marginTop="15dp"
             android:text="@string/add_to_popular_section"
            />
+
+        <CheckBox
+            android:id="@+id/specialOffer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+                android:textColor="@color/black"
+            android:layout_marginTop="15dp"
+            android:text="Special Offer"
+           />
+        <Spinner
+            android:id="@+id/spcialOfferSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/spinnerbackground"
+            android:layout_marginTop="15dp"
+            />
         <Button
             android:id="@+id/addProduct"
             android:layout_width="match_parent"

@@ -214,12 +214,23 @@ public class HomeActivity extends BaseActivity implements HomeInterfaceMethods, 
                 .setHasFixedTransformationMatrix(true);
     }
 
+    private String getUserToken() {
+        SharedPreferences sharedPreferences = getSharedPreferences("AuthenticationTypes",MODE_PRIVATE);
+        boolean isLoggedIn = sharedPreferences.getBoolean("signUpDone",false);
+        if(isLoggedIn) {
+            String token = sharedPreferences.getString("token","");
+            return token;
+        } else {
+            return "";
+        }
+    }
 
 
     private void getAllProducts() {
+        String token = getUserToken();
         try {
             ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-            apiInterface.getAllProducts().enqueue(new Callback<List<ItemProductModel>>() {
+            apiInterface.getAllProducts(token).enqueue(new Callback<List<ItemProductModel>>() {
                 @Override
                 public void onResponse(Call<List<ItemProductModel>> call, Response<List<ItemProductModel>> response) {
                     try {

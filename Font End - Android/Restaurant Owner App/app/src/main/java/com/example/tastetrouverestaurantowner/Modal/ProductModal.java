@@ -17,8 +17,28 @@ public class ProductModal implements Parcelable {
     Boolean  popular;
     Boolean  visibleStatus;
     String  DeliveryTime;
+    Boolean specialOffer;
+    String specialType;
 
-    protected ProductModal(Parcel in) {
+
+    public ProductModal(String _id, String name, String image, Integer price, String description, String calories, Integer quantity, Boolean kidSection, Boolean popular, Boolean visibleStatus, String deliveryTime, Boolean specialOffer, String specialType) {
+        this._id = _id;
+        this.name = name;
+        this.image = image;
+        this.price = price;
+        this.description = description;
+        this.calories = calories;
+        this.quantity = quantity;
+        this.kidSection = kidSection;
+        this.popular = popular;
+        this.visibleStatus = visibleStatus;
+        DeliveryTime = deliveryTime;
+        this.specialOffer = specialOffer;
+        this.specialType = specialType;
+    }
+
+
+    public ProductModal(Parcel in) {
         _id = in.readString();
         name = in.readString();
         image = in.readString();
@@ -41,6 +61,9 @@ public class ProductModal implements Parcelable {
         byte tmpVisibleStatus = in.readByte();
         visibleStatus = tmpVisibleStatus == 0 ? null : tmpVisibleStatus == 1;
         DeliveryTime = in.readString();
+        byte tmpSpecialOffer = in.readByte();
+        specialOffer = tmpSpecialOffer == 0 ? null : tmpSpecialOffer == 1;
+        specialType = in.readString();
     }
 
     public static final Creator<ProductModal> CREATOR = new Creator<ProductModal>() {
@@ -54,6 +77,8 @@ public class ProductModal implements Parcelable {
             return new ProductModal[size];
         }
     };
+
+
 
     public String get_id() {
         return _id;
@@ -70,6 +95,7 @@ public class ProductModal implements Parcelable {
     public void setName(String name) {
         this.name = name;
     }
+
     public String getImage() {
         return image;
     }
@@ -77,6 +103,7 @@ public class ProductModal implements Parcelable {
     public void setImage(String image) {
         this.image = image;
     }
+
     public Integer getPrice() {
         return price;
     }
@@ -137,26 +164,25 @@ public class ProductModal implements Parcelable {
         return DeliveryTime;
     }
 
-    public void setDeliveryTime(String DeliveryTime) {
-        this.DeliveryTime = DeliveryTime;
+    public void setDeliveryTime(String deliveryTime) {
+        DeliveryTime = deliveryTime;
     }
 
-
-
-    public ProductModal(String _id, String name,String image, Integer price, String description, String calories, Integer quantity, Boolean kidSection, Boolean popular, Boolean visibleStatus, String DeliveryTime) {
-        this._id = _id;
-        this.name = name;
-        this.image = image;
-        this.price = price;
-        this.description = description;
-        this.calories = calories;
-        this.quantity = quantity;
-        this.kidSection = kidSection;
-        this.popular = popular;
-        this.visibleStatus = visibleStatus;
-        this.DeliveryTime = DeliveryTime;
+    public Boolean getSpecialOffer() {
+        return specialOffer;
     }
 
+    public void setSpecialOffer(Boolean specialOffer) {
+        this.specialOffer = specialOffer;
+    }
+
+    public String getSpecialType() {
+        return specialType;
+    }
+
+    public void setSpecialType(String specialType) {
+        this.specialType = specialType;
+    }
 
     @Override
     public int describeContents() {
@@ -186,7 +212,11 @@ public class ProductModal implements Parcelable {
         dest.writeByte((byte) (popular == null ? 0 : popular ? 1 : 2));
         dest.writeByte((byte) (visibleStatus == null ? 0 : visibleStatus ? 1 : 2));
         dest.writeString(DeliveryTime);
+        dest.writeByte((byte) (specialOffer == null ? 0 : specialOffer ? 1 : 2));
+        dest.writeString(specialType);
     }
+
+
 }
 
 

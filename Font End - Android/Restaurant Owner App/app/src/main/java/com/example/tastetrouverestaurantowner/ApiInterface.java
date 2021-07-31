@@ -30,7 +30,9 @@ public interface ApiInterface {
             @Field("quantity") Integer quantity,
             @Field("kidSection") Boolean kidSection,
             @Field("popular") Boolean popular,
-            @Field("DeliveryTime") String DeliveryTime
+            @Field("DeliveryTime") String DeliveryTime,
+            @Field("specialOffer") Boolean specialOffer,
+            @Field("specialType") String specialType
     );
 
     @FormUrlEncoded
