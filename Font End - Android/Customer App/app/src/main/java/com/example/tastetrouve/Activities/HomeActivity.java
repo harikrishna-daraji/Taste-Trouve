@@ -26,6 +26,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.tastetrouve.Adapters.KeywordRecycleAdapter;
 import com.example.tastetrouve.Fragments.FavouriteFragment;
 import com.example.tastetrouve.Fragments.HomeFragment;
+import com.example.tastetrouve.Fragments.OffersFragment;
 import com.example.tastetrouve.Fragments.SettingsFragment;
 import com.example.tastetrouve.HelperClass.AbsolutefitLayourManager;
 import com.example.tastetrouve.Adapters.KidMenuRecycleAdapter;
@@ -70,6 +71,7 @@ public class HomeActivity extends BaseActivity implements HomeInterfaceMethods, 
     HomeFragment homeFragment;
     SettingsFragment settingsFragment;
     FavouriteFragment favouriteFragment;
+    OffersFragment offersFragment;
 
     
     @Override
@@ -83,6 +85,7 @@ public class HomeActivity extends BaseActivity implements HomeInterfaceMethods, 
         homeFragment = new HomeFragment();
         favouriteFragment = new FavouriteFragment();
         settingsFragment = new SettingsFragment();
+        offersFragment=new OffersFragment();
         initUI();
         getAllProducts();
         blurBackground();
@@ -140,6 +143,8 @@ public class HomeActivity extends BaseActivity implements HomeInterfaceMethods, 
                 } else if(tab.getPosition() == 1) {
                     openNavigationMenu(homeFragment);
                 } else if(tab.getPosition() == 2) {
+                    openNavigationMenu(offersFragment);
+                } else if(tab.getPosition() == 3) {
                     openNavigationMenu(settingsFragment);
                 }
             }
