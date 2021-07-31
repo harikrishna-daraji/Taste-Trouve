@@ -14,6 +14,8 @@ router.post("/add", async (req, res) => {
       status: "assigned",
     });
 
+     console.log(newtrack);
+
     await Order.updateOne(
       { _id: orderId },
       { orderStatus: "assigned" },

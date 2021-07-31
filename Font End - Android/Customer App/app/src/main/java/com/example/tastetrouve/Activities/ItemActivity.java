@@ -66,10 +66,6 @@ public class ItemActivity extends BaseActivity {
                 itemRecycle.setVisibility(View.GONE);
             }
             itemRecycle.setAdapter(new ItemRecycleAdapter(kidSectionModels,this));
-        }else if(getIntent().hasExtra(GlobalObjects.ModelList.Restaurant.toString())) {
-            topHeading.setText("Drinks");
-            String restaurantID = getIntent().getStringExtra(GlobalObjects.ModelList.Restaurant.toString());
-            loadDrinks(restaurantID);
         } else if(getIntent().hasExtra(GlobalObjects.ModelList.Popular.toString())) {
             topHeading.setText(GlobalObjects.ModelList.Popular.toString());
             popularSectionModels = (ArrayList) getIntent().getStringArrayListExtra(GlobalObjects.ModelList.Popular.toString());
@@ -87,6 +83,10 @@ public class ItemActivity extends BaseActivity {
             String restaurantID = getIntent().getStringExtra(GlobalObjects.ModelList.Restaurant.toString());
             getProductOfRestaurant(categoryID,model.get_id(),restaurantID);
             topHeading.setText(model.getName());
+        } else if(getIntent().hasExtra(GlobalObjects.ModelList.Restaurant.toString())) {
+            topHeading.setText("Drinks");
+            String restaurantID = getIntent().getStringExtra(GlobalObjects.ModelList.Restaurant.toString());
+            loadDrinks(restaurantID);
         }
 
     }

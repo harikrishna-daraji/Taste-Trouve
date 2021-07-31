@@ -13,6 +13,8 @@
         android:layout_height="match_parent" />
 
     <androidx.cardview.widget.CardView
+        android:visibility="gone"
+        android:id="@+id/newOrderCardView"
         android:layout_marginTop="30dp"
         android:layout_marginStart="25dp"
         android:layout_marginEnd="25dp"
@@ -43,6 +45,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
                 <TextView
+                    android:id="@+id/addressTV"
                     android:layout_gravity="center_vertical"
                     android:textColor="@color/white"
                     android:textSize="17sp"
@@ -50,7 +53,66 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
             </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/acceptRejectLinear"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="20dp"
+                android:paddingBottom="20dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <androidx.cardview.widget.CardView
+                    android:padding="50dp"
+                    android:layout_weight="1"
+                    app:cardCornerRadius="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <RelativeLayout
+                        android:id="@+id/acceptRelative"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/orange">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:padding="6dp"
+                            android:text="@string/accept"
+                            android:textColor="@color/white" />
+                    </RelativeLayout>
+                </androidx.cardview.widget.CardView>
+                <LinearLayout
+                    android:layout_weight="0.1"
+                    android:background="@color/blue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"/>
+                <androidx.cardview.widget.CardView
+                    android:padding="5dp"
+                    android:layout_weight="1"
+                    app:cardCornerRadius="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <RelativeLayout
+                        android:id="@+id/rejectRelative"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/white">
+                        <TextView
+                            android:padding="6dp"
+                            android:layout_centerInParent="true"
+                            android:textColor="@color/black"
+                            android:text="@string/reject"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                    </RelativeLayout>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
             <androidx.cardview.widget.CardView
+                android:id="@+id/finishCardView"
+                android:visibility="gone"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="15dp"
                 android:layout_marginStart="50dp"
@@ -59,16 +121,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <RelativeLayout
-                    android:background="@color/orange"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:background="@color/orange">
+
                     <TextView
-                        android:padding="10dp"
-                        android:layout_centerInParent="true"
-                        android:textColor="@color/white"
-                        android:text="@string/finish_delivery"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:padding="10dp"
+                        android:text="@string/finish_delivery"
+                        android:textColor="@color/white" />
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
         </LinearLayout>

@@ -11,4 +11,6 @@
     <string name="finish_order">Finish Order</string>
     <string name="pizza_pizza">Pizza Pizza</string>
     <string name="finish_delivery">Finish delivery</string>
+    <string name="accept">Accept</string>
+    <string name="reject">Reject</string>
 </resources>
