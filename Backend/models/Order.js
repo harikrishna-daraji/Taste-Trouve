@@ -12,6 +12,8 @@ const orderSchema = new mongoose.Schema({
       "accepted",
       "declined",
       "assigned",
+      "accepted by driver",
+      "rejected by driver",
       "delivered",
       "confirmed",
     ],

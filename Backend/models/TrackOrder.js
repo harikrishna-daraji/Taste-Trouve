@@ -8,7 +8,15 @@ const trackOrder = new mongoose.Schema(
     restroId: { type: Schema.Types.ObjectId, ref: "Restaurants" },
     status: {
       type: String,
-      enum: ["accepted", "declined", "assigned", "delivered", "confirmed"],
+      enum: [
+        "accepted",
+        "declined",
+        "assigned",
+        "accepted by driver",
+        "rejected by driver",
+        "delivered",
+        "confirmed",
+      ],
     },
   },
   { timestamps: true }
