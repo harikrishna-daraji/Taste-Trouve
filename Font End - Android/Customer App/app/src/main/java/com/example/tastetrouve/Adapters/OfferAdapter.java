@@ -48,6 +48,7 @@ public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.MyViewHolder
         TextView priceTV;
         TextView description;
         TextView cutOffPrice;
+        TextView offertext;
         LinearLayout favContainer;
 
 
@@ -63,6 +64,7 @@ public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.MyViewHolder
             this.description= itemview.findViewById(R.id.description);
             this.cutOffPrice= itemview.findViewById(R.id.offprice);
             this.favContainer= itemview.findViewById(R.id.favContainer);
+            this.offertext= itemview.findViewById(R.id.offertext);
 
 
 
@@ -89,6 +91,7 @@ public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.MyViewHolder
         TextView priceTV=holder.priceTV;
         TextView description=holder.description;
         TextView cutOffPrice=holder.cutOffPrice;
+        TextView offertext=holder.offertext;
 
         ImageView circleImg=holder.circleImg;
         LinearLayout favContainer=holder.favContainer;
@@ -100,6 +103,7 @@ public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.MyViewHolder
         nameTV.setText(ItemProductModel.get(position).getName());
         priceTV.setText("$ "+ItemProductModel.get(position).getPrice());
         description.setText(ItemProductModel.get(position).getDescription());
+        offertext.setText(ItemProductModel.get(position).getSpecialType());
         cutOffPrice.setText("$ "+ItemProductModel.get(position).getCutOffPrice());
           cutOffPrice.setPaintFlags(cutOffPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
