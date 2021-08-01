@@ -14,13 +14,14 @@ import com.example.tastetrouverestaurantowner.Activity.AcceptedOrderActivity;
 import com.example.tastetrouverestaurantowner.Activity.AddItem;
 import com.example.tastetrouverestaurantowner.Activity.DriversActivity;
 import com.example.tastetrouverestaurantowner.Activity.PendingOrdersActivity;
+import com.example.tastetrouverestaurantowner.Activity.ReportActivity;
 import com.example.tastetrouverestaurantowner.Activity.ViewItemsActivity;
 import com.example.tastetrouverestaurantowner.R;
 
 
 public class HomeFragment extends Fragment {
 
-  LinearLayout createItem,viewItems,pendingOrder,avaliableDrivers,acceptedactivity;
+  LinearLayout createItem,viewItems,pendingOrder,avaliableDrivers,acceptedactivity,reportlayout;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -45,6 +46,7 @@ public class HomeFragment extends Fragment {
         pendingOrder=(LinearLayout)view.findViewById(R.id.pendingOrder);
         avaliableDrivers=(LinearLayout)view.findViewById(R.id.avaliableDrivers);
         acceptedactivity=(LinearLayout)view.findViewById(R.id.acceptedactivity);
+        reportlayout=(LinearLayout)view.findViewById(R.id.reportlayout);
 
         createItem.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,6 +91,15 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent();
                 intent.setClass(getActivity(), AcceptedOrderActivity.class);
+                getActivity().startActivity(intent);
+            }
+        });
+
+        reportlayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(getActivity(), ReportActivity.class);
                 getActivity().startActivity(intent);
             }
         });

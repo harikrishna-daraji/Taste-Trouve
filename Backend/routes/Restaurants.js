@@ -11,8 +11,9 @@ router.post("/register", async (req, res) => {
       password,
       fcmToken,
       phoneNumber,
+      lat,
+      lng,
       address,
-      status,
       userType,
     } = req.body;
 
@@ -34,6 +35,8 @@ router.post("/register", async (req, res) => {
       password,
       fcmToken,
       phoneNumber,
+      lat,
+      lng,
       address,
       status: "pending",
       userType,
@@ -76,10 +79,23 @@ router.get("/getRestaurants", async (req, res) => {
   }
 });
 
+router.post("/getRestaurantsById", async (req, res) => {
+  try {
+    const { resId } = req.body;
+
+    const user = await Restaurants.findOne({
+      _id: resId,
+    });
+
+    res.json(user);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 router.put("/UpdateRestuarantStatus", async (req, res) => {
   let { restaurantId, updateStatus } = req.body;
 
-  
   Restaurants.updateOne(
     { _id: restaurantId },
     { status: updateStatus },
@@ -91,6 +107,20 @@ router.put("/UpdateRestuarantStatus", async (req, res) => {
       }
     }
   );
+});
+
+router.put("/update", async (req, res) => {
+  const data = req.body;
+
+  var myquery = { _id: data.resId };
+  var newvalues = { $set: { ...data } };
+
+  await Restaurants.updateOne(myquery, newvalues, function (err, res) {
+    if (err) console.log(err);
+    throw err;
+  });
+
+  return res.send({ data: "updatedUser" });
 });
 
 // //delete

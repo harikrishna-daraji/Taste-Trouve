@@ -7,7 +7,16 @@ const orderSchema = new mongoose.Schema({
   delivery: { type: Number },
   orderStatus: {
     type: String,
-    enum: ["pending", "accepted", "declined", "delivered", "confirmed"],
+    enum: [
+      "pending",
+      "accepted",
+      "declined",
+      "assigned",
+      "accepted by driver",
+      "rejected by driver",
+      "delivered",
+      "confirmed",
+    ],
   },
   tax: { type: Number },
   total: { type: Number },

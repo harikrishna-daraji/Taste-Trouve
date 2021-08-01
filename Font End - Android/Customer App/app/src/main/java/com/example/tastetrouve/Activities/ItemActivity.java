@@ -73,6 +73,10 @@ public class ItemActivity extends BaseActivity {
                 itemRecycle.setVisibility(View.GONE);
             }
             itemRecycle.setAdapter(new ItemRecycleAdapter(kidSectionModels,this));
+        }else if(getIntent().hasExtra(GlobalObjects.ModelList.Restaurant.toString())) {
+            topHeading.setText("Drinks");
+            String restaurantID = getIntent().getStringExtra(GlobalObjects.ModelList.Restaurant.toString());
+            loadDrinks(restaurantID);
         } else if(getIntent().hasExtra(GlobalObjects.ModelList.Popular.toString())) {
             topHeading.setText(GlobalObjects.ModelList.Popular.toString());
             popularSectionModels = (ArrayList) getIntent().getStringArrayListExtra(GlobalObjects.ModelList.Popular.toString());
@@ -139,6 +143,7 @@ public class ItemActivity extends BaseActivity {
         }
     }
 
+
     private void loadDrinks(String restaurantID) {
         try {
             ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
@@ -175,6 +180,8 @@ public class ItemActivity extends BaseActivity {
     }
 
 
+
+
     private void initUI() {
         findViewById(R.id.backBtn).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -191,9 +198,10 @@ public class ItemActivity extends BaseActivity {
     }
 
     private void getProductsOfMainCategory(String categoryId) {
+        String token = getUserToken();
         try {
             ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-            apiInterface.getProductsOfMainCategory(categoryId).enqueue(new Callback<List<ItemProductModel>>() {
+            apiInterface.getProductsOfMainCategory(categoryId,token).enqueue(new Callback<List<ItemProductModel>>() {
                 @Override
                 public void onResponse(Call<List<ItemProductModel>> call, Response<List<ItemProductModel>> response) {
                     try {
@@ -225,11 +233,23 @@ public class ItemActivity extends BaseActivity {
         }
     }
 
+    private String getUserToken() {
+        SharedPreferences sharedPreferences = getSharedPreferences("AuthenticationTypes",MODE_PRIVATE);
+        boolean isLoggedIn = sharedPreferences.getBoolean("signUpDone",false);
+        if(isLoggedIn) {
+            String token = sharedPreferences.getString("token","");
+            return token;
+        } else {
+            return "";
+        }
+    }
+
 
     private void getProductOfRestaurant(String categoryID, String subCategoryID, String restaurantID) {
+        String token = getUserToken();
         try {
             ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-            apiInterface.getProductOfRestaurant(restaurantID,categoryID,subCategoryID).enqueue(new Callback<List<ItemProductModel>>() {
+            apiInterface.getProductOfRestaurant(restaurantID,categoryID,subCategoryID,token).enqueue(new Callback<List<ItemProductModel>>() {
                 @Override
                 public void onResponse(Call<List<ItemProductModel>> call, Response<List<ItemProductModel>> response) {
                     try {

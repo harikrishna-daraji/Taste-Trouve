@@ -17,6 +17,7 @@
         android:title="@string/recipes"
         android:icon="@drawable/report_icon"/>
 
+
     <item android:id="@+id/miSetting"
         android:title="@string/settings"
         android:icon="@drawable/settings_icon"/>

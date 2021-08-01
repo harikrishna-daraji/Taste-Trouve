@@ -1,10 +1,12 @@
 package com.example.tastetrouve.Models;
 
+import android.util.Log;
+
 import java.io.Serializable;
 
 public class ItemProductModel implements Serializable {
-    String _id, restaurantId, categoryId, subCategoryId, name, image, description, calories, DeliveryTime;
-    int price, quantity;
+    String _id, restaurantId, categoryId, subCategoryId, name, image, description, calories, DeliveryTime,favourite,specialType;
+    int price, quantity,cutOffPrice;
     boolean kidSection;
     boolean popular;
 
@@ -62,5 +64,23 @@ public class ItemProductModel implements Serializable {
 
     public boolean isPopular() {
         return popular;
+    }
+
+    public String getFavourite() {
+        return favourite;
+    }
+
+    public void setFavourite(String favourite) {
+        this.favourite = favourite;
+    }
+
+    public String getSpecialType() {
+        return specialType;
+    }
+
+    public int getCutOffPrice() {
+     return price -((price*20)/100);
+
+
     }
 }

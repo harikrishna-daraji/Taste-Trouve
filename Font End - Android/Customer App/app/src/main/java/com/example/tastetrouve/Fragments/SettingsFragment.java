@@ -130,6 +130,7 @@ public class SettingsFragment extends Fragment {
                             SharedPreferences.Editor editor = sharedPreferences.edit();
                             editor.putString("token","");
                             editor.putBoolean("signUpDone",false);
+                            editor.putString("phone","");
                             editor.clear();
                             editor.apply();
                             Intent intent = new Intent(getContext(), SignIn.class);

@@ -51,7 +51,9 @@ public class ViewItemsActivity extends AppCompatActivity {
                 for(int i=0; i <productList.size(); i++) {
                     productModalArrayList.add(new ProductModal(productList.get(i).get_id(),productList.get(i).getName(),productList.get(i).getImage(),productList.get(i).getPrice(),productList.get(i).getDescription()
 
-                    ,productList.get(i).getCalories(),productList.get(i).getQuantity(),productList.get(i).getKidSection(),productList.get(i).getPopular(),productList.get(i).getVisibleStatus(),productList.get(i).getDeliveryTime()
+                    ,productList.get(i).getCalories(),productList.get(i).getQuantity(),productList.get(i).getKidSection(),productList.get(i).getPopular(),productList.get(i).getVisibleStatus(),productList.get(i).getDeliveryTime(),
+                            productList.get(i).getSpecialOffer(),
+                            productList.get(i).getSpecialType()
                     ));
 
                 }

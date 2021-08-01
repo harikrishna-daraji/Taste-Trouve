@@ -52,11 +52,14 @@ import retrofit2.Response;
 
 public class AddItem extends AppCompatActivity {
     String[] category = {"Main Course", "Appetizers", "Drinks"};
-    CheckBox kidsSection, PopularItem;
+    String[] specialOfferValue = {"Christmas", "Black Friday", "Boxing Day"};
+    CheckBox kidsSection, PopularItem,specialOfferCheckBox;
     ImageView imageView;
     public String imageData;
     private TextView mTextView;
+    public String specialVal;
     private Spinner subCategory;
+    private Spinner spcialOfferSpinner;
     public Button addProduct;
     public EditText name, price, description, calories, quantity, deliveryTime;
     public String CategoryId, SubCategoryId;
@@ -72,11 +75,6 @@ public class AddItem extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE); //will hide the title
-        getSupportActionBar().hide(); // hide the title bar
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN); //enable full screen
-//        setContentView(R.layout.activity_log_in);
         setContentView(R.layout.activity_add_item);
 
 
@@ -96,8 +94,10 @@ public class AddItem extends AppCompatActivity {
 
         kidsSection = (CheckBox) findViewById(R.id.kidSection);
         PopularItem = (CheckBox) findViewById(R.id.popularItem);
+        specialOfferCheckBox = (CheckBox) findViewById(R.id.specialOffer);
 
         Spinner spin = (Spinner) findViewById(R.id.categorySpinner);
+        spcialOfferSpinner = (Spinner) findViewById(R.id.spcialOfferSpinner);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -170,6 +170,26 @@ public class AddItem extends AppCompatActivity {
         spin.setAdapter(aa);
 
 
+        //Creating the ArrayAdapter instance having the country list
+        ArrayAdapter specialOffer = new ArrayAdapter(this, android.R.layout.simple_spinner_item, specialOfferValue);
+        specialOffer.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //Setting the ArrayAdapter data on the Spinner
+        spcialOfferSpinner.setAdapter(specialOffer);
+
+        spcialOfferSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int i, long id) {
+                specialVal = specialOfferValue[i].toString();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
         subCategory = (Spinner) findViewById(R.id.subCategorySpinner);
         subCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -197,6 +217,7 @@ public class AddItem extends AppCompatActivity {
 
                     Boolean kidIsActive = kidsSection.isChecked();
                     Boolean PopularIsActive = PopularItem.isChecked();
+                    Boolean SpecialOffercheck = specialOfferCheckBox.isChecked();
                     int productPrice = Integer.valueOf(price.getText().toString());
                     int Productquantity = Integer.parseInt(quantity.getText().toString());
 
@@ -211,7 +232,7 @@ public class AddItem extends AppCompatActivity {
                             , imageData, productPrice,
                             productDescription, productcalories,
                             Productquantity, kidIsActive,
-                            PopularIsActive, productDeliveryTime);
+                            PopularIsActive, productDeliveryTime,SpecialOffercheck,specialVal);
 
                     call.enqueue(new Callback<ResponseBody>() {
                         @Override

@@ -16,7 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TasteTrouveRestaurantOwner"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Activity.AcceptedOrderActivity"></activity>
+        <activity android:name=".Activity.UpdateActivity"></activity>
+        <activity android:name=".Activity.ReportActivity" />
+        <activity android:name=".Activity.AcceptedOrderActivity" />
         <activity android:name=".Activity.DriversActivity" />
         <activity android:name=".Activity.PendingOrdersActivity" />
         <activity android:name=".Activity.UpdateItemActivity" />

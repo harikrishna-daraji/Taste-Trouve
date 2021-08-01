@@ -5,6 +5,9 @@ const RestaurantsSchema = new mongoose.Schema({
   password: { type: String, required: true },
   fcmToken: { type: String },
   phoneNumber: { type: String },
+  lat: { type: String },
+  lng: { type: String },
+
   address: { type: String },
   status: {
     type: String,

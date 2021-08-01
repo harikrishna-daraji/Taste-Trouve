@@ -40,6 +40,7 @@ app.use("/api/Cart", require("./routes/Cart"));
 app.use("/api/address", require("./routes/Address"));
 app.use("/api/Order", require("./routes/Order"));
 app.use("/api/trackOrder", require("./routes/TrackOrder"));
+app.use("/api/favourite", require("./routes/Favourite"));
 
 app.listen(PORT, () => console.log(`the server has started on port :${PORT}`));
 // setting up the mongodb connection with mongoose

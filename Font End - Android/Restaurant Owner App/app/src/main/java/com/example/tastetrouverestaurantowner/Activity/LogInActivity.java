@@ -35,10 +35,10 @@ public class LogInActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE); //will hide the title
-        getSupportActionBar().hide(); // hide the title bar
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN); //enable full screen
+//        requestWindowFeature(Window.FEATURE_NO_TITLE); //will hide the title
+//        getSupportActionBar().hide(); // hide the title bar
+//        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//                WindowManager.LayoutParams.FLAG_FULLSCREEN); //enable full screen
         setContentView(R.layout.activity_log_in);
 
         SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref",MODE_PRIVATE);
@@ -84,6 +84,7 @@ public class LogInActivity extends AppCompatActivity {
                             SharedPreferences.Editor myEdit = sharedPreferences.edit();
                             try {
                                 myEdit.putString("ownerId", jsonObject.getString("_id"));
+                                myEdit.putBoolean("signUpDone",true);
                                 myEdit.commit();
                             } catch (JSONException e) {
                                 e.printStackTrace();

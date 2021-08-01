@@ -2,6 +2,7 @@ package com.example.tastetrouve.Activities;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.telephony.mbms.StreamingServiceInfo;
 import android.util.Log;
@@ -36,9 +37,9 @@ public class ItemDetailsActivity extends BaseActivity {
     SharedPreferences sharedPreferences;
     ImageView itemImg;
     int quantity = 1, totalQuantity;
-    TextView itemNameTV, kidPriceTV, deliveryTV, calorieTV, descriptionTV, quantityTV, adjustableQuantTV;
-    String productId, restaurantId;
-
+    TextView itemNameTV, kidPriceTV, deliveryTV, calorieTV, descriptionTV, quantityTV, adjustableQuantTV,favouriteText;
+    String productId, restaurantId,favoriteValue;
+LinearLayout favoutite;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +61,14 @@ public class ItemDetailsActivity extends BaseActivity {
         descriptionTV = findViewById(R.id.descriptionTV);
         quantityTV = findViewById(R.id.quantityTV);
         adjustableQuantTV = findViewById(R.id.adjustableQuantTV);
+        favoutite = findViewById(R.id.favourite);
+        favouriteText = findViewById(R.id.favText);
+        favoutite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toogleFavourite();
+            }
+        });
         findViewById(R.id.addCardView).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,6 +96,53 @@ public class ItemDetailsActivity extends BaseActivity {
         });
     }
 
+    private void toogleFavourite() {
+        String token = getUserToken();
+        if(!token.isEmpty()) {
+            try {
+                ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+                apiInterface.toggleFav(token,productId,favoriteValue).enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        try {
+                            Log.i("TAG","TAG: Code "+response.code()+" Message: "+response.message());
+                            if(response.code() == 200) {
+
+                                if(favoriteValue.equals("true"))
+                                    favoriteValue="false";
+                                else
+                                    favoriteValue="true";
+                                Log.d("fav", favoriteValue);
+                                favoutite.setBackgroundColor(
+                                        favoriteValue.equals("true")?
+                                                Color.parseColor("#F3E4E2"):
+                                                Color.parseColor("#DDF8DE") );
+                                favouriteText.setTextColor(favoriteValue.equals("true")?
+                                        Color.parseColor("#BC180C"):
+                                        Color.parseColor("#036707") );
+
+                                favouriteText.setText(favoriteValue.equals("true")? "Remove from Favourites":"Add to Favourites");
+                            } else {
+
+                            }
+                        } catch (Exception ex) {
+                            Log.i("TAG","TAG "+ex.getMessage());
+                            GlobalObjects.Toast(getBaseContext(),getString(R.string.cart_failure));
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Log.i("TAG","TAG: Server failure: "+t.getMessage());
+                        GlobalObjects.Toast(getBaseContext(),getString(R.string.cart_failure));
+                    }
+                });
+            } catch (Exception ex) {
+                Log.i("TAG","TAG "+ ex.getMessage());
+            }
+        }
+    }
+
     private void manageIntent() {
         if(getIntent().hasExtra("product") && getIntent().hasExtra("type")) {
             if(getIntent().getStringExtra("type").equals(GlobalObjects.ModelList.Item.toString())) {
@@ -101,6 +157,18 @@ public class ItemDetailsActivity extends BaseActivity {
                 totalQuantity = model.getQuantity();
                 productId = model.get_id();
                 restaurantId = model.getRestaurantId();
+                favoriteValue=model.getFavourite();
+                Log.d("TAG", "favoriteValue "+favoriteValue);
+                favoutite.setBackgroundColor(
+                        favoriteValue.equals("true")?
+                        Color.parseColor("#F3E4E2"):
+                                Color.parseColor("#DDF8DE") );
+                favouriteText.setTextColor(favoriteValue.equals("true")?
+                        Color.parseColor("#BC180C"):
+                        Color.parseColor("#036707") );
+
+                favouriteText.setText(favoriteValue.equals("true")? "Remove from Favourites":"Add to Favourites");
+
             } else if(getIntent().getStringExtra("type").equals(GlobalObjects.ModelList.Popular.toString())) {
                 PopularSectionModel model = (PopularSectionModel) getIntent().getSerializableExtra("product");
                 Glide.with(this).load(model.getImage()).placeholder(R.drawable.image_placeholder).into(itemImg);
@@ -114,6 +182,18 @@ public class ItemDetailsActivity extends BaseActivity {
                 totalQuantity = model.getQuantity();
                 productId = model.get_id();
                 restaurantId = model.getRestaurantId();
+                favoriteValue=model.getFavourite();
+                Log.d("TAG", "favoriteValue "+favoriteValue);
+                favoutite.setBackgroundColor(
+                        favoriteValue.equals("true")?
+                                Color.parseColor("#F3E4E2"):
+                                Color.parseColor("#DDF8DE") );
+                favouriteText.setTextColor(favoriteValue.equals("true")?
+                        Color.parseColor("#BC180C"):
+                        Color.parseColor("#036707") );
+
+                favouriteText.setText(favoriteValue.equals("true")? "Remove from Favourites":"Add to Favourites");
+
             } else if(getIntent().getStringExtra("type").equals(GlobalObjects.ModelList.Kid.toString())) {
                 KidSectionModel model = (KidSectionModel) getIntent().getSerializableExtra("product");
                 Glide.with(this).load(model.getImage()).placeholder(R.drawable.image_placeholder).into(itemImg);
@@ -126,6 +206,18 @@ public class ItemDetailsActivity extends BaseActivity {
                 totalQuantity = model.getQuantity();
                 productId = model.get_id();
                 restaurantId = model.getRestaurantId();
+                favoriteValue=model.getFavourite();
+                Log.d("TAG", "favoriteValue "+favoriteValue);
+                favoutite.setBackgroundColor(
+                        favoriteValue.equals("true")?
+                                Color.parseColor("#F3E4E2"):
+                                Color.parseColor("#DDF8DE") );
+                favouriteText.setTextColor(favoriteValue.equals("true")?
+                        Color.parseColor("#BC180C"):
+                        Color.parseColor("#036707") );
+
+                favouriteText.setText(favoriteValue.equals("true")? "Remove from Favourites":"Add to Favourites");
+
             }
         }
         Log.i("TAG","TAG "+descriptionTV.getText().toString());
@@ -156,6 +248,12 @@ public class ItemDetailsActivity extends BaseActivity {
                                 JSONObject jsonObject = new JSONObject(response.body().string());
                                 String message = jsonObject.getString("message");
                                 GlobalObjects.Toast(getBaseContext(),message);
+                                if(!message.equalsIgnoreCase("item quantity is updated")) {
+                                    sharedPreferences = getSharedPreferences("AuthenticationTypes", Context.MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                    editor.putInt("cart_count",1);
+                                    editor.apply();
+                                }
                             } else {
                                 GlobalObjects.Toast(getBaseContext(),getString(R.string.cart_failure));
                             }

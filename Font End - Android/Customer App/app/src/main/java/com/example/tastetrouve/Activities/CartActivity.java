@@ -4,6 +4,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,6 +42,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -54,11 +57,13 @@ public class CartActivity  extends BaseActivity implements CartInterface, Adapte
     List<CartModel> cartModelArrayList = new ArrayList<>();
     CartRecyclerAdapter cartRecyclerAdapter;
     TextView subTotalTV, texesTV, deliveryTV, totalTV;
-    Button placeOrder;
+    Button placeOrder,exploreDrinks;
+    public String restroId;
     double subTotal = 0, total=0, taxes=0;
     List<AddressModel> addressModelList = new ArrayList<>();
     List<String> stringAddressList = new ArrayList<>();
     AddressModel selectedAddressModel;
+    LinearLayout no_result_Linear, totalLinear, subTotalLinear;
 
 
     @Override
@@ -84,6 +89,23 @@ public class CartActivity  extends BaseActivity implements CartInterface, Adapte
         layoutManager = new LinearLayoutManager( this);
         recyclerView.setLayoutManager(layoutManager);
         placeOrder = findViewById(R.id.PlaceOrder);
+        no_result_Linear = findViewById(R.id.no_result_Linear);
+        totalLinear = findViewById(R.id.totalLinear);
+        subTotalLinear = findViewById(R.id.subTotalLinear);
+        exploreDrinks=findViewById(R.id.exploreDrinks);
+
+        exploreDrinks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CartActivity.this, ItemActivity.class);
+
+                intent.putExtra(GlobalObjects.ModelList.Restaurant.toString(),restroId);
+
+                startActivity(intent);
+            }
+        });
+
+
 
         findViewById(R.id.backBtn).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,16 +146,25 @@ public class CartActivity  extends BaseActivity implements CartInterface, Adapte
                             String Sexpiry = expiry.getText().toString();
                             String Scvv = cvv.getText().toString();
 
-                            Toast.makeText(CartActivity.this, "Add Card", Toast.LENGTH_SHORT).show();
-                            sharedPreferences = getApplicationContext().getSharedPreferences("KEY_CARD",Context.MODE_PRIVATE);
+                            if(Scard.length() != 16 || Scvv.length() != 3) {
+                                if(Scard.length() != 16) {
+                                    GlobalObjects.Toast(getBaseContext(),getString(R.string.card_error));
+                                } else if(Scvv.length() != 3) {
+                                    GlobalObjects.Toast(getBaseContext(),getString(R.string.cvv_error));
+                                }
+                            } else {
+                                Toast.makeText(CartActivity.this, "Add Card", Toast.LENGTH_SHORT).show();
+                                sharedPreferences = getApplicationContext().getSharedPreferences("KEY_CARD",Context.MODE_PRIVATE);
 
-                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
 
-                            editor.putString("CardName",Sname);
-                            editor.putString("CardNumber",Scard);
-                            editor.putString("CardExpiry",Sexpiry);
-                            editor.putString("CardCvv",Scvv);
-                            editor.apply();
+                                editor.putString("CardName",Sname);
+                                editor.putString("CardNumber",Scard);
+                                editor.putString("CardExpiry",Sexpiry);
+                                editor.putString("CardCvv",Scvv);
+                                editor.apply();
+                                bottomSheetDialog.dismiss();
+                            }
                         }
                     });
                     bottomSheetDialog.setContentView(bottomSheetView);
@@ -168,9 +199,12 @@ public class CartActivity  extends BaseActivity implements CartInterface, Adapte
                         }
                     });
 
-
-                    bottomSheetDialog1.setContentView(bottomSheetView1);
-                    bottomSheetDialog1.show();
+                    if(stringAddressList.size() == 0) {
+                        GlobalObjects.Toast(getBaseContext(),getString(R.string.please_add_address));
+                    } else {
+                        bottomSheetDialog1.setContentView(bottomSheetView1);
+                        bottomSheetDialog1.show();
+                    }
 
                 }
             }
@@ -201,6 +235,7 @@ public class CartActivity  extends BaseActivity implements CartInterface, Adapte
 
                             for(CartModel cartModel: cartModelArrayList) {
                                 CartProductModel cartProductModel = cartModel.getProductId();
+                                restroId=cartModel.getProductId().getRestaurantId();
                                 subTotal = subTotal + cartProductModel.getPrice() * cartModel.getQuantity();
                             }
                             subTotalTV.setText(roundNumber(subTotal));
@@ -210,6 +245,19 @@ public class CartActivity  extends BaseActivity implements CartInterface, Adapte
                             totalTV.setText(roundNumber(total));
                             cartRecyclerAdapter= new CartRecyclerAdapter(cartModelArrayList,CartActivity.this);
                             recyclerView.setAdapter(cartRecyclerAdapter);
+
+                            if(cartModelArrayList.size() == 0) {
+                                no_result_Linear.setVisibility(View.VISIBLE);
+                                totalLinear.setVisibility(View.GONE);
+                                subTotalLinear.setVisibility(View.GONE);
+                                placeOrder.setVisibility(View.GONE);
+                            } else {
+                                no_result_Linear.setVisibility(View.GONE);
+                                totalLinear.setVisibility(View.VISIBLE);
+                                subTotalLinear.setVisibility(View.VISIBLE);
+                                placeOrder.setVisibility(View.VISIBLE);
+                            }
+
                         } catch (Exception ex) {
                             Log.i("TAG","TAG "+ex.getMessage());
                         }
@@ -285,16 +333,16 @@ public class CartActivity  extends BaseActivity implements CartInterface, Adapte
 
     }
 
-    private JSONArray prepareProductArray() {
-        JSONArray jsonArray = new JSONArray();
+    private List<HashMap<String,Object>> prepareProductArray() {
+        List<HashMap<String,Object>> list = new ArrayList<>();
         try {
             for(CartModel cartModel: cartModelArrayList) {
-                jsonArray.put(cartModel.getProductId().prepareOrderModel());
+                list.add(cartModel.getProductId().prepareOrderModel());
             }
         } catch (Exception ex) {
             Log.i("TAG","TAG: Order Json array exception: "+ex.getMessage());
         }
-        return jsonArray;
+        return list;
     }
 
     private void prepareOrderParameters() {
@@ -307,15 +355,17 @@ public class CartActivity  extends BaseActivity implements CartInterface, Adapte
             int totalInt = (int) total;
 
             if(!userId.isEmpty() && !restaurantId.isEmpty() && !addressId.isEmpty()) {
-                JSONObject jsonObject = new JSONObject();
-                jsonObject.put("userId",userId);
-                jsonObject.put("addressId",addressId);
-                jsonObject.put("restaurantId",restaurantId);
-                jsonObject.put("delivery",delivery);
-                jsonObject.put("tax",tax);
-                jsonObject.put("total",totalInt);
-                jsonObject.put("Products",prepareProductArray());
-                makeOrderApi(jsonObject);
+
+                HashMap<String,Object> body = new HashMap<>();
+                body.put("userId",userId);
+                body.put("addressId",addressId);
+                body.put("restaurantId",restaurantId);
+                body.put("delivery",delivery);
+                body.put("tax",tax);
+                body.put("total",totalInt);
+                body.put("Products",prepareProductArray());
+
+                makeOrderApi(body);
             } else {
                 Log.i("TAG","TAG: Parameters are empty");
             }
@@ -324,9 +374,10 @@ public class CartActivity  extends BaseActivity implements CartInterface, Adapte
         }
     }
 
-    private void makeOrderApi(JSONObject jsonObject) {
+    private void makeOrderApi(HashMap<String,Object> jsonObject) {
         try {
             ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+
             apiInterface.addOrder(jsonObject).enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -340,6 +391,7 @@ public class CartActivity  extends BaseActivity implements CartInterface, Adapte
                             } else {
                                 GlobalObjects.Toast(getBaseContext(),getString(R.string.order_placed));
                             }
+                            finish();
                         }
                     } catch (Exception ex) {
                         Log.i("TAG","TAG "+ex.getMessage());

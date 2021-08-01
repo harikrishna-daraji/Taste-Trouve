@@ -1,6 +1,7 @@
 package com.example.tastetrouve.HelperClass;
 
 import com.example.tastetrouve.Models.CartModel;
+import com.example.tastetrouve.Models.FavouriteModel;
 import com.example.tastetrouve.Models.HomeProductModel;
 import com.example.tastetrouve.Models.ItemProductModel;
 import com.example.tastetrouve.Models.MyOrderModel;
@@ -16,6 +17,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.List;
 
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -36,7 +38,14 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("product/getProductsByMainCategory")
-    Call<List<ItemProductModel>> getProductsOfMainCategory(@Field("categoryId") String categoryId);
+    Call<List<ItemProductModel>> getProductsOfMainCategory(
+            @Field("categoryId") String categoryId ,
+            @Field("userId") String userId );
+
+
+    @FormUrlEncoded
+    @POST("product/getDrinksProducts")
+    Call<List<ItemProductModel>> getDrinksProducts(@Field("restaurantId") String restaurantId);
 
 
     @FormUrlEncoded
@@ -55,10 +64,17 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("product/getProducts")
-    Call<List<ItemProductModel>> getProductOfRestaurant(@Field("restaurantId") String restaurantId,@Field("categoryId") String categoryId, @Field("subCategoryId") String subCategoryId);
+    Call<List<ItemProductModel>> getProductOfRestaurant(@Field("restaurantId") String restaurantId,@Field("categoryId") String categoryId,
+                                                        @Field("subCategoryId") String subCategoryId,
+                                                        @Field("userId") String userId
+                                                        );
+    @FormUrlEncoded
+    @POST("product/get")
+    Call<List<ItemProductModel>> getAllProducts(@Field("userId") String userId);
 
-    @GET("product/get")
-    Call<List<ItemProductModel>> getAllProducts();
+ @FormUrlEncoded
+    @POST("product/getSpecialOfferProducts")
+    Call<List<ItemProductModel>> getSpecialProducts(@Field("userId") String userId);
 
     @PUT("clientUser/update")
     Call<ResponseBody> updateUser(@Field("phoneNumber") String phone, @Field("password") String password);
@@ -83,6 +99,13 @@ public interface ApiInterface {
     );
 
     @FormUrlEncoded
+    @POST("favourite/getFavByUser")
+    Call<List<FavouriteModel>> getFavouriteItems(
+            @Field("userId") String userId
+
+    );
+
+    @FormUrlEncoded
     @POST("Order/getOrderById")
     Call<List<OrderDetailModel>> getMyOrdersByUser(
             @Field("orederId") String orederId
@@ -101,6 +124,13 @@ public interface ApiInterface {
     @POST("Cart/updateQuantity")
     Call<ResponseBody> updateCart(@Field("cartId") String cartId, @Field("quantity") String quantity);
 
+@FormUrlEncoded
+    @POST("favourite/toogleFav")
+    Call<ResponseBody> toggleFav(@Field("userId") String userId,
+                                 @Field("productId") String productId,
+                                 @Field("flag") String flag
+                                );
+
 
     @FormUrlEncoded
     @HTTP(method = "DELETE", path = "address/delete", hasBody = true)
@@ -108,6 +138,11 @@ public interface ApiInterface {
 
 
     @POST("Order/add")
-    Call<ResponseBody> addOrder(@Body JSONObject jsonObject);
+    Call<ResponseBody> addOrder(@Body HashMap<String,Object> jsonObject);
+
+    @FormUrlEncoded
+    @POST("Cart/getCartCountByUser")
+    Call<ResponseBody> getCartCount(@Field("userId") String userId);
+
 
 }

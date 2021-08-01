@@ -3,6 +3,7 @@ package com.example.tastetrouverestaurantowner;
 import com.example.tastetrouverestaurantowner.Modal.DriverModal;
 import com.example.tastetrouverestaurantowner.Modal.PendingOrderModal;
 import com.example.tastetrouverestaurantowner.Modal.ProductModal;
+import com.example.tastetrouverestaurantowner.Modal.UserModal;
 
 import java.util.List;
 
@@ -29,7 +30,9 @@ public interface ApiInterface {
             @Field("quantity") Integer quantity,
             @Field("kidSection") Boolean kidSection,
             @Field("popular") Boolean popular,
-            @Field("DeliveryTime") String DeliveryTime
+            @Field("DeliveryTime") String DeliveryTime,
+            @Field("specialOffer") Boolean specialOffer,
+            @Field("specialType") String specialType
     );
 
     @FormUrlEncoded
@@ -53,6 +56,18 @@ public interface ApiInterface {
     );
 
     @FormUrlEncoded
+    @POST("restaurantUsers/getRestaurantsById")
+    Call<ResponseBody> getuserdetails(
+            @Field("resId") String resId
+    );
+
+    @FormUrlEncoded
+    @POST("Order/getReportByOwner")
+    Call<ResponseBody> getReportByOwner(
+            @Field("restaurantId") String restaurantId
+    );
+
+    @FormUrlEncoded
     @POST("product/getProductsByRestaurant")
     Call<List<ProductModal>> getproducts(
             @Field("restaurantId") String restaurantId
@@ -69,13 +84,25 @@ public interface ApiInterface {
     @POST("trackOrder/add")
     Call<ResponseBody> assignDriver(
             @Field("deliveryUser") String deliveryUser,
-            @Field("orderId") String orderId
+            @Field("orderId") String orderId,
+            @Field("restroId") String restroId
     );
 
     @FormUrlEncoded
     @PUT("product/deleteProduct")
     Call<List<ProductModal>> deleteProduct(
             @Field("productId") String productId
+    );
+
+    @FormUrlEncoded
+    @PUT("restaurantUsers/update")
+    Call<ResponseBody> updateadmin(
+            @Field("resId") String resId,
+            @Field("restaurantName") String restaurantName,
+            @Field("email") String email,
+            @Field("password") String password,
+            @Field("phoneNumber") String phoneNumber,
+            @Field("address") String address
     );
 
 

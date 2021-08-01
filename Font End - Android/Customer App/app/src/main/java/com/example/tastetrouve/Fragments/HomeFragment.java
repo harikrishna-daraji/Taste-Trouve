@@ -1,5 +1,6 @@
 package com.example.tastetrouve.Fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -41,9 +42,12 @@ import com.example.tastetrouve.Models.ItemProductModel;
 import com.example.tastetrouve.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -54,6 +58,7 @@ public class HomeFragment extends Fragment {
     RecyclerView topSellingRecycle, kidMenuRecycle, restaurantRecycle;
     HomeProductModel homeProductModel;
     TextView cartCountTV;
+    SharedPreferences sharedPreferences;
 
     TextView seekText;
     SharedPreferences sharedPreferences;
@@ -77,6 +82,13 @@ public class HomeFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        Log.i("TAG","TAG: Resume called");
+        getCartCount();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -84,7 +96,37 @@ public class HomeFragment extends Fragment {
         initUI();
         getAllProducts();
         getHomeProducts();
+        getCartCount();
         return root;
+    }
+
+    private void getCartCount() {
+        String token = getUserToken();
+        if(!token.isEmpty()) {
+            try {
+                ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+                apiInterface.getCartCount(token).enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        try {
+                            JSONObject finalResponse = new JSONObject(response.body().string());
+                            int count = finalResponse.getInt("cart");
+                            cartCountTV.setText(String.valueOf(count));
+                            Log.i("TAG","TAG: Cart count arrived");
+                        } catch (Exception ex) {
+                            Log.i("TAG","TAG "+ex.getMessage());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                    }
+                });
+            } catch (Exception ex) {
+                Log.i("TAG","TAG "+ex.getMessage());
+            }
+        }
     }
 
     private void initUI() {
@@ -287,6 +329,7 @@ public class HomeFragment extends Fragment {
 
     private void getHomeProducts() {
         String token = getUserToken();
+        Log.i("TAG","TAG: Token id: "+token);
         if(!token.isEmpty()) {
             try {
                 ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);

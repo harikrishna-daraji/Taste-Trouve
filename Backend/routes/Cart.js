@@ -68,6 +68,15 @@ router.post("/getCartByUser", async (req, res) => {
   res.json(cart);
 });
 
+router.post("/getCartCountByUser", async (req, res) => {
+  const { userId } = req.body;
+
+  const cart = await Cart.find({
+    userId,
+  });
+  res.json({ cart: cart.length });
+});
+
 router.post("/updateQuantity", async (req, res) => {
   const { cartId, quantity } = req.body;
 
