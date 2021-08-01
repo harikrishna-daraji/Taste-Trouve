@@ -33,6 +33,7 @@
                         android:text="@string/welcome"
                         android:textSize="25dp"></TextView>
                     <ImageView
+                        android:id="@+id/filterIcon"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="0.2"
                         app:tint = "?attr/textColor"

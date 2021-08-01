@@ -8,6 +8,10 @@ public class ItemProductModel implements Serializable {
     boolean kidSection;
     boolean popular;
 
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
+    }
+
     public String get_id() {
         return _id;
     }
