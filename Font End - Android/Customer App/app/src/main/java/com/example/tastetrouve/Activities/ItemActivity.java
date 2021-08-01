@@ -40,6 +40,7 @@ public class ItemActivity extends BaseActivity {
     List<KidSectionModel> kidSectionModels;
     TextView topHeading, noResultTV;
     String price;
+   // String categoryId;
     int pr;
 
     @Override
@@ -50,6 +51,7 @@ public class ItemActivity extends BaseActivity {
         String language = sharedPreferences.getString("code","en");
         setLanguage(language);
         price = getIntent().getStringExtra("price");
+       // categoryId = getIntent().getStringExtra("categoryId");
         setContentView(R.layout.activity_item);
         initUI();
         manageIntent();
@@ -100,46 +102,49 @@ public class ItemActivity extends BaseActivity {
 
 
     private void getProductsOfFilter(String categoryId) {
-        try {
-            ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-            apiInterface.getProductsOfMainCategory(categoryId).enqueue(new Callback<List<ItemProductModel>>() {
-                @Override
-                public void onResponse(Call<List<ItemProductModel>> call, Response<List<ItemProductModel>> response) {
-                    try {
-                        Log.i("TAG","TAG: Code: "+response.code()+" Message: "+response.message());
-                        if(response.code() == 200) {
+        String token = getUserToken();
+        if(!token.isEmpty()) {
+            try {
+                ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+                apiInterface.getProductsOfMainCategory(categoryId,token ).enqueue(new Callback<List<ItemProductModel>>() {
+                    @Override
+                    public void onResponse(Call<List<ItemProductModel>> call, Response<List<ItemProductModel>> response) {
+                        try {
+                            Log.i("TAG", "TAG: Code: " + response.code() + " Message: " + response.message());
+                            if (response.code() == 200) {
 
-                            itemProductModels = response.body();
-                            pr = Integer.parseInt(price.trim());
-                            categorizedList.clear();
-                            for(ItemProductModel model:itemProductModels){
-                                if(model.getCategoryId().contains(categoryId) && model.getPrice() <= pr){
-                                    categorizedList.add(model);
-                                    Log.i("TAG", "onResponse: "+categorizedList.size());
+                                itemProductModels = response.body();
+                                pr = Integer.parseInt(price.trim());
+                                categorizedList.clear();
+                                for (ItemProductModel model : itemProductModels) {
+                                    if (model.getCategoryId().contains(categoryId) && model.getPrice() <= pr) {
+                                        categorizedList.add(model);
+                                        Log.i("TAG", "onResponse: " + categorizedList.size());
+                                    }
+                                }
+                                itemRecycle.setAdapter(new ItemRecycleAdapter(ItemActivity.this, categorizedList));
+                                if (itemProductModels.size() == 0) {
+                                    noResultTV.setVisibility(View.VISIBLE);
+                                    itemRecycle.setVisibility(View.GONE);
+                                } else {
+                                    noResultTV.setVisibility(View.GONE);
+                                    itemRecycle.setVisibility(View.VISIBLE);
                                 }
                             }
-                            itemRecycle.setAdapter(new ItemRecycleAdapter(ItemActivity.this,categorizedList));
-                            if(itemProductModels.size() == 0) {
-                                noResultTV.setVisibility(View.VISIBLE);
-                                itemRecycle.setVisibility(View.GONE);
-                            } else {
-                                noResultTV.setVisibility(View.GONE);
-                                itemRecycle.setVisibility(View.VISIBLE);
-                            }
+                        } catch (Exception ex) {
+                            Log.i("TAG", "TAG " + ex.getMessage());
                         }
-                    } catch (Exception ex) {
-                        Log.i("TAG","TAG "+ex.getMessage());
+
                     }
 
-                }
-
-                @Override
-                public void onFailure(Call<List<ItemProductModel>> call, Throwable t) {
-                    Log.i("TAG","TAG: Server Failure: "+t.getMessage());
-                }
-            });
-        } catch (Exception ex) {
-            Log.i("TAG","TAG "+ex.getMessage());
+                    @Override
+                    public void onFailure(Call<List<ItemProductModel>> call, Throwable t) {
+                        Log.i("TAG", "TAG: Server Failure: " + t.getMessage());
+                    }
+                });
+            } catch (Exception ex) {
+                Log.i("TAG", "TAG " + ex.getMessage());
+            }
         }
     }
 
@@ -279,5 +284,6 @@ public class ItemActivity extends BaseActivity {
             Log.i("TAG","TAG "+ex.getMessage());
         }
     }
+
 
 }

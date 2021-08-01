@@ -61,7 +61,6 @@ public class HomeFragment extends Fragment {
     SharedPreferences sharedPreferences;
 
     TextView seekText;
-    SharedPreferences sharedPreferences;
     List<ItemProductModel> itemProductModels;
     List<ItemProductModel> filteredProductList = new ArrayList<>();
 
@@ -216,6 +215,7 @@ public class HomeFragment extends Fragment {
                                 if(model.getName().equals("Appetizers")) {
                                     intent.putExtra("categoryId",model.get_id());
                                     intent.putExtra("price",price);
+
                                     break;
                                 }
                             }
@@ -363,29 +363,32 @@ public class HomeFragment extends Fragment {
     }
 
     private void getAllProducts() {
-        try {
-            ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-            apiInterface.getAllProducts().enqueue(new Callback<List<ItemProductModel>>() {
-                @Override
-                public void onResponse(Call<List<ItemProductModel>> call, Response<List<ItemProductModel>> response) {
-                    try {
-                        Log.i("TAG","TAG Code: "+response.code()+" Message: "+response.message());
-                        if(response.code() == 200) {
-                            itemProductModels = response.body();
-                            Log.i("TAG","TAG: All Product Size: "+itemProductModels.size());
+        String token = getUserToken();
+        if (!token.isEmpty()) {
+            try {
+                ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+                apiInterface.getAllProducts(token).enqueue(new Callback<List<ItemProductModel>>() {
+                    @Override
+                    public void onResponse(Call<List<ItemProductModel>> call, Response<List<ItemProductModel>> response) {
+                        try {
+                            Log.i("TAG", "TAG Code: " + response.code() + " Message: " + response.message());
+                            if (response.code() == 200) {
+                                itemProductModels = response.body();
+                                Log.i("TAG", "TAG: All Product Size: " + itemProductModels.size());
+                            }
+                        } catch (Exception ex) {
+                            Log.i("TAG", "TAG " + ex.getMessage());
                         }
-                    } catch (Exception ex) {
-                        Log.i("TAG","TAG "+ex.getMessage());
                     }
-                }
 
-                @Override
-                public void onFailure(Call<List<ItemProductModel>> call, Throwable t) {
-                    Log.i("TAG","TAG: "+t.getMessage());
-                }
-            });
-        } catch (Exception ex) {
-            Log.i("TAG","TAG "+ex.getMessage());
+                    @Override
+                    public void onFailure(Call<List<ItemProductModel>> call, Throwable t) {
+                        Log.i("TAG", "TAG: " + t.getMessage());
+                    }
+                });
+            } catch (Exception ex) {
+                Log.i("TAG", "TAG " + ex.getMessage());
+            }
         }
     }
 }
