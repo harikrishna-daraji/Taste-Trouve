@@ -34,8 +34,11 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
@@ -73,6 +76,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     final static int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1000;
     DriverCurrentRequestModel driverCurrentRequestModel;
     LocationRequest locationRequest;
+    Marker userLocationMarker;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -111,6 +115,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         public void onLocationResult(LocationResult locationResult) {
             super.onLocationResult(locationResult);
             Log.i("TAG","TAG: Updated location"+locationResult.getLastLocation());
+            if(mMap != null) {
+                setUserLocationMarker(locationResult.getLastLocation());
+            }
         }
     };
 
@@ -126,6 +133,21 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             return;
         }
         fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, Looper.getMainLooper());
+    }
+
+    private void setUserLocationMarker(Location location) {
+        if(userLocationMarker == null) {
+            MarkerOptions markerOptions  = new MarkerOptions().position(new LatLng(location.getLatitude(),location.getLongitude()));
+            markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.yellow_car));
+            markerOptions.rotation(location.getBearing());
+            markerOptions.anchor((float) 0.5,(float) 0.5);
+            userLocationMarker = mMap.addMarker(markerOptions);
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(),location.getLongitude()),17));
+        } else {
+            userLocationMarker.setPosition(new LatLng(location.getLatitude(),location.getLongitude()));
+            userLocationMarker.setRotation(location.getBearing());
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(),location.getLongitude()),17));
+        }
     }
 
     @Override
@@ -237,10 +259,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         }
         try {
             if (locationPermissionGranted) {
-                mMap.setMyLocationEnabled(true);
+//                mMap.setMyLocationEnabled(true);
                 mMap.getUiSettings().setMyLocationButtonEnabled(true);
             } else {
-                mMap.setMyLocationEnabled(false);
+//                mMap.setMyLocationEnabled(false);
                 mMap.getUiSettings().setMyLocationButtonEnabled(false);
                 lastKnownLocation = null;
                 getLocationPermission();
@@ -294,4 +316,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         }
     }
 
+    private void updateStatusOfCurrentOrder() {
+
+    }
 }

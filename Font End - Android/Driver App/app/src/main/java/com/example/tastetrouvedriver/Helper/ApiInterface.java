@@ -48,4 +48,11 @@ public interface ApiInterface {
     @POST("trackOrder/getCurrentOrderForDriver")
     Call<ResponseBody> getCurrentOrder(@Field("deliveryUser") String deliveryUser);
 
+
+    @FormUrlEncoded
+    @PUT("trackOrder/update")
+    Call<ResponseBody> updateCurrentOrderStatus(@Field("orderId") String orderId, @Field("updateStatus") String updateStatus);
+
+
 }
+
