@@ -8,9 +8,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.SeekBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -29,9 +35,12 @@ import com.example.tastetrouve.HelperClass.ApiClient;
 import com.example.tastetrouve.HelperClass.ApiInterface;
 import com.example.tastetrouve.Interfaces.HomeInterfaceMethods;
 import com.example.tastetrouve.Models.CategoryModel;
+import com.example.tastetrouve.Models.FilterCatergoryModel;
 import com.example.tastetrouve.Models.GlobalObjects;
 import com.example.tastetrouve.Models.HomeProductModel;
+import com.example.tastetrouve.Models.ItemProductModel;
 import com.example.tastetrouve.R;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import org.json.JSONObject;
 
@@ -50,6 +59,16 @@ public class HomeFragment extends Fragment {
     HomeProductModel homeProductModel;
     TextView cartCountTV;
     SharedPreferences sharedPreferences;
+
+    TextView seekText;
+    List<ItemProductModel> itemProductModels;
+    List<ItemProductModel> filteredProductList = new ArrayList<>();
+
+
+    String MainId = "60c83e1257e0183c050a7222";
+    String AppetizerId = "60c84564b91443700feb8e6e";
+    String DesertId = "60d50517b953042a6db7b0a4";
+
 
     public HomeFragment() {
 
@@ -74,6 +93,7 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         root = inflater.inflate(R.layout.home_fragment_xml, container, false);
         initUI();
+        getAllProducts();
         getHomeProducts();
         getCartCount();
         return root;
@@ -118,6 +138,95 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        root.findViewById(R.id.filterIcon).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //stored
+
+                BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(
+                        getContext(),R.style.BottomSheetDialogTheme
+                );
+                View bottomSheetView = LayoutInflater.from(getContext())
+                        .inflate(R.layout.bottom_filter_layout,getActivity().findViewById(R.id.bottomSheetContainer)
+                        );
+                bottomSheetDialog.setContentView(bottomSheetView);
+                bottomSheetDialog.show();
+
+                String[] items = new String[] {"Select...","Low To High", "High To Low"};
+                Spinner spin = bottomSheetView.findViewById(R.id.spinnerPrice);
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
+                        android.R.layout.simple_spinner_item, items);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spin.setAdapter(adapter);
+
+                String[] item = new String[] {"Select...","Main-Course", "Appetizer","Desserts"};
+
+                Spinner spin1 = bottomSheetView.findViewById(R.id.spinner);
+                ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(getContext(),
+                 android.R.layout.simple_spinner_item, item);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spin1.setAdapter(adapter1);
+
+                SeekBar seekBar = bottomSheetView.findViewById(R.id.seekBar);
+                seekText = bottomSheetView.findViewById(R.id.textseekbar);
+                seekText.setText("0");
+                seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                    @Override
+                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+                        seekText.setText(progress+"");
+                    }
+
+                    @Override
+                    public void onStartTrackingTouch(SeekBar seekBar) {
+
+
+                    }
+
+                    @Override
+                    public void onStopTrackingTouch(SeekBar seekBar) {
+
+                    }
+                });
+                bottomSheetView.findViewById(R.id.updateButton).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        String pricespinner = spin.getSelectedItem().toString();
+                        Log.i("toast", "onClick: "+pricespinner);
+
+                        String catogeryspinner = spin1.getSelectedItem().toString();
+                        Log.i("toast", "onClick: "+catogeryspinner);
+
+                        String price = seekText.getText().toString();
+
+//                        RadioGroup radioGroup = bottomSheetView.findViewById(R.id.RadioGroup);
+//                        int radioId = radioGroup.getCheckedRadioButtonId();
+//
+//                        RadioButton radioButton = bottomSheetView.findViewById(radioId);
+//                        String radio = radioButton.getText().toString();
+//                        Log.i("toast", "onClick: "+radio);
+
+                        if(catogeryspinner == "Appetizer"){
+                            Intent intent = new Intent(getActivity(), ItemActivity.class);
+                            intent.putExtra("section", GlobalObjects.Category.appetizer.toString());
+                            for(CategoryModel model: homeProductModel.getCategoryObject()) {
+                                if(model.getName().equals("Appetizers")) {
+                                    intent.putExtra("categoryId",model.get_id());
+                                    intent.putExtra("price",price);
+
+                                    break;
+                                }
+                            }
+                            startActivity(intent);
+                        }
+
+
+                    }
+                });
+            }
+        });
         root.findViewById(R.id.appetizerLinear).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -253,4 +362,33 @@ public class HomeFragment extends Fragment {
         }
     }
 
+    private void getAllProducts() {
+        String token = getUserToken();
+        if (!token.isEmpty()) {
+            try {
+                ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+                apiInterface.getAllProducts(token).enqueue(new Callback<List<ItemProductModel>>() {
+                    @Override
+                    public void onResponse(Call<List<ItemProductModel>> call, Response<List<ItemProductModel>> response) {
+                        try {
+                            Log.i("TAG", "TAG Code: " + response.code() + " Message: " + response.message());
+                            if (response.code() == 200) {
+                                itemProductModels = response.body();
+                                Log.i("TAG", "TAG: All Product Size: " + itemProductModels.size());
+                            }
+                        } catch (Exception ex) {
+                            Log.i("TAG", "TAG " + ex.getMessage());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<ItemProductModel>> call, Throwable t) {
+                        Log.i("TAG", "TAG: " + t.getMessage());
+                    }
+                });
+            } catch (Exception ex) {
+                Log.i("TAG", "TAG " + ex.getMessage());
+            }
+        }
+    }
 }

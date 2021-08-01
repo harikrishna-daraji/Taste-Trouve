@@ -35,9 +35,13 @@ public class ItemActivity extends BaseActivity {
     RecyclerView itemRecycle;
     SharedPreferences sharedPreferences;
     List<ItemProductModel> itemProductModels;
+    List<ItemProductModel> categorizedList = new ArrayList<>();
     ArrayList<PopularSectionModel> popularSectionModels;
     List<KidSectionModel> kidSectionModels;
     TextView topHeading, noResultTV;
+    String price;
+   // String categoryId;
+    int pr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,13 +50,18 @@ public class ItemActivity extends BaseActivity {
         sharedPreferences = getApplicationContext().getSharedPreferences("LANGUAGE", Context.MODE_PRIVATE);
         String language = sharedPreferences.getString("code","en");
         setLanguage(language);
+        price = getIntent().getStringExtra("price");
+       // categoryId = getIntent().getStringExtra("categoryId");
         setContentView(R.layout.activity_item);
         initUI();
         manageIntent();
     }
 
     private void manageIntent() {
-        if(getIntent().hasExtra("section") && getIntent().hasExtra("categoryId")) {
+        if(getIntent().hasExtra("section") && getIntent().hasExtra("categoryId") && getIntent().hasExtra("price")){
+            topHeading.setText(getIntent().getStringExtra("section"));
+            getProductsOfFilter(getIntent().getStringExtra("categoryId"));
+        }else if(getIntent().hasExtra("section") && getIntent().hasExtra("categoryId")) {
             topHeading.setText(getIntent().getStringExtra("section"));
             getProductsOfMainCategory(getIntent().getStringExtra("categoryId"));
         } else if(getIntent().hasExtra(GlobalObjects.ModelList.Kid.toString())) {
@@ -91,6 +100,55 @@ public class ItemActivity extends BaseActivity {
 
     }
 
+
+    private void getProductsOfFilter(String categoryId) {
+        String token = getUserToken();
+        if(!token.isEmpty()) {
+            try {
+                ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+                apiInterface.getProductsOfMainCategory(categoryId,token ).enqueue(new Callback<List<ItemProductModel>>() {
+                    @Override
+                    public void onResponse(Call<List<ItemProductModel>> call, Response<List<ItemProductModel>> response) {
+                        try {
+                            Log.i("TAG", "TAG: Code: " + response.code() + " Message: " + response.message());
+                            if (response.code() == 200) {
+
+                                itemProductModels = response.body();
+                                pr = Integer.parseInt(price.trim());
+                                categorizedList.clear();
+                                for (ItemProductModel model : itemProductModels) {
+                                    if (model.getCategoryId().contains(categoryId) && model.getPrice() <= pr) {
+                                        categorizedList.add(model);
+                                        Log.i("TAG", "onResponse: " + categorizedList.size());
+                                    }
+                                }
+                                itemRecycle.setAdapter(new ItemRecycleAdapter(ItemActivity.this, categorizedList));
+                                if (itemProductModels.size() == 0) {
+                                    noResultTV.setVisibility(View.VISIBLE);
+                                    itemRecycle.setVisibility(View.GONE);
+                                } else {
+                                    noResultTV.setVisibility(View.GONE);
+                                    itemRecycle.setVisibility(View.VISIBLE);
+                                }
+                            }
+                        } catch (Exception ex) {
+                            Log.i("TAG", "TAG " + ex.getMessage());
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<ItemProductModel>> call, Throwable t) {
+                        Log.i("TAG", "TAG: Server Failure: " + t.getMessage());
+                    }
+                });
+            } catch (Exception ex) {
+                Log.i("TAG", "TAG " + ex.getMessage());
+            }
+        }
+    }
+
+
     private void loadDrinks(String restaurantID) {
         try {
             ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
@@ -125,6 +183,9 @@ public class ItemActivity extends BaseActivity {
             Log.i("TAG","TAG "+ex.getMessage());
         }
     }
+
+
+
 
     private void initUI() {
         findViewById(R.id.backBtn).setOnClickListener(new View.OnClickListener() {
@@ -223,5 +284,6 @@ public class ItemActivity extends BaseActivity {
             Log.i("TAG","TAG "+ex.getMessage());
         }
     }
+
 
 }

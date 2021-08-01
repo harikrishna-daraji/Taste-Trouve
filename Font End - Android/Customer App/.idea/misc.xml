@@ -3,6 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Sujay Kumar Yeddu/AndroidStudioProjects/Taste-Trouve/Font End - Android/Customer App/app/src/main/res/layout/activity_cart.xml" value="0.17119565217391305" />
+        <entry key="..\:/Users/Sujay Kumar Yeddu/AndroidStudioProjects/Taste-Trouve/Font End - Android/Customer App/app/src/main/res/layout/activity_item.xml" value="0.21467391304347827" />
+        <entry key="..\:/Users/Sujay Kumar Yeddu/AndroidStudioProjects/Taste-Trouve/Font End - Android/Customer App/app/src/main/res/layout/activity_main.xml" value="0.21467391304347827" />
+        <entry key="..\:/Users/Sujay Kumar Yeddu/AndroidStudioProjects/Taste-Trouve/Font End - Android/Customer App/app/src/main/res/layout/activity_main_category.xml" value="0.21467391304347827" />
+        <entry key="..\:/Users/Sujay Kumar Yeddu/AndroidStudioProjects/Taste-Trouve/Font End - Android/Customer App/app/src/main/res/layout/activity_on_boarding_screen.xml" value="0.21467391304347827" />
+        <entry key="..\:/Users/Sujay Kumar Yeddu/AndroidStudioProjects/Taste-Trouve/Font End - Android/Customer App/app/src/main/res/layout/activity_sign_in.xml" value="0.1693840579710145" />
+        <entry key="..\:/Users/Sujay Kumar Yeddu/AndroidStudioProjects/Taste-Trouve/Font End - Android/Customer App/app/src/main/res/layout/activity_subcategory_list.xml" value="0.21467391304347827" />
+        <entry key="..\:/Users/Sujay Kumar Yeddu/AndroidStudioProjects/Taste-Trouve/Font End - Android/Customer App/app/src/main/res/layout/boarding_slider_container.xml" value="0.21467391304347827" />
+        <entry key="..\:/Users/Sujay Kumar Yeddu/AndroidStudioProjects/Taste-Trouve/Font End - Android/Customer App/app/src/main/res/layout/bottom_filter_layout.xml" value="0.21467391304347827" />
+        <entry key="..\:/Users/Sujay Kumar Yeddu/AndroidStudioProjects/Taste-Trouve/Font End - Android/Customer App/app/src/main/res/layout/home_fragment_xml.xml" value="0.264" />
+        <entry key="..\:/Users/Sujay Kumar Yeddu/AndroidStudioProjects/Taste-Trouve/Font End - Android/Customer App/app/src/main/res/layout/layout_bottom_sheet.xml" value="0.17119565217391305" />
+        <entry key="..\:/Users/Sujay Kumar Yeddu/AndroidStudioProjects/Taste-Trouve/Font End - Android/Customer App/app/src/main/res/layout/layout_bottom_sheet1.xml" value="0.17119565217391305" />
         <entry key="app/src/main/res/drawable/main_course_shape.xml" value="0.15520833333333334" />
         <entry key="app/src/main/res/drawable/red_outline_border.xml" value="0.26666666666666666" />
         <entry key="app/src/main/res/drawable/search_shape.xml" value="0.15520833333333334" />
