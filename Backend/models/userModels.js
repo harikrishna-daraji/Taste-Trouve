@@ -9,5 +9,6 @@ const userSchema = new mongoose.Schema({
   dateOfBirth: { type: String },
   isDriver: { type: Boolean, default: false },
   isOnline: { type: Boolean, default: false },
+  isBussy: { type: Boolean, default: false },
 });
 module.exports = User = mongoose.model("User", userSchema);

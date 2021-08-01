@@ -1,6 +1,8 @@
 //creating the routes
+const admin = require("firebase-admin");
 const router = require("express").Router();
 const TrackOrder = require("../models/TrackOrder");
+const User = require("../models/userModels");
 // connection for registering a user
 
 router.post("/add", async (req, res) => {
@@ -57,21 +59,61 @@ router.post("/getCurrentOrderForDriver", async (req, res) => {
   }
 });
 
-// router.put("/UpdateRestuarantStatus", async (req, res) => {
-//   let { restaurantId, updateStatus } = req.body;
+router.put("/update", async (req, res) => {
+  let { orderId, updateStatus } = req.body;
 
-//   Restaurants.updateOne(
-//     { _id: restaurantId },
-//     { status: updateStatus },
-//     function (err, docs) {
-//       if (err) {
-//         res.send(err);
-//       } else {
-//         res.send("Updated");
-//       }
-//     }
-//   );
-// });
+  TrackOrder.updateOne(
+    { _id: orderId },
+    { status: updateStatus },
+    function (err, docs) {
+      if (err) {
+        res.send(err);
+      } else {
+      }
+    }
+  );
+
+  const currentOrder = await TrackOrder.findOne({
+    _id: orderId,
+  });
+
+  await Order.updateOne(
+    { _id: currentOrder.orderId },
+    { orderStatus: updateStatus },
+    function (err, docs) {
+      if (err) {
+        res.send(err);
+      } else {
+      }
+    }
+  );
+
+  await User.updateOne(
+    { _id: currentOrder.deliveryUser },
+    { isBussy: true },
+    function (err, docs) {
+      if (err) {
+        res.send(err);
+      } else {
+      }
+    }
+  );
+
+  const order = await Order.find({
+    _id: currentOrder.orderId,
+  }).populate("userId");
+
+  var payload = {
+    data: {
+      title: "Driver Accepted your Order",
+      message: "Next Step : Your order is now processed by Driver",
+    },
+  };
+
+  admin.messaging().sendToDevice(order[0].userId.fcmToken, payload);
+
+  res.send("Updated");
+});
 
 // //delete
 // router.delete("/delete", auth, async (req, res) => {

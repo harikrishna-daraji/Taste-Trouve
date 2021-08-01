@@ -16,6 +16,8 @@ const productSchema = new mongoose.Schema({
   popular: { type: Boolean },
   visibleStatus: { type: Boolean },
   DeliveryTime: { type: String },
+  specialOffer: { type: Boolean },
+  specialType: { type: String },
 });
 
 module.exports = Product = mongoose.model("Product", productSchema);

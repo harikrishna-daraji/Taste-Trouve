@@ -4,6 +4,7 @@ const Product = require("../models/Product");
 const Category = require("../models/Category");
 const SubCategory = require("../models/SubCategory");
 const User = require("../models/userModels");
+const Favourite = require("../models/favourite");
 
 router.post("/add", async (req, res) => {
   try {
@@ -20,6 +21,8 @@ router.post("/add", async (req, res) => {
       kidSection,
       popular,
       DeliveryTime,
+      specialOffer,
+      specialType,
     } = req.body;
 
     const categoryObject = await Category.find({ name: categoryId });
@@ -75,7 +78,9 @@ router.post("/add", async (req, res) => {
       kidSection,
       popular,
       visibleStatus: true,
-      DeliveryTime,
+      DeliveryTime: DeliveryTime.toString(),
+      specialOffer,
+      specialType,
     });
 
     const savedProduct = await newProduct.save();
@@ -88,13 +93,26 @@ router.post("/add", async (req, res) => {
 });
 
 router.post("/getProducts", async (req, res) => {
-  const { restaurantId, categoryId, subCategoryId } = req.body;
+  const { restaurantId, categoryId, subCategoryId, userId } = req.body;
 
   const product = await Product.find({
     restaurantId,
     categoryId,
     subCategoryId,
   });
+
+  for (var key in product) {
+    const fav = await Favourite.findOne({
+      userId,
+      productId: product[key]._id,
+    });
+
+    product[key] = {
+      ...product[key]._doc,
+      favourite: fav == null ? "false" : "true",
+    };
+  }
+
   res.json(product);
 });
 
@@ -109,12 +127,47 @@ router.post("/getDrinksProducts", async (req, res) => {
   res.json(product);
 });
 
+router.post("/getSpecialOfferProducts", async (req, res) => {
+  const { userId } = req.body;
+
+  const product = await Product.find({
+    specialOffer: true,
+  });
+
+  for (var key in product) {
+    const fav = await Favourite.findOne({
+      userId,
+      productId: product[key]._id,
+    });
+
+    product[key] = {
+      ...product[key]._doc,
+      favourite: fav == null ? "false" : "true",
+    };
+  }
+
+  res.json(product);
+});
+
 router.post("/getProductsByMainCategory", async (req, res) => {
-  const { categoryId } = req.body;
+  const { categoryId, userId } = req.body;
 
   const product = await Product.find({
     categoryId,
   });
+
+  for (var key in product) {
+    const fav = await Favourite.findOne({
+      userId,
+      productId: product[key]._id,
+    });
+
+    product[key] = {
+      ...product[key]._doc,
+      favourite: fav == null ? "false" : "true",
+    };
+  }
+
   res.json(product);
 });
 
@@ -192,8 +245,21 @@ router.put("/update", async (req, res) => {
   );
 });
 
-router.get("/get", async (req, res) => {
+router.post("/get", async (req, res) => {
+  const { userId } = req.body;
   const product = await Product.find();
+
+  for (var key in product) {
+    const fav = await Favourite.findOne({
+      userId,
+      productId: product[key]._id,
+    });
+
+    product[key] = {
+      ...product[key]._doc,
+      favourite: fav == null ? "false" : "true",
+    };
+  }
   res.json(product);
 });
 

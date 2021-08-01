@@ -2,24 +2,23 @@ package com.example.tastetrouve.Fragments;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
 import com.example.tastetrouve.Adapters.FavouriteAdapter;
-import com.example.tastetrouve.Adapters.KidMenuRecycleAdapter;
-import com.example.tastetrouve.Adapters.RestaurantRecycleAdapter;
-import com.example.tastetrouve.Adapters.TopSellingRecycleAdapter;
+import com.example.tastetrouve.Adapters.ItemRecycleAdapter;
+import com.example.tastetrouve.Adapters.OfferAdapter;
 import com.example.tastetrouve.HelperClass.ApiClient;
 import com.example.tastetrouve.HelperClass.ApiInterface;
 import com.example.tastetrouve.Models.FavouriteModel;
-import com.example.tastetrouve.Models.HomeProductModel;
-import com.example.tastetrouve.Models.MyOrderModel;
+import com.example.tastetrouve.Models.ItemProductModel;
 import com.example.tastetrouve.R;
 
 import java.util.List;
@@ -28,23 +27,22 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static android.content.Context.MODE_PRIVATE;
 
-public class FavouriteFragment extends Fragment {
+public class OffersFragment extends Fragment {
 
-    private View root;
+    List<ItemProductModel> itemProductModels;
+    RecyclerView offerRecycler;
 
-    List<FavouriteModel> favouriteModelList;
-    RecyclerView favRecycler;
-    FavouriteModel favouriteModel;
-    public FavouriteFragment() {
 
+    public OffersFragment() {
+        // Required empty public constructor
     }
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
 
     }
 
@@ -52,28 +50,28 @@ public class FavouriteFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        root = inflater.inflate(R.layout.favourite_fragment_xml, container, false);
-        favRecycler = root.findViewById(R.id.favouriteRecycler);
+        View view= inflater.inflate(R.layout.fragment_offers, container, false);
+        offerRecycler = view.findViewById(R.id.specialOffersRecycler);
 
-        favRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
-        getFavouriteProducts();
-        return root;
+        offerRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
+        getSpecialOfferProducts();
+        return  view;
     }
 
-    private void getFavouriteProducts() {
+    private void getSpecialOfferProducts() {
         String token = getUserToken();
         Log.i("TAG","TAG: Token id: "+token);
         if(!token.isEmpty()) {
             try {
                 ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-                apiInterface.getFavouriteItems(token).enqueue(new Callback<List<FavouriteModel>>() {
+                apiInterface.getSpecialProducts(token).enqueue(new Callback<List<ItemProductModel>>() {
                     @Override
-                    public void onResponse(Call<List<FavouriteModel>> call, Response<List<FavouriteModel>> response) {
+                    public void onResponse(Call<List<ItemProductModel>> call, Response<List<ItemProductModel>> response) {
                         try {
                             if(response.code() == 200) {
-                                favouriteModelList = response.body();
+                                itemProductModels = response.body();
 
-                                favRecycler.setAdapter(new FavouriteAdapter(favouriteModelList,getContext()));
+                                offerRecycler.setAdapter(new OfferAdapter(itemProductModels,getContext()));
 
                             } else {
                                 Log.i("TAG","TAG: Code: "+response.code()+" Message: "+response.message());
@@ -84,7 +82,7 @@ public class FavouriteFragment extends Fragment {
                     }
 
                     @Override
-                    public void onFailure(Call<List<FavouriteModel>> call, Throwable t) {
+                    public void onFailure(Call<List<ItemProductModel>> call, Throwable t) {
                         Log.i("TAG","TAG: Server failure: "+t.getMessage());
                     }
                 });

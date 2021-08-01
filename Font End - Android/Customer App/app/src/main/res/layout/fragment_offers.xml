@@ -32,7 +32,7 @@
                     android:layout_gravity="center"
                     android:layout_marginStart="25dp"
                     android:layout_marginTop="0dp"
-                    android:text="@string/favourites"
+                    android:text="Special Offers"
                     android:textColor="?attr/textColor"
                     android:textSize="20dp"/>
             </LinearLayout>
@@ -40,10 +40,10 @@
 
     </com.google.android.material.appbar.AppBarLayout>
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/favouriteRecycler"
+        android:id="@+id/specialOffersRecycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="5dp"
         android:clipToPadding="false"
 
 
