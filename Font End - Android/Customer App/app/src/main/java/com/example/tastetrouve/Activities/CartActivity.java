@@ -251,11 +251,13 @@ public class CartActivity  extends BaseActivity implements CartInterface, Adapte
                                 totalLinear.setVisibility(View.GONE);
                                 subTotalLinear.setVisibility(View.GONE);
                                 placeOrder.setVisibility(View.GONE);
+                                exploreDrinks.setVisibility(View.GONE);
                             } else {
                                 no_result_Linear.setVisibility(View.GONE);
                                 totalLinear.setVisibility(View.VISIBLE);
                                 subTotalLinear.setVisibility(View.VISIBLE);
                                 placeOrder.setVisibility(View.VISIBLE);
+                                exploreDrinks.setVisibility(View.VISIBLE);
                             }
 
                         } catch (Exception ex) {

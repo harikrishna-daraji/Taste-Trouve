@@ -23,6 +23,9 @@ import android.widget.TextView;
 
 import com.example.tastetrouvedriver.Helper.APIClient;
 import com.example.tastetrouvedriver.Helper.ApiInterface;
+import com.example.tastetrouvedriver.Helper.DirectionHelper.FetchURL;
+import com.example.tastetrouvedriver.Helper.DirectionHelper.TaskLoadedCallback;
+import com.example.tastetrouvedriver.Helper.GlobalObjects;
 import com.example.tastetrouvedriver.Helper.Model.DriverCurrentRequestModel;
 import com.example.tastetrouvedriver.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -39,6 +42,9 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolygonOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
@@ -77,6 +83,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     DriverCurrentRequestModel driverCurrentRequestModel;
     LocationRequest locationRequest;
     Marker userLocationMarker;
+    MarkerOptions destination;
+    Polyline currentPolyline;
+    MarkerOptions place1, place2;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -86,6 +95,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         initUI();
         prepareMap();
         getDriverCurrentOrder();
+        place1 = new MarkerOptions().position(new LatLng(45.50153199381429,-73.63009980920452));
+        place2 = new MarkerOptions().position(new LatLng(45.55587720844135,-73.66827429185757));
+
+        String url = getUrl(place1.getPosition(),place2.getPosition(),"driving");
+        new FetchURL(getActivity()).execute(url,"driving");
         return root;
     }
 
@@ -153,7 +167,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onStart() {
         super.onStart();
-        startLocationUpdate();
+//        startLocationUpdate();
     }
 
     @Override
@@ -168,8 +182,23 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     private void initUI() {
         acceptRejectLinear = root.findViewById(R.id.acceptRejectLinear);
+
         rejectRelative = root.findViewById(R.id.rejectRelative);
+        rejectRelative.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateStatusOfCurrentOrder(GlobalObjects.rejected_by_driver);
+            }
+        });
+
         acceptRelative = root.findViewById(R.id.acceptRelative);
+        acceptRelative.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateStatusOfCurrentOrder(GlobalObjects.accepted_by_driver);
+            }
+        });
+
         newOrderCardView = root.findViewById(R.id.newOrderCardView);
         finishCardView = root.findViewById(R.id.finishCardView);
         addressTV = root.findViewById(R.id.addressTV);
@@ -178,6 +207,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         mMap = googleMap;
+        mMap.addMarker(place1);
+        mMap.addMarker(place2);
         updateLocationUI();
         getDeviceLocation();
     }
@@ -284,8 +315,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                             JSONObject finalResponse = new JSONObject(response.body().string());
                             driverCurrentRequestModel = new DriverCurrentRequestModel(finalResponse);
                             if(driverCurrentRequestModel.getOrderId() != null) {
-                                newOrderCardView.setVisibility(View.VISIBLE);
+//                                newOrderCardView.setVisibility(View.VISIBLE);
                                 addressTV.setText(driverCurrentRequestModel.getOrderId().getAddressId().getAddress());
+                                destination = new MarkerOptions().position(new LatLng(Double.parseDouble(driverCurrentRequestModel.getRestroId().getLng()),Double.parseDouble(driverCurrentRequestModel.getRestroId().getLng())));
                             }
                         } catch (Exception ex) {
                             Log.i("TAG","TAG: "+ex.getMessage());
@@ -316,7 +348,51 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         }
     }
 
-    private void updateStatusOfCurrentOrder() {
+    private void updateStatusOfCurrentOrder(String orderStatus) {
+        try {
+            APIClient.getInstance().getApi().updateCurrentOrderStatus(driverCurrentRequestModel.getOrderId().get_id(),orderStatus).enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    try {
+                        JSONObject finalResponse = new JSONObject(response.body().string());
+                        Log.i("TAG","TAG: Body "+finalResponse.toString());
+                    } catch (Exception ex) {
+                        Log.i("TAG","TAG "+ex.getMessage());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    Log.i("TAG","TAG: Server failure: "+t.getMessage());
+                }
+            });
+        } catch (Exception ex) {
+            Log.i("TAG","TAG "+ex.getMessage());
+        }
+    }
+
+
+    private String getUrl(LatLng origin, LatLng dest, String directionMode) {
+        // Origin of route
+        String str_origin = "origin=" + origin.latitude + "," + origin.longitude;
+        // Destination of route
+        String str_dest = "destination=" + dest.latitude + "," + dest.longitude;
+        // Mode
+        String mode = "mode=" + directionMode;
+        // Building the parameters to the web service
+        String parameters = str_origin + "&" + str_dest + "&" + mode;
+        // Output format
+        String output = "json";
+        // Building the url to the web service
+        String url = "https://maps.googleapis.com/maps/api/directions/" + output + "?" + parameters + "&key=" + getString(R.string.google_maps_key);
+        return url;
+    }
+
+    public void loadPolyLine(PolylineOptions polylineOptions) {
+        Log.i("TAG", "TAG: it is in fragment polyoptions ");
+        if (currentPolyline != null)
+            currentPolyline.remove();
+        currentPolyline = mMap.addPolyline(polylineOptions);
 
     }
 }
