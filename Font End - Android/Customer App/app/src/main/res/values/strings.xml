@@ -97,6 +97,9 @@
     <string name="my_orders">My Orders</string>
     <string name="please_add_address">Please add address in Setting screen</string>
     <string name="no_product">No Products</string>
+    <string name="theme">Change Theme</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="light" translatable="false">light</string>
+    <string name="dark" translatable="false">dark</string>
 </resources>

@@ -95,4 +95,5 @@
     <string name="cvv_error">Le numéro cvv doit être à 3 chiffres</string>
     <string name="please_add_address">Veuillez ajouter l\'adresse dans l\'écran de configuration</string>
     <string name="no_product">Aucun produit</string>
+    <string name="theme">Changer Thème</string>
 </resources>
