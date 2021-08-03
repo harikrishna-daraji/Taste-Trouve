@@ -91,6 +91,20 @@ router.post("/driverLogin", async (req, res) => {
   }
 });
 
+router.post("/getUserById", async (req, res) => {
+  try {
+    const { userId } = req.body;
+
+    const user = await User.findOne({
+      _id: userId,
+    });
+
+    res.json(user);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 //delete
 
 router.delete("/delete", async (req, res) => {
