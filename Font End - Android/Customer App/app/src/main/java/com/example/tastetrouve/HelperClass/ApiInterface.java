@@ -59,6 +59,10 @@ public interface ApiInterface {
     Call<UserModel> login(@Field("email") String email, @Field("password") String password);
 
     @FormUrlEncoded
+    @POST("clientUser/getUserById")
+    Call<UserModel> getUserDetails(@Field("userId") String userId);
+
+    @FormUrlEncoded
     @POST("subCategory/getSubById")
     Call<List<SubCategoryModel>> getSubCategoryOfCategory(@Field("categoryId") String categoryId);
 
