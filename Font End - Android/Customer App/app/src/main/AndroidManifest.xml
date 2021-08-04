@@ -32,8 +32,11 @@
             android:name=".Activities.LanguageActivity"
             android:exported="true" />
         <activity android:name=".Activities.SubcategoryListActivity" />
-        <activity android:name=".Activities.VerifyOtpActivity" />
-        <activity android:name=".Activities.ResetPasswordActivity" />
+        <activity android:name=".Activities.VerifyOtpActivity">
+
+        </activity>
+        <activity android:name=".Activities.ResetPasswordActivity">
+        </activity>
         <activity android:name=".Activities.ItemDetailsActivity" />
         <activity android:name=".Activities.MainCategoryActivity" />
         <activity android:name=".Activities.OnBoardingScreen" />
@@ -43,6 +46,7 @@
         <activity android:name=".Activities.ForgotPassword" />
         <activity android:name=".Activities.SignIn" />
         <activity android:name=".Activities.MainActivity">
+            <!-- Add launcher back here -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

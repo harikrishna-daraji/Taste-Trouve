@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
@@ -39,7 +40,7 @@ public class ItemDetailsActivity extends BaseActivity {
     int quantity = 1, totalQuantity;
     TextView itemNameTV, kidPriceTV, deliveryTV, calorieTV, descriptionTV, quantityTV, adjustableQuantTV,favouriteText;
     String productId, restaurantId,favoriteValue;
-LinearLayout favoutite;
+    RelativeLayout favoutite;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,13 +114,13 @@ LinearLayout favoutite;
                                 else
                                     favoriteValue="true";
                                 Log.d("fav", favoriteValue);
-                                favoutite.setBackgroundColor(
-                                        favoriteValue.equals("true")?
-                                                Color.parseColor("#F3E4E2"):
-                                                Color.parseColor("#DDF8DE") );
-                                favouriteText.setTextColor(favoriteValue.equals("true")?
-                                        Color.parseColor("#BC180C"):
-                                        Color.parseColor("#036707") );
+//                                favoutite.setBackgroundColor(
+//                                        favoriteValue.equals("true")?
+//                                                Color.parseColor("#F3E4E2"):
+//                                                Color.parseColor("#DDF8DE") );
+//                                favouriteText.setTextColor(favoriteValue.equals("true")?
+//                                        Color.parseColor("#BC180C"):
+//                                        Color.parseColor("#036707") );
 
                                 favouriteText.setText(favoriteValue.equals("true")? "Remove from Favourites":"Add to Favourites");
                             } else {
@@ -159,13 +160,13 @@ LinearLayout favoutite;
                 restaurantId = model.getRestaurantId();
                 favoriteValue=model.getFavourite();
                 Log.d("TAG", "favoriteValue "+favoriteValue);
-                favoutite.setBackgroundColor(
-                        favoriteValue.equals("true")?
-                        Color.parseColor("#F3E4E2"):
-                                Color.parseColor("#DDF8DE") );
-                favouriteText.setTextColor(favoriteValue.equals("true")?
-                        Color.parseColor("#BC180C"):
-                        Color.parseColor("#036707") );
+//                favoutite.setBackgroundColor(
+//                        favoriteValue.equals("true")?
+//                        Color.parseColor("#F3E4E2"):
+//                                Color.parseColor("#DDF8DE") );
+//                favouriteText.setTextColor(favoriteValue.equals("true")?
+//                        Color.parseColor("#BC180C"):
+//                        Color.parseColor("#036707") );
 
                 favouriteText.setText(favoriteValue.equals("true")? "Remove from Favourites":"Add to Favourites");
 
@@ -184,13 +185,13 @@ LinearLayout favoutite;
                 restaurantId = model.getRestaurantId();
                 favoriteValue=model.getFavourite();
                 Log.d("TAG", "favoriteValue "+favoriteValue);
-                favoutite.setBackgroundColor(
-                        favoriteValue.equals("true")?
-                                Color.parseColor("#F3E4E2"):
-                                Color.parseColor("#DDF8DE") );
-                favouriteText.setTextColor(favoriteValue.equals("true")?
-                        Color.parseColor("#BC180C"):
-                        Color.parseColor("#036707") );
+//                favoutite.setBackgroundColor(
+//                        favoriteValue.equals("true")?
+//                                Color.parseColor("#F3E4E2"):
+//                                Color.parseColor("#DDF8DE") );
+//                favouriteText.setTextColor(favoriteValue.equals("true")?
+//                        Color.parseColor("#BC180C"):
+//                        Color.parseColor("#036707") );
 
                 favouriteText.setText(favoriteValue.equals("true")? "Remove from Favourites":"Add to Favourites");
 
@@ -208,13 +209,13 @@ LinearLayout favoutite;
                 restaurantId = model.getRestaurantId();
                 favoriteValue=model.getFavourite();
                 Log.d("TAG", "favoriteValue "+favoriteValue);
-                favoutite.setBackgroundColor(
-                        favoriteValue.equals("true")?
-                                Color.parseColor("#F3E4E2"):
-                                Color.parseColor("#DDF8DE") );
-                favouriteText.setTextColor(favoriteValue.equals("true")?
-                        Color.parseColor("#BC180C"):
-                        Color.parseColor("#036707") );
+//                favoutite.setBackgroundColor(
+//                        favoriteValue.equals("true")?
+//                                Color.parseColor("#F3E4E2"):
+//                                Color.parseColor("#DDF8DE") );
+//                favouriteText.setTextColor(favoriteValue.equals("true")?
+//                        Color.parseColor("#BC180C"):
+//                        Color.parseColor("#036707") );
 
                 favouriteText.setText(favoriteValue.equals("true")? "Remove from Favourites":"Add to Favourites");
 
