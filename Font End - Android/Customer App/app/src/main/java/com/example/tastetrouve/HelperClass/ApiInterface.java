@@ -44,6 +44,11 @@ public interface ApiInterface {
 
 
     @FormUrlEncoded
+    @POST("product/getDrinksProducts")
+    Call<List<ItemProductModel>> getDrinksProducts(@Field("restaurantId") String restaurantId);
+
+
+    @FormUrlEncoded
     @POST("clientUser/register")
     Call<UserModel> registerUser(@Field("email") String email, @Field("password") String password, @Field("displayname")
             String displayname, @Field("fcmToken") String   fcmToken, @Field("phoneNumber") String  phoneNumber, @Field("dateOfBirth") String dateOfBirth);
@@ -52,6 +57,10 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("clientUser/login")
     Call<UserModel> login(@Field("email") String email, @Field("password") String password);
+
+    @FormUrlEncoded
+    @POST("clientUser/getUserById")
+    Call<UserModel> getUserDetails(@Field("userId") String userId);
 
     @FormUrlEncoded
     @POST("subCategory/getSubById")
@@ -75,8 +84,17 @@ public interface ApiInterface {
 
  );
 
+    @FormUrlEncoded
     @PUT("clientUser/update")
     Call<ResponseBody> updateUser(@Field("phoneNumber") String phone, @Field("password") String password);
+
+    @FormUrlEncoded
+@PUT("clientUser/updateById")
+    Call<ResponseBody> updateUseredetail(@Field("displayname") String displayname,
+                                         @Field("userId") String userId,
+                                         @Field("phoneNumber") String phoneNumber,
+                                         @Field("dateOfBirth") String dateOfBirth
+);
 
     @FormUrlEncoded
     @PUT("clientUser/update")

@@ -161,6 +161,16 @@
             android:text="$ 126"/>
     </LinearLayout>
     <Button
+        android:id="@+id/exploreDrinks"
+        android:layout_width="match_parent"
+        android:layout_marginTop="15dp"
+        android:textColor="#ffffff"
+        android:layout_marginHorizontal="10dp"
+        android:backgroundTint="@color/purple_700"
+        android:layout_height="wrap_content"
+        android:text="Explore Drinks"/>
+
+    <Button
         android:id="@+id/PlaceOrder"
         android:layout_width="match_parent"
         android:layout_marginTop="15dp"

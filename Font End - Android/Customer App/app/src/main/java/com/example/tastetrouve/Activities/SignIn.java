@@ -3,6 +3,17 @@ package com.example.tastetrouve.Activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.tastetrouve.Fragments.HomeFragment;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.Profile;
+import com.facebook.ProfileTracker;
+import com.facebook.appevents.AppEventsLogger;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -24,6 +35,8 @@ import com.example.tastetrouve.Models.UserModel;
 import com.example.tastetrouve.Models.UserTestModel;
 import com.example.tastetrouve.Models.Users;
 import com.example.tastetrouve.R;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -49,6 +62,11 @@ import retrofit2.Response;
 
 import static android.content.ContentValues.TAG;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Arrays;
+
 public class SignIn extends BaseActivity {
     private static final int RC_SIGN_IN = 123;
     EditText email,password;
@@ -59,6 +77,10 @@ public class SignIn extends BaseActivity {
     SharedPreferences sharedPreferences;
     FirebaseAuth mAuth;
     boolean flag;
+    CallbackManager callbackManager;
+
+    private ProfileTracker mProfileTracker;
+    Profile profile;
 
     GoogleSignInClient mGoogleSignInClient;
     @Override
@@ -68,6 +90,7 @@ public class SignIn extends BaseActivity {
         sharedPreferences = getApplicationContext().getSharedPreferences("LANGUAGE", Context.MODE_PRIVATE);
         String language = sharedPreferences.getString("code","en");
         setLanguage(language);
+        FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_sign_in);
 
         email = findViewById(R.id.emailEditText);
@@ -122,11 +145,92 @@ public class SignIn extends BaseActivity {
             }
         });
 
+        facebook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                onfbClick();
+            }
+        });
         google.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 signIn();
+            }
+        });
+    }
+
+    private void onfbClick() {
+        callbackManager = CallbackManager.Factory.create();
+
+        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("email","public_profile"));
+        LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+//                try{
+//                    if (Profile.getCurrentProfile() == null) {
+//                        mProfileTracker = new ProfileTracker() {
+//                            @Override
+//                            protected void onCurrentProfileChanged(Profile profile_old, Profile profile_new) {
+//                                // profile2 is the new profile
+//                                profile = profile_new;
+//                                mProfileTracker.stopTracking();
+//                            }
+//                        };
+//                        mProfileTracker.startTracking();
+//                    } else {
+//                        profile = Profile.getCurrentProfile();
+//                    }
+//
+//                    GraphRequest request = GraphRequest.newMeRequest(
+//                            loginResult.getAccessToken(),
+//                            new GraphRequest.GraphJSONObjectCallback() {
+//                                @Override
+//                                public void onCompleted(JSONObject object, GraphResponse response) {
+//                                    Log.v("FACEBOOK LOGIN", response.toString());
+//                                    // Application code
+//                                    try {
+//                                        String fb_id = object.getString("id");
+//                                        String fb_name = object.getString("name");
+//                                        String profilePicUrl = "https://graph.facebook.com/" + fb_id + "/picture?width=200&height=200";
+//                                        String fb_gender = object.getString("gender");
+//                                        String fb_email = object.getString("email");
+//                                        String fb_birthday = object.getString("birthday");
+//                                    } catch (JSONException e) {
+//                                        e.printStackTrace();
+//                                    }
+//
+//                                    //use shared preferences here
+//                                }
+//                            });
+//                    Bundle parameters = new Bundle();
+//                    parameters.putString("fields", "id,name,email,gender,birthday,picture.type(small)");
+//                    request.setParameters(parameters);
+//                    request.executeAsync();
+
+                    //go to Home page
+                    Intent intent = new Intent(SignIn.this, HomeActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    finish();
+//                }catch (Exception e )
+//                {
+//                    Log.d("TAG123", e.toString());
+//                }
+            }
+
+            @Override
+            public void onCancel() {
+
+
+                Log.d(TAG, "onCancel: ");
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+
+                Log.d("TAG123", error.getMessage());
             }
         });
     }
