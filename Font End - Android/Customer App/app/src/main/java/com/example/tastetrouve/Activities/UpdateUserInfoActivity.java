@@ -17,6 +17,7 @@ import com.example.tastetrouve.HelperClass.ApiInterface;
 import com.example.tastetrouve.Models.UserModel;
 import com.example.tastetrouve.R;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -24,6 +25,7 @@ import retrofit2.Response;
 public class UpdateUserInfoActivity extends AppCompatActivity {
 
     EditText name,DateOfBirth,PhoneNumber;
+    Button UpdateProfile;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +36,7 @@ public class UpdateUserInfoActivity extends AppCompatActivity {
 
         final EditText Name = findViewById(R.id.name);
         final EditText dateOfBirth = findViewById(R.id.DateOfBirth);
-        Button UpdateProfile = findViewById(R.id.UpdateProfile);
+         UpdateProfile = findViewById(R.id.UpdateProfile);
         name = findViewById(R.id.name);
         DateOfBirth = findViewById(R.id.DateOfBirth);
         PhoneNumber = findViewById(R.id.PhoneNumber);
@@ -42,12 +44,39 @@ public class UpdateUserInfoActivity extends AppCompatActivity {
         UpdateProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String Text = Name.getText().toString();
-                if (Text. isEmpty()){
 
-                }
+              update();
             }
         });
+    }
+
+    private void update() {
+        String token = getUserToken();
+        try {
+            ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+            apiInterface.updateUseredetail(name.getText().toString(),token,PhoneNumber.getText().toString(),
+                    DateOfBirth.getText().toString()  ).enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    try {
+                        Log.i("TAG","TAG: Code "+response.code()+" Message: "+response.message());
+                        if(response.code() == 200) {
+                            startActivity(new Intent(UpdateUserInfoActivity.this, HomeActivity.class));
+
+                        }
+                    } catch (Exception ex) {
+                        Log.i("TAG","TAG "+ex.getMessage());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    Log.i("TAG","TAG: Server Failure"+t.getMessage());
+                }
+            });
+        } catch (Exception ex) {
+            Log.i("TAG","TAG "+ex.getMessage());
+        }
     }
 
     private void loadUserData() {
