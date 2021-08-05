@@ -127,10 +127,11 @@ router.post("/getDrinksProducts", async (req, res) => {
 });
 
 router.post("/getSpecialOfferProducts", async (req, res) => {
-  const { userId } = req.body;
+  const { userId, specialType } = req.body;
 
   const product = await Product.find({
     specialOffer: true,
+    specialType,
   });
 
   for (var key in product) {
