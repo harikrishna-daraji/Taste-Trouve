@@ -78,7 +78,11 @@ public interface ApiInterface {
 
  @FormUrlEncoded
     @POST("product/getSpecialOfferProducts")
-    Call<List<ItemProductModel>> getSpecialProducts(@Field("userId") String userId);
+    Call<List<ItemProductModel>> getSpecialProducts(
+            @Field("userId") String userId,
+            @Field("specialType") String specialType
+
+ );
 
     @FormUrlEncoded
     @PUT("clientUser/update")

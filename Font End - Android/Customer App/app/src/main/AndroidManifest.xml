@@ -18,7 +18,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TasteTrouve"
         android:usesCleartextTraffic="true">
+
+        <activity android:name=".Activities.OfferContainerActivity"></activity>
         <activity android:name=".Activities.UpdateUserInfoActivity"></activity>
+
         <activity android:name=".Activities.OrderDetail" />
         <activity android:name=".Activities.MyOrdersActivity" />
         <activity android:name=".Activities.CartActivity" />
