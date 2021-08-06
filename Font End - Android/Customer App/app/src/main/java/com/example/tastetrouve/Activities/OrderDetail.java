@@ -101,10 +101,11 @@ public class OrderDetail extends  BaseActivity  {
                             rating.setRating(orderDetails.get(0).getRatingStar());
                             ratingReview.setText(orderDetails.get(0).getRatingReview());
                             Log.d("TAG", orderDetails.get(0).getRatingReview());
-                            if(orderDetails.get(0).getRatingReview()!=null ){
-                                reviewOrder.setVisibility(View.GONE);
-                            }else {
+                            if(orderDetails.get(0).getRatingReview().equals("") ){
                                 reviewContainer.setVisibility(View.GONE);
+                            }else {
+
+                                reviewOrder.setVisibility(View.GONE);
                             }
                         }
                     } catch (Exception ex) {

@@ -233,9 +233,10 @@ public class ItemActivity extends BaseActivity {
 
 
     private void loadDrinks(String restaurantID) {
+        String token = getUserToken();
         try {
             ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-            apiInterface.getDrinksProducts(restaurantID).enqueue(new Callback<List<ItemProductModel>>() {
+            apiInterface.getDrinksProducts(restaurantID,token).enqueue(new Callback<List<ItemProductModel>>() {
                 @Override
                 public void onResponse(Call<List<ItemProductModel>> call, Response<List<ItemProductModel>> response) {
                     try {

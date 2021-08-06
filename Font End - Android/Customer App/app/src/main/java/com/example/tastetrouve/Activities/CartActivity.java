@@ -353,6 +353,7 @@ public class CartActivity  extends BaseActivity implements CartInterface, Adapte
             int delivery = 5;
             int tax = (int) taxes;
             int totalInt = (int) total;
+            float rating = (float) 0;
 
             if(!userId.isEmpty() && !restaurantId.isEmpty() && !addressId.isEmpty()) {
 
@@ -363,6 +364,8 @@ public class CartActivity  extends BaseActivity implements CartInterface, Adapte
                 body.put("delivery",delivery);
                 body.put("tax",tax);
                 body.put("total",totalInt);
+                body.put("ratingStar",rating);
+                body.put("ratingReview","");
                 body.put("Products",prepareProductArray());
 
                 makeOrderApi(body);
