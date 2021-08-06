@@ -8,8 +8,17 @@ const moment = require("moment");
 
 router.post("/add", async (req, res) => {
   try {
-    const { userId, addressId, delivery, tax, total, Products, restaurantId } =
-      req.body;
+    const {
+      userId,
+      addressId,
+      delivery,
+      tax,
+      total,
+      Products,
+      restaurantId,
+      ratingStar,
+      ratingReview,
+    } = req.body;
 
     const newOrder = new Order({
       userId,
@@ -21,6 +30,8 @@ router.post("/add", async (req, res) => {
       products: Products,
       orderDate: moment().format("LL"),
       restaurantId,
+      ratingStar,
+      ratingReview,
     });
 
     const savedOrder = await newOrder.save();

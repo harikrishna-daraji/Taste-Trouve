@@ -59,6 +59,7 @@ public class PendingOrdersAdapter extends RecyclerView.Adapter<PendingOrdersAdap
         TextView userPhone;
         TextView status;
 
+
         RecyclerView pendingOrderRecycler;
 
    Button accept_order_button,decline_order_button;

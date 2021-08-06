@@ -45,7 +45,10 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("product/getDrinksProducts")
-    Call<List<ItemProductModel>> getDrinksProducts(@Field("restaurantId") String restaurantId);
+    Call<List<ItemProductModel>> getDrinksProducts(
+            @Field("restaurantId") String restaurantId,
+            @Field("userId") String userId );
+
 
 
     @FormUrlEncoded

@@ -117,13 +117,25 @@ router.post("/getProducts", async (req, res) => {
 });
 
 router.post("/getDrinksProducts", async (req, res) => {
-  const { restaurantId } = req.body;
+  const { restaurantId, userId } = req.body;
 
   const product = await Product.find({
     restaurantId,
     categoryId: "60c845afb91443700feb8e6f",
   });
-  
+
+  for (var key in product) {
+    const fav = await Favourite.findOne({
+      userId,
+      productId: product[key]._id,
+    });
+
+    product[key] = {
+      ...product[key]._doc,
+      favourite: fav == null ? "false" : "true",
+    };
+  }
+
   res.json(product);
 });
 
@@ -173,12 +185,24 @@ router.post("/getProductsByMainCategory", async (req, res) => {
 });
 
 router.post("/getProductsByRestaurant", async (req, res) => {
-  const { restaurantId } = req.body;
+  const { restaurantId, userId } = req.body;
 
   const product = await Product.find({
     restaurantId,
     visibleStatus: true,
   });
+
+  for (var key in product) {
+    const fav = await Favourite.findOne({
+      userId,
+      productId: product[key]._id,
+    });
+
+    product[key] = {
+      ...product[key]._doc,
+      favourite: fav == null ? "false" : "true",
+    };
+  }
   res.json(product);
 });
 
@@ -228,18 +252,6 @@ router.put("/update", async (req, res) => {
       if (err) {
         res.send(err);
       } else {
-        // var payload = {
-        //   data: {
-        //     title: "Product Updated",
-        //     message: "This product has been Updated",
-        //   },
-        // };
-        // admin
-        //   .messaging()
-        //   .sendToDevice(
-        //     "fCcVB03BQfW6oQvz-NkC8F:APA91bFIfTmzIwzvct2rEp5PQAclGmF1By3FBDdtq4rssLPVwEp-LOtLrVIStWjcJgX6LPlC2y-tfjgQx37iDD08l0hmFaWCWr_Wp8ggLzerHWJ5MlTgqLbHr4BvLFwVpCLJBbKI82CZ",
-        //     payload
-        //   );
         res.send("Updated");
       }
     }
