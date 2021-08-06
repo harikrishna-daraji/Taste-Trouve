@@ -30,6 +30,8 @@ const orderSchema = new mongoose.Schema({
     },
   ],
   orderDate: { type: String },
+  ratingStar: { type: Number },
+  ratingReview: { type: String },
 });
 
 module.exports = Order = mongoose.model("Order", orderSchema);

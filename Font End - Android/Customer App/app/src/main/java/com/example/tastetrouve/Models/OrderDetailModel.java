@@ -3,8 +3,10 @@ package com.example.tastetrouve.Models;
 import java.util.List;
 
 public class OrderDetailModel {
-    public String _id,orderDate,total,orderStatus,delivery,tax;
+    public String _id,orderDate,total,orderStatus,delivery,tax,ratingReview;
+    public Float ratingStar;
     public List<ProductOrderModel> products;
+
 
     public String get_id() {
         return _id;
@@ -62,7 +64,7 @@ public class OrderDetailModel {
         this.products = products;
     }
 
-    public OrderDetailModel(String _id, String orderDate, String total, String orderStatus, String delivery, String tax, List<ProductOrderModel> products) {
+    public OrderDetailModel(String _id, String orderDate, String total, String orderStatus, String delivery, String tax, List<ProductOrderModel> products,String ratingReview, Float ratingStar) {
         this._id = _id;
         this.orderDate = orderDate;
         this.total = total;
@@ -70,5 +72,25 @@ public class OrderDetailModel {
         this.delivery = delivery;
         this.tax = tax;
         this.products = products;
+        this.ratingReview = ratingReview;
+        this.ratingStar = ratingStar;
     }
+
+    public String getRatingReview() {
+        return ratingReview;
+    }
+
+    public void setRatingReview(String ratingReview) {
+        this.ratingReview = ratingReview;
+    }
+
+    public float getRatingStar() {
+        return ratingStar;
+    }
+
+    public void setRatingStar(Float ratingStar) {
+        this.ratingStar = ratingStar;
+    }
+
+
 }
