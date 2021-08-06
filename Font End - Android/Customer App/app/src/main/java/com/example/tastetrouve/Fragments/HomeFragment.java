@@ -201,12 +201,12 @@ public class HomeFragment extends Fragment {
 
                         String price = seekText.getText().toString();
 
-//                        RadioGroup radioGroup = bottomSheetView.findViewById(R.id.RadioGroup);
-//                        int radioId = radioGroup.getCheckedRadioButtonId();
-//
-//                        RadioButton radioButton = bottomSheetView.findViewById(radioId);
-//                        String radio = radioButton.getText().toString();
-//                        Log.i("toast", "onClick: "+radio);
+                        RadioGroup radioGroup = bottomSheetView.findViewById(R.id.RadioGroup);
+                        int radioId = radioGroup.getCheckedRadioButtonId();
+
+                        RadioButton radioButton = bottomSheetView.findViewById(radioId);
+                        String radio = radioButton.getText().toString();
+                        Log.i("toast", "onClick: "+radio);
 
                         if(catogeryspinner == "Appetizer"){
                             Intent intent = new Intent(getActivity(), ItemActivity.class);
@@ -214,15 +214,46 @@ public class HomeFragment extends Fragment {
                             for(CategoryModel model: homeProductModel.getCategoryObject()) {
                                 if(model.getName().equals("Appetizers")) {
                                     intent.putExtra("categoryId",model.get_id());
+                                    intent.putExtra("sort",pricespinner);
+                                    intent.putExtra("radio",radio);
                                     intent.putExtra("price",price);
-
                                     break;
                                 }
                             }
                             startActivity(intent);
                         }
 
+                        if(catogeryspinner == "Main-Course"){
+                            Intent intent = new Intent(getActivity(), ItemActivity.class);
+                            intent.putExtra("section", GlobalObjects.Category.main_course.toString());
 
+                            for(CategoryModel model: homeProductModel.getCategoryObject()) {
+                                if(model.getName().equals("Main Course")) {
+                                    intent.putExtra("categoryId",model.get_id());
+                                    intent.putExtra("sort",pricespinner);
+                                    intent.putExtra("radio",radio);
+                                    intent.putExtra("price",price);
+                                    break;
+                                }
+                            }
+                            startActivity(intent);
+                        }
+
+                        if(catogeryspinner == "Desserts"){
+                            Intent intent = new Intent(getActivity(), ItemActivity.class);
+                            intent.putExtra("section", GlobalObjects.Category.dessert.toString());
+
+                            for(CategoryModel model: homeProductModel.getCategoryObject()) {
+                                if(model.getName().equals("Dessert")) {
+                                    intent.putExtra("categoryId",model.get_id());
+                                    intent.putExtra("sort",pricespinner);
+                                    intent.putExtra("radio",radio);
+                                    intent.putExtra("price",price);
+                                    break;
+                                }
+                            }
+                            startActivity(intent);
+                        }
                     }
                 });
             }

@@ -70,6 +70,12 @@
         android:layout_gravity="center"
         android:id="@+id/RadioGroup">
         <RadioButton
+            android:id="@+id/sample"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="None"
+            android:checked="true"/>
+        <RadioButton
             android:id="@+id/RadioKids"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
