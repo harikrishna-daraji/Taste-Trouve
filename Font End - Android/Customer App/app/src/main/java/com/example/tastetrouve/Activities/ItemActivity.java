@@ -24,6 +24,8 @@ import com.example.tastetrouve.R;
 import com.google.android.gms.common.api.Api;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import retrofit2.Call;
@@ -40,6 +42,10 @@ public class ItemActivity extends BaseActivity {
     List<KidSectionModel> kidSectionModels;
     TextView topHeading, noResultTV;
     String price;
+    String sort;
+    String radio;
+    boolean iskid,popular;
+
    // String categoryId;
     int pr;
 
@@ -47,10 +53,20 @@ public class ItemActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTheme(loadStyle(false));
+        iskid = false;
+        popular = false;
         sharedPreferences = getApplicationContext().getSharedPreferences("LANGUAGE", Context.MODE_PRIVATE);
         String language = sharedPreferences.getString("code","en");
         setLanguage(language);
         price = getIntent().getStringExtra("price");
+        sort = getIntent().getStringExtra("sort");
+        radio = getIntent().getStringExtra("radio");
+        if(radio == "For Kids"){
+            iskid = true;
+        }
+        if(radio == "Popular"){
+            popular = true;
+        }
        // categoryId = getIntent().getStringExtra("categoryId");
         setContentView(R.layout.activity_item);
         initUI();
@@ -58,7 +74,7 @@ public class ItemActivity extends BaseActivity {
     }
 
     private void manageIntent() {
-        if(getIntent().hasExtra("section") && getIntent().hasExtra("categoryId") && getIntent().hasExtra("price")){
+        if(getIntent().hasExtra("section") && getIntent().hasExtra("categoryId") && getIntent().hasExtra("price") && getIntent().hasExtra("sort") && getIntent().hasExtra("radio")){
             topHeading.setText(getIntent().getStringExtra("section"));
             getProductsOfFilter(getIntent().getStringExtra("categoryId"));
         }else if(getIntent().hasExtra("section") && getIntent().hasExtra("categoryId")) {
@@ -112,14 +128,81 @@ public class ItemActivity extends BaseActivity {
                         try {
                             Log.i("TAG", "TAG: Code: " + response.code() + " Message: " + response.message());
                             if (response.code() == 200) {
-
                                 itemProductModels = response.body();
                                 pr = Integer.parseInt(price.trim());
                                 categorizedList.clear();
                                 for (ItemProductModel model : itemProductModels) {
-                                    if (model.getCategoryId().contains(categoryId) && model.getPrice() <= pr) {
-                                        categorizedList.add(model);
-                                        Log.i("TAG", "onResponse: " + categorizedList.size());
+                                    if (model.getCategoryId().contains(categoryId) && model.getPrice() <= pr && radio == "None") {
+                                        if(sort.equals("Select...")) {
+                                            categorizedList.add(model);
+                                            Log.i("TAG", "onResponse: " + categorizedList.size());
+                                        }
+                                        if(sort.equals("Low To High")){
+                                            Collections.sort(categorizedList, new Comparator<ItemProductModel>() {
+                                                @Override
+                                                public int compare(ItemProductModel o1, ItemProductModel o2) {
+                                                    return Integer.valueOf(o1.getPrice()).compareTo(o2.getPrice());
+                                                }
+                                            });
+                                             categorizedList.add(model);
+                                        }
+                                        if(sort.equals("High To Low")){
+                                            Collections.sort(categorizedList, new Comparator<ItemProductModel>() {
+                                                @Override
+                                                public int compare(ItemProductModel o1, ItemProductModel o2) {
+                                                    return Integer.valueOf(o2.getPrice()).compareTo(o1.getPrice());
+                                                }
+                                            });
+                                            categorizedList.add(model);
+                                        }
+                                    }
+                                    if (model.getCategoryId().contains(categoryId) && model.getPrice() <= pr && model.isPopular() == popular) {
+                                        if(sort.equals("Select...")) {
+                                            categorizedList.add(model);
+                                            Log.i("TAG", "onResponse: " + categorizedList.size());
+                                        }
+                                        if(sort.equals("Low To High")){
+                                            Collections.sort(categorizedList, new Comparator<ItemProductModel>() {
+                                                @Override
+                                                public int compare(ItemProductModel o1, ItemProductModel o2) {
+                                                    return Integer.valueOf(o1.getPrice()).compareTo(o2.getPrice());
+                                                }
+                                            });
+                                            categorizedList.add(model);
+                                        }
+                                        if(sort.equals("High To Low")){
+                                            Collections.sort(categorizedList, new Comparator<ItemProductModel>() {
+                                                @Override
+                                                public int compare(ItemProductModel o1, ItemProductModel o2) {
+                                                    return Integer.valueOf(o2.getPrice()).compareTo(o1.getPrice());
+                                                }
+                                            });
+                                            categorizedList.add(model);
+                                        }
+                                    }
+                                    if (model.getCategoryId().contains(categoryId) && model.getPrice() <= pr && model.isKidSection() == iskid) {
+                                        if(sort.equals("Select...")) {
+                                            categorizedList.add(model);
+                                            Log.i("TAG", "onResponse: " + categorizedList.size());
+                                        }
+                                        if(sort.equals("Low To High")){
+                                            Collections.sort(categorizedList, new Comparator<ItemProductModel>() {
+                                                @Override
+                                                public int compare(ItemProductModel o1, ItemProductModel o2) {
+                                                    return Integer.valueOf(o1.getPrice()).compareTo(o2.getPrice());
+                                                }
+                                            });
+                                            categorizedList.add(model);
+                                        }
+                                        if(sort.equals("High To Low")){
+                                            Collections.sort(categorizedList, new Comparator<ItemProductModel>() {
+                                                @Override
+                                                public int compare(ItemProductModel o1, ItemProductModel o2) {
+                                                    return Integer.valueOf(o2.getPrice()).compareTo(o1.getPrice());
+                                                }
+                                            });
+                                            categorizedList.add(model);
+                                        }
                                     }
                                 }
                                 itemRecycle.setAdapter(new ItemRecycleAdapter(ItemActivity.this, categorizedList));
