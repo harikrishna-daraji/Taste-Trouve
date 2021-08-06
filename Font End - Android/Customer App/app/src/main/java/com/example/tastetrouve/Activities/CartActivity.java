@@ -4,6 +4,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -56,7 +57,8 @@ public class CartActivity  extends BaseActivity implements CartInterface, Adapte
     List<CartModel> cartModelArrayList = new ArrayList<>();
     CartRecyclerAdapter cartRecyclerAdapter;
     TextView subTotalTV, texesTV, deliveryTV, totalTV;
-    Button placeOrder;
+    Button placeOrder,exploreDrinks;
+    public String restroId;
     double subTotal = 0, total=0, taxes=0;
     List<AddressModel> addressModelList = new ArrayList<>();
     List<String> stringAddressList = new ArrayList<>();
@@ -90,6 +92,19 @@ public class CartActivity  extends BaseActivity implements CartInterface, Adapte
         no_result_Linear = findViewById(R.id.no_result_Linear);
         totalLinear = findViewById(R.id.totalLinear);
         subTotalLinear = findViewById(R.id.subTotalLinear);
+        exploreDrinks=findViewById(R.id.exploreDrinks);
+
+        exploreDrinks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CartActivity.this, ItemActivity.class);
+
+                intent.putExtra(GlobalObjects.ModelList.Restaurant.toString(),restroId);
+
+                startActivity(intent);
+            }
+        });
+
 
 
         findViewById(R.id.backBtn).setOnClickListener(new View.OnClickListener() {
@@ -220,6 +235,7 @@ public class CartActivity  extends BaseActivity implements CartInterface, Adapte
 
                             for(CartModel cartModel: cartModelArrayList) {
                                 CartProductModel cartProductModel = cartModel.getProductId();
+                                restroId=cartModel.getProductId().getRestaurantId();
                                 subTotal = subTotal + cartProductModel.getPrice() * cartModel.getQuantity();
                             }
                             subTotalTV.setText(roundNumber(subTotal));

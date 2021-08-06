@@ -123,6 +123,7 @@ router.post("/getDrinksProducts", async (req, res) => {
     restaurantId,
     categoryId: "60c845afb91443700feb8e6f",
   });
+  
   res.json(product);
 });
 

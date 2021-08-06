@@ -109,7 +109,7 @@ public class ItemRecycleAdapter extends RecyclerView.Adapter<ItemRecycleAdapter.
             return itemProductModels.size();
         } else if(kidSectionModels != null) {
             return kidSectionModels.size();
-        } else {
+        } else{
             return popularSectionModels.size();
         }
     }

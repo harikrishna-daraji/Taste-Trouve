@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.tastetrouve.Activities.MapActivity;
 import com.example.tastetrouve.Activities.MyOrdersActivity;
 import com.example.tastetrouve.Activities.SignIn;
+import com.example.tastetrouve.Activities.UpdateUserInfoActivity;
 import com.example.tastetrouve.Adapters.AddressRecycleAdapter;
 import com.example.tastetrouve.HelperClass.ApiClient;
 import com.example.tastetrouve.HelperClass.ApiInterface;
@@ -44,7 +45,7 @@ public class SettingsFragment extends Fragment {
     private View root;
     RecyclerView addressRecycle;
     List<AddressModel> addressModelList = new ArrayList<>();
-    LinearLayout addressListLinear,myOrders;
+    LinearLayout addressListLinear,myOrders,manageProfileLinear;
 
     public SettingsFragment() {
 
@@ -70,6 +71,7 @@ public class SettingsFragment extends Fragment {
         addressListLinear = root.findViewById(R.id.addressListLinear);
         myOrders = root.findViewById(R.id.myOrders);
         addressRecycle = root.findViewById(R.id.addressRecycle);
+        manageProfileLinear = root.findViewById(R.id.manageProfileLinear);
         addressRecycle.setLayoutManager(new LinearLayoutManager(getContext()));
 
 
@@ -93,7 +95,9 @@ public class SettingsFragment extends Fragment {
         root.findViewById(R.id.manageProfileLinear).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent();
+                intent.setClass(getActivity(), UpdateUserInfoActivity.class);
+                getActivity().startActivity(intent);
             }
         });
         root.findViewById(R.id.manageAddressLinear).setOnClickListener(new View.OnClickListener() {

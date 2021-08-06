@@ -130,4 +130,16 @@ router.put("/update", async (req, res) => {
   return res.send({ data: "updatedUser" });
 });
 
+router.put("/updateById", async (req, res) => {
+  const data = req.body;
+
+  var myquery = { _id: data.userId };
+  var newvalues = { $set: { ...data } };
+  await User.updateOne(myquery, newvalues, function (err, res) {
+    if (err) throw err;
+  });
+
+  return res.send({ data: "updatedUser" });
+});
+
 module.exports = router;
