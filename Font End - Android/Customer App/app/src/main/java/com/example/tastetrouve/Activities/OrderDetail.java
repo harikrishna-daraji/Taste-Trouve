@@ -5,10 +5,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.tastetrouve.Adapters.MyOrderAdapter;
@@ -30,8 +33,10 @@ public class OrderDetail extends  BaseActivity  {
 
     List<OrderDetailModel> orderDetails;
     RecyclerView recyclerView;
-    TextView orderIDdetail,tax,Delivery,total,orderStatus;
+    TextView orderIDdetail,tax,Delivery,total,orderStatus,ratingReview;
     SharedPreferences sharedPreferences;
+    LinearLayout reviewOrder,reviewContainer;
+    RatingBar rating;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,14 +59,26 @@ public class OrderDetail extends  BaseActivity  {
 
         recyclerView = findViewById(R.id.orderDetails);
         orderIDdetail = findViewById(R.id.orderIDdetail);
+        reviewContainer = findViewById(R.id.reviewContainer);
         tax = findViewById(R.id.tax);
         Delivery = findViewById(R.id.Delivery);
         total = findViewById(R.id.total);
         orderStatus = findViewById(R.id.orderStatus);
+        reviewOrder = findViewById(R.id.reviewOrder);
+        rating = findViewById(R.id.rating);
+        ratingReview = findViewById(R.id.ratingReview);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        reviewOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                Intent intent = new Intent(getBaseContext(), ReviewActivity.class);
+                intent.putExtra("orderId", orderId);
+                startActivity(intent);
+            }
+        });
 
 
         try {
@@ -81,6 +98,14 @@ public class OrderDetail extends  BaseActivity  {
                             Delivery.setText(orderDetails.get(0).getDelivery().toString());
                             total.setText(orderDetails.get(0).getTotal().toString());
                             orderStatus.setText(orderDetails.get(0).getOrderStatus().toString());
+                            rating.setRating(orderDetails.get(0).getRatingStar());
+                            ratingReview.setText(orderDetails.get(0).getRatingReview());
+                            Log.d("TAG", orderDetails.get(0).getRatingReview());
+                            if(orderDetails.get(0).getRatingReview()!=null ){
+                                reviewOrder.setVisibility(View.GONE);
+                            }else {
+                                reviewContainer.setVisibility(View.GONE);
+                            }
                         }
                     } catch (Exception ex) {
                         Log.i("TAG","TAG "+ex.getMessage());
