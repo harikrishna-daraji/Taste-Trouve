@@ -14,7 +14,6 @@
         android:orientation="vertical">
         <LinearLayout
             android:orientation="vertical"
-            android:id="@+id/whitelayout"
             android:layout_width="match_parent"
             android:background="#FFF8F8"
             android:layout_weight="1"

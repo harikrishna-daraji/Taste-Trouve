@@ -162,4 +162,11 @@ public interface ApiInterface {
     Call<ResponseBody> getCartCount(@Field("userId") String userId);
 
 
+    @FormUrlEncoded
+    @PUT("Order/addReview")
+    Call<ResponseBody> addReview(
+            @Field("orderId") String orderId,
+            @Field("ratingStar") Double ratingStar,
+            @Field("ratingReview") String ratingReview
+    );
 }

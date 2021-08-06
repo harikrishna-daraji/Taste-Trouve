@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
+
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
     <com.google.android.material.appbar.AppBarLayout
         android:background="?attr/backgroundColor"
         android:layout_width="match_parent"
@@ -46,6 +56,7 @@
         </com.google.android.material.appbar.MaterialToolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -105,12 +116,53 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/orderDetails"
         android:layout_width="match_parent"
-        android:layout_height="350dp"
+        android:layout_height="310dp"
         android:layout_marginTop="20dp"
         android:clipToPadding="false"
 
         android:layout_marginHorizontal="30dp"
         />
+    <LinearLayout
+        android:id="@+id/reviewOrder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:gravity="center"
+        android:padding="10dp"
+        android:layout_marginVertical="10dp"
+        android:background="@drawable/orange_background"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+
+            android:text="Review  Order"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/reviewContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/black_otline_border"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginVertical="15dp"
+        android:orientation="vertical">
+
+        <RatingBar
+            android:id="@+id/rating"
+            android:layout_width="wrap_content"
+            android:layout_height="67dp"
+            android:isIndicator="true"
+            android:layout_gravity="center"
+            android:numStars="5" />
+        <TextView
+            android:id="@+id/ratingReview"
+            android:layout_gravity="center"
+            android:text="thi is a review"
+            android:layout_marginBottom="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -188,5 +240,6 @@
             android:text="bdjbjfsd"/>
     </LinearLayout>
     </LinearLayout>
-
+</LinearLayout>
+</ScrollView>
 </LinearLayout>
