@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
@@ -7,36 +7,187 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/startButton"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@color/black"
-        android:enabled="false"
-        android:text="Start navigation"
-        android:textColor="@color/white"/>
     <com.mapbox.mapboxsdk.maps.MapView
-        android:layout_weight="1"
-        xmlns:mapbox="http://schemas.android.com/apk/res-auto"
         android:id="@+id/mapView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        mapbox:mapbox_cameraTargetLat="38.9098"
-        mapbox:mapbox_cameraTargetLng="-77.0295"
-        mapbox:mapbox_cameraZoom="12" />
+        android:layout_above="@+id/tabs"
+        android:layout_marginBottom="0dp"
+        android:layout_weight="1"
+        app:mapbox_cameraTargetLat="38.9098"
+        app:mapbox_cameraTargetLng="-77.0295"
+        app:mapbox_cameraZoom="12" />
 
     <RelativeLayout
+        android:layout_above="@+id/tabs"
+        android:layout_marginBottom="0dp"
         android:visibility="gone"
         android:layout_weight="1"
         android:id="@+id/containerHomeRelative"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+    <androidx.cardview.widget.CardView
+        android:visibility="visible"
+        android:id="@+id/newOrderCardView"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        app:cardCornerRadius="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:background="@color/blue"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_marginStart="20dp"
+                android:textColor="@color/orange"
+                android:text="@string/new_order"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <LinearLayout
+                android:layout_marginStart="20dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    app:tint="@color/orange"
+                    android:src="@drawable/ic_baseline_location_on_24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:id="@+id/addressTV"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="@color/white"
+                    android:textSize="17sp"
+                    android:text="@string/pizza_pizza"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/acceptRejectLinear"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="20dp"
+                android:paddingBottom="20dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <androidx.cardview.widget.CardView
+                    android:padding="50dp"
+                    android:layout_weight="1"
+                    app:cardCornerRadius="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <RelativeLayout
+                        android:id="@+id/acceptRelative"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/orange">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:padding="6dp"
+                            android:text="@string/accept"
+                            android:textColor="@color/white" />
+                    </RelativeLayout>
+                </androidx.cardview.widget.CardView>
+                <LinearLayout
+                    android:layout_weight="0.1"
+                    android:background="@color/blue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"/>
+                <androidx.cardview.widget.CardView
+                    android:padding="5dp"
+                    android:layout_weight="1"
+                    app:cardCornerRadius="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <RelativeLayout
+                        android:id="@+id/rejectRelative"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/white">
+                        <TextView
+                            android:padding="6dp"
+                            android:layout_centerInParent="true"
+                            android:textColor="@color/black"
+                            android:text="@string/reject"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                    </RelativeLayout>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/finishCardView"
+                android:visibility="gone"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="50dp"
+                app:cardCornerRadius="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/orange">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:padding="10dp"
+                        android:text="@string/finish_delivery"
+                        android:textColor="@color/white" />
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <RelativeLayout
+        android:id="@+id/goOnlineRelative"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_above="@+id/tabs"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="25dp"
+        android:background="@drawable/circle_background">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/go"
+                android:textColor="@color/white"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/online"
+                android:textColor="@color/white"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+    </RelativeLayout>
 
     <com.google.android.material.tabs.TabLayout
+        android:layout_alignParentBottom="true"
         android:id="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -68,4 +219,4 @@
 
     </com.google.android.material.tabs.TabLayout>
 
-</LinearLayout>
+</RelativeLayout>

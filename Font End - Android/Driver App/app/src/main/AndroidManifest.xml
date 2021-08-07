@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -17,8 +18,18 @@
         android:theme="@style/Theme.TasteTrouveDriver"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".NavigationActivity"
-            android:exported="true" />
+            android:name=".StackNavigationActivity"
+            android:exported="true">
+
+        </activity>
+        <activity
+            android:name=".StackActivity"
+            android:exported="true">
+
+        </activity>
+        <activity
+            android:name=".BasicNavigationActivity"
+            android:exported="true"></activity>
 
         <meta-data
             android:name="com.google.android.gms.version"
@@ -30,8 +41,10 @@
         <activity
             android:name=".Helper.Fragments.MapFragment"
             android:exported="true" />
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".SignUpActivity" />
+        <activity android:name=".MainActivity" >
+        </activity>
+        <activity android:name=".SignUpActivity">
+        </activity>
         <activity android:name=".SplashAcivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

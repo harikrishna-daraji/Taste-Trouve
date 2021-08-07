@@ -13,7 +13,8 @@
     <string name="finish_delivery">Finish delivery</string>
     <string name="accept">Accept</string>
     <string name="reject">Reject</string>
-    <string name="mapbox_access_token">sk.eyJ1IjoiaGFyaWtyaXNobmFkYXJhamkiLCJhIjoiY2tydHJ2ZjFxMTc5bjJ3bzlla25zdzNodiJ9.c1WaKtXc28kUAZ21myG0rQ</string>
+    <string name="new_location">new_location</string>
+    <string name="mapbox_access_token">pk.eyJ1IjoiaGFyaWtyaXNobmFkYXJhamkiLCJhIjoiY2tuOTVjbzBmMTRsbDJvcGg4aHo2bHE2aSJ9.Qo0K6OT0fA0vAwsTZi0zXw</string>
     <string name="user_location_permission_explanation">This app needs location permissions to show its functionality.</string>
     <string name="user_location_permission_not_granted">You didn\'t grant location permissions.</string>
 </resources>
