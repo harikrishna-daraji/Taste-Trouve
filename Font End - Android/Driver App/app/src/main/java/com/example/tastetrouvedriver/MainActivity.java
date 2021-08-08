@@ -9,6 +9,9 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.tastetrouvedriver.Helper.APIClient;
+import com.example.tastetrouvedriver.Helper.ApiInterface;
+import com.example.tastetrouvedriver.Helper.GlobalObjects;
+import com.example.tastetrouvedriver.Helper.Model.AddressModel;
 import com.example.tastetrouvedriver.Helper.Model.DriverCurrentRequestModel;
 import com.example.tastetrouvedriver.Helper.Model.DriverLocationModel;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -150,7 +153,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     CardView newOrderCardView, finishCardView;
     LinearLayout acceptRejectLinear;
     RelativeLayout acceptRelative, rejectRelative, goOnlineRelative;
-    Point origin, destination;
+    Point origin = Point.fromLngLat(45.501562071441825, -73.6300247057701);
+    Point destination;
+    TextView statusTV;
+    int count=0;
 
 
     // variables for calculating and drawing a route
@@ -238,10 +244,45 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private void initUI() {
         goOnlineRelative = findViewById(R.id.goOnlineRelative);
+        goOnlineRelative.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (statusTV.getText().equals(getString(R.string.offline))) {
+                    changeDriverOnlineStatus(true);
+                } else {
+                    changeDriverOnlineStatus(false);
+                }
+            }
+        });
+
+        statusTV = findViewById(R.id.statusTV);
+
         rejectRelative = findViewById(R.id.rejectRelative);
+        rejectRelative.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateStatusOfCurrentOrder(GlobalObjects.rejected_by_driver);
+            }
+        });
+
         acceptRelative = findViewById(R.id.acceptRelative);
+        acceptRelative.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateStatusOfCurrentOrder(GlobalObjects.accepted_by_driver);
+            }
+        });
+
         acceptRejectLinear = findViewById(R.id.acceptRejectLinear);
+
         finishCardView = findViewById(R.id.finishCardView);
+        finishCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finishCurrentOrder();
+            }
+        });
+
         newOrderCardView = findViewById(R.id.newOrderCardView);
         addressTV = findViewById(R.id.addressTV);
         tabs = findViewById(R.id.tabs);
@@ -253,14 +294,17 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 if (tab.getPosition() == 0) {
+                    goOnlineRelative.setVisibility(View.GONE);
                     mapView.setVisibility(View.GONE);
                     containerHomeRelative.setVisibility(View.VISIBLE);
                     openNavigationMenu(pastOrderFragment);
                 } else if (tab.getPosition() == 1) {
+                    goOnlineRelative.setVisibility(View.VISIBLE);
                     mapView.setVisibility(View.VISIBLE);
                     containerHomeRelative.setVisibility(View.GONE);
 //                    openNavigationMenu(mapFragment);
                 } else if (tab.getPosition() == 2) {
+                    goOnlineRelative.setVisibility(View.GONE);
                     mapView.setVisibility(View.GONE);
                     containerHomeRelative.setVisibility(View.VISIBLE);
                     openNavigationMenu(settingsFragment);
@@ -291,32 +335,21 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 //    }
     @Override
     public void onMapReady(@NonNull MapboxMap mapboxMap) {
+
         this.mapboxMap = mapboxMap;
-        mapboxMap.addOnMapClickListener(this);
+        mapboxMap.setStyle(Style.MAPBOX_STREETS, new Style.OnStyleLoaded() {
+            @Override
+            public void onStyleLoaded(@NonNull Style style) {
+                enableLocationComponent(style);
+                initSource(style);
+                initLayers(style);
+                getDriverCurrentOrder();
+            }
+        });
 
-        mapboxMap.setStyle(Style.MAPBOX_STREETS,
-                new Style.OnStyleLoaded() {
-                    @Override
-                    public void onStyleLoaded(@NonNull Style style) {
+//        mapboxMap.addOnMapClickListener(this);
 
-                        enableLocationComponent(style);
-                        getDriverCurrentOrder();
-
-                        origin = Point.fromLngLat(-73.63009981093005, 45.50148687522766);
-
-                        destination = Point.fromLngLat(-73.58757864001308, 45.507913247808354);
-
-                        initSource(style);
-
-                        initLayers(style);
-
-                        getRoute(origin, destination);
-
-                    }
-                });
-
-
-        mapboxMap.setOnMarkerClickListener(this);
+//        mapboxMap.setOnMarkerClickListener(this);
     }
 
     @SuppressWarnings({"MissingPermission"})
@@ -325,10 +358,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         if (PermissionsManager.areLocationPermissionsGranted(this)) {
             // Activate the MapboxMap LocationComponent to show user location
             // Adding in LocationComponentOptions is also an optional parameter
-            locationComponent = mapboxMap.getLocationComponent();
+            LocationComponent locationComponent = mapboxMap.getLocationComponent();
             locationComponent.activateLocationComponent(this, loadedMapStyle);
             locationComponent.setLocationComponentEnabled(true);
-            // Set the component's camera mode
             locationComponent.setCameraMode(CameraMode.TRACKING);
         } else {
             permissionsManager = new PermissionsManager(this);
@@ -471,10 +503,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 if (location == null) {
                     return;
                 }
-
+//                + Math.random() * 20 + 1
                 // Create a Toast which displays the new location's coordinates
                Log.i("TAG","TAG: HAri location "+result.getLastLocation());
-                storeDriverLocationOnFirebase(new DriverLocationModel(result.getLastLocation().getLatitude() - Math.random() * 20 + 1,result.getLastLocation().getLongitude() + Math.random() * 20 + 1,staticCurrentRoute.toJson()));
+                storeDriverLocationOnFirebase(new DriverLocationModel(result.getLastLocation().getLatitude(),result.getLastLocation().getLongitude() ,staticCurrentRoute.toJson()));
                 // Pass the new location to the Maps SDK's LocationComponent
                 if (activity.mapboxMap != null && result.getLastLocation() != null) {
                     activity.mapboxMap.getLocationComponent().forceLocationUpdate(result.getLastLocation());
@@ -518,9 +550,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                             JSONObject finalResponse = new JSONObject(response.body().string());
                             driverCurrentRequestModel = new DriverCurrentRequestModel(finalResponse);
                             if(driverCurrentRequestModel.getOrderId() != null) {
-//                                newOrderCardView.setVisibility(View.VISIBLE);
+                                newOrderCardView.setVisibility(View.VISIBLE);
                                 addressTV.setText(driverCurrentRequestModel.getOrderId().getAddressId().getAddress());
-//                                destination = new MarkerOptions().position(new com.google.android.gms.maps.model.LatLng(Double.parseDouble(driverCurrentRequestModel.getRestroId().getLng()),Double.parseDouble(driverCurrentRequestModel.getRestroId().getLng())));
+                                AddressModel model = driverCurrentRequestModel.getOrderId().getAddressId();
+                                destination = Point.fromLngLat(Double.parseDouble(model.get_long()),Double.parseDouble(model.getLat()));
+                                Log.i("TAG","TAG: Order id "+driverCurrentRequestModel.get_id());
                             }
                         } catch (Exception ex) {
                             Log.i("TAG","TAG: "+ex.getMessage());
@@ -551,16 +585,46 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
+    private void finishCurrentOrder() {
+        if(driverCurrentRequestModel != null) {
+            try {
+                APIClient.getInstance().getApi().finishCurrentOrder(driverCurrentRequestModel.get_id(),GlobalObjects.delivered).enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        try {
+                            int status = response.code();
+                            if(status == 200) {
+                                finishCardView.setVisibility(View.GONE);
+                                acceptRejectLinear.setVisibility(View.VISIBLE);
+                                newOrderCardView.setVisibility(View.GONE);
+                            }
+                        } catch (Exception ex) {
+                            Log.i("TAG","TAG "+ex.getMessage());
+                        }
+                     }
 
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Log.i("TAG","TAG: Server failure "+t.getMessage());
+                    }
+                });
+            } catch (Exception ex) {
+                Log.i("TAG","TAG "+ex.getMessage());
+            }
+        }
+    }
 
     private void updateStatusOfCurrentOrder(String orderStatus) {
         try {
-            APIClient.getInstance().getApi().updateCurrentOrderStatus(driverCurrentRequestModel.getOrderId().get_id(),orderStatus).enqueue(new Callback<ResponseBody>() {
+            APIClient.getInstance().getApi().updateCurrentOrderStatus(driverCurrentRequestModel.get_id(),orderStatus).enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     try {
-                        JSONObject finalResponse = new JSONObject(response.body().string());
-                        Log.i("TAG","TAG: Body "+finalResponse.toString());
+                        int status = response.code();
+                        if(status == 200) {
+                            acceptRejectLinear.setVisibility(View.GONE);
+                            finishCardView.setVisibility(View.VISIBLE);
+                        }
                     } catch (Exception ex) {
                         Log.i("TAG","TAG "+ex.getMessage());
                     }
@@ -593,6 +657,40 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     Log.i("TAG","TAG: Failure of listener of firebase");
                 }
             });
+        }
+    }
+
+
+    private void changeDriverOnlineStatus(boolean isOnline) {
+        String token = getUserToken();
+        if(!token.isEmpty()) {
+            try {
+                APIClient.getInstance().getApi().updateOnlineStatus(token,isOnline).enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        try {
+                            int status = response.code();
+                            if(status == 200) {
+                                if(isOnline) {
+                                    statusTV.setText(getString(R.string.online));
+                                } else {
+                                    statusTV.setText(getString(R.string.offline));
+                                }
+
+                            }
+                        } catch (Exception ex) {
+                            Log.i("TAG","TAG "+ex.getMessage());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Log.i("TAG","TAG Server failure: "+t.getMessage());
+                    }
+                });
+            } catch (Exception ex) {
+                Log.i("TAG","TAG "+ex.getMessage());
+            }
         }
     }
 

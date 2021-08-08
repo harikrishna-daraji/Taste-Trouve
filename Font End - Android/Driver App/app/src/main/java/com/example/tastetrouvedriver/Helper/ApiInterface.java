@@ -53,6 +53,12 @@ public interface ApiInterface {
     @PUT("trackOrder/update")
     Call<ResponseBody> updateCurrentOrderStatus(@Field("orderId") String orderId, @Field("updateStatus") String updateStatus);
 
+    @FormUrlEncoded
+    @PUT("trackOrder/finishOrder")
+    Call<ResponseBody> finishCurrentOrder(@Field("orderId") String orderId,@Field("updateStatus") String updateStatus);
 
+    @FormUrlEncoded
+    @PUT("clientUser/updateById")
+    Call<ResponseBody> updateOnlineStatus(@Field("userId") String userId, @Field("isOnline") boolean isOnline);
 }
 
