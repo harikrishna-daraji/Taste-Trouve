@@ -1,5 +1,6 @@
 package com.example.tastetrouve.Adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -28,12 +29,12 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.MyVi
 
 
     List<FavouriteModel> favouriteModelList;
-    Context context;
+    Activity activity;
 
 
-    public FavouriteAdapter(List<FavouriteModel> favouriteModelList, Context context) {
+    public FavouriteAdapter(List<FavouriteModel> favouriteModelList, Activity activity) {
         this.favouriteModelList = favouriteModelList;
-        this.context = context;
+        this.activity  = activity;
     }
 
 
@@ -99,7 +100,7 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.MyVi
         priceTV.setText("$ "+favouriteModelList.get(position).getProductId().getPrice());
         description.setText(favouriteModelList.get(position).getProductId().getDescription());
 
-        Glide.with(context)
+        Glide.with(activity)
                 .asBitmap()
                 .load(favouriteModelList.get(position).getProductId().getImage())
                 .into(circleImg);
@@ -110,10 +111,11 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.MyVi
             public void onClick(View v) {
 
                 favouriteModelList.get(position).getProductId().setFavourite("true");
-                Intent intent = new Intent(context, ItemDetailsActivity.class);
+                Intent intent = new Intent(activity, ItemDetailsActivity.class);
                 intent.putExtra("type", GlobalObjects.ModelList.Item.toString());
                 intent.putExtra("product",favouriteModelList.get(position).getProductId());
-                context.startActivity(intent);
+                activity.startActivityForResult(intent,GlobalObjects.FAVOURITES_REFRESH_CODE);
+
             }
         });
 

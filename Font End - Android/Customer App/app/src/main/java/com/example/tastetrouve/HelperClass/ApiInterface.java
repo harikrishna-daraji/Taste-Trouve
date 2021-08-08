@@ -172,4 +172,9 @@ public interface ApiInterface {
             @Field("ratingStar") Double ratingStar,
             @Field("ratingReview") String ratingReview
     );
+
+    @FormUrlEncoded
+    @POST("trackOrder/getDriverForOrder")
+    Call<ResponseBody> getDriverIdOfOrder(@Field("orderId") String orderId);
+
 }

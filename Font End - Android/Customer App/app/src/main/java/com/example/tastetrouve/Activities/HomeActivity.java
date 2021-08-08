@@ -272,6 +272,9 @@ public class HomeActivity extends BaseActivity implements HomeInterfaceMethods, 
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         settingsFragment.onActivityResult(requestCode,resultCode,data);
+        if(resultCode == GlobalObjects.FAVOURITES_REFRESH_CODE) {
+            favouriteFragment.refreshFavouriteList();
+        }
     }
 
     @Override

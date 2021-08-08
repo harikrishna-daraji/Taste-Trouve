@@ -3,10 +3,6 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-
-        <entry key="app/src/main/res/drawable/appetizer_shape.xml" value="0.18229166666666666" />
-        <entry key="app/src/main/res/drawable/ic_baseline_favorite_24.xml" value="0.18229166666666666" />
-
         <entry key="..\:/Users/Sujay Kumar Yeddu/AndroidStudioProjects/Taste-Trouve/Font End - Android/Customer App/app/src/main/res/layout/activity_cart.xml" value="0.17119565217391305" />
         <entry key="..\:/Users/Sujay Kumar Yeddu/AndroidStudioProjects/Taste-Trouve/Font End - Android/Customer App/app/src/main/res/layout/activity_item.xml" value="0.21467391304347827" />
         <entry key="..\:/Users/Sujay Kumar Yeddu/AndroidStudioProjects/Taste-Trouve/Font End - Android/Customer App/app/src/main/res/layout/activity_main.xml" value="0.21467391304347827" />
@@ -19,7 +15,8 @@
         <entry key="..\:/Users/Sujay Kumar Yeddu/AndroidStudioProjects/Taste-Trouve/Font End - Android/Customer App/app/src/main/res/layout/home_fragment_xml.xml" value="0.264" />
         <entry key="..\:/Users/Sujay Kumar Yeddu/AndroidStudioProjects/Taste-Trouve/Font End - Android/Customer App/app/src/main/res/layout/layout_bottom_sheet.xml" value="0.17119565217391305" />
         <entry key="..\:/Users/Sujay Kumar Yeddu/AndroidStudioProjects/Taste-Trouve/Font End - Android/Customer App/app/src/main/res/layout/layout_bottom_sheet1.xml" value="0.17119565217391305" />
-
+        <entry key="app/src/main/res/drawable/appetizer_shape.xml" value="0.18229166666666666" />
+        <entry key="app/src/main/res/drawable/ic_baseline_favorite_24.xml" value="0.18229166666666666" />
         <entry key="app/src/main/res/drawable/main_course_shape.xml" value="0.15520833333333334" />
         <entry key="app/src/main/res/drawable/red_outline_border.xml" value="0.26666666666666666" />
         <entry key="app/src/main/res/drawable/search_shape.xml" value="0.15520833333333334" />
@@ -29,12 +26,14 @@
         <entry key="app/src/main/res/layout/activity_cart.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_driver_location.xml" value="0.2296875" />
         <entry key="app/src/main/res/layout/activity_forgot_password.xml" value="0.16822916666666668" />
+        <entry key="app/src/main/res/layout/activity_item.xml" value="0.2015625" />
         <entry key="app/src/main/res/layout/activity_item_details.xml" value="0.21979166666666666" />
         <entry key="app/src/main/res/layout/activity_language.xml" value="0.23596014492753623" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2391304347826087" />
         <entry key="app/src/main/res/layout/activity_main_category.xml" value="0.2391304347826087" />
         <entry key="app/src/main/res/layout/activity_map.xml" value="0.18489583333333334" />
         <entry key="app/src/main/res/layout/activity_my_orders.xml" value="0.23020833333333332" />
+        <entry key="app/src/main/res/layout/activity_offer_container.xml" value="0.2015625" />
         <entry key="app/src/main/res/layout/activity_on_boarding_screen.xml" value="0.24818840579710144" />
         <entry key="app/src/main/res/layout/activity_order_detail.xml" value="0.23020833333333332" />
         <entry key="app/src/main/res/layout/activity_reset_password.xml" value="0.18645833333333334" />
@@ -48,6 +47,7 @@
         <entry key="app/src/main/res/layout/favourite_fragment_xml.xml" value="0.20104166666666667" />
         <entry key="app/src/main/res/layout/fragment_offers.xml" value="0.253125" />
         <entry key="app/src/main/res/layout/home_fragment_xml.xml" value="0.20104166666666667" />
+        <entry key="app/src/main/res/layout/item_favourite.xml" value="0.1875" />
         <entry key="app/src/main/res/layout/item_myorder.xml" value="0.23020833333333332" />
         <entry key="app/src/main/res/layout/item_orderdetail.xml" value="0.23020833333333332" />
         <entry key="app/src/main/res/layout/kidmenu_recycle_item.xml" value="0.175" />

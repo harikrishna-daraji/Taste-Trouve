@@ -63,4 +63,8 @@ public class PopularSectionModel implements Serializable {
     public String getFavourite() {
         return favourite;
     }
+
+    public void setFavourite(String favourite) {
+        this.favourite = favourite;
+    }
 }

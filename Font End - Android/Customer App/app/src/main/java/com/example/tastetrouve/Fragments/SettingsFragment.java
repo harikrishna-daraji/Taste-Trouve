@@ -52,12 +52,10 @@ public class SettingsFragment extends Fragment {
     private View root;
     RecyclerView addressRecycle;
     List<AddressModel> addressModelList = new ArrayList<>();
-    LinearLayout addressListLinear,myOrders;
+    LinearLayout addressListLinear,myOrders, manageProfileLinear;
     Switch themeSwitch;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor  editor;
-
-    LinearLayout addressListLinear,myOrders,manageProfileLinear;
 
 
     public SettingsFragment() {

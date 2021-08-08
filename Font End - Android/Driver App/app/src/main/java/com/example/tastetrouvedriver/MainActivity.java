@@ -474,7 +474,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                 // Create a Toast which displays the new location's coordinates
                Log.i("TAG","TAG: HAri location "+result.getLastLocation());
-                storeDriverLocationOnFirebase(new DriverLocationModel(result.getLastLocation().getLatitude() - Math.random() * 20 + 1,result.getLastLocation().getLongitude() + Math.random() * 20 + 1,staticCurrentRoute.toString()));
+                storeDriverLocationOnFirebase(new DriverLocationModel(result.getLastLocation().getLatitude() - Math.random() * 20 + 1,result.getLastLocation().getLongitude() + Math.random() * 20 + 1,staticCurrentRoute.toJson()));
                 // Pass the new location to the Maps SDK's LocationComponent
                 if (activity.mapboxMap != null && result.getLastLocation() != null) {
                     activity.mapboxMap.getLocationComponent().forceLocationUpdate(result.getLastLocation());

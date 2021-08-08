@@ -1,8 +1,14 @@
 package com.example.tastetrouve.Activities;
 
+import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.lineCap;
+import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.lineColor;
+import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.lineJoin;
+import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.lineWidth;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -14,6 +20,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.mapbox.android.core.permissions.PermissionsManager;
+import com.mapbox.api.directions.v5.models.DirectionsRoute;
+import com.mapbox.geojson.Feature;
+import com.mapbox.geojson.FeatureCollection;
+import com.mapbox.geojson.LineString;
 import com.mapbox.geojson.Point;
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.location.LocationComponent;
@@ -22,6 +32,9 @@ import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import com.mapbox.mapboxsdk.maps.Style;
+import com.mapbox.mapboxsdk.style.layers.LineLayer;
+import com.mapbox.mapboxsdk.style.layers.Property;
+import com.mapbox.mapboxsdk.style.sources.GeoJsonSource;
 
 public class DriverLocationActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -29,6 +42,9 @@ public class DriverLocationActivity extends AppCompatActivity implements OnMapRe
     private MapboxMap mapboxMap;
     Point destination, origin;
     DriverLocationModel driverLocationModel;
+    private static final String ROUTE_LAYER_ID = "route-layer-id";
+    private static final String ROUTE_SOURCE_ID = "route-source-id";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +54,10 @@ public class DriverLocationActivity extends AppCompatActivity implements OnMapRe
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
-        getDriverLocationFromFirebase();
+        if(getIntent().hasExtra("driverId")) {
+            String driverId = getIntent().getStringExtra("driverId");
+            getDriverLocationFromFirebase(driverId);
+        }
     }
 
     @Override
@@ -48,7 +67,8 @@ public class DriverLocationActivity extends AppCompatActivity implements OnMapRe
             @Override
             public void onStyleLoaded(@NonNull Style style) {
                 enableLocationComponent(style);
-
+                initSource(style);
+                initLayers(style);
             }
         });
     }
@@ -68,17 +88,48 @@ public class DriverLocationActivity extends AppCompatActivity implements OnMapRe
         }
     }
 
-    private void getDriverLocationFromFirebase() {
-        FirebaseDatabase.getInstance().getReference("Drivers").child("60fb0074fd8abd572e9ebe86").addValueEventListener(new ValueEventListener() {
+    private void getDriverLocationFromFirebase(String driverId) {
+        FirebaseDatabase.getInstance().getReference("Drivers").child(driverId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                driverLocationModel = snapshot.getValue(DriverLocationModel.class);
                 Log.i("TAG","TAG: Driver location arrived "+driverLocationModel.getLatitude()+" "+driverLocationModel.getLongitude());
+                setRouteOnMap(driverLocationModel.getRoute());
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Log.i("TAG","TAG: Firebase child listener canceled: "+error.getMessage());
+            }
+        });
+    }
+
+    private void initSource(@NonNull Style loadedMapStyle) {
+        loadedMapStyle.addSource(new GeoJsonSource(ROUTE_SOURCE_ID,
+                FeatureCollection.fromFeatures(new Feature[] {})));
+
+    }
+
+    private void initLayers(@NonNull Style loadedMapStyle) {
+        LineLayer routeLayer = new LineLayer(ROUTE_LAYER_ID, ROUTE_SOURCE_ID);
+
+        routeLayer.setProperties(
+                lineCap(Property.LINE_CAP_ROUND),
+                lineJoin(Property.LINE_JOIN_ROUND),
+                lineWidth(5f),
+                lineColor(Color.parseColor("#009688"))
+        );
+        loadedMapStyle.addLayer(routeLayer);
+
+    }
+
+    private void setRouteOnMap(String route) {
+        mapboxMap.getStyle(new Style.OnStyleLoaded() {
+            @Override
+            public void onStyleLoaded(@NonNull Style style) {
+                GeoJsonSource source = style.getSourceAs(ROUTE_SOURCE_ID);
+                source.setGeoJson(FeatureCollection.fromFeature(
+                        Feature.fromGeometry(LineString.fromPolyline(DirectionsRoute.fromJson(route).geometry(), 6))));
             }
         });
     }

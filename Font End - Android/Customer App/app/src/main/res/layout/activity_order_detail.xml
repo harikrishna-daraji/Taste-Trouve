@@ -123,6 +123,22 @@
         android:layout_marginHorizontal="30dp"
         />
     <LinearLayout
+        android:id="@+id/trackOrder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:gravity="center"
+        android:padding="10dp"
+        android:layout_marginVertical="10dp"
+        android:background="@drawable/orange_background"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="@string/track_order"/>
+    </LinearLayout>
+    <LinearLayout
         android:id="@+id/reviewOrder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

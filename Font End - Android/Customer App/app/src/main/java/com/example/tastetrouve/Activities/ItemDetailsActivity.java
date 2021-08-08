@@ -54,12 +54,13 @@ public class ItemDetailsActivity extends BaseActivity {
     int quantity = 1, totalQuantity;
     TextView itemNameTV, kidPriceTV, deliveryTV, calorieTV, descriptionTV, quantityTV, adjustableQuantTV,favouriteText;
     String productId, restaurantId,favoriteValue;
-
+    ItemProductModel itemProductModel;
+    PopularSectionModel popularSectionModel;
+    KidSectionModel kidSectionModel;
     RelativeLayout favoutite;
-
-LinearLayout favoutite;
-   Button share;
-   String shareUrl,shareProductName;
+    RelativeLayout shareRelative;
+    String shareUrl,shareProductName;
+    int index=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +85,7 @@ LinearLayout favoutite;
         adjustableQuantTV = findViewById(R.id.adjustableQuantTV);
         favoutite = findViewById(R.id.favourite);
         favouriteText = findViewById(R.id.favText);
-        share = findViewById(R.id.share);
+        shareRelative = findViewById(R.id.shareRelative);
         favoutite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,7 +111,7 @@ LinearLayout favoutite;
             }
         });
 
-        share.setOnClickListener(new View.OnClickListener() {
+        shareRelative.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -150,134 +151,92 @@ LinearLayout favoutite;
         });
     }
 
-    private void toogleFavourite() {
-        String token = getUserToken();
-        if(!token.isEmpty()) {
-            try {
-                ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-                apiInterface.toggleFav(token,productId,favoriteValue).enqueue(new Callback<ResponseBody>() {
-                    @Override
-                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        try {
-                            Log.i("TAG","TAG: Code "+response.code()+" Message: "+response.message());
-                            if(response.code() == 200) {
-
-                                if(favoriteValue.equals("true"))
-                                    favoriteValue="false";
-                                else
-                                    favoriteValue="true";
-                                Log.d("fav", favoriteValue);
-//                                favoutite.setBackgroundColor(
-//                                        favoriteValue.equals("true")?
-//                                                Color.parseColor("#F3E4E2"):
-//                                                Color.parseColor("#DDF8DE") );
-//                                favouriteText.setTextColor(favoriteValue.equals("true")?
-//                                        Color.parseColor("#BC180C"):
-//                                        Color.parseColor("#036707") );
-
-                                favouriteText.setText(favoriteValue.equals("true")? "Remove from Favourites":"Add to Favourites");
-                            } else {
-
-                            }
-                        } catch (Exception ex) {
-                            Log.i("TAG","TAG "+ex.getMessage());
-                            GlobalObjects.Toast(getBaseContext(),getString(R.string.cart_failure));
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-                        Log.i("TAG","TAG: Server failure: "+t.getMessage());
-                        GlobalObjects.Toast(getBaseContext(),getString(R.string.cart_failure));
-                    }
-                });
-            } catch (Exception ex) {
-                Log.i("TAG","TAG "+ ex.getMessage());
-            }
-        }
-    }
 
     private void manageIntent() {
+        if(getIntent().hasExtra("index")) {
+            index = getIntent().getIntExtra("index",0);
+        }
         if(getIntent().hasExtra("product") && getIntent().hasExtra("type")) {
             if(getIntent().getStringExtra("type").equals(GlobalObjects.ModelList.Item.toString())) {
-                ItemProductModel model = (ItemProductModel) getIntent().getSerializableExtra("product");
-                Glide.with(this).load(model.getImage()).placeholder(R.drawable.image_placeholder).into(itemImg);
-                itemNameTV.setText(model.getName());
-                kidPriceTV.setText("$"+model.getPrice());
-                deliveryTV.setText(model.getDeliveryTime());
-                calorieTV.setText(model.getCalories());
-                descriptionTV.setText(model.getDescription());
-                quantityTV.setText(getString(R.string.quantity)+": "+model.getQuantity());
-                totalQuantity = model.getQuantity();
-                productId = model.get_id();
-                restaurantId = model.getRestaurantId();
-                favoriteValue=model.getFavourite();
+                itemProductModel = (ItemProductModel) getIntent().getSerializableExtra("product");
+                Glide.with(this).load(itemProductModel.getImage()).placeholder(R.drawable.image_placeholder).into(itemImg);
+                itemNameTV.setText(itemProductModel.getName());
+                kidPriceTV.setText("$"+itemProductModel.getPrice());
+                deliveryTV.setText(itemProductModel.getDeliveryTime());
+                calorieTV.setText(itemProductModel.getCalories());
+                descriptionTV.setText(itemProductModel.getDescription());
+                quantityTV.setText(getString(R.string.quantity)+": "+itemProductModel.getQuantity());
+                totalQuantity = itemProductModel.getQuantity();
+                productId = itemProductModel.get_id();
+                restaurantId = itemProductModel.getRestaurantId();
+                favoriteValue=itemProductModel.getFavourite();
                 Log.d("TAG", "favoriteValue "+favoriteValue);
-//                favoutite.setBackgroundColor(
-//                        favoriteValue.equals("true")?
-//                        Color.parseColor("#F3E4E2"):
-//                                Color.parseColor("#DDF8DE") );
-//                favouriteText.setTextColor(favoriteValue.equals("true")?
-//                        Color.parseColor("#BC180C"):
-//                        Color.parseColor("#036707") );
+                favoutite.setBackgroundColor(
+                        favoriteValue.equals("true")?
+                        Color.parseColor("#F3E4E2"):
+                                Color.parseColor("#DDF8DE") );
+                favouriteText.setTextColor(favoriteValue.equals("true")?
+                        Color.parseColor("#BC180C"):
+                        Color.parseColor("#036707") );
 
-                favouriteText.setText(favoriteValue.equals("true")? "Remove from Favourites":"Add to Favourites");
+                favouriteText.setText(favoriteValue.equals("true")? getString(R.string.remove_from_favourite):getString(R.string.add_to_favorite));
 
-                shareUrl=model.getImage();
-                shareProductName=model.getName();
+                shareUrl=itemProductModel.getImage();
+                shareProductName=itemProductModel.getName();
 
             } else if(getIntent().getStringExtra("type").equals(GlobalObjects.ModelList.Popular.toString())) {
-                PopularSectionModel model = (PopularSectionModel) getIntent().getSerializableExtra("product");
-                Glide.with(this).load(model.getImage()).placeholder(R.drawable.image_placeholder).into(itemImg);
-                itemNameTV.setText(model.getName());
-                Log.i("TAG","TAG: Product idP "+model.get_id());
-                kidPriceTV.setText("$"+model.getPrice());
-                deliveryTV.setText(model.getDeliveryTime());
-                calorieTV.setText(model.getCalories());
-                descriptionTV.setText(model.getDescription());
-                quantityTV.setText(getString(R.string.quantity)+": "+model.getQuantity());
-                totalQuantity = model.getQuantity();
-                productId = model.get_id();
-                restaurantId = model.getRestaurantId();
-                favoriteValue=model.getFavourite();
+                popularSectionModel = (PopularSectionModel) getIntent().getSerializableExtra("product");
+                Glide.with(this).load(popularSectionModel.getImage()).placeholder(R.drawable.image_placeholder).into(itemImg);
+                itemNameTV.setText(popularSectionModel.getName());
+                Log.i("TAG","TAG: Product idP "+popularSectionModel.get_id());
+                kidPriceTV.setText("$"+popularSectionModel.getPrice());
+                deliveryTV.setText(popularSectionModel.getDeliveryTime());
+                calorieTV.setText(popularSectionModel.getCalories());
+                descriptionTV.setText(popularSectionModel.getDescription());
+                quantityTV.setText(getString(R.string.quantity)+": "+popularSectionModel.getQuantity());
+                totalQuantity = popularSectionModel.getQuantity();
+                productId = popularSectionModel.get_id();
+                restaurantId = popularSectionModel.getRestaurantId();
+                favoriteValue=popularSectionModel.getFavourite();
                 Log.d("TAG", "favoriteValue "+favoriteValue);
-//                favoutite.setBackgroundColor(
-//                        favoriteValue.equals("true")?
-//                                Color.parseColor("#F3E4E2"):
-//                                Color.parseColor("#DDF8DE") );
-//                favouriteText.setTextColor(favoriteValue.equals("true")?
-//                        Color.parseColor("#BC180C"):
-//                        Color.parseColor("#036707") );
+                favoutite.setBackgroundColor(
+                        favoriteValue.equals("true")?
+                                Color.parseColor("#F3E4E2"):
+                                Color.parseColor("#DDF8DE") );
+                favouriteText.setTextColor(favoriteValue.equals("true")?
+                        Color.parseColor("#BC180C"):
+                        Color.parseColor("#036707") );
 
-                favouriteText.setText(favoriteValue.equals("true")? "Remove from Favourites":"Add to Favourites");
-                shareUrl=model.getImage();
-                shareProductName=model.getName();
+                favouriteText.setText(favoriteValue.equals("true")? getString(R.string.remove_from_favourite):getString(R.string.add_to_favorite));
+                shareUrl=popularSectionModel.getImage();
+                shareProductName=popularSectionModel.getName();
 
             } else if(getIntent().getStringExtra("type").equals(GlobalObjects.ModelList.Kid.toString())) {
-                KidSectionModel model = (KidSectionModel) getIntent().getSerializableExtra("product");
-                Glide.with(this).load(model.getImage()).placeholder(R.drawable.image_placeholder).into(itemImg);
-                itemNameTV.setText(model.getName());
-                kidPriceTV.setText("$"+model.getPrice());
-                deliveryTV.setText(model.getDeliveryTime());
-                calorieTV.setText(model.getCalories());
-                descriptionTV.setText(model.getDescription());
-                quantityTV.setText(getString(R.string.quantity)+": "+model.getQuantity());
-                totalQuantity = model.getQuantity();
-                productId = model.get_id();
-                restaurantId = model.getRestaurantId();
-                favoriteValue=model.getFavourite();
+                kidSectionModel = (KidSectionModel) getIntent().getSerializableExtra("product");
+                Glide.with(this).load(kidSectionModel.getImage()).placeholder(R.drawable.image_placeholder).into(itemImg);
+                itemNameTV.setText(kidSectionModel.getName());
+                kidPriceTV.setText("$"+kidSectionModel.getPrice());
+                deliveryTV.setText(kidSectionModel.getDeliveryTime());
+                calorieTV.setText(kidSectionModel.getCalories());
+                descriptionTV.setText(kidSectionModel.getDescription());
+                quantityTV.setText(getString(R.string.quantity)+": "+kidSectionModel.getQuantity());
+                totalQuantity = kidSectionModel.getQuantity();
+                productId = kidSectionModel.get_id();
+                restaurantId = kidSectionModel.getRestaurantId();
+                favoriteValue=kidSectionModel.getFavourite();
                 Log.d("TAG", "favoriteValue "+favoriteValue);
-//                favoutite.setBackgroundColor(
-//                        favoriteValue.equals("true")?
-//                                Color.parseColor("#F3E4E2"):
-//                                Color.parseColor("#DDF8DE") );
-//                favouriteText.setTextColor(favoriteValue.equals("true")?
-//                        Color.parseColor("#BC180C"):
-//                        Color.parseColor("#036707") );
+                favoutite.setBackgroundColor(
+                        favoriteValue.equals("true")?
+                                Color.parseColor("#F3E4E2"):
+                                Color.parseColor("#DDF8DE") );
+                favouriteText.setTextColor(favoriteValue.equals("true")?
+                        Color.parseColor("#BC180C"):
+                        Color.parseColor("#036707") );
 
-                favouriteText.setText(favoriteValue.equals("true")? "Remove from Favourites":"Add to Favourites");
-                shareUrl=model.getImage();
-                shareProductName=model.getName();
+                favouriteText.setText(favoriteValue.equals("true")? getString(R.string.remove_from_favourite):getString(R.string.add_to_favorite));
+
+                shareUrl=kidSectionModel.getImage();
+                shareProductName=kidSectionModel.getName();
 
             }
         }
@@ -336,4 +295,85 @@ LinearLayout favoutite;
         }
     }
 
+
+    private void toogleFavourite() {
+        String token = getUserToken();
+        if(!token.isEmpty()) {
+            try {
+                ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+                apiInterface.toggleFav(token,productId,favoriteValue).enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        try {
+                            Log.i("TAG","TAG: Code "+response.code()+" Message: "+response.message());
+                            if(response.code() == 200) {
+
+                                if(favoriteValue.equals("true"))
+                                    favoriteValue="false";
+                                else
+                                    favoriteValue="true";
+                                Log.d("fav", favoriteValue);
+                                favoutite.setBackgroundColor(
+                                        favoriteValue.equals("true")?
+                                                Color.parseColor("#F3E4E2"):
+                                                Color.parseColor("#DDF8DE") );
+                                favouriteText.setTextColor(favoriteValue.equals("true")?
+                                        Color.parseColor("#BC180C"):
+                                        Color.parseColor("#036707") );
+
+                                favouriteText.setText(favoriteValue.equals("true")? getString(R.string.remove_from_favourite):getString(R.string.add_to_favorite));
+                                if(popularSectionModel != null) {
+                                    popularSectionModel.setFavourite(favoriteValue);
+                                } else if(kidSectionModel != null) {
+                                    kidSectionModel.setFavourite(favoriteValue);
+                                } else if(itemProductModel != null) {
+                                    itemProductModel.setFavourite(favoriteValue);
+                                }
+                            } else {
+
+                            }
+                        } catch (Exception ex) {
+                            Log.i("TAG","TAG "+ex.getMessage());
+                            GlobalObjects.Toast(getBaseContext(),getString(R.string.cart_failure));
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Log.i("TAG","TAG: Server failure: "+t.getMessage());
+                        GlobalObjects.Toast(getBaseContext(),getString(R.string.cart_failure));
+                    }
+                });
+            } catch (Exception ex) {
+                Log.i("TAG","TAG "+ ex.getMessage());
+            }
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(popularSectionModel != null) {
+            Intent intent = new Intent();
+            intent.putExtra("model",popularSectionModel);
+            intent.putExtra("index",index);
+            setResult(GlobalObjects.POPULAR_LIST_REFRESH,intent);
+        } else if(kidSectionModel != null) {
+            Intent intent = new Intent();
+            intent.putExtra("model",kidSectionModel);
+            intent.putExtra("index",index);
+            setResult(GlobalObjects.KIDS_LIST_REFRESH,intent);
+        } else if(itemProductModel != null) {
+            Intent intent = new Intent();
+            intent.putExtra("model",itemProductModel);
+            intent.putExtra("index",index);
+            setResult(GlobalObjects.ITEM_LIST_REFRESH_CODE,intent);
+        }
+        super.onBackPressed();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.i("TAG","TAG: Item activity result called");
+    }
 }
