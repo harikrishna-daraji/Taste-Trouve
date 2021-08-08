@@ -99,6 +99,7 @@
     <string name="no_product">No Products</string>
     <string name="theme">Change Theme</string>
     <!-- TODO: Remove or change this placeholder text -->
+    <string name="mapbox_access_token" translatable="false">pk.eyJ1IjoiaGFyaWtyaXNobmFkYXJhamkiLCJhIjoiY2tuOTVjbzBmMTRsbDJvcGg4aHo2bHE2aSJ9.Qo0K6OT0fA0vAwsTZi0zXw</string>
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="light" translatable="false">light</string>
     <string name="dark" translatable="false">dark</string>

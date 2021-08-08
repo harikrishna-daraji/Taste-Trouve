@@ -135,6 +135,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private MapboxMap mapboxMap;
     private MapboxDirections client;
     private DirectionsRoute currentRoute;
+    private static DirectionsRoute staticCurrentRoute;
     private PermissionsManager permissionsManager;
     SharedPreferences sharedPreferences;
     private LocationComponent locationComponent;
@@ -382,6 +383,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 }
 
                 currentRoute = response.body().routes().get(0);
+                staticCurrentRoute = response.body().routes().get(0);
 
 
                 /*Toast.makeText(MainActivity.this, String.format(
@@ -471,7 +473,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                 // Create a Toast which displays the new location's coordinates
                Log.i("TAG","TAG: HAri location "+result.getLastLocation());
-                storeDriverLocationOnFirebase(new DriverLocationModel(result.getLastLocation().getLatitude(),result.getLastLocation().getLongitude()));
+                if(staticCurrentRoute != null) {
+                    storeDriverLocationOnFirebase(new DriverLocationModel(result.getLastLocation().getLatitude() - Math.random() * 20 + 1,result.getLastLocation().getLongitude() + Math.random() * 20 + 1,staticCurrentRoute.toString()));
+                } else {
+                    storeDriverLocationOnFirebase(new DriverLocationModel(result.getLastLocation().getLatitude(),result.getLastLocation().getLongitude(),""));
+                }
                 // Pass the new location to the Maps SDK's LocationComponent
                 if (activity.mapboxMap != null && result.getLastLocation() != null) {
                     activity.mapboxMap.getLocationComponent().forceLocationUpdate(result.getLastLocation());

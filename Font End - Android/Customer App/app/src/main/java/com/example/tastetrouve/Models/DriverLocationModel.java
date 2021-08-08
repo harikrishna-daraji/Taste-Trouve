@@ -1,4 +1,4 @@
-package com.example.tastetrouvedriver.Helper.Model;
+package com.example.tastetrouve.Models;
 
 public class DriverLocationModel {
     double latitude;

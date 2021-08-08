@@ -79,4 +79,10 @@ dependencies {
 
     implementation 'com.makeramen:roundedimageview:2.3.0'
 
+
+    //Mapbox
+    implementation "com.mapbox.navigation:ui:1.5.1"
+    implementation('com.mapbox.mapboxsdk:mapbox-android-navigation-ui:0.42.6') {
+        exclude group: 'com.mapbox.mapboxsdk', module: 'mapbox-android-plugin-annotation-v8'
+    }
 }
