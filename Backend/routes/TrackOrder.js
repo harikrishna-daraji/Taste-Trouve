@@ -57,6 +57,20 @@ router.post("/getCurrentOrderForDriver", async (req, res) => {
   }
 });
 
+router.post("/getDriverForOrder", async (req, res) => {
+  try {
+    let { orderId } = req.body;
+    const trackOrder = await TrackOrder.find({
+      orderId,
+    }).select("deliveryUser");
+
+    res.send(trackOrder);
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 router.put("/update", async (req, res) => {
   let { orderId, updateStatus } = req.body;
 
