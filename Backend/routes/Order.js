@@ -97,6 +97,17 @@ router.post("/getReportByOwner", async (req, res) => {
 router.put("/UpdateOrderStatus", async (req, res) => {
   let { orderId, updateStatus } = req.body;
 
+  await Order.updateOne(
+    { _id: orderId },
+    { orderStatus: updateStatus },
+    function (err, docs) {
+      if (err) {
+        res.send(err);
+      } else {
+      }
+    }
+  );
+
   if (updateStatus == "accepted") {
     const order = await Order.find({
       _id: orderId,
@@ -105,7 +116,7 @@ router.put("/UpdateOrderStatus", async (req, res) => {
     var payload = {
       data: {
         title: "Order Accepted",
-        message: "HURRY !! Your order is now proccsed by owner",
+        message: "Hurray!! Your order is being processed by Owner",
       },
     };
 

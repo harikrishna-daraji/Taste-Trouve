@@ -71,6 +71,20 @@ router.post("/getDriverForOrder", async (req, res) => {
   }
 });
 
+router.post("/getDriverIncome", async (req, res) => {
+  try {
+    let { deliveryUser } = req.body;
+    const trackOrder = await TrackOrder.find({
+      deliveryUser,
+    });
+
+    res.send(trackOrder.length * 5);
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 router.put("/update", async (req, res) => {
   let { orderId, updateStatus } = req.body;
 
