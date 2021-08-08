@@ -129,14 +129,60 @@ router.put("/update", async (req, res) => {
   res.send("Updated");
 });
 
-// //delete
-// router.delete("/delete", auth, async (req, res) => {
-//   try {
-//     const deletedUser = await Restaurants.findByIdAndDelete(req.user);
-//     res.json(deletedUser);
-//   } catch (err) {
-//     res.status(500).json({ error: err.message });
-//   }
-// });
+router.put("/finishOrder", async (req, res) => {
+  let { orderId, updateStatus } = req.body;
+
+  TrackOrder.updateOne(
+    { _id: orderId },
+    { status: updateStatus },
+    function (err, docs) {
+      if (err) {
+        res.send(err);
+      } else {
+      }
+    }
+  );
+
+  const currentOrder = await TrackOrder.findOne({
+    _id: orderId,
+  });
+
+  await Order.updateOne(
+    { _id: currentOrder.orderId },
+    { orderStatus: updateStatus },
+    function (err, docs) {
+      if (err) {
+        res.send(err);
+      } else {
+      }
+    }
+  );
+
+  await User.updateOne(
+    { _id: currentOrder.deliveryUser },
+    { isBussy: false },
+    function (err, docs) {
+      if (err) {
+        res.send(err); // //delete
+      } else {
+      }
+    }
+  );
+
+  const order = await Order.find({
+    _id: currentOrder.orderId,
+  }).populate("userId");
+
+  var payload = {
+    data: {
+      title: "Order Delivered",
+      message: "Your order has been delivered",
+    },
+  };
+
+  admin.messaging().sendToDevice(order[0].userId.fcmToken, payload);
+
+  res.send("Updated");
+});
 
 module.exports = router;
