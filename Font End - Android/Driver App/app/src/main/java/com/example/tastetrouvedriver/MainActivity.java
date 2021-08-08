@@ -150,6 +150,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     CardView newOrderCardView, finishCardView;
     LinearLayout acceptRejectLinear;
     RelativeLayout acceptRelative, rejectRelative, goOnlineRelative;
+    Point origin, destination;
+
 
     // variables for calculating and drawing a route
     private static final String TAG = "DirectionsActivity";
@@ -298,11 +300,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     public void onStyleLoaded(@NonNull Style style) {
 
                         enableLocationComponent(style);
+                        getDriverCurrentOrder();
 
+                        origin = Point.fromLngLat(-73.63009981093005, 45.50148687522766);
 
-                        Point origin = Point.fromLngLat(-73.63009981093005, 45.50148687522766);
-
-                        Point destination = Point.fromLngLat(-73.58757864001308, 45.507913247808354);
+                        destination = Point.fromLngLat(-73.58757864001308, 45.507913247808354);
 
                         initSource(style);
 
@@ -328,7 +330,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             locationComponent.setLocationComponentEnabled(true);
             // Set the component's camera mode
             locationComponent.setCameraMode(CameraMode.TRACKING);
-            initLocationEngine();
         } else {
             permissionsManager = new PermissionsManager(this);
             permissionsManager.requestLocationPermissions(this);
@@ -384,7 +385,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                 currentRoute = response.body().routes().get(0);
                 staticCurrentRoute = response.body().routes().get(0);
-
+                initLocationEngine();
 
                 /*Toast.makeText(MainActivity.this, String.format(
                         getString(R.string.directions_activity_toast_message),
@@ -473,11 +474,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                 // Create a Toast which displays the new location's coordinates
                Log.i("TAG","TAG: HAri location "+result.getLastLocation());
-                if(staticCurrentRoute != null) {
-                    storeDriverLocationOnFirebase(new DriverLocationModel(result.getLastLocation().getLatitude() - Math.random() * 20 + 1,result.getLastLocation().getLongitude() + Math.random() * 20 + 1,staticCurrentRoute.toString()));
-                } else {
-                    storeDriverLocationOnFirebase(new DriverLocationModel(result.getLastLocation().getLatitude(),result.getLastLocation().getLongitude(),""));
-                }
+                storeDriverLocationOnFirebase(new DriverLocationModel(result.getLastLocation().getLatitude() - Math.random() * 20 + 1,result.getLastLocation().getLongitude() + Math.random() * 20 + 1,staticCurrentRoute.toString()));
                 // Pass the new location to the Maps SDK's LocationComponent
                 if (activity.mapboxMap != null && result.getLastLocation() != null) {
                     activity.mapboxMap.getLocationComponent().forceLocationUpdate(result.getLastLocation());

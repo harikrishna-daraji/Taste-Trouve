@@ -20,4 +20,8 @@ public class DriverLocationModel {
     public double getLongitude() {
         return longitude;
     }
+
+    public String getRoute() {
+        return route;
+    }
 }
