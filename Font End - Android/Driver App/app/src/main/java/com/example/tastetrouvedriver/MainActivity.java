@@ -554,6 +554,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 addressTV.setText(driverCurrentRequestModel.getOrderId().getAddressId().getAddress());
                                 AddressModel model = driverCurrentRequestModel.getOrderId().getAddressId();
                                 destination = Point.fromLngLat(Double.parseDouble(model.get_long()),Double.parseDouble(model.getLat()));
+                                getRoute(origin,destination);
                                 Log.i("TAG","TAG: Order id "+driverCurrentRequestModel.get_id());
                             }
                         } catch (Exception ex) {

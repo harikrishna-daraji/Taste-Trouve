@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
@@ -85,20 +86,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </LinearLayout>
-
-    <!--        <SearchView-->
-    <!--            android:id="@+id/search"-->
-    <!--            android:layout_width="fill_parent"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            app:theme="@style/SearchViewStyle"-->
-    <!--            android:background="@drawable/search_shape"-->
-    <!--            android:layout_margin="15dp"-->
-    <!--            android:iconifiedByDefault="false"-->
-    <!--            android:clickable="true"-->
-    <!--            android:queryHint="Search"-->
-    <!--            android:searchIcon="@null"-->
-    <!--            android:queryBackground="@android:color/transparent">-->
-    <!--        </SearchView>-->
 
     <ScrollView
         android:layout_weight="1"

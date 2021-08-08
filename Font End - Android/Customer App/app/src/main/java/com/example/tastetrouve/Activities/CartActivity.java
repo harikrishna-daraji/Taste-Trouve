@@ -211,6 +211,13 @@ public class CartActivity  extends BaseActivity implements CartInterface, Adapte
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getCartDetails();
+    }
+
+
     private String getUserToken() {
         SharedPreferences sharedPreferences = getSharedPreferences("AuthenticationTypes",MODE_PRIVATE);
         boolean isLoggedIn = sharedPreferences.getBoolean("signUpDone",false);
