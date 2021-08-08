@@ -97,10 +97,26 @@
     <string name="my_orders">My Orders</string>
     <string name="please_add_address">Please add address in Setting screen</string>
     <string name="no_product">No Products</string>
+
     <string name="theme">Change Theme</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="mapbox_access_token" translatable="false">pk.eyJ1IjoiaGFyaWtyaXNobmFkYXJhamkiLCJhIjoiY2tuOTVjbzBmMTRsbDJvcGg4aHo2bHE2aSJ9.Qo0K6OT0fA0vAwsTZi0zXw</string>
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="light" translatable="false">light</string>
     <string name="dark" translatable="false">dark</string>
+
+    <string name="facebook_app_id">323269916119130</string>
+    <string name="fb_login_protocol_scheme">fb323269916119130</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_favourite_container">FavouriteContainerActivity</string>
+    <!--
+    This string is used for square devices and overridden by hello_world in
+    values-round/strings.xml for round devices.
+    -->
+    <string name="hello_world">Hello Square World!</string>
+    <string name="title_activity_main2">MainActivity2</string>
+
 </resources>

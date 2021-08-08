@@ -45,7 +45,10 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("product/getDrinksProducts")
-    Call<List<ItemProductModel>> getDrinksProducts(@Field("restaurantId") String restaurantId);
+    Call<List<ItemProductModel>> getDrinksProducts(
+            @Field("restaurantId") String restaurantId,
+            @Field("userId") String userId );
+
 
 
     @FormUrlEncoded
@@ -57,6 +60,10 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("clientUser/login")
     Call<UserModel> login(@Field("email") String email, @Field("password") String password);
+
+    @FormUrlEncoded
+    @POST("clientUser/getUserById")
+    Call<UserModel> getUserDetails(@Field("userId") String userId);
 
     @FormUrlEncoded
     @POST("subCategory/getSubById")
@@ -74,10 +81,23 @@ public interface ApiInterface {
 
  @FormUrlEncoded
     @POST("product/getSpecialOfferProducts")
-    Call<List<ItemProductModel>> getSpecialProducts(@Field("userId") String userId);
+    Call<List<ItemProductModel>> getSpecialProducts(
+            @Field("userId") String userId,
+            @Field("specialType") String specialType
 
+ );
+
+    @FormUrlEncoded
     @PUT("clientUser/update")
     Call<ResponseBody> updateUser(@Field("phoneNumber") String phone, @Field("password") String password);
+
+    @FormUrlEncoded
+@PUT("clientUser/updateById")
+    Call<ResponseBody> updateUseredetail(@Field("displayname") String displayname,
+                                         @Field("userId") String userId,
+                                         @Field("phoneNumber") String phoneNumber,
+                                         @Field("dateOfBirth") String dateOfBirth
+);
 
     @FormUrlEncoded
     @PUT("clientUser/update")
@@ -145,4 +165,11 @@ public interface ApiInterface {
     Call<ResponseBody> getCartCount(@Field("userId") String userId);
 
 
+    @FormUrlEncoded
+    @PUT("Order/addReview")
+    Call<ResponseBody> addReview(
+            @Field("orderId") String orderId,
+            @Field("ratingStar") Double ratingStar,
+            @Field("ratingReview") String ratingReview
+    );
 }

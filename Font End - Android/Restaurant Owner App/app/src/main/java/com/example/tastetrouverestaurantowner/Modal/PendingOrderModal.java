@@ -3,7 +3,8 @@ package com.example.tastetrouverestaurantowner.Modal;
 import java.util.List;
 
 public class PendingOrderModal {
-    public String _id,orderDate,total,orderStatus;
+    public String _id,orderDate,total,orderStatus,ratingReview;
+    public Float ratingStar;
     public List<ProductOrderModal> products;
 
     public Address addressId;
@@ -76,6 +77,23 @@ public class PendingOrderModal {
 
     public void setProductOrderModalList(List<ProductOrderModal> products) {
         this.products = products;
+    }
+
+    public String getRatingReview() {
+        return ratingReview;
+    }
+
+    public void setRatingReview(String ratingReview) {
+        this.ratingReview = ratingReview;
+    }
+
+    public Float getRatingStar() {
+
+        return ratingStar;
+    }
+
+    public void setRatingStar(Float ratingStar) {
+        this.ratingStar = ratingStar;
     }
 
 

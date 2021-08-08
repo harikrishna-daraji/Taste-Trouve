@@ -24,6 +24,8 @@ import com.example.tastetrouve.R;
 import com.google.android.gms.common.api.Api;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import retrofit2.Call;
@@ -35,24 +37,47 @@ public class ItemActivity extends BaseActivity {
     RecyclerView itemRecycle;
     SharedPreferences sharedPreferences;
     List<ItemProductModel> itemProductModels;
+    List<ItemProductModel> categorizedList = new ArrayList<>();
     ArrayList<PopularSectionModel> popularSectionModels;
     List<KidSectionModel> kidSectionModels;
     TextView topHeading, noResultTV;
+    String price;
+    String sort;
+    String radio;
+    boolean iskid,popular;
+
+   // String categoryId;
+    int pr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTheme(loadStyle(false));
+        iskid = false;
+        popular = false;
         sharedPreferences = getApplicationContext().getSharedPreferences("LANGUAGE", Context.MODE_PRIVATE);
         String language = sharedPreferences.getString("code","en");
         setLanguage(language);
+        price = getIntent().getStringExtra("price");
+        sort = getIntent().getStringExtra("sort");
+        radio = getIntent().getStringExtra("radio");
+        if(radio == "For Kids"){
+            iskid = true;
+        }
+        if(radio == "Popular"){
+            popular = true;
+        }
+       // categoryId = getIntent().getStringExtra("categoryId");
         setContentView(R.layout.activity_item);
         initUI();
         manageIntent();
     }
 
     private void manageIntent() {
-        if(getIntent().hasExtra("section") && getIntent().hasExtra("categoryId")) {
+        if(getIntent().hasExtra("section") && getIntent().hasExtra("categoryId") && getIntent().hasExtra("price") && getIntent().hasExtra("sort") && getIntent().hasExtra("radio")){
+            topHeading.setText(getIntent().getStringExtra("section"));
+            getProductsOfFilter(getIntent().getStringExtra("categoryId"));
+        }else if(getIntent().hasExtra("section") && getIntent().hasExtra("categoryId")) {
             topHeading.setText(getIntent().getStringExtra("section"));
             getProductsOfMainCategory(getIntent().getStringExtra("categoryId"));
         } else if(getIntent().hasExtra(GlobalObjects.ModelList.Kid.toString())) {
@@ -91,10 +116,127 @@ public class ItemActivity extends BaseActivity {
 
     }
 
+
+    private void getProductsOfFilter(String categoryId) {
+        String token = getUserToken();
+        if(!token.isEmpty()) {
+            try {
+                ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+                apiInterface.getProductsOfMainCategory(categoryId,token ).enqueue(new Callback<List<ItemProductModel>>() {
+                    @Override
+                    public void onResponse(Call<List<ItemProductModel>> call, Response<List<ItemProductModel>> response) {
+                        try {
+                            Log.i("TAG", "TAG: Code: " + response.code() + " Message: " + response.message());
+                            if (response.code() == 200) {
+                                itemProductModels = response.body();
+                                pr = Integer.parseInt(price.trim());
+                                categorizedList.clear();
+                                for (ItemProductModel model : itemProductModels) {
+                                    if (model.getCategoryId().contains(categoryId) && model.getPrice() <= pr && radio == "None") {
+                                        if(sort.equals("Select...")) {
+                                            categorizedList.add(model);
+                                            Log.i("TAG", "onResponse: " + categorizedList.size());
+                                        }
+                                        if(sort.equals("Low To High")){
+                                            Collections.sort(categorizedList, new Comparator<ItemProductModel>() {
+                                                @Override
+                                                public int compare(ItemProductModel o1, ItemProductModel o2) {
+                                                    return Integer.valueOf(o1.getPrice()).compareTo(o2.getPrice());
+                                                }
+                                            });
+                                             categorizedList.add(model);
+                                        }
+                                        if(sort.equals("High To Low")){
+                                            Collections.sort(categorizedList, new Comparator<ItemProductModel>() {
+                                                @Override
+                                                public int compare(ItemProductModel o1, ItemProductModel o2) {
+                                                    return Integer.valueOf(o2.getPrice()).compareTo(o1.getPrice());
+                                                }
+                                            });
+                                            categorizedList.add(model);
+                                        }
+                                    }
+                                    if (model.getCategoryId().contains(categoryId) && model.getPrice() <= pr && model.isPopular() == popular) {
+                                        if(sort.equals("Select...")) {
+                                            categorizedList.add(model);
+                                            Log.i("TAG", "onResponse: " + categorizedList.size());
+                                        }
+                                        if(sort.equals("Low To High")){
+                                            Collections.sort(categorizedList, new Comparator<ItemProductModel>() {
+                                                @Override
+                                                public int compare(ItemProductModel o1, ItemProductModel o2) {
+                                                    return Integer.valueOf(o1.getPrice()).compareTo(o2.getPrice());
+                                                }
+                                            });
+                                            categorizedList.add(model);
+                                        }
+                                        if(sort.equals("High To Low")){
+                                            Collections.sort(categorizedList, new Comparator<ItemProductModel>() {
+                                                @Override
+                                                public int compare(ItemProductModel o1, ItemProductModel o2) {
+                                                    return Integer.valueOf(o2.getPrice()).compareTo(o1.getPrice());
+                                                }
+                                            });
+                                            categorizedList.add(model);
+                                        }
+                                    }
+                                    if (model.getCategoryId().contains(categoryId) && model.getPrice() <= pr && model.isKidSection() == iskid) {
+                                        if(sort.equals("Select...")) {
+                                            categorizedList.add(model);
+                                            Log.i("TAG", "onResponse: " + categorizedList.size());
+                                        }
+                                        if(sort.equals("Low To High")){
+                                            Collections.sort(categorizedList, new Comparator<ItemProductModel>() {
+                                                @Override
+                                                public int compare(ItemProductModel o1, ItemProductModel o2) {
+                                                    return Integer.valueOf(o1.getPrice()).compareTo(o2.getPrice());
+                                                }
+                                            });
+                                            categorizedList.add(model);
+                                        }
+                                        if(sort.equals("High To Low")){
+                                            Collections.sort(categorizedList, new Comparator<ItemProductModel>() {
+                                                @Override
+                                                public int compare(ItemProductModel o1, ItemProductModel o2) {
+                                                    return Integer.valueOf(o2.getPrice()).compareTo(o1.getPrice());
+                                                }
+                                            });
+                                            categorizedList.add(model);
+                                        }
+                                    }
+                                }
+                                itemRecycle.setAdapter(new ItemRecycleAdapter(ItemActivity.this, categorizedList));
+                                if (itemProductModels.size() == 0) {
+                                    noResultTV.setVisibility(View.VISIBLE);
+                                    itemRecycle.setVisibility(View.GONE);
+                                } else {
+                                    noResultTV.setVisibility(View.GONE);
+                                    itemRecycle.setVisibility(View.VISIBLE);
+                                }
+                            }
+                        } catch (Exception ex) {
+                            Log.i("TAG", "TAG " + ex.getMessage());
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<ItemProductModel>> call, Throwable t) {
+                        Log.i("TAG", "TAG: Server Failure: " + t.getMessage());
+                    }
+                });
+            } catch (Exception ex) {
+                Log.i("TAG", "TAG " + ex.getMessage());
+            }
+        }
+    }
+
+
     private void loadDrinks(String restaurantID) {
+        String token = getUserToken();
         try {
             ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-            apiInterface.getDrinksProducts(restaurantID).enqueue(new Callback<List<ItemProductModel>>() {
+            apiInterface.getDrinksProducts(restaurantID,token).enqueue(new Callback<List<ItemProductModel>>() {
                 @Override
                 public void onResponse(Call<List<ItemProductModel>> call, Response<List<ItemProductModel>> response) {
                     try {
@@ -125,6 +267,9 @@ public class ItemActivity extends BaseActivity {
             Log.i("TAG","TAG "+ex.getMessage());
         }
     }
+
+
+
 
     private void initUI() {
         findViewById(R.id.backBtn).setOnClickListener(new View.OnClickListener() {
@@ -223,5 +368,6 @@ public class ItemActivity extends BaseActivity {
             Log.i("TAG","TAG "+ex.getMessage());
         }
     }
+
 
 }

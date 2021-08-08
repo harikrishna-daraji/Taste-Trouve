@@ -105,7 +105,29 @@
             android:text="Accepted"
             android:textAppearance="?textAppearanceBody2"
             android:textColor="#FF5722" />
+        <LinearLayout
+            android:id="@+id/reviewContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginVertical="15dp"
+            android:orientation="vertical">
 
+            <RatingBar
+                android:id="@+id/rating"
+                android:layout_width="wrap_content"
+                android:layout_height="67dp"
+                android:isIndicator="true"
+                android:layout_gravity="center"
+                android:numStars="5" />
+            <TextView
+                android:id="@+id/ratingReview"
+                android:layout_gravity="center"
+                android:text="thi is a review"
+                android:layout_marginBottom="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="2dp"

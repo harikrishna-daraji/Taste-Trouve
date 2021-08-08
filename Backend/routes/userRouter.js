@@ -91,6 +91,20 @@ router.post("/driverLogin", async (req, res) => {
   }
 });
 
+router.post("/getUserById", async (req, res) => {
+  try {
+    const { userId } = req.body;
+
+    const user = await User.findOne({
+      _id: userId,
+    });
+
+    res.json(user);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 //delete
 
 router.delete("/delete", async (req, res) => {
@@ -108,6 +122,18 @@ router.put("/update", async (req, res) => {
   const data = req.body;
 
   var myquery = { phoneNumber: data.phoneNumber };
+  var newvalues = { $set: { ...data } };
+  await User.updateOne(myquery, newvalues, function (err, res) {
+    if (err) throw err;
+  });
+
+  return res.send({ data: "updatedUser" });
+});
+
+router.put("/updateById", async (req, res) => {
+  const data = req.body;
+
+  var myquery = { _id: data.userId };
   var newvalues = { $set: { ...data } };
   await User.updateOne(myquery, newvalues, function (err, res) {
     if (err) throw err;
