@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:background="?attr/backgroundColor"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_height="match_parent">
     <com.google.android.material.appbar.AppBarLayout
@@ -21,8 +23,13 @@
                 android:gravity="left"
                 android:orientation="horizontal">
 
-
-
+                <ImageView
+                    app:tint="?attr/textColor"
+                    android:id="@+id/backBtn"
+                    android:layout_width="23dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/back_icon"
+                    />
                 <TextView
                     android:id="@+id/topHeading"
                     android:layout_width="wrap_content"
@@ -39,15 +46,25 @@
         </com.google.android.material.appbar.MaterialToolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/specialOffersRecycler"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="5dp"
-        android:clipToPadding="false"
-
-
-        />
+        android:layout_height="match_parent">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/specialOffersRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:clipToPadding="false" />
+        <TextView
+            android:id="@+id/noResultTV"
+            android:text="@string/no_result"
+            android:layout_centerInParent="true"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="?attr/textColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
 </LinearLayout>
 
 

@@ -8,6 +8,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
 import com.example.tastetrouve.Adapters.FavouriteAdapter;
 import com.example.tastetrouve.Adapters.OfferAdapter;
@@ -27,6 +29,7 @@ public class OfferContainerActivity extends BaseActivity {
 
     List<ItemProductModel> itemProductModels;
     RecyclerView offerRecycler;
+    TextView noResultTV;
     String offer;
     SharedPreferences sharedPreferences;
 
@@ -38,14 +41,18 @@ public class OfferContainerActivity extends BaseActivity {
         String language = sharedPreferences.getString("code","en");
         setLanguage(language);
         setContentView(R.layout.activity_offer_container);
-
-
+        noResultTV = findViewById(R.id.noResultTV);
          offer = getIntent().getStringExtra("offer");
-
         offerRecycler = findViewById(R.id.specialOffersRecycler);
-
         offerRecycler.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         getSpecialOfferProducts();
+
+        findViewById(R.id.backBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
 
@@ -61,8 +68,13 @@ public class OfferContainerActivity extends BaseActivity {
                         try {
                             if(response.code() == 200) {
                                 itemProductModels = response.body();
-
-                                offerRecycler.setAdapter(new OfferAdapter(itemProductModels,getApplicationContext()));
+                                if(itemProductModels.size() > 0) {
+                                    noResultTV.setVisibility(View.GONE);
+                                    offerRecycler.setAdapter(new OfferAdapter(itemProductModels,getApplicationContext()));
+                                } else {
+                                    noResultTV.setVisibility(View.VISIBLE);
+                                    offerRecycler.setVisibility(View.GONE);
+                                }
 
                             } else {
                                 Log.i("TAG","TAG: Code: "+response.code()+" Message: "+response.message());

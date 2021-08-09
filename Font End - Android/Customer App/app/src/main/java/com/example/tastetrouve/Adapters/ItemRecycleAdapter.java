@@ -65,9 +65,10 @@ public class ItemRecycleAdapter extends RecyclerView.Adapter<ItemRecycleAdapter.
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(activity, ItemDetailsActivity.class);
+                    intent.putExtra("index",position);
                     intent.putExtra("type", GlobalObjects.ModelList.Item.toString());
                     intent.putExtra("product",model);
-                    activity.startActivity(intent);
+                    activity.startActivityForResult(intent,GlobalObjects.ITEM_LIST_REFRESH_CODE);
                 }
             });
         } else if(kidSectionModels != null) {
@@ -82,7 +83,8 @@ public class ItemRecycleAdapter extends RecyclerView.Adapter<ItemRecycleAdapter.
                     Intent intent = new Intent(activity, ItemDetailsActivity.class);
                     intent.putExtra("type", GlobalObjects.ModelList.Kid.toString());
                     intent.putExtra("product",model);
-                    activity.startActivity(intent);
+                    intent.putExtra("index",position);
+                    activity.startActivityForResult(intent,GlobalObjects.KIDS_LIST_REFRESH);
                 }
             });
         } else {
@@ -97,7 +99,8 @@ public class ItemRecycleAdapter extends RecyclerView.Adapter<ItemRecycleAdapter.
                     Intent intent = new Intent(activity, ItemDetailsActivity.class);
                     intent.putExtra("type", GlobalObjects.ModelList.Popular.toString());
                     intent.putExtra("product",model);
-                    activity.startActivity(intent);
+                    intent.putExtra("index",position);
+                    activity.startActivityForResult(intent,GlobalObjects.POPULAR_LIST_REFRESH);
                 }
             });
         }
@@ -130,5 +133,21 @@ public class ItemRecycleAdapter extends RecyclerView.Adapter<ItemRecycleAdapter.
             priceTV = itemView.findViewById(R.id.priceTV);
         }
     }
+
+    public void updateItemProduct(int index, ItemProductModel product) {
+        itemProductModels.set(index,product);
+        notifyItemChanged(index);
+    }
+
+    public void updatePopularProduct(int index, PopularSectionModel product) {
+        popularSectionModels.set(index,product);
+        notifyItemChanged(index);
+    }
+
+    public void updateKidProduct(int index, KidSectionModel product) {
+        kidSectionModels.set(index,product);
+        notifyItemChanged(index);
+    }
+
 
 }

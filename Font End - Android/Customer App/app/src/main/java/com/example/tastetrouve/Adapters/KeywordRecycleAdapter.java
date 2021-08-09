@@ -48,6 +48,7 @@ public class KeywordRecycleAdapter extends RecyclerView.Adapter<KeywordRecycleAd
                 Intent intent = new Intent(activity, ItemDetailsActivity.class);
                 intent.putExtra("type", GlobalObjects.ModelList.Item.toString());
                 intent.putExtra("product",list.get(position));
+                intent.putExtra("index",position);
                 activity.startActivity(intent);
             }
         });

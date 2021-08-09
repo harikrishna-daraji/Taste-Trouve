@@ -1,9 +1,11 @@
 package com.example.tastetrouve.Activities;
 
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -36,6 +38,7 @@ public class ItemActivity extends BaseActivity {
 
     RecyclerView itemRecycle;
     SharedPreferences sharedPreferences;
+    ItemRecycleAdapter itemRecycleAdapter;
     List<ItemProductModel> itemProductModels;
     List<ItemProductModel> categorizedList = new ArrayList<>();
     ArrayList<PopularSectionModel> popularSectionModels;
@@ -73,6 +76,24 @@ public class ItemActivity extends BaseActivity {
         manageIntent();
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.i("TAG","TAG On Restart called");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.i("TAG","TAG On Resume called");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.i("TAG","TAG On Start called");
+    }
+
     private void manageIntent() {
         if(getIntent().hasExtra("section") && getIntent().hasExtra("categoryId") && getIntent().hasExtra("price") && getIntent().hasExtra("sort") && getIntent().hasExtra("radio")){
             topHeading.setText(getIntent().getStringExtra("section"));
@@ -90,11 +111,8 @@ public class ItemActivity extends BaseActivity {
                 noResultTV.setVisibility(View.VISIBLE);
                 itemRecycle.setVisibility(View.GONE);
             }
-            itemRecycle.setAdapter(new ItemRecycleAdapter(kidSectionModels,this));
-        }else if(getIntent().hasExtra(GlobalObjects.ModelList.Restaurant.toString())) {
-            topHeading.setText("Drinks");
-            String restaurantID = getIntent().getStringExtra(GlobalObjects.ModelList.Restaurant.toString());
-            loadDrinks(restaurantID);
+            itemRecycleAdapter = new ItemRecycleAdapter(kidSectionModels,this);
+            itemRecycle.setAdapter(itemRecycleAdapter);
         } else if(getIntent().hasExtra(GlobalObjects.ModelList.Popular.toString())) {
             topHeading.setText(GlobalObjects.ModelList.Popular.toString());
             popularSectionModels = (ArrayList) getIntent().getStringArrayListExtra(GlobalObjects.ModelList.Popular.toString());
@@ -105,13 +123,18 @@ public class ItemActivity extends BaseActivity {
                 noResultTV.setVisibility(View.VISIBLE);
                 itemRecycle.setVisibility(View.GONE);
             }
-            itemRecycle.setAdapter(new ItemRecycleAdapter(this,popularSectionModels));
+            itemRecycleAdapter = new ItemRecycleAdapter(this,popularSectionModels);
+            itemRecycle.setAdapter(itemRecycleAdapter);
         } else if(getIntent().hasExtra(GlobalObjects.ModelList.Restaurant.toString()) && getIntent().hasExtra(GlobalObjects.ModelList.Category.toString()) && getIntent().hasExtra(GlobalObjects.ModelList.Subcategory.toString())) {
             String categoryID = getIntent().getStringExtra(GlobalObjects.ModelList.Category.toString());
             SubCategoryModel model = (SubCategoryModel) getIntent().getSerializableExtra(GlobalObjects.ModelList.Subcategory.toString());
             String restaurantID = getIntent().getStringExtra(GlobalObjects.ModelList.Restaurant.toString());
             getProductOfRestaurant(categoryID,model.get_id(),restaurantID);
             topHeading.setText(model.getName());
+        } else if(getIntent().hasExtra(GlobalObjects.ModelList.Restaurant.toString())) {
+            topHeading.setText("Drinks");
+            String restaurantID = getIntent().getStringExtra(GlobalObjects.ModelList.Restaurant.toString());
+            loadDrinks(restaurantID);
         }
 
     }
@@ -205,7 +228,8 @@ public class ItemActivity extends BaseActivity {
                                         }
                                     }
                                 }
-                                itemRecycle.setAdapter(new ItemRecycleAdapter(ItemActivity.this, categorizedList));
+                                itemRecycleAdapter = new ItemRecycleAdapter(ItemActivity.this, categorizedList);
+                                itemRecycle.setAdapter(itemRecycleAdapter);
                                 if (itemProductModels.size() == 0) {
                                     noResultTV.setVisibility(View.VISIBLE);
                                     itemRecycle.setVisibility(View.GONE);
@@ -243,7 +267,8 @@ public class ItemActivity extends BaseActivity {
                         Log.i("TAG","TAG: Code: "+response.code()+" Message: "+response.message());
                         if(response.code() == 200) {
                             itemProductModels = response.body();
-                            itemRecycle.setAdapter(new ItemRecycleAdapter(ItemActivity.this,itemProductModels));
+                            itemRecycleAdapter = new ItemRecycleAdapter(ItemActivity.this,itemProductModels);
+                            itemRecycle.setAdapter(itemRecycleAdapter);
 
                             if(itemProductModels.size() == 0) {
                                 noResultTV.setVisibility(View.VISIBLE);
@@ -297,7 +322,8 @@ public class ItemActivity extends BaseActivity {
                         Log.i("TAG","TAG: Code: "+response.code()+" Message: "+response.message());
                         if(response.code() == 200) {
                             itemProductModels = response.body();
-                            itemRecycle.setAdapter(new ItemRecycleAdapter(ItemActivity.this,itemProductModels));
+                            itemRecycleAdapter =  new ItemRecycleAdapter(ItemActivity.this,itemProductModels);
+                            itemRecycle.setAdapter(itemRecycleAdapter);
 
                             if(itemProductModels.size() == 0) {
                                 noResultTV.setVisibility(View.VISIBLE);
@@ -345,7 +371,8 @@ public class ItemActivity extends BaseActivity {
                         Log.i("TAG","TAG: Code "+response.code()+" Message: "+response.message());
                         if(response.code() == 200) {
                             itemProductModels = response.body();
-                            itemRecycle.setAdapter(new ItemRecycleAdapter(ItemActivity.this,itemProductModels));
+                            itemRecycleAdapter = new ItemRecycleAdapter(ItemActivity.this,itemProductModels);
+                            itemRecycle.setAdapter(itemRecycleAdapter);
                             if(itemProductModels.size() == 0) {
                                 noResultTV.setVisibility(View.VISIBLE);
                                 itemRecycle.setVisibility(View.GONE);
@@ -369,5 +396,26 @@ public class ItemActivity extends BaseActivity {
         }
     }
 
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == GlobalObjects.ITEM_LIST_REFRESH_CODE) {
+            Log.i("TAG","TAG item list");
+            ItemProductModel itemProductModel = (ItemProductModel) data.getSerializableExtra("model");
+            int index=data.getIntExtra("index",0);
+            itemRecycleAdapter.updateItemProduct(index,itemProductModel);
+        } else if(requestCode == GlobalObjects.POPULAR_LIST_REFRESH) {
+            Log.i("TAG","TAG Popuilar list");
+            PopularSectionModel popularSectionModel = (PopularSectionModel) data.getSerializableExtra("model");
+            int index=data.getIntExtra("index",0);
+            itemRecycleAdapter.updatePopularProduct(index,popularSectionModel);
+        } else if(resultCode == GlobalObjects.RESTAURANT_REFRESH_CODE) {
+            Log.i("TAG","TAG Restaurant list");
+        } else if(resultCode == GlobalObjects.KIDS_LIST_REFRESH) {
+            Log.i("TAG","TAG Kid list");
+            KidSectionModel kidSectionModel = (KidSectionModel) data.getSerializableExtra("model");
+            int index=data.getIntExtra("index",0);
+            itemRecycleAdapter.updateKidProduct(index,kidSectionModel);
+        }
+    }
 }

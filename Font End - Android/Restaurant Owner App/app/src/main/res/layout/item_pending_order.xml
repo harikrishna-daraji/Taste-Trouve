@@ -171,7 +171,7 @@ android:backgroundTint="@color/primaryteal"
                 app:backgroundTint="@color/red"
                 android:paddingTop="0dp"
                 android:paddingBottom="0dp"
-                android:text="Decliner" />
+                android:text="Decline" />
         </LinearLayout>
 
 

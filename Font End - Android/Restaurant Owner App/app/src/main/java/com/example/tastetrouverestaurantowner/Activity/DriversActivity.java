@@ -8,6 +8,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.tastetrouverestaurantowner.APIClient;
 import com.example.tastetrouverestaurantowner.Adapter.DriverAdapter;
@@ -65,6 +66,8 @@ public class DriversActivity extends AppCompatActivity {
                     ));
 
                 }
+
+
 
                 DriverAdapter customAdapter= new DriverAdapter(driverModalArrayList,DriversActivity.this,orderId,ownerId);
                 recyclerView.setAdapter(customAdapter);
