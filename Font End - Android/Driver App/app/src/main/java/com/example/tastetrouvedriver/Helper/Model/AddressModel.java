@@ -35,7 +35,7 @@ public class AddressModel {
     public AddressModel(JSONObject jsonObject) {
         try {
             _id = jsonObject.getString("_id");
-            userId = jsonObject.getString("userId");
+
             address = jsonObject.getString("address");
             lat = jsonObject.getString("lat");
             _long = jsonObject.getString("long");

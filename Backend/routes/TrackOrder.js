@@ -16,7 +16,7 @@ router.post("/add", async (req, res) => {
       status: "assigned",
     });
 
-     console.log(newtrack);
+    console.log(newtrack);
 
     await Order.updateOne(
       { _id: orderId },
@@ -73,14 +73,31 @@ router.post("/getDriverForOrder", async (req, res) => {
   }
 });
 
+router.post("/getDriverPastOrders", async (req, res) => {
+  try {
+    let { deliveryUser } = req.body;
+    const trackOrder = await TrackOrder.find({
+      deliveryUser,
+    }).populate("orderId");
+
+    res.send(trackOrder);
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 router.post("/getDriverIncome", async (req, res) => {
   try {
     let { deliveryUser } = req.body;
     const trackOrder = await TrackOrder.find({
       deliveryUser,
+      status: "delivered",
     });
 
-    res.send(trackOrder.length * 5);
+    const amount = trackOrder.length * 5;
+
+    res.json({ total: amount.toString() });
   } catch (err) {
     console.log(err.message);
     res.status(500).json({ error: err.message });
