@@ -153,7 +153,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     CardView newOrderCardView, finishCardView;
     LinearLayout acceptRejectLinear;
     RelativeLayout acceptRelative, rejectRelative, goOnlineRelative;
-    Point origin = Point.fromLngLat(45.501562071441825, -73.6300247057701);
+    Point origin = Point.fromLngLat(-73.58757864001308, 45.507913247808354);
     Point destination;
     TextView statusTV;
     int count=0;
@@ -178,6 +178,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         settingsFragment = new SettingsFragment();
         initUI();
         tokenId = getUserToken();
+        getDriverStatus();
     }
 
     @SuppressLint("MissingPermission")
@@ -237,8 +238,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             locationEngine.removeLocationUpdates(callback);
         }
         mapView.onDestroy();
-
         mapView.onDestroy();
+        changeDriverOnlineStatus(false);
+        Log.i("TAG","TAG: on destroy called");
     }
 
 
@@ -248,9 +250,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onClick(View v) {
                 if (statusTV.getText().equals(getString(R.string.offline))) {
-                    changeDriverOnlineStatus(true);
-                } else {
                     changeDriverOnlineStatus(false);
+                } else {
+                    changeDriverOnlineStatus(true);
                 }
             }
         });
@@ -341,9 +343,24 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onStyleLoaded(@NonNull Style style) {
                 enableLocationComponent(style);
+//                getDriverCurrentOrder();
+
+//                initSource(style);
+
+//                initLayers(style);
+
+
+
+                origin = Point.fromLngLat(-73.63009981093005, 45.50148687522766);
+
+                destination = Point.fromLngLat(-73.58757864001308, 45.507913247808354);
+
                 initSource(style);
+
                 initLayers(style);
-                getDriverCurrentOrder();
+
+                getRoute(origin, destination);
+
             }
         });
 
@@ -458,6 +475,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     }
 
+
+
     @Override
     public void onClick(View v) {
 
@@ -554,7 +573,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 addressTV.setText(driverCurrentRequestModel.getOrderId().getAddressId().getAddress());
                                 AddressModel model = driverCurrentRequestModel.getOrderId().getAddressId();
                                 destination = Point.fromLngLat(Double.parseDouble(model.get_long()),Double.parseDouble(model.getLat()));
-                                getRoute(origin,destination);
                                 Log.i("TAG","TAG: Order id "+driverCurrentRequestModel.get_id());
                             }
                         } catch (Exception ex) {
@@ -623,6 +641,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     try {
                         int status = response.code();
                         if(status == 200) {
+                            if(orderStatus.equals(GlobalObjects.accepted_by_driver)) {
+                                getRoute(origin, destination);
+                            }
                             acceptRejectLinear.setVisibility(View.GONE);
                             finishCardView.setVisibility(View.VISIBLE);
                         }
@@ -673,9 +694,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                             int status = response.code();
                             if(status == 200) {
                                 if(isOnline) {
-                                    statusTV.setText(getString(R.string.online));
-                                } else {
                                     statusTV.setText(getString(R.string.offline));
+                                } else {
+                                    statusTV.setText(getString(R.string.online));
                                 }
 
                             }
@@ -687,6 +708,40 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
                         Log.i("TAG","TAG Server failure: "+t.getMessage());
+                    }
+                });
+            } catch (Exception ex) {
+                Log.i("TAG","TAG "+ex.getMessage());
+            }
+        }
+    }
+
+    private void getDriverStatus() {
+        String token = getUserToken();
+        if(!token.isEmpty()) {
+            try {
+                APIClient.getInstance().getApi().getUserDetails(token).enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        try {
+                            int status = response.code();
+                            if(status == 200) {
+                                JSONObject finalResponse = new JSONObject(response.body().string());
+                                boolean isOnline = finalResponse.getBoolean("isOnline");
+                                if(isOnline) {
+                                    statusTV.setText(getString(R.string.offline));
+                                } else {
+                                    statusTV.setText(getString(R.string.online));
+                                }
+                            }
+                        } catch (Exception ex) {
+                            Log.i("TAG","TAG "+ex.getMessage());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Log.i("TAG","TAG "+t.getMessage());
                     }
                 });
             } catch (Exception ex) {

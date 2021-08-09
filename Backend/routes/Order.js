@@ -142,6 +142,7 @@ router.put("/UpdateOrderStatus", async (req, res) => {
       );
     }
   }
+  return res.send({ data: "order updated" });
 });
 
 router.put("/addReview", async (req, res) => {
