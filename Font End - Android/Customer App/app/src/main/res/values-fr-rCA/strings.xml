@@ -96,10 +96,17 @@
     <string name="cvv_error">Le numéro cvv doit être à 3 chiffres</string>
     <string name="please_add_address">Veuillez ajouter l\'adresse dans l\'écran de configuration</string>
     <string name="no_product">Aucun produit</string>
+    <string name="theme">Changer Thème</string>
 
     <string name="facebook_app_id">323269916119130</string>
     <string name="fb_login_protocol_scheme">fb323269916119130</string>
-
-
-
+    <string name="track_order">Suivi de commande</string>
+    <string name="offers_for_you">Offres pour vous</string>
+    <string name="christmas">Noël</string>
+    <string name="black_friday">Vendredi noir</string>
+    <string name="boxing_day">Le lendemain de Noël</string>
+    <string name="new_year">Nouvel An</string>
+    <string name="share">Partager</string>
+    <string name="remove_from_favourite">Retirer des favoris</string>
+    <string name="add_to_favorite">Ajouter aux Favoris</string>
 </resources>

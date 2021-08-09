@@ -18,12 +18,17 @@ import com.example.tastetrouve.Adapters.MyOrderAdapter;
 import com.example.tastetrouve.Adapters.OrderDetailAdapter;
 import com.example.tastetrouve.HelperClass.ApiClient;
 import com.example.tastetrouve.HelperClass.ApiInterface;
+import com.example.tastetrouve.Models.GlobalObjects;
 import com.example.tastetrouve.Models.MyOrderModel;
 import com.example.tastetrouve.Models.OrderDetailModel;
 import com.example.tastetrouve.R;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -35,8 +40,9 @@ public class OrderDetail extends  BaseActivity  {
     RecyclerView recyclerView;
     TextView orderIDdetail,tax,Delivery,total,orderStatus,ratingReview;
     SharedPreferences sharedPreferences;
-    LinearLayout reviewOrder,reviewContainer;
+    LinearLayout reviewOrder,reviewContainer, trackOrderLinear;
     RatingBar rating;
+    String orderId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +53,14 @@ public class OrderDetail extends  BaseActivity  {
         setLanguage(language);
         setContentView(R.layout.activity_order_detail);
 
+        trackOrderLinear = findViewById(R.id.trackOrderLinear);
+        trackOrderLinear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getDriverId();
+            }
+        });
+
         findViewById(R.id.backBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,7 +69,7 @@ public class OrderDetail extends  BaseActivity  {
         });
 
 
-        String orderId = getIntent().getStringExtra("orderId");
+        orderId = getIntent().getStringExtra("orderId");
 
         recyclerView = findViewById(R.id.orderDetails);
         orderIDdetail = findViewById(R.id.orderIDdetail);
@@ -101,11 +115,21 @@ public class OrderDetail extends  BaseActivity  {
                             rating.setRating(orderDetails.get(0).getRatingStar());
                             ratingReview.setText(orderDetails.get(0).getRatingReview());
                             Log.d("TAG", orderDetails.get(0).getRatingReview());
-                            if(orderDetails.get(0).getRatingReview().equals("") ){
-                                reviewContainer.setVisibility(View.GONE);
-                            }else {
 
+                            if(orderDetails.get(0).getOrderStatus().equals(GlobalObjects.delivered)) {
+                                if(orderDetails.get(0).getRatingReview().equals("") ){
+                                    reviewContainer.setVisibility(View.GONE);
+                                }else {
+                                    reviewOrder.setVisibility(View.GONE);
+                                }
+                            } else if(orderDetails.get(0).getOrderStatus().equals(GlobalObjects.accepted_by_driver)) {
+                                trackOrderLinear.setVisibility(View.VISIBLE);
+                                reviewContainer.setVisibility(View.GONE);
                                 reviewOrder.setVisibility(View.GONE);
+                            } else {
+                                trackOrderLinear.setVisibility(View.GONE);
+                                reviewOrder.setVisibility(View.GONE);
+                                reviewContainer.setVisibility(View.GONE);
                             }
                         }
                     } catch (Exception ex) {
@@ -123,7 +147,36 @@ public class OrderDetail extends  BaseActivity  {
         } catch (Exception ex) {
             Log.i("TAG","TAG "+ex.getMessage());
         }
+    }
 
+    private void getDriverId() {
+        if(!orderId.isEmpty()) {
+            try {
+                ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+                apiInterface.getDriverIdOfOrder(orderId).enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        try {
+                            JSONArray jsonArray = new JSONArray(response.body().string());
+                            JSONObject finalResponse = jsonArray.getJSONObject(0);
+                            String driverId = finalResponse.getString("deliveryUser");
 
+                            Intent intent = new Intent(OrderDetail.this,DriverLocationActivity.class);
+                            intent.putExtra("driverId",driverId);
+                            startActivity(intent);
+                        } catch (Exception ex) {
+                            Log.i("TAG","TAG "+ex.getMessage());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Log.i("TAG","TAG: Server failure: "+t.getMessage());
+                    }
+                });
+            } catch (Exception ex) {
+                Log.i("TAG","TAG "+ex.getMessage());
+            }
+        }
     }
 }

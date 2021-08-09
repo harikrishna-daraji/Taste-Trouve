@@ -9,9 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardElevation="10dp"
-
         app:cardCornerRadius="10dp"
-        app:cardBackgroundColor="#fff"
+        app:cardBackgroundColor="?attr/backgroundColor"
         >
 
         <LinearLayout
@@ -39,7 +38,7 @@
                 <TextView
                     android:id="@+id/orderId"
                     android:layout_width="wrap_content"
-                    android:textColor="#000"
+                    android:textColor="?attr/textColor"
                     android:layout_height="wrap_content"
                     android:text="orderId"/>
                 <LinearLayout
@@ -48,13 +47,13 @@
 
                     android:orientation="horizontal">
                     <TextView
-                        android:textColor="@color/black"
+                        android:textColor="?attr/textColor"
                         android:id="@+id/price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="price"/>
                     <TextView
-                        android:textColor="@color/black"
+                        android:textColor="?attr/textColor"
                         android:id="@+id/date"
                         android:layout_marginLeft="20dp"
                         android:layout_width="wrap_content"

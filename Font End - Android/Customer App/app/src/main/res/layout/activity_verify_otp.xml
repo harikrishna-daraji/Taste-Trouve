@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="?attr/backgroundColor"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".Activities.VerifyOtpActivity">
@@ -15,13 +16,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/verification"
-        android:textColor="#000"
+        android:textColor="?attr/textColor"
         android:layout_marginTop="100dp"
         android:textSize="60dp"
         android:gravity="center_horizontal"
         android:textStyle="bold"
         />
     <TextView
+        android:textColor="?attr/textColor"
         android:id="@+id/textView9"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -45,7 +47,7 @@
             android:maxLength="1"
             android:ems="10"
             android:inputType="number"
-            android:textColor="#ff0000"
+            android:textColor="?attr/textColor"
             />
         <EditText
             android:id="@+id/editTextOtp2"
@@ -57,7 +59,7 @@
             android:textAlignment="center"
             android:ems="10"
             android:inputType="number"
-            android:textColor="#ff0000"
+            android:textColor="?attr/textColor"
             />
         <EditText
             android:id="@+id/editTextOtp3"
@@ -69,7 +71,7 @@
             android:layout_marginTop="72dp"
             android:ems="10"
             android:inputType="number"
-            android:textColor="#ff0000"
+            android:textColor="?attr/textColor"
             />
         <EditText
             android:id="@+id/editTextOtp4"
@@ -81,7 +83,7 @@
             android:layout_marginTop="72dp"
             android:ems="10"
             android:inputType="number"
-            android:textColor="#ff0000"
+            android:textColor="?attr/textColor"
             />
         <EditText
             android:id="@+id/editTextOtp5"
@@ -93,7 +95,7 @@
             android:layout_marginTop="72dp"
             android:ems="10"
             android:inputType="number"
-            android:textColor="#ff0000"
+            android:textColor="?attr/textColor"
             />
         <EditText
             android:id="@+id/editTextOtp6"
@@ -105,7 +107,7 @@
             android:layout_marginTop="72dp"
             android:ems="10"
             android:inputType="number"
-            android:textColor="#ff0000"
+            android:textColor="?attr/textColor"
             />
 
     </LinearLayout>

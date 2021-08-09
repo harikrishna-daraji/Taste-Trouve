@@ -1,12 +1,15 @@
 package com.example.tastetrouve.Fragments;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -33,7 +36,7 @@ import static android.content.Context.MODE_PRIVATE;
 public class FavouriteFragment extends Fragment {
 
     private View root;
-
+    TextView noResultTV;
     List<FavouriteModel> favouriteModelList;
     RecyclerView favRecycler;
     FavouriteModel favouriteModel;
@@ -54,7 +57,7 @@ public class FavouriteFragment extends Fragment {
         // Inflate the layout for this fragment
         root = inflater.inflate(R.layout.favourite_fragment_xml, container, false);
         favRecycler = root.findViewById(R.id.favouriteRecycler);
-
+        noResultTV = root.findViewById(R.id.noResultTV);
         favRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
         getFavouriteProducts();
         return root;
@@ -72,8 +75,15 @@ public class FavouriteFragment extends Fragment {
                         try {
                             if(response.code() == 200) {
                                 favouriteModelList = response.body();
+                                if(favouriteModelList.size() > 0) {
+                                    noResultTV.setVisibility(View.GONE);
+                                    favRecycler.setVisibility(View.VISIBLE);
+                                    favRecycler.setAdapter(new FavouriteAdapter(favouriteModelList,getActivity()));
+                                } else {
+                                    noResultTV.setVisibility(View.VISIBLE);
+                                    favRecycler.setVisibility(View.GONE);
+                                }
 
-                                favRecycler.setAdapter(new FavouriteAdapter(favouriteModelList,getContext()));
 
                             } else {
                                 Log.i("TAG","TAG: Code: "+response.code()+" Message: "+response.message());
@@ -104,4 +114,9 @@ public class FavouriteFragment extends Fragment {
             return "";
         }
     }
+
+    public void refreshFavouriteList() {
+        getFavouriteProducts();
+    }
+
 }

@@ -1,21 +1,28 @@
 package com.example.tastetrouve.Fragments;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.tastetrouve.Activities.HomeActivity;
+import com.example.tastetrouve.Activities.LanguageActivity;
+import com.example.tastetrouve.Activities.MainActivity;
 import com.example.tastetrouve.Activities.MapActivity;
 import com.example.tastetrouve.Activities.MyOrdersActivity;
 import com.example.tastetrouve.Activities.SignIn;
@@ -45,7 +52,11 @@ public class SettingsFragment extends Fragment {
     private View root;
     RecyclerView addressRecycle;
     List<AddressModel> addressModelList = new ArrayList<>();
-    LinearLayout addressListLinear,myOrders,manageProfileLinear;
+    LinearLayout addressListLinear,myOrders, manageProfileLinear;
+    Switch themeSwitch;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor  editor;
+
 
     public SettingsFragment() {
 
@@ -68,12 +79,38 @@ public class SettingsFragment extends Fragment {
     }
 
     private void initUI() {
+        themeSwitch = root.findViewById(R.id.themeSwitch);
         addressListLinear = root.findViewById(R.id.addressListLinear);
         myOrders = root.findViewById(R.id.myOrders);
         addressRecycle = root.findViewById(R.id.addressRecycle);
         manageProfileLinear = root.findViewById(R.id.manageProfileLinear);
         addressRecycle.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        String theme = sharedPreferences.getString("theme",getString(R.string.light));
+
+        if(theme.equals(getString(R.string.light))) {
+           themeSwitch.setChecked(false);
+        } else {
+           themeSwitch.setChecked(true);
+        }
+
+        themeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+                editor = sharedPreferences.edit();
+                if(isChecked) {
+                    editor.putString("theme",getString(R.string.dark));
+                } else {
+                    editor.putString("theme",getString(R.string.light));
+                }
+                editor.apply();
+                getActivity().finishAffinity();
+                Intent intent = new Intent(getActivity(), LanguageActivity.class);
+                startActivity(intent);
+            }
+        });
 
         myOrders.setOnClickListener(new View.OnClickListener() {
             @Override

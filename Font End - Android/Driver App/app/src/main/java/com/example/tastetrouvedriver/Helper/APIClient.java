@@ -1,6 +1,7 @@
 package com.example.tastetrouvedriver.Helper;
 
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class APIClient {
@@ -9,23 +10,37 @@ public class APIClient {
     private static APIClient mInstance;
     private static Retrofit retrofit ;
 
-    public  APIClient() {
+    public  APIClient(boolean isCurrentOrder) {
 
+        if(isCurrentOrder) {
+            retrofit = new Retrofit.Builder()
+                    .baseUrl(BASE_URL)
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                    .build();
+        } else {
             retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
-
         }
 
-        public static synchronized  APIClient getInstance(){
+    }
+
+    public static synchronized  APIClient getInstance(){
         if(mInstance==null){
-            mInstance=new APIClient();
+            mInstance=new APIClient(false);
         }
         return  mInstance;
-        }
-
-       public com.example.tastetrouvedriver.Helper.ApiInterface getApi(){
-        return  retrofit.create(com.example.tastetrouvedriver.Helper.ApiInterface.class);
-       }
     }
+
+    public static synchronized APIClient getCurrentOrderInstance() {
+            if(mInstance==null){
+                mInstance=new APIClient(true);
+            }
+            return  mInstance;
+    }
+
+    public com.example.tastetrouvedriver.Helper.ApiInterface getApi(){
+        return  retrofit.create(com.example.tastetrouvedriver.Helper.ApiInterface.class);
+    }
+}
