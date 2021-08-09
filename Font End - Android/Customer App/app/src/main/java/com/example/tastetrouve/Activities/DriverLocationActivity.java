@@ -26,6 +26,11 @@ import com.mapbox.geojson.FeatureCollection;
 import com.mapbox.geojson.LineString;
 import com.mapbox.geojson.Point;
 import com.mapbox.mapboxsdk.Mapbox;
+import com.mapbox.mapboxsdk.annotations.Marker;
+import com.mapbox.mapboxsdk.annotations.MarkerOptions;
+import com.mapbox.mapboxsdk.camera.CameraUpdate;
+import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
+import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.location.LocationComponent;
 import com.mapbox.mapboxsdk.location.modes.CameraMode;
 import com.mapbox.mapboxsdk.maps.MapView;
@@ -44,6 +49,8 @@ public class DriverLocationActivity extends AppCompatActivity implements OnMapRe
     DriverLocationModel driverLocationModel;
     private static final String ROUTE_LAYER_ID = "route-layer-id";
     private static final String ROUTE_SOURCE_ID = "route-source-id";
+    int count = 0;
+    Marker driverMarker;
 
 
     @Override
@@ -63,6 +70,9 @@ public class DriverLocationActivity extends AppCompatActivity implements OnMapRe
     @Override
     public void onMapReady(@NonNull MapboxMap mapboxMap) {
         this.mapboxMap = mapboxMap;
+        driverMarker = mapboxMap.addMarker(new MarkerOptions()
+                .position(new LatLng(45.50151695388322, -73.63007835200055))
+                .title("Driver"));
         mapboxMap.setStyle(Style.MAPBOX_STREETS, new Style.OnStyleLoaded() {
             @Override
             public void onStyleLoaded(@NonNull Style style) {
@@ -93,8 +103,17 @@ public class DriverLocationActivity extends AppCompatActivity implements OnMapRe
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                driverLocationModel = snapshot.getValue(DriverLocationModel.class);
+                driverMarker.remove();
+                mapboxMap.removeMarker(driverMarker);
+                driverMarker = mapboxMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(driverLocationModel.getLatitude(), driverLocationModel.getLongitude()))
+                        .title("Driver"));
+                mapboxMap.animateCamera(CameraUpdateFactory.newLatLng(new LatLng(driverLocationModel.getLatitude(),driverLocationModel.getLongitude())));
                 Log.i("TAG","TAG: Driver location arrived "+driverLocationModel.getLatitude()+" "+driverLocationModel.getLongitude());
-                setRouteOnMap(driverLocationModel.getRoute());
+                if(count == 0) {
+                    setRouteOnMap(driverLocationModel.getRoute());
+                    count++;
+                }
             }
 
             @Override
