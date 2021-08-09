@@ -101,16 +101,20 @@ public class AcceptedOrderAdapter extends RecyclerView.Adapter<AcceptedOrderAdap
         orderTotal.setText("$ "+pendingOrderModalArrayList.get(position).getTotalPrice());
         orderDate.setText(pendingOrderModalArrayList.get(position).getOrderDate());
 
-        orderCount.setText(pendingOrderModalArrayList.get(position).getItemCount()+" items");
+        if(pendingOrderModalArrayList.get(position).getItemCount() > 1) {
+            orderCount.setText(pendingOrderModalArrayList.get(position).getItemCount()+" items");
+        } else {
+            orderCount.setText(pendingOrderModalArrayList.get(position).getItemCount()+" item");
+        }
+
 
         address.setText(pendingOrderModalArrayList.get(position).getAddressId().address);
         ratingReview.setText(pendingOrderModalArrayList.get(position).getRatingReview());
         rating.setRating(pendingOrderModalArrayList.get(position).getRatingStar());
 
-        if(pendingOrderModalArrayList.get(0).getRatingReview().equals("") ){
+        if(pendingOrderModalArrayList.get(position).getRatingReview().equals("") ){
             reviewContainer.setVisibility(View.GONE);
         }else {
-
             reviewContainer.setVisibility(View.VISIBLE);
         }
 
