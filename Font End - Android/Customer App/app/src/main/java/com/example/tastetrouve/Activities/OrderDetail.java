@@ -23,6 +23,7 @@ import com.example.tastetrouve.Models.MyOrderModel;
 import com.example.tastetrouve.Models.OrderDetailModel;
 import com.example.tastetrouve.R;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.List;
@@ -156,8 +157,9 @@ public class OrderDetail extends  BaseActivity  {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         try {
-                            JSONObject finalResponse = new JSONObject(response.body().string());
-                            String driverId = finalResponse.getString("60fb0074fd8abd572e9ebe86");
+                            JSONArray jsonArray = new JSONArray(response.body().string());
+                            JSONObject finalResponse = jsonArray.getJSONObject(0);
+                            String driverId = finalResponse.getString("deliveryUser");
 
                             Intent intent = new Intent(OrderDetail.this,DriverLocationActivity.class);
                             intent.putExtra("driverId",driverId);
