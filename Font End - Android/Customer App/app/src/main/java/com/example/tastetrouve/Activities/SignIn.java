@@ -73,10 +73,16 @@ public class SignIn extends BaseActivity {
     TextView signup, forgotpassword;
     ImageButton signin;
     ImageView facebook,google;
+    String fb_email;
+    String fb_name;
+    String fbId;
+    String emialfb;
+    String fbpassword = "Password@123";
     SharedPreferences.Editor editor;
     SharedPreferences sharedPreferences;
     FirebaseAuth mAuth;
     boolean flag;
+    boolean fbFlag;
     CallbackManager callbackManager;
 
     private ProfileTracker mProfileTracker;
@@ -145,10 +151,13 @@ public class SignIn extends BaseActivity {
             }
         });
 
+
         facebook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                fbFlag = true;
+                setUpCallBacks();
                 onfbClick();
             }
         });
@@ -156,83 +165,100 @@ public class SignIn extends BaseActivity {
             @Override
             public void onClick(View v) {
 
+                fbFlag = false;
                 signIn();
             }
         });
     }
 
-    private void onfbClick() {
+    private void setUpCallBacks() {
         callbackManager = CallbackManager.Factory.create();
 
-        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("email","public_profile"));
         LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-//                try{
-//                    if (Profile.getCurrentProfile() == null) {
-//                        mProfileTracker = new ProfileTracker() {
-//                            @Override
-//                            protected void onCurrentProfileChanged(Profile profile_old, Profile profile_new) {
-//                                // profile2 is the new profile
-//                                profile = profile_new;
-//                                mProfileTracker.stopTracking();
-//                            }
-//                        };
-//                        mProfileTracker.startTracking();
-//                    } else {
-//                        profile = Profile.getCurrentProfile();
-//                    }
-//
-//                    GraphRequest request = GraphRequest.newMeRequest(
-//                            loginResult.getAccessToken(),
-//                            new GraphRequest.GraphJSONObjectCallback() {
-//                                @Override
-//                                public void onCompleted(JSONObject object, GraphResponse response) {
-//                                    Log.v("FACEBOOK LOGIN", response.toString());
-//                                    // Application code
-//                                    try {
-//                                        String fb_id = object.getString("id");
-//                                        String fb_name = object.getString("name");
-//                                        String profilePicUrl = "https://graph.facebook.com/" + fb_id + "/picture?width=200&height=200";
-//                                        String fb_gender = object.getString("gender");
-//                                        String fb_email = object.getString("email");
-//                                        String fb_birthday = object.getString("birthday");
-//                                    } catch (JSONException e) {
-//                                        e.printStackTrace();
-//                                    }
-//
-//                                    //use shared preferences here
-//                                }
-//                            });
-//                    Bundle parameters = new Bundle();
-//                    parameters.putString("fields", "id,name,email,gender,birthday,picture.type(small)");
-//                    request.setParameters(parameters);
-//                    request.executeAsync();
+                //show share alert
+                //then share
+                Log.i("LOGIN_SUCCESS","LOGIN_SUCCESS");
+                Log.d("sujay", "sujay");
+                try{
+                    if (Profile.getCurrentProfile() == null) {
+                        mProfileTracker = new ProfileTracker() {
+                            @Override
+                            protected void onCurrentProfileChanged(Profile profile_old, Profile profile_new) {
+                                // profile2 is the new profile
+                                profile = profile_new;
+                                mProfileTracker.stopTracking();
+                            }
+                        };
+                        mProfileTracker.startTracking();
+                    } else {
+                        profile = Profile.getCurrentProfile();
+                    }
+
+                    GraphRequest request = GraphRequest.newMeRequest(
+                            loginResult.getAccessToken(),
+                            new GraphRequest.GraphJSONObjectCallback() {
+                                @Override
+                                public void onCompleted(JSONObject object, GraphResponse response) {
+                                    Log.d("FACEBOOK LOGIN", response.toString());
+                                    // Application code
+                                    Users user = new Users();
+                                    try {
+                                        fb_name = object.getString("name");
+                                        emialfb = object.getString("email");
+                                        fbId = object.getString("id");
+                                        Log.d("sujayemail", emialfb);
+
+                                        user.setEmail(emialfb);
+                                        user.setName(fb_name);
+                                        user.setPassword(fbpassword);
+
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                    email.setText(emialfb);
+                                    password.setText(fbpassword);
+                                    registerUser(user,"");
+                                    //callLoginApi();
+                                    //startActivity(new Intent(SignIn.this, HomeActivity.class));
+                                    //use shared preferences here
+                                }
+                            });
+                    Bundle parameters = new Bundle();
+                    parameters.putString("fields", "id,name,email,gender,birthday,picture.type(small)");
+                    request.setParameters(parameters);
+                    request.executeAsync();
 
                     //go to Home page
-                    Intent intent = new Intent(SignIn.this, HomeActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
-                    finish();
-//                }catch (Exception e )
-//                {
-//                    Log.d("TAG123", e.toString());
-//                }
+//                    Intent intent = new Intent(SignIn.this, HomeActivity.class);
+//                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                    startActivity(intent);
+//                    finish();
+
+                }catch (Exception e )
+                {
+                    Log.d("TAG123", e.toString());
+                }
             }
+
 
             @Override
             public void onCancel() {
-
-
-                Log.d(TAG, "onCancel: ");
+                Toast.makeText(getBaseContext(), "Operation canceled", Toast.LENGTH_SHORT).show();
+                finish();
             }
 
             @Override
             public void onError(FacebookException error) {
-
-                Log.d("TAG123", error.getMessage());
+                Toast.makeText(getBaseContext(), "Error in connecting to Facebook", Toast.LENGTH_SHORT).show();
+                finish();
             }
         });
+    }
+
+    private void onfbClick() {
+        LoginManager.getInstance().logInWithReadPermissions(SignIn.this,Arrays.asList("public_profile"));
     }
 
     boolean isValidEmail(String email) {
@@ -321,9 +347,17 @@ public class SignIn extends BaseActivity {
                 @Override
                 public void onResponse(Call<UserModel> call, Response<UserModel> response) {
                     try {
+                        Log.d("callLoginApi", ""+response.code());
                         Log.i("TAG","TAG: Code "+response.code()+" Message: "+response.message());
                         if(response.code() == 200) {
+
                             UserModel userModel = response.body();
+                            if(fbFlag == true){
+
+                                saveLogInStatus(userModel.get_id(),"0000000000");
+                                Log.d("usermodelid", userModel.get_id());
+                                startActivity(new Intent(SignIn.this, HomeActivity.class));
+                            }
                             saveLogInStatus(userModel.get_id(),userModel.getPhoneNumber());
                             startActivity(new Intent(SignIn.this, HomeActivity.class));
                         }
@@ -350,7 +384,9 @@ public class SignIn extends BaseActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
+        if(fbFlag == true) {
+            callbackManager.onActivityResult(requestCode, resultCode, data);
+        }
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
@@ -376,7 +412,6 @@ public class SignIn extends BaseActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-
                             //home activity intent
                             //startActivity(new Intent(SignIn.this,SignUp.class));
                         } else {
@@ -388,4 +423,35 @@ public class SignIn extends BaseActivity {
                 });
     }
     //Google signin - end
+
+    private void registerUser(Users user, String fcmToken) {
+        try {
+            ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+            apiInterface.registerUser(user.getEmail(),user.getPassword(),user.getName(),fcmToken,user.getPhone(),user.getDateofbirth()).enqueue(new Callback<UserModel>() {
+                @Override
+                public void onResponse(Call<UserModel> call, Response<UserModel> response) {
+                    try {
+                        Log.i("TAG","TAG: Code: "+response.code()+" Message: "+response.message());
+                        if(response.code() == 200) {
+                            saveLogInStatus(response.body().get_id(),response.body().getPhoneNumber());
+                            Toast.makeText(SignIn.this, getString(R.string.user_created), Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(SignIn.this, HomeActivity.class));
+                        } else {
+
+                        }
+                    } catch (Exception ex) {
+                        Log.i("TAG","TAG "+ex.getMessage());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<UserModel> call, Throwable t) {
+                    Log.i("TAG","TAG: Server Failure");
+                }
+            });
+        } catch (Exception ex) {
+
+            Log.i("TAG","TAG "+ex.getMessage());
+        }
+    }
 }
