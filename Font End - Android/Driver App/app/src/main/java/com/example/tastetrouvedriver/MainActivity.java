@@ -343,23 +343,23 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onStyleLoaded(@NonNull Style style) {
                 enableLocationComponent(style);
-//                getDriverCurrentOrder();
-
-//                initSource(style);
-
-//                initLayers(style);
-
-
-
-                origin = Point.fromLngLat(-73.63009981093005, 45.50148687522766);
-
-                destination = Point.fromLngLat(-73.58757864001308, 45.507913247808354);
+                getDriverCurrentOrder();
 
                 initSource(style);
 
                 initLayers(style);
 
-                getRoute(origin, destination);
+
+
+//                origin = Point.fromLngLat(-73.63009981093005, 45.50148687522766);
+//
+//                destination = Point.fromLngLat(-73.58757864001308, 45.507913247808354);
+//
+//                initSource(style);
+//
+//                initLayers(style);
+//
+//                getRoute(origin, destination);
 
             }
         });
