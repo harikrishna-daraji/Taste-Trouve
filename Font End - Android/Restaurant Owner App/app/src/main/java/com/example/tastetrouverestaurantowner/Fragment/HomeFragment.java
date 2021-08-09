@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 
 import com.example.tastetrouverestaurantowner.Activity.AcceptedOrderActivity;
 import com.example.tastetrouverestaurantowner.Activity.AddItem;
+import com.example.tastetrouverestaurantowner.Activity.DeliveredOrdersActivity;
 import com.example.tastetrouverestaurantowner.Activity.DriversActivity;
 import com.example.tastetrouverestaurantowner.Activity.PendingOrdersActivity;
 import com.example.tastetrouverestaurantowner.Activity.ReportActivity;
@@ -21,7 +22,7 @@ import com.example.tastetrouverestaurantowner.R;
 
 public class HomeFragment extends Fragment {
 
-  LinearLayout createItem,viewItems,pendingOrder,avaliableDrivers,acceptedactivity,reportlayout;
+  LinearLayout createItem,viewItems,pendingOrder,deliveredOrders,acceptedactivity,reportlayout;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -44,7 +45,7 @@ public class HomeFragment extends Fragment {
         createItem=(LinearLayout)view.findViewById(R.id.createItem);
         viewItems=(LinearLayout)view.findViewById(R.id.viewItems);
         pendingOrder=(LinearLayout)view.findViewById(R.id.pendingOrder);
-        avaliableDrivers=(LinearLayout)view.findViewById(R.id.avaliableDrivers);
+        deliveredOrders=(LinearLayout)view.findViewById(R.id.deliveredOrders);
         acceptedactivity=(LinearLayout)view.findViewById(R.id.acceptedactivity);
         reportlayout=(LinearLayout)view.findViewById(R.id.reportlayout);
 
@@ -76,11 +77,11 @@ public class HomeFragment extends Fragment {
         });
 
 
-        avaliableDrivers.setOnClickListener(new View.OnClickListener() {
+        deliveredOrders.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                intent.setClass(getActivity(), DriversActivity.class);
+                intent.setClass(getActivity(), DeliveredOrdersActivity.class);
                 getActivity().startActivity(intent);
             }
         });
