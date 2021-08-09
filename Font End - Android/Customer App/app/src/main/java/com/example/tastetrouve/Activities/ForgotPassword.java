@@ -61,6 +61,7 @@ boolean flag = false;
         send = findViewById(R.id.imageButtonSend);
         mAuth = FirebaseAuth.getInstance();
 
+
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

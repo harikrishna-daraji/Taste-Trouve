@@ -41,6 +41,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:20.0.0'
     implementation 'com.google.firebase:firebase-messaging:22.0.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'com.google.firebase:firebase-auth-ktx:21.0.1'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
@@ -63,6 +64,7 @@ dependencies {
     // Also declare the dependency for the Google Play services library and specify its version
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
 
+    implementation 'com.facebook.android:facebook-login:[8.1)'
     // Retrofit dependencies
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.6.1'
@@ -83,10 +85,5 @@ dependencies {
 
     implementation 'com.makeramen:roundedimageview:2.3.0'
 
-
-    //Mapbox
-    implementation "com.mapbox.navigation:ui:1.5.1"
-    implementation('com.mapbox.mapboxsdk:mapbox-android-navigation-ui:0.42.6') {
-        exclude group: 'com.mapbox.mapboxsdk', module: 'mapbox-android-plugin-annotation-v8'
-    }
+    implementation 'androidx.browser:browser:1.3.0'
 }
