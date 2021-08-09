@@ -28,7 +28,7 @@ public class DeliveredOrdersActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delivered_orders);
 
-        recyclerView = findViewById(R.id.acceptedOrderRecycler);
+        recyclerView = findViewById(R.id.deliveredOrdersREcycler);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 

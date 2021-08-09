@@ -78,6 +78,7 @@ router.post("/getDriverPastOrders", async (req, res) => {
     let { deliveryUser } = req.body;
     const trackOrder = await TrackOrder.find({
       deliveryUser,
+      status: "delivered",
     }).populate("orderId");
 
     res.send(trackOrder);

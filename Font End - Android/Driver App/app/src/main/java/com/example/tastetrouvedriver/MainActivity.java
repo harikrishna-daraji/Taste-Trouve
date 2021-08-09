@@ -454,6 +454,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                                         Feature.fromGeometry(LineString.fromPolyline(currentRoute.geometry(), 6))));
 
 
+
                             }
                         }
                     });
@@ -616,6 +617,19 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 finishCardView.setVisibility(View.GONE);
                                 acceptRejectLinear.setVisibility(View.VISIBLE);
                                 newOrderCardView.setVisibility(View.GONE);
+
+                                mapboxMap.getStyle(new Style.OnStyleLoaded() {
+                                    @Override
+                                    public void onStyleLoaded(@NonNull Style style) {
+
+                                        GeoJsonSource source = style.getSourceAs(ROUTE_SOURCE_ID);
+
+                                        if (source != null) {
+                                            Timber.d("onResponse: source != null");
+                                            source.setGeoJson(FeatureCollection.fromJson(""));
+                                        }
+                                    }
+                                });
                             }
                         } catch (Exception ex) {
                             Log.i("TAG","TAG "+ex.getMessage());

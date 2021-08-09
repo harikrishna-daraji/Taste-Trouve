@@ -117,6 +117,7 @@ public class OrderDetail extends  BaseActivity  {
                             Log.d("TAG", orderDetails.get(0).getRatingReview());
 
                             if(orderDetails.get(0).getOrderStatus().equals(GlobalObjects.delivered)) {
+                                trackOrderLinear.setVisibility(View.GONE);
                                 if(orderDetails.get(0).getRatingReview().equals("") ){
                                     reviewContainer.setVisibility(View.GONE);
                                 }else {
