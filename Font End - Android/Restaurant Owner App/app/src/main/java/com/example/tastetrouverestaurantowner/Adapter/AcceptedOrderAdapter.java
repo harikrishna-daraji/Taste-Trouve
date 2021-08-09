@@ -96,7 +96,7 @@ public class AcceptedOrderAdapter extends RecyclerView.Adapter<AcceptedOrderAdap
 
 
 
-
+        status.setText(pendingOrderModalArrayList.get(position).orderStatus);
         orderId.setText(pendingOrderModalArrayList.get(position).getOrderId());
         orderTotal.setText("$ "+pendingOrderModalArrayList.get(position).getTotalPrice());
         orderDate.setText(pendingOrderModalArrayList.get(position).getOrderDate());
