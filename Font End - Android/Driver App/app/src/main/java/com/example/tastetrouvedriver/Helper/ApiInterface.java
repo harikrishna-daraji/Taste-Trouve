@@ -2,6 +2,7 @@ package com.example.tastetrouvedriver.Helper;
 
 
 import com.example.tastetrouvedriver.Helper.Model.DriverCurrentRequestModel;
+import com.example.tastetrouvedriver.Helper.Model.PastOrderModel;
 
 import java.util.List;
 
@@ -47,6 +48,16 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("trackOrder/getCurrentOrderForDriver")
     Call<ResponseBody> getCurrentOrder(@Field("deliveryUser") String deliveryUser);
+
+
+    @FormUrlEncoded
+    @POST("trackOrder/getDriverIncome")
+    Call<ResponseBody> getEarnings(@Field("deliveryUser") String deliveryUser);
+
+
+  @FormUrlEncoded
+    @POST("trackOrder/getDriverPastOrders")
+   Call<List<PastOrderModel>>  getPastOrder(@Field("deliveryUser") String deliveryUser);
 
 
     @FormUrlEncoded
