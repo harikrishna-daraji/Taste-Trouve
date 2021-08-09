@@ -211,6 +211,13 @@ public class CartActivity  extends BaseActivity implements CartInterface, Adapte
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getCartDetails();
+    }
+
+
     private String getUserToken() {
         SharedPreferences sharedPreferences = getSharedPreferences("AuthenticationTypes",MODE_PRIVATE);
         boolean isLoggedIn = sharedPreferences.getBoolean("signUpDone",false);
@@ -251,11 +258,13 @@ public class CartActivity  extends BaseActivity implements CartInterface, Adapte
                                 totalLinear.setVisibility(View.GONE);
                                 subTotalLinear.setVisibility(View.GONE);
                                 placeOrder.setVisibility(View.GONE);
+                                exploreDrinks.setVisibility(View.GONE);
                             } else {
                                 no_result_Linear.setVisibility(View.GONE);
                                 totalLinear.setVisibility(View.VISIBLE);
                                 subTotalLinear.setVisibility(View.VISIBLE);
                                 placeOrder.setVisibility(View.VISIBLE);
+                                exploreDrinks.setVisibility(View.VISIBLE);
                             }
 
                         } catch (Exception ex) {
@@ -353,6 +362,7 @@ public class CartActivity  extends BaseActivity implements CartInterface, Adapte
             int delivery = 5;
             int tax = (int) taxes;
             int totalInt = (int) total;
+            float rating = (float) 0;
 
             if(!userId.isEmpty() && !restaurantId.isEmpty() && !addressId.isEmpty()) {
 
@@ -363,6 +373,8 @@ public class CartActivity  extends BaseActivity implements CartInterface, Adapte
                 body.put("delivery",delivery);
                 body.put("tax",tax);
                 body.put("total",totalInt);
+                body.put("ratingStar",rating);
+                body.put("ratingReview","");
                 body.put("Products",prepareProductArray());
 
                 makeOrderApi(body);

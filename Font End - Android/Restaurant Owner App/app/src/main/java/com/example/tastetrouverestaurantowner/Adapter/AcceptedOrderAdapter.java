@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -43,9 +45,11 @@ public class AcceptedOrderAdapter extends RecyclerView.Adapter<AcceptedOrderAdap
         TextView orderCount;
         TextView address;
         TextView status;
+        TextView ratingReview;
 
 
-        Button accept_order_button,decline_order_button;
+        RatingBar rating;
+        LinearLayout reviewContainer;
 
         MyViewHolder (View itemview)
         {
@@ -57,6 +61,9 @@ public class AcceptedOrderAdapter extends RecyclerView.Adapter<AcceptedOrderAdap
             this.orderCount = (TextView)itemview.findViewById(R.id.orderCount);
             this.address = (TextView)itemview.findViewById(R.id.address);
             this.status = (TextView)itemview.findViewById(R.id.status);
+            this.ratingReview = (TextView)itemview.findViewById(R.id.ratingReview);
+            this.rating = itemview.findViewById(R.id.rating);
+            this.reviewContainer = itemview.findViewById(R.id.reviewContainer);
         }
     }
 
@@ -82,6 +89,10 @@ public class AcceptedOrderAdapter extends RecyclerView.Adapter<AcceptedOrderAdap
         TextView address=holder.address;
         TextView status=holder.status;
 
+        TextView ratingReview=holder.ratingReview;
+        RatingBar rating=holder.rating;
+        LinearLayout reviewContainer=holder.reviewContainer;
+
 
 
 
@@ -93,7 +104,15 @@ public class AcceptedOrderAdapter extends RecyclerView.Adapter<AcceptedOrderAdap
         orderCount.setText(pendingOrderModalArrayList.get(position).getItemCount()+" items");
 
         address.setText(pendingOrderModalArrayList.get(position).getAddressId().address);
-        status.setText(pendingOrderModalArrayList.get(position).getStatus());
+        ratingReview.setText(pendingOrderModalArrayList.get(position).getRatingReview());
+        rating.setRating(pendingOrderModalArrayList.get(position).getRatingStar());
+
+        if(pendingOrderModalArrayList.get(0).getRatingReview().equals("") ){
+            reviewContainer.setVisibility(View.GONE);
+        }else {
+
+            reviewContainer.setVisibility(View.VISIBLE);
+        }
 
 
     }

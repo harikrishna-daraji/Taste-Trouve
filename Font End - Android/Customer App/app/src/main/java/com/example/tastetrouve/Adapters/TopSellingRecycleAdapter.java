@@ -49,8 +49,9 @@ public class TopSellingRecycleAdapter  extends RecyclerView.Adapter<TopSellingRe
             public void onClick(View v) {
                 Intent intent = new Intent(activity, ItemDetailsActivity.class);
                 intent.putExtra("product",model);
+                intent.putExtra("index",position);
                 intent.putExtra("type", GlobalObjects.ModelList.Popular.toString());
-                activity.startActivity(intent);
+                activity.startActivityForResult(intent,GlobalObjects.POPULAR_LIST_REFRESH);
             }
         });
     }

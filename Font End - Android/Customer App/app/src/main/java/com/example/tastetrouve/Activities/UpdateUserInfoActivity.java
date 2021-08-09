@@ -3,6 +3,7 @@ package com.example.tastetrouve.Activities;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -22,16 +23,20 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class UpdateUserInfoActivity extends AppCompatActivity {
+public class UpdateUserInfoActivity extends BaseActivity {
 
     EditText name,DateOfBirth,PhoneNumber;
     Button UpdateProfile;
+    SharedPreferences sharedPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(loadStyle(false));
+        sharedPreferences = getApplicationContext().getSharedPreferences("LANGUAGE", Context.MODE_PRIVATE);
+        String language = sharedPreferences.getString("code","en");
+        setLanguage(language);
         setContentView(R.layout.activity_update_user_info);
-
-
         loadUserData();
 
         final EditText Name = findViewById(R.id.name);

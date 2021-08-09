@@ -45,7 +45,10 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("product/getDrinksProducts")
-    Call<List<ItemProductModel>> getDrinksProducts(@Field("restaurantId") String restaurantId);
+    Call<List<ItemProductModel>> getDrinksProducts(
+            @Field("restaurantId") String restaurantId,
+            @Field("userId") String userId );
+
 
 
     @FormUrlEncoded
@@ -78,7 +81,11 @@ public interface ApiInterface {
 
  @FormUrlEncoded
     @POST("product/getSpecialOfferProducts")
-    Call<List<ItemProductModel>> getSpecialProducts(@Field("userId") String userId);
+    Call<List<ItemProductModel>> getSpecialProducts(
+            @Field("userId") String userId,
+            @Field("specialType") String specialType
+
+ );
 
     @FormUrlEncoded
     @PUT("clientUser/update")
@@ -157,5 +164,17 @@ public interface ApiInterface {
     @POST("Cart/getCartCountByUser")
     Call<ResponseBody> getCartCount(@Field("userId") String userId);
 
+
+    @FormUrlEncoded
+    @PUT("Order/addReview")
+    Call<ResponseBody> addReview(
+            @Field("orderId") String orderId,
+            @Field("ratingStar") Double ratingStar,
+            @Field("ratingReview") String ratingReview
+    );
+
+    @FormUrlEncoded
+    @POST("trackOrder/getDriverForOrder")
+    Call<ResponseBody> getDriverIdOfOrder(@Field("orderId") String orderId);
 
 }

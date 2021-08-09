@@ -8,8 +8,17 @@ const moment = require("moment");
 
 router.post("/add", async (req, res) => {
   try {
-    const { userId, addressId, delivery, tax, total, Products, restaurantId } =
-      req.body;
+    const {
+      userId,
+      addressId,
+      delivery,
+      tax,
+      total,
+      Products,
+      restaurantId,
+      ratingStar,
+      ratingReview,
+    } = req.body;
 
     const newOrder = new Order({
       userId,
@@ -21,6 +30,8 @@ router.post("/add", async (req, res) => {
       products: Products,
       orderDate: moment().format("LL"),
       restaurantId,
+      ratingStar,
+      ratingReview,
     });
 
     const savedOrder = await newOrder.save();
@@ -86,6 +97,17 @@ router.post("/getReportByOwner", async (req, res) => {
 router.put("/UpdateOrderStatus", async (req, res) => {
   let { orderId, updateStatus } = req.body;
 
+  await Order.updateOne(
+    { _id: orderId },
+    { orderStatus: updateStatus },
+    function (err, docs) {
+      if (err) {
+        res.send(err);
+      } else {
+      }
+    }
+  );
+
   if (updateStatus == "accepted") {
     const order = await Order.find({
       _id: orderId,
@@ -94,7 +116,7 @@ router.put("/UpdateOrderStatus", async (req, res) => {
     var payload = {
       data: {
         title: "Order Accepted",
-        message: "HURRY !! Your order is now proccsed by owner",
+        message: "Hurray!! Your order is being processed by Owner",
       },
     };
 
@@ -120,28 +142,19 @@ router.put("/UpdateOrderStatus", async (req, res) => {
       );
     }
   }
-
-  await Order.updateOne(
-    { _id: orderId },
-    { orderStatus: updateStatus },
-    function (err, docs) {
-      if (err) {
-        res.send(err);
-      } else {
-        res.send("Updated");
-      }
-    }
-  );
+  return res.send({ data: "order updated" });
 });
 
-// router.delete("/delete", async (req, res) => {
-//   const { cartId } = req.body;
-//   try {
-//     const deleteCart = await Cart.findByIdAndDelete(cartId);
-//     res.json(deleteCart);
-//   } catch (err) {
-//     res.status(500).json({ error: err.message });
-//   }
-// });
+router.put("/addReview", async (req, res) => {
+  const data = req.body;
+
+  var myquery = { _id: data.orderId };
+  var newvalues = { $set: { ...data } };
+  await Order.updateOne(myquery, newvalues, function (err, res) {
+    if (err) throw err;
+  });
+
+  return res.send({ data: "ordeR updated" });
+});
 
 module.exports = router;

@@ -1,12 +1,16 @@
 <component name="libraryTable">
   <library name="Gradle: androidx.recyclerview:recyclerview-selection:1.2.0-alpha01@aar">
     <ANNOTATIONS>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7e87f3cd983694748e3dba3bc7e11f36/recyclerview-selection-1.2.0-alpha01/annotations.zip!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8f473dc6473e8e96af638a467a218fd0/recyclerview-selection-1.2.0-alpha01/annotations.zip!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/bf30f0e48d2677ccf526b2ed01fc79ea/transformed/recyclerview-selection-1.2.0-alpha01/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7e87f3cd983694748e3dba3bc7e11f36/recyclerview-selection-1.2.0-alpha01/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7e87f3cd983694748e3dba3bc7e11f36/recyclerview-selection-1.2.0-alpha01/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7e87f3cd983694748e3dba3bc7e11f36/recyclerview-selection-1.2.0-alpha01/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8f473dc6473e8e96af638a467a218fd0/recyclerview-selection-1.2.0-alpha01/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8f473dc6473e8e96af638a467a218fd0/recyclerview-selection-1.2.0-alpha01/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8f473dc6473e8e96af638a467a218fd0/recyclerview-selection-1.2.0-alpha01/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/bf30f0e48d2677ccf526b2ed01fc79ea/transformed/recyclerview-selection-1.2.0-alpha01/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/bf30f0e48d2677ccf526b2ed01fc79ea/transformed/recyclerview-selection-1.2.0-alpha01/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/bf30f0e48d2677ccf526b2ed01fc79ea/transformed/recyclerview-selection-1.2.0-alpha01/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

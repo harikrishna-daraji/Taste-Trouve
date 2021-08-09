@@ -1,51 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:layout_height="match_parent">
-    <com.google.android.material.appbar.AppBarLayout
-        android:background="?attr/backgroundColor"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+    android:background="?attr/backgroundColor"
+android:orientation="vertical"
+android:layout_height="match_parent"
+tools:context=".Activities.OfferContainerActivity">
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/appBarTop"
-        >
-
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
             <LinearLayout
+                android:background="?attr/backgroundColor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="left"
-                android:orientation="horizontal">
-
-
-
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
                 <TextView
-                    android:id="@+id/topHeading"
+                    android:layout_marginTop="15dp"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="25dp"
-                    android:layout_marginTop="0dp"
-                    android:text="Special Offers"
                     android:textColor="?attr/textColor"
-                    android:textSize="20dp"/>
+                    android:textStyle="bold"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:text="@string/offers_for_you"/>
             </LinearLayout>
-        </com.google.android.material.appbar.MaterialToolbar>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="3"
+                android:background="?attr/backgroundColor"
+                android:padding="20dp"
+                android:layout_height="match_parent">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:orientation="vertical"
+                    android:layout_weight="1.4"
+                    android:layout_height="match_parent">
+                    <LinearLayout
+                        android:id="@+id/christmas"
+                        android:layout_width="match_parent"
+                        android:background="@drawable/yellowlinearlayout"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:layout_height="280dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:textSize="22dp"
+                            android:text="@string/christmas"/>
+                        <ImageView
+                            app:tint = "@color/black"
+                            android:layout_width="55dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_height="55dp"
+                            android:src="@drawable/presents"/>
 
-    </com.google.android.material.appbar.AppBarLayout>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/specialOffersRecycler"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="5dp"
-        android:clipToPadding="false"
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/blackFriday"
+                        android:layout_marginTop="30dp"
+                        android:layout_width="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:background="@drawable/blue_background"
+                        android:layout_height="280dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:textSize="22dp"
+                            android:text="@string/black_friday"/>
+                        <ImageView
+                            app:tint = "@color/black"
+                            android:layout_width="55dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_height="55dp"
+                            android:src="@drawable/blackfriday"/>
+                    </LinearLayout>
+                </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
 
-        />
+                    android:layout_weight="0.2"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:orientation="vertical"
+                    android:layout_marginTop="35dp"
+                    android:layout_weight="1.4"
+                    android:layout_height="match_parent">
+                    <LinearLayout
+                        android:id="@+id/boxingDay"
+                        android:layout_width="match_parent"
+                        android:gravity="center"
+
+                        android:orientation="vertical"
+                        android:background="@drawable/pink_background"
+                        android:layout_height="280dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:textSize="22dp"
+                            android:text="@string/boxing_day"/>
+                        <ImageView
+                            app:tint ="@color/black"
+                            android:layout_width="55dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_height="55dp"
+                            android:src="@drawable/boxinggloves"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/newYear"
+                        android:layout_marginTop="30dp"
+                        android:layout_width="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:background="@drawable/orange_background"
+                        android:layout_height="280dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:textSize="22dp"
+                            android:text="@string/new_year"/>
+                        <ImageView
+                            app:tint="@color/black"
+                            android:layout_width="55dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_height="55dp"
+                            android:src="@drawable/party"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

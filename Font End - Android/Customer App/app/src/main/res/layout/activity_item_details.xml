@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="?attr/backgroundColor"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".Activities.ItemDetailsActivity">
@@ -26,9 +27,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <ScrollView
+                android:background="?attr/backgroundColor"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <LinearLayout
+                    android:background="?attr/backgroundColor"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginTop="50dp"
@@ -162,24 +165,33 @@
                         </RelativeLayout>
 
                     </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/favourite"
-                        android:layout_marginHorizontal="100dp"
-                        android:background="#F3E4E2"
-                        android:layout_marginTop="10dp"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-                        <TextView
-                            android:id="@+id/favText"
-                            android:layout_width="wrap_content"
-                            android:padding="5dp"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_height="wrap_content"
-                            android:textColor="#BC180C"
-                            android:text="Remove from Favourites"/>
-                    </LinearLayout>
+
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="15dp"
+                        android:layout_gravity="center"
+                        app:cardCornerRadius="10dp"
+                        app:cardElevation="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp">
+                        <RelativeLayout
+                            android:id="@+id/favourite"
+                            android:background="@color/red"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:layout_marginStart="15dp"
+                                android:layout_marginEnd="15dp"
+                                android:id="@+id/favText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:text="Remove from Favourites"
+                                android:textColor="@color/white" />
+                        </RelativeLayout>
+                    </androidx.cardview.widget.CardView>
                     <TextView
                         android:id="@+id/descriptionTV"
                         android:layout_marginTop="15dp"
@@ -194,25 +206,54 @@
             </ScrollView>
         </androidx.cardview.widget.CardView>
     </LinearLayout>
-    <RelativeLayout
-        android:id="@+id/addToCartLinear"
-        android:layout_marginBottom="15dp"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/white_background_outlined_xml"
-        android:layout_marginStart="70dp"
-        android:layout_marginEnd="70dp"
-        android:layout_width="match_parent"
-        android:layout_height="60dp">
-        <TextView
-            android:layout_centerInParent="true"
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:text="@string/add_to_cart"
-            android:textColor="?attr/textColor"
-            android:textSize="18sp" />
-    </RelativeLayout>
 
-    
+    <LinearLayout
+        android:layout_marginBottom="30dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_weight="0.2"
+            android:background="@null"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+        <RelativeLayout
+            android:id="@+id/addToCartLinear"
+            android:layout_weight="1"
+            android:background="@drawable/white_background_outlined_xml"
+            android:layout_width="0dp"
+            android:layout_height="60dp">
+            <TextView
+                android:layout_centerInParent="true"
+                android:textColor="?attr/textColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_to_cart"/>
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_weight="0.2"
+            android:background="@null"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+        <RelativeLayout
+            android:id="@+id/shareRelative"
+            android:layout_weight="1"
+            android:background="@drawable/white_background_outlined_xml"
+            android:layout_width="0dp"
+            android:layout_height="60dp">
+            <TextView
+                android:layout_centerInParent="true"
+                android:textColor="?attr/textColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/share"/>
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_weight="0.2"
+            android:background="@null"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
 </RelativeLayout>

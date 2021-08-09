@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,14 +15,17 @@ import java.util.Locale;
 public class BaseActivity extends AppCompatActivity {
 
     public int loadStyle(boolean actionBar){
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("STYLE", Context.MODE_PRIVATE);
-        if (sharedPreferences.getString("theme", "light").equals("dark")) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String theme = sharedPreferences.getString("theme", "light");
+        if (theme.equals("dark")) {
+            Log.i("TAG","TAG: Dark theme");
             if (actionBar) {
                 return R.style.DarkThemeActionBar;
             } else {
                 return R.style.DarkTheme;
             }
         } else{
+            Log.i("TAG","TAG: Light theme");
             if (actionBar) {
                 return R.style.LightThemeActionBar;
             } else {

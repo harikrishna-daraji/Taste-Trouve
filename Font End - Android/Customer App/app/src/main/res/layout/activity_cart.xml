@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="?attr/backgroundColor"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".Activities.CartActivity">
@@ -91,11 +92,13 @@
             android:layout_marginHorizontal="10dp"
             android:orientation="horizontal">
             <TextView
+                android:textColor="?attr/textColor"
                 android:layout_width="wrap_content"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="Subtotal"/>
             <TextView
+                android:textColor="?attr/textColor"
                 android:id="@+id/subTotalTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -108,11 +111,13 @@
             android:layout_marginHorizontal="10dp"
             android:orientation="horizontal">
             <TextView
+                android:textColor="?attr/textColor"
                 android:layout_width="wrap_content"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="Taxes @15%"/>
             <TextView
+                android:textColor="?attr/textColor"
                 android:id="@+id/texesTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -124,11 +129,13 @@
             android:layout_marginHorizontal="10dp"
             android:orientation="horizontal">
             <TextView
+                android:textColor="?attr/textColor"
                 android:layout_width="wrap_content"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="Delivery"/>
             <TextView
+                android:textColor="?attr/textColor"
                 android:id="@+id/deliveryTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -148,14 +155,14 @@
             android:layout_weight="1"
             android:textStyle="bold"
             android:textSize="25dp"
-            android:textColor="@color/black"
+            android:textColor="?attr/textColor"
             android:layout_height="wrap_content"
             android:text="Total"/>
         <TextView
             android:id="@+id/totalTV"
             android:layout_width="wrap_content"
             android:textStyle="bold"
-            android:textColor="@color/black"
+            android:textColor="?attr/textColor"
             android:textSize="25dp"
             android:layout_height="wrap_content"
             android:text="$ 126"/>

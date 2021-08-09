@@ -116,12 +116,10 @@ public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.MyViewHolder
         favContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 Intent intent = new Intent(context, ItemDetailsActivity.class);
                 intent.putExtra("type", GlobalObjects.ModelList.Item.toString());
                 intent.putExtra("product",ItemProductModel.get(position));
-                context.startActivity(intent);
+                v.getContext().startActivity(intent);
             }
         });
 

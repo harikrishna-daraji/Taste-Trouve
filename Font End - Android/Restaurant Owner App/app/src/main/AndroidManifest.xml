@@ -16,7 +16,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TasteTrouveRestaurantOwner"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Activity.UpdateActivity"></activity>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+        <activity
+            android:name=".Activity.MapActivity"
+            android:exported="true" />
+        <activity android:name=".Activity.UpdateActivity" />
         <activity android:name=".Activity.ReportActivity" />
         <activity android:name=".Activity.AcceptedOrderActivity" />
         <activity android:name=".Activity.DriversActivity" />
@@ -24,7 +31,6 @@
         <activity android:name=".Activity.UpdateItemActivity" />
         <activity android:name=".Activity.ViewItemsActivity" />
         <activity android:name=".Activity.SplashActivity">
-
             <!-- add intent back here -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -2,9 +2,11 @@ package com.example.tastetrouvedriver;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -87,6 +89,7 @@ public class SIgnInActivity extends AppCompatActivity {
                         SharedPreferences.Editor myEdit = sharedPreferences.edit();
                         try {
                             myEdit.putString("ownerId", jsonObject.getString("_id"));
+                            myEdit.apply();
                             myEdit.commit();
                         } catch (JSONException e) {
                             e.printStackTrace();
