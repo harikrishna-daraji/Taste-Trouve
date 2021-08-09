@@ -83,6 +83,13 @@ public interface ApiInterface {
     );
 
     @FormUrlEncoded
+    @POST("Order/getOrderByOwner")
+    Call<List<PendingOrderModal>> getDeliveredOrders(
+            @Field("restaurantId") String restaurantId,
+            @Field("orderStatus") String orderStatus
+    );
+
+    @FormUrlEncoded
     @POST("trackOrder/add")
     Call<ResponseBody> assignDriver(
             @Field("deliveryUser") String deliveryUser,

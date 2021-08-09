@@ -29,4 +29,5 @@
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDI3N2LJ0049Exfjp6P49FWtYoel3x_1pY</string>
     <string name="search">Search</string>
     <string name="save">Save</string>
+    <string name="title_activity_accepted_orders">AcceptedOrdersActivity</string>
 </resources>
