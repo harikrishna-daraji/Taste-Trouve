@@ -65,6 +65,7 @@ public class AcceptedOrderAdapter extends RecyclerView.Adapter<AcceptedOrderAdap
             this.rating = itemview.findViewById(R.id.rating);
             this.reviewContainer = itemview.findViewById(R.id.reviewContainer);
         }
+
     }
 
 
