@@ -1,0 +1,16 @@
+<component name="libraryTable">
+  <library name="Gradle: com.mapbox.common:okhttp:9.2.0@aar">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/4fe03eccbbc9b16e7a55c49b42adb320/jetified-okhttp-9.2.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/7d5954962cc665542874958e83802fc9/transformed/jetified-okhttp-9.2.0/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/7d5954962cc665542874958e83802fc9/transformed/jetified-okhttp-9.2.0/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/7d5954962cc665542874958e83802fc9/transformed/jetified-okhttp-9.2.0/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.mapbox.common/okhttp/9.2.0/a7363f63150f0eca74b80892a763bf71d825f085/okhttp-9.2.0-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.mapbox.common/okhttp/9.2.0/d39fb27efee10e5c923cfcd1a3e32918e1a9b01f/okhttp-9.2.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
