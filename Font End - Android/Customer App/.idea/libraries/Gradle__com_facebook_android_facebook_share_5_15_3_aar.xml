@@ -7,12 +7,12 @@
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/aa439c8b978e12e5eac6eeb73b19d6d7/jetified-facebook-share-5.15.3/AndroidManifest.xml" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/aa439c8b978e12e5eac6eeb73b19d6d7/jetified-facebook-share-5.15.3/res" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/aa439c8b978e12e5eac6eeb73b19d6d7/jetified-facebook-share-5.15.3/jars/classes.jar!/" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/909767b7194aeea4385c560eccf48da0/transformed/jetified-facebook-share-5.15.3/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/909767b7194aeea4385c560eccf48da0/transformed/jetified-facebook-share-5.15.3/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/909767b7194aeea4385c560eccf48da0/transformed/jetified-facebook-share-5.15.3/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/daebbb542877a7abca9bbcb747985954/transformed/jetified-facebook-share-5.15.3/res" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/daebbb542877a7abca9bbcb747985954/transformed/jetified-facebook-share-5.15.3/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/daebbb542877a7abca9bbcb747985954/transformed/jetified-facebook-share-5.15.3/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/bbdca6ceeeb2d79ad0e9cbe32457ef10/transformed/jetified-facebook-share-5.15.3/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/bbdca6ceeeb2d79ad0e9cbe32457ef10/transformed/jetified-facebook-share-5.15.3/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/bbdca6ceeeb2d79ad0e9cbe32457ef10/transformed/jetified-facebook-share-5.15.3/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.facebook.android/facebook-share/5.15.3/7eaf24c3456f8b2b9e2e02224c6a2cf14352d65e/facebook-share-5.15.3-javadoc.jar!/" />
