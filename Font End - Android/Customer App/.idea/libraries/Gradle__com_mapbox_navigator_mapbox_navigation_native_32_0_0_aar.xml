@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.mapbox.navigator:mapbox-navigation-native:32.0.0@aar">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/c5466805026cd95021cc2913c355d8a9/transformed/jetified-mapbox-navigation-native-32.0.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/296f807f27cd84eb985fefef64fa9c96/transformed/jetified-mapbox-navigation-native-32.0.0/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/296f807f27cd84eb985fefef64fa9c96/transformed/jetified-mapbox-navigation-native-32.0.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/296f807f27cd84eb985fefef64fa9c96/transformed/jetified-mapbox-navigation-native-32.0.0/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
